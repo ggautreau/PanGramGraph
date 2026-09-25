@@ -1,4 +1,8 @@
+<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The pangenome graph of Escherichia coli from PanGBank (2,002 genomes), read with Bacformer, a genomic language model: what the genomes carry, and what the model expects next.">
 <title>__NAME__</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -17,9 +21,6 @@ __STYLE__
 .never{font-family:"IBM Plex Mono",monospace;font-style:normal;font-size:9.5px;color:var(--pred);
   border:1px dashed var(--pred);border-radius:3px;padding:0 4px;margin-left:5px;white-space:nowrap}
 .dist tbody tr.mk td{outline:1.5px dashed var(--pred);outline-offset:-1.5px}
-.gview input{width:100%;font:500 12.5px "IBM Plex Mono",ui-monospace,monospace;padding:6px 9px;
-  border:1px solid var(--line-hard);border-radius:6px;background:var(--sunken);color:var(--ink)}
-.gview input:focus{outline:2px solid var(--obs);outline-offset:1px;background:var(--surface)}
 .gview .gres{margin-top:4px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .tbl2 td:first-child{font-family:"IBM Plex Sans",system-ui,sans-serif}
@@ -33,6 +34,99 @@ __STYLE__
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
 .seg button:focus-visible,.btn:focus-visible,.addbtn:focus-visible,.linkbtn:focus-visible{outline:2px solid var(--obs);outline-offset:1px}
 [hidden]{display:none!important}
+/* the header: the pangenome's own numbers, then the model's */
+.pan{display:grid;grid-template-columns:minmax(0,2.55fr) minmax(0,1fr);gap:12px 16px;margin-top:22px}
+.pan-grp{min-width:0;display:flex;flex-direction:column}
+.pan-cap{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin:0 0 7px;font-size:12px;color:var(--faint)}
+.pan-cap b{font-weight:600;color:var(--soft)}
+.pan-cap span{font:11px "IBM Plex Mono",monospace}
+.pan-cells{flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(124px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pan-cells .stat{min-width:0}
+.pan-cells .stat .n{white-space:nowrap}
+.pan-cells .stat.fam{grid-column:span 2}
+.pbar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:9px 0 7px;background:var(--sunken)}
+.pbar i{display:block;height:100%}
+.pbar i+i{box-shadow:-1.5px 0 0 var(--surface)}
+.pbar .p,.pleg .sw.p{background:var(--core)}
+.pbar .s,.pleg .sw.s{background:var(--shell)}
+.pbar .c,.pleg .sw.c{background:var(--cloud)}
+.pleg{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:11.5px;color:var(--soft)}
+.pleg b{font:600 11.5px "IBM Plex Mono",monospace;color:var(--ink)}
+.pleg .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+@media (max-width:1000px){.pan{grid-template-columns:1fr}}
+@media (max-width:520px){.pan-cells{grid-template-columns:repeat(2,minmax(0,1fr))}.pan-cells .stat .n{font-size:18px}}
+
+/* search boxes with suggestions */
+.combo{position:relative;display:flex;align-items:center;gap:6px;min-width:0;border:1px solid var(--line-hard);border-radius:7px;
+  background:var(--surface);padding:0 3px 0 9px;color:var(--faint)}
+.combo:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--obs) 20%,transparent)}
+.combo>.ic{flex:none;width:14px;height:14px}
+.combo input{flex:1;min-width:0;border:0;outline:0;background:none;color:var(--ink);font:500 12.5px "IBM Plex Sans",system-ui,sans-serif;padding:6px 0}
+.combo input::placeholder{color:var(--faint);font-weight:400}
+.combo-x{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border:0;border-radius:5px;background:none;color:var(--faint);cursor:pointer;padding:0}
+.combo-x:hover{background:var(--sunken);color:var(--ink)}
+.combo-x .ic{width:12px;height:12px}
+.rg-combo{flex:0 1 320px}
+.gpk{display:flex;align-items:center;gap:8px;flex:1 1 340px;min-width:0;max-width:540px}
+.gpk>label{font-size:12px;color:var(--soft);font-weight:500}
+.gpk .combo{flex:1}
+.gview .combo{margin-top:2px}
+.combo-list{position:fixed;z-index:90;overflow:auto;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--line-hard);
+  border-radius:9px;box-shadow:0 14px 34px rgba(14,22,26,.18),0 2px 6px rgba(14,22,26,.08);padding:4px;font-size:12.5px;line-height:1.4}
+.cl-head,.cl-foot{padding:7px 10px;font-size:11.5px;color:var(--faint)}
+.cl-head{border-bottom:1px solid var(--line);margin-bottom:3px}
+.cl-head b{color:var(--ink);font-weight:600}
+.cl-foot{border-top:1px solid var(--line);margin-top:3px;line-height:1.5}
+.cl-opt{padding:7px 10px;border-radius:6px;cursor:pointer}
+.cl-opt.act{background:var(--sunken);box-shadow:inset 3px 0 0 var(--ink)}
+.cl-opt.off{cursor:default;opacity:.55}
+.cl-opt .o1{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.cl-opt .os{font-weight:600;color:var(--ink)}
+.cl-opt .os.gene{font-family:"IBM Plex Mono",monospace;font-style:italic;font-weight:500}
+.cl-opt .oo{color:var(--soft)}
+.cl-opt .cur{font:10.5px "IBM Plex Mono",monospace;color:var(--faint)}
+.cl-opt .lvl{margin-left:auto;font:11px "IBM Plex Mono",monospace;color:var(--faint);white-space:nowrap}
+.cl-opt .lvl.l0{color:var(--shell)}
+.cl-opt .o2{font-size:11.5px;color:var(--soft);margin-top:1px;overflow-wrap:anywhere}
+.cl-opt .o3{font-size:11px;color:var(--pred);margin-top:2px}
+.cl-opt mark{background:color-mix(in srgb,var(--core) 32%,transparent);color:inherit;border-radius:2px}
+.tagc{display:inline-block;font:500 10.5px "IBM Plex Mono",monospace;padding:0 6px;border-radius:9px;background:var(--pred-bg);color:var(--pred);line-height:1.6}
+.tagc.ty{background:var(--shell-bg);color:var(--shell)}
+.tagc.here{background:var(--sunken);color:var(--ink);border:1px solid var(--line-hard)}
+
+/* the chromosome map, under the region bar */
+.chrmap{position:relative;padding:2px 16px 6px;border-bottom:1px solid var(--line)}
+.chr-cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;font-size:11px;color:var(--faint)}
+.chr-key i{display:inline-block;width:14px;height:8px;background:color-mix(in srgb,var(--cloud) 40%,transparent);margin-right:6px;border-radius:1px}
+#chr{display:block;width:100%;height:50px;cursor:pointer;touch-action:manipulation}
+.chr-rgp{fill:color-mix(in srgb,var(--cloud) 40%,transparent)}
+.chr-bar{fill:var(--line-hard)}
+.chr-tk{stroke:var(--line-hard)}
+.chr-tl{font:10px "IBM Plex Mono",monospace;fill:var(--faint)}
+.chr-win{fill:color-mix(in srgb,var(--ink) 9%,transparent);stroke:var(--ink);stroke-width:1.5}
+.chr-home{fill:none;stroke:var(--faint);stroke-dasharray:2 2}
+.chr-cur{stroke:var(--ink);stroke-width:1;pointer-events:none}
+.chr-tip{position:absolute;bottom:calc(100% - 10px);z-index:25;pointer-events:none;background:var(--ink);color:var(--surface);
+  font-size:11.5px;line-height:1.45;padding:6px 9px;border-radius:6px;white-space:nowrap;box-shadow:var(--shadow)}
+.chr-tip .gene{color:inherit}
+.chr-tip .faint{opacity:.72}
+
+/* under the graph: the window's families; a box found by the search */
+.wcomp{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;flex-basis:100%}
+.wcomp .wc-n{font-weight:600;color:var(--ink)}
+.faint{color:var(--faint)}
+.nd.flash rect{animation:ndflash 2.3s ease-out}
+@keyframes ndflash{0%,50%{stroke:var(--found);stroke-width:4px}100%{stroke-width:1.2px}}
+.h-r{float:right;font-weight:400;color:var(--faint)}
+.ncl{font:500 10px "IBM Plex Mono",monospace;font-style:normal;color:var(--faint);margin-left:6px;white-space:nowrap}
+tr.real .ncl,tr.mk .ncl{color:inherit;opacity:.7}
+@media (hover:none){.card-h .hint{display:none}}
+
+/* attention without a path yet */
+#attncard.noattn .at-ctl,#attncard.noattn .at-grid,#attncard.noattn #at-tip{display:none}
+#attncard.noattn .at-src{padding:30px 20px;text-align:center;border:1px dashed var(--line-hard);border-radius:10px;background:var(--sunken);
+  font-size:13.5px;color:var(--soft);line-height:2}
 .top-row{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 20px}
 .repo-link{display:inline-flex;align-items:center;gap:7px;margin-top:2px;padding:6px 11px;border:1px solid var(--line-hard);
   border-radius:8px;background:var(--surface);color:var(--soft);font:500 12px "IBM Plex Mono",monospace;text-decoration:none;white-space:nowrap}
@@ -61,10 +155,6 @@ header.top{margin-bottom:0}
 @media (max-width:640px){.tabs [role="tab"] span{display:none}.tabs [role="tab"]{padding:8px 11px}}
 .tabpanel[hidden]{display:none}
 .tabintro{color:var(--soft);font-size:13px;max-width:75ch;margin:0 0 14px}
-.searchbox{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line-hard);border-radius:6px;background:var(--surface);
-  padding:0 6px;color:var(--faint)}
-.searchbox:focus-within{border-color:var(--ink)}
-.regionbar .searchbox input{border:0;padding:3px 2px;background:none;outline:none;min-width:16em}
 .files td,.files th{text-align:left!important;white-space:normal}
 .files td{vertical-align:top}
 .files code,.help-content code{font:12px "IBM Plex Mono",monospace}
@@ -132,12 +222,14 @@ kbd{font:600 11px "IBM Plex Mono",monospace;border:1px solid var(--line-hard);bo
 #attncard canvas{display:block;cursor:crosshair}
 #at-tip{min-height:1.4em;font:11px "IBM Plex Mono",monospace;color:var(--ink);margin:0}
 .btn[aria-pressed="true"]{background:var(--pred-bg);border-color:var(--pred)}
-.regionbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:7px 16px;border-bottom:1px solid var(--line);font-size:12px;color:var(--soft)}
+.regionbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;padding:8px 16px 4px;font-size:12px;color:var(--soft)}
 .regionbar b{color:var(--ink);font-weight:600}
-.regionbar input{font:12px "IBM Plex Mono",monospace;padding:3px 7px;border:1px solid var(--line-hard);border-radius:6px;background:var(--surface);color:var(--ink);min-width:17em}
 .regionbar .btn:disabled{opacity:.45;cursor:default}
-#rg-note{color:var(--pred)}
-#rg-below{color:var(--faint)}
+.rg-nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;min-width:0}
+#rg-where{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:0 8px}
+#rg-where span::before{content:"·";margin-right:8px;color:var(--faint)}
+#rg-note{color:var(--pred);flex-basis:100%}
+#rg-note:empty{display:none}
 .pathpanel{border-bottom:1px solid var(--line);background:var(--sunken);padding:11px 16px;display:grid;gap:10px}
 .pathpanel[hidden]{display:none}
 .pp-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:12px;color:var(--soft)}
@@ -173,6 +265,7 @@ svg.inpath .nd.ghost,svg.inpath .e.pred{opacity:.07}
 .wrap{max-width:1560px}
 /* zoom and full screen */
 .zoomctl{display:inline-flex;align-items:center;gap:3px;margin-left:auto}
+@media (max-width:640px){.zoomctl{flex-wrap:wrap;margin-left:0}.zoomctl .zl,.zoomctl .lbl{display:none}}
 .zoomctl button{font:500 12px "IBM Plex Mono",ui-monospace,monospace;min-width:30px;height:28px;padding:0 8px;
   border:1px solid var(--line-hard);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
 .zoomctl button:hover{border-color:var(--ink)}
@@ -191,9 +284,6 @@ svg.inpath .nd.ghost,svg.inpath .e.pred{opacity:.07}
 body.nobodyscroll{overflow:hidden}
 .msg{font-size:11.5px;color:var(--soft);margin:6px 0 0;line-height:1.45}
 .pp-row{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
-#pgenome{flex:0 1 320px;min-width:180px;font:500 12px "IBM Plex Mono",ui-monospace,monospace;padding:5px 9px;
-  border:1px solid var(--line-hard);border-radius:6px;background:var(--surface);color:var(--ink)}
-#pgenome:focus{outline:2px solid var(--obs);outline-offset:1px}
 .pp-note{font-size:12px;color:var(--soft);line-height:1.5}
 .pp-note .gchip{font:500 11px "IBM Plex Mono",monospace;border:1px solid var(--line-hard);border-radius:4px;background:var(--surface);
   color:var(--ink);padding:1px 6px;margin:2px 4px 2px 0;cursor:pointer}
@@ -257,7 +347,7 @@ body.nobodyscroll{overflow:hidden}
   replication initiator, and a genomic language model, Bacformer, asked at every position what comes next. Read in
   its own vocabulary it names the next gene nine times in ten, as often as the pangenome graph does, more often than
   the graph where the genomes part, and it hesitates where the pangenome is plastic.</p>
-  <div class="stats" id="stats"></div>
+  <div class="pan" id="stats"></div>
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Sections of the page">
@@ -290,20 +380,30 @@ body.nobodyscroll{overflow:hidden}
       <button type="button" id="zout" aria-label="Zoom out" title="Zoom out (−)">−</button>
       <button type="button" id="zval" title="Back to 100 % (0)">100%</button>
       <button type="button" id="zin" aria-label="Zoom in" title="Zoom in (+)">+</button>
-      <button type="button" id="zfit" title="Whole graph in view (F)"><svg class="ic"><use href="#i-fit"/></svg>Overview</button>
-      <button type="button" id="zfill" title="Fill the height, scroll sideways (H)"><svg class="ic"><use href="#i-height"/></svg>Fill height</button>
+      <button type="button" id="zfit" title="Whole graph in view (F)"><svg class="ic"><use href="#i-fit"/></svg><span class="zl">Overview</span></button>
+      <button type="button" id="zfill" title="Fill the height, scroll sideways (H)"><svg class="ic"><use href="#i-height"/></svg><span class="zl">Fill height</span></button>
       <button type="button" id="zfull" class="wide" title="Full screen (Esc to leave)"><svg class="ic"><use href="#i-expand"/></svg><span class="lbl">Full screen</span></button>
     </div>
   </div>
   <div class="regionbar" id="regionbar">
-    <button type="button" class="btn" id="rg-prev" disabled><svg class="ic"><use href="#i-left"/></svg>Previous</button>
-    <span id="rg-where"></span>
-    <button type="button" class="btn" id="rg-next">Next<svg class="ic"><use href="#i-right"/></svg></button>
-    <label class="searchbox"><svg class="ic"><use href="#i-search"/></svg><input id="rg-go" type="search" placeholder="gene, family or position"
-      autocomplete="off" spellcheck="false" aria-label="Go to a gene, a PanGBank family or a position from dnaA"></label>
-    <button type="button" class="btn" id="rg-home" hidden><svg class="ic"><use href="#i-home"/></svg>Back to the dnaA window</button>
+    <div class="rg-nav">
+      <button type="button" class="btn" id="rg-prev" disabled aria-keyshortcuts="P"><svg class="ic"><use href="#i-left"/></svg>Previous</button>
+      <span id="rg-where"></span>
+      <button type="button" class="btn" id="rg-next" aria-keyshortcuts="N">Next<svg class="ic"><use href="#i-right"/></svg></button>
+      <button type="button" class="btn" id="rg-home" hidden><svg class="ic"><use href="#i-home"/></svg>dnaA window</button>
+    </div>
+    <div class="combo rg-combo"><svg class="ic"><use href="#i-search"/></svg>
+      <input id="rg-go" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combo-list"
+        placeholder="Go to a gene, a family or a position" autocomplete="off" spellcheck="false"
+        aria-label="Go to a gene, a PanGBank family or a position from dnaA">
+      <button type="button" class="combo-x" aria-label="Clear" hidden><svg class="ic"><use href="#i-close"/></svg></button></div>
     <span id="rg-note" aria-live="polite"></span>
-    <span id="rg-below" hidden>The text and tables below the graph describe the dnaA window.</span>
+  </div>
+  <div class="chrmap" id="chrmap">
+    <div class="chr-cap"><span id="chr-what">The 540 complete chromosomes, from dnaA, in genes. Click anywhere to open the window there.</span>
+      <span class="chr-key"><i></i>share of genes in a region of plasticity</span></div>
+    <svg id="chr" role="img" aria-label="Where the window sits on the chromosome"></svg>
+    <div class="chr-tip" id="chr-tip" hidden></div>
   </div>
   <div class="pathpanel" id="pathpanel" hidden>
     <div class="pp-head">
@@ -320,8 +420,11 @@ body.nobodyscroll{overflow:hidden}
         <button type="button" id="pc-add" aria-pressed="true">Add the box</button>
         <button type="button" id="pc-left" aria-pressed="false">Take a genome’s path up to the box</button>
       </div>
-      <label for="pgenome" class="sr">Genome</label>
-      <input id="pgenome" list="genome-list" placeholder="genome: strain or accession" autocomplete="off" spellcheck="false">
+      <div class="gpk"><label for="pgenome">Genome</label>
+        <div class="combo"><svg class="ic"><use href="#i-search"/></svg>
+          <input id="pgenome" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combo-list"
+            placeholder="strain, serotype, host, country, accession…" autocomplete="off" spellcheck="false">
+          <button type="button" class="combo-x" aria-label="Clear" hidden><svg class="ic"><use href="#i-close"/></svg></button></div></div>
     </div>
     <div class="pp-note" id="ppnote" hidden></div>
     <ol class="chips" id="chips" aria-label="The path, from its first protein"></ol>
@@ -334,10 +437,7 @@ body.nobodyscroll{overflow:hidden}
     <div class="pad pop-body" id="insp"></div>
   </div>
   <div class="legend">
-    <span><i class="sw" style="background:var(--core);border-color:var(--core-line)"></i>persistent</span>
-    <span><i class="sw" style="background:var(--shell-bg);border-color:var(--shell)"></i>shell</span>
-    <span><i class="sw" style="background:var(--cloud-bg);border-color:var(--cloud)"></i>cloud</span>
-    <span>(PPanGGOLiN, <span class="ngtxt">2,002 genomes</span>)</span>
+    <span class="wcomp" id="wcomp"></span>
     <span><i class="dash"></i>expected by the model, follows it in no genome</span>
     <span>line width &prop; log genomes sharing it</span>
     <span>bars on top: the model’s perplexity at each column</span>
@@ -536,6 +636,7 @@ body.nobodyscroll{overflow:hidden}
       <tr><td>their proteins embedded with ESM-2, and Bacformer’s call at every position</td><td><code>pgb_model.py</code></td><td><code>pgb/model_calls.npz</code></td></tr>
       <tr><td>the graph of the dnaA window, the decoder, perplexity and ghosts</td><td><code>pgb_graph.py</code></td><td><code>pgb/graph_pgb.json</code></td></tr>
       <tr><td>the 540 complete chromosomes, their proteins and the model’s call at every gene</td><td><code>pg_chrom.py</code>, <code>pg_embed.py</code>, <code>pg_calls.py</code></td><td><code>pgb/chrom*</code>, <code>pgb/calls_*</code></td></tr>
+      <tr><td>the pangenome’s own numbers, what each genome is searched by, and the map of the chromosome</td><td><code>pgb_page_meta.py</code></td><td><code>pgb/pangenome_info.json</code>, <code>pgb/genome_meta.json</code>, <code>pgb/chrom_map.json</code></td></tr>
       <tr><td>any other window of the chromosome, when the page asks</td><td><code>pgb_region.py</code></td><td>served live</td></tr>
       <tr><td>distant families that go together within lineages, and their sets</td><td><code>pg_epistasis.py --ctrl_content</code>, <code>pg_region_sets.py</code></td><td><code>pgb/region_sets.json</code></td></tr>
       <tr><td>the live model: calls in one genome, drawn paths, windows, attention</td><td><code>serve_live.py</code></td><td>127.0.0.1:8765</td></tr>
@@ -590,14 +691,20 @@ body.nobodyscroll{overflow:hidden}
       <section id="help-explore"><h3>Exploring</h3><dl class="howto">
         <dt>Hover a box</dt><dd>a card opens beside it: the family across the genomes, what follows it, and the model’s
           call after it, averaged over every genome that carries it.</dd>
-        <dt>Click a box</dt><dd>pins the card and computes the model’s exact call in one genome, which you can change,
-          with a search for any family at that position. <b>Draw from this path</b> starts a path from that genome’s
-          own proteins. Needs the <a href="#help-server" data-sec="server">local server</a>.</dd>
+        <dt>Click a box</dt><dd>pins the card and computes the model’s exact call in one genome, with a search for any
+          family at that position. <b>Draw from this path</b> starts a path from that genome’s own proteins. Needs the
+          <a href="#help-server" data-sec="server">local server</a>.</dd>
+        <dt>Pick a genome</dt><dd>the genome box lists, before you type, genomes that carry the family and well-known
+          strains. Type any mix of strain, serotype (<i>O157</i>, <i>H7</i>), sequence type, host, isolation source,
+          country, year or accession: every word must match (<i>human urine</i>, <i>shigella</i>, <i>cattle 2012</i>).
+          ↑ ↓ move, Enter picks, Esc gives the previous choice back. Beyond the dnaA window drafts are greyed out: only
+          the complete chromosomes are read there.</dd>
         <dt>Probabilities</dt><dd>the softmax of the model’s output over its 50,000 clusters, as percentages. They are
           not p-values.</dd>
         <dt>Decoder</dt><dd>the model predicts its own clusters, not PanGBank families. A cluster is read as the
           families actually present when the model predicts it, P(family | cluster), learned on one half of the
-          genomes and applied to the other. An exemplar bank of 9,814 clusters, used before, misses many of them.</dd>
+          genomes and applied to the other. An exemplar bank of 9,814 clusters, used before, misses many of them.
+          Clusters read as the same family share one row, their probabilities summed (<i>4 clusters</i>).</dd>
       </dl></section>
       <section id="help-path"><h3>Drawing a path</h3><dl class="howto">
         <dt>Draw</dt><dd>switch the graph to <b>Draw a path</b> and click boxes in order, or press on a box and slide
@@ -608,15 +715,21 @@ body.nobodyscroll{overflow:hidden}
           allowed, including one no genome carries: that is how to ask the model about a combination it has never seen.</dd>
         <dt>Edit</dt><dd>drag a box of the path onto another box to change that step, or off the graph to remove it;
           Esc cancels. <b>Undo</b> reverts the last change, a whole stroke included.</dd>
-        <dt>A genome’s path</dt><dd><b>Take a genome’s path up to the box</b> puts a real genome’s own proteins in the
-          path. In a window beyond dnaA the model also reads, unseen, the 400 proteins before the window in that genome.</dd>
+        <dt>A genome’s path</dt><dd>pick a genome in the <b>Genome</b> box, then click a box: the path becomes that
+          genome’s own proteins up to it (<b>Take a genome’s path up to the box</b>). In a window beyond dnaA the model
+          also reads, unseen, the 400 proteins before the window in that genome.</dd>
         <dt>Attention</dt><dd>the <b>Attention</b> button opens the <a href="#help-attention" data-sec="attention">Attention</a>
           tab on the path.</dd>
       </dl></section>
       <section id="help-windows"><h3>Along the chromosome</h3><dl class="howto">
-        <dt>The bar above the graph</dt><dd><b>Previous</b> and <b>Next</b> move 60 genes at a time (a window shares 20
-          columns with the next); the search box goes to a gene, a PanGBank family or a position from dnaA;
-          <b>Back to the dnaA window</b> returns here. A link to a place: <code>__SLUG__.html#at=lacZ</code>.</dd>
+        <dt>The map</dt><dd>under the bar, the complete chromosomes from dnaA, in genes, shaded by the share of genes in a
+          region of plasticity. The framed stretch is the window shown; hover to see where you are, click anywhere to
+          open the window there.</dd>
+        <dt>The bar above the graph</dt><dd><b>Previous</b> and <b>Next</b> (keys <kbd>P</kbd> and <kbd>N</kbd>) move 60
+          genes at a time: a window shares 20 columns with the next. The search box suggests every gene name of the
+          complete chromosomes, with its place; it also takes a PanGBank family or a position from dnaA (<i>1500</i>).
+          A gene already in the window is shown there, otherwise its window opens. <b>dnaA window</b> returns here.
+          A link to a place: <code>__SLUG__.html#at=lacZ</code>.</dd>
         <dt>Which genomes</dt><dd>beyond the dnaA window only the 540 complete genomes are in one piece and have the
           model’s call at every gene, so a window elsewhere is read in them. It starts at a backbone family, present once
           in at least 95% of the chromosomes, and walks 80 genes in dnaA’s direction. The local server builds it in about
@@ -652,8 +765,8 @@ body.nobodyscroll{overflow:hidden}
         <dt>Zoom</dt><dd>Ctrl + wheel, or the buttons: <b>Overview</b> fits the whole window, <b>Fill height</b> fills
           the height and scrolls sideways, <b>Full screen</b> gives the graph the screen.</dd>
         <dt>Keys</dt><dd><kbd>+</kbd> <kbd>−</kbd> zoom, <kbd>0</kbd> back to 100%, <kbd>F</kbd> overview,
-          <kbd>H</kbd> fill height, <kbd>Esc</kbd> closes a card, cancels a drag or leaves full screen,
-          <kbd>?</kbd> opens this help.</dd>
+          <kbd>H</kbd> fill height, <kbd>N</kbd> <kbd>P</kbd> next and previous window, <kbd>Esc</kbd> closes a card,
+          cancels a drag or leaves full screen, <kbd>?</kbd> opens this help.</dd>
       </dl></section>
       <section id="help-server"><h3>The local server</h3><dl class="howto">
         <dt>Start it</dt><dd><code>python3 serve_live.py</code> in <code>origin-walk/</code>, then open
@@ -665,7 +778,6 @@ body.nobodyscroll{overflow:hidden}
   </div>
 </dialog>
 </div>
-<datalist id="genome-list"></datalist>
 
 <script>
 const PG = __DATA__;
@@ -699,15 +811,32 @@ const compactProb = q => { const v = q * 100, f = (x, u) => (+x.toPrecision(2)) 
 const probPhrase = q => { const t = fmtProb(q); return t === 'effectively 0' ? 'of effectively 0' : 'of ' + t; };
 const DIST_HEAD = '<thead><tr><th style="text-align:left">#</th><th style="text-align:left">family</th><th style="white-space:nowrap">softmax prob.</th></tr></thead>';
 
-/* ---------- numbers around the graph ---------- */
-const PC = { persistent: 0, shell: 0, cloud: 0 }; NODES.forEach(n => PC[n.partition]++);
+/* ---------- numbers: the pangenome as PanGBank built it, then the model on the dnaA window ---------- */
+const PAN = __PAN__, GMETA = __GMETA__, CMAP = __CMAP__;
 const RI = PG.by_rgp['inside an RGP'], RO = PG.by_rgp['outside an RGP'];
-document.getElementById('stats').innerHTML = [
-  [fmtInt(NG), 'genomes'], [fmtInt(NODES.length), 'families in the dnaA window'],
-  [fmtInt(PC.persistent), 'persistent'], [fmtInt(PC.shell), 'shell'], [fmtInt(PC.cloud), 'cloud'],
-  [(PG.meta.top1_dec * 100).toFixed(1) + '%', 'model top-1 in its own vocabulary, ' + fmtInt(PG.meta.calls) + ' calls'],
-  [RI.entropy.toFixed(2) + ' / ' + RO.entropy.toFixed(2), 'bits of doubt, in / out of a region of plasticity'],
-].map(([n, l]) => `<div class="stat"><span class="n">${n}</span><span class="l">${l}</span></div>`).join('');
+{
+  const P = PAN, pc = k => (100 * P[k] / P.families).toFixed(1);
+  const cell = (n, l) => `<div class="stat"><span class="n">${n}</span><span class="l">${l}</span></div>`;
+  document.getElementById('stats').innerHTML = `
+    <div class="pan-grp"><p class="pan-cap"><b>The pangenome, as PanGBank built it</b>
+        <span>pangenome ${P.pangenome} &middot; PPanGGOLiN ${esc(P.ppanggolin)}</span></p>
+      <div class="pan-cells">
+        ${cell(fmtInt(P.genomes), 'genomes')}
+        ${cell((P.genes / 1e6).toFixed(2) + ' M', 'genes')}
+        <div class="stat fam"><span class="n">${fmtInt(P.families)}</span><span class="l">gene families</span>
+          <span class="pbar" role="img" aria-label="${fmtInt(P.persistent)} persistent, ${fmtInt(P.shell)} shell and ${fmtInt(P.cloud)} cloud families">
+            <i class="p" style="width:${pc('persistent')}%"></i><i class="s" style="width:${pc('shell')}%"></i><i class="c" style="width:${pc('cloud')}%"></i></span>
+          <span class="pleg"><span><i class="sw p"></i><b>${fmtInt(P.persistent)}</b> persistent</span><span><i class="sw s"></i><b>${fmtInt(P.shell)}</b> shell</span><span><i class="sw c"></i><b>${fmtInt(P.cloud)}</b> cloud</span></span></div>
+        ${cell(fmtInt(P.edges), 'edges: families side by side in a genome')}
+        ${cell(fmtInt(P.rgp), `regions of plasticity, in ${fmtInt(P.spots)} spots`)}
+        ${cell(fmtInt(P.modules), 'modules of families that move together')}
+      </div></div>
+    <div class="pan-grp"><p class="pan-cap"><b>Bacformer, on the dnaA window</b><span>${fmtInt(PG.meta.calls)} calls</span></p>
+      <div class="pan-cells">
+        ${cell((PG.meta.top1_dec * 100).toFixed(1) + '%', 'next genes named right, read in its own vocabulary')}
+        ${cell(RI.entropy.toFixed(2) + ' / ' + RO.entropy.toFixed(2), 'bits of doubt, in / out of a region of plasticity')}
+      </div></div>`;
+}
 const trow = (k, r) => `<tr><td>${k}</td><td>${fmtInt(r.n)}</td><td>${(r.top1_dec * 100).toFixed(1)}%</td><td>${(r.top1 * 100).toFixed(1)}%</td><td>${r.entropy.toFixed(2)} bits</td></tr>`;
 document.getElementById('tpart').innerHTML = ['persistent', 'shell', 'cloud'].map(k => trow(k, PG.by_partition[k])).join('');
 document.getElementById('trgp').innerHTML = trow('outside a region', RO) + trow('inside a region', RI);
@@ -722,8 +851,171 @@ document.getElementById('foot').textContent = 'Model: macwiatrak/bacformer-causa
   ' genes from the dnaA family in its direction of transcription (8 genomes without a dnaA gene start at dnaN, column 1). ' +
   'One forward pass per genome: the model is causal, so its output after protein k is its call for protein k+1. ' +
   'Windows elsewhere on the chromosome are read in the 540 complete genomes, whose calls carry at least 400 proteins of upstream context.';
-document.getElementById('genome-list').innerHTML = GEN.map(g =>
-  `<option value="${esc((g.strain || g.org || g.acc) + ' · ' + g.acc)}"></option>`).join('');
+/* ---------- search boxes with a list of suggestions: genomes, and places on the chromosome ---------- */
+const CL = document.createElement('div');
+CL.id = 'combo-list'; CL.className = 'combo-list'; CL.setAttribute('role', 'listbox'); CL.hidden = true;
+document.body.appendChild(CL);
+let CO = null;                                           // the open box: { inp, cfg, items, act }
+const normq = t => String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const compact = t => normq(t).replace(/[^a-z0-9]+/g, '');
+const tokensOf = q => normq(q).split(/[\s,;/]+/).map(t => t.replace(/[^a-z0-9]+/g, '')).filter(Boolean);
+function hiText(text, q) {                               // the query's words, marked where they appear as typed
+  text = String(text); const low = normq(text);
+  const toks = normq(q).split(/[\s,;]+/).filter(Boolean);
+  if (!toks.length || low.length !== text.length) return esc(text);
+  const on = new Uint8Array(text.length);
+  for (const t of toks) for (let i = low.indexOf(t); i >= 0; i = low.indexOf(t, i + t.length)) on.fill(1, i, i + t.length);
+  let out = '', m = 0;
+  for (let k = 0; k < text.length; k++) { if (on[k] !== m) { out += on[k] ? '<mark>' : '</mark>'; m = on[k]; } out += esc(text[k]); }
+  return out + (m ? '</mark>' : '');
+}
+function comboPlace() {
+  if (!CO) return;
+  const r = CO.inp.closest('.combo').getBoundingClientRect();
+  if (r.bottom < 0 || r.top > innerHeight) { comboClose(); return; }
+  const w = Math.min(Math.max(r.width, CO.cfg.minWidth || 360), innerWidth - 16), left = Math.max(8, Math.min(r.left, innerWidth - w - 8));
+  const below = innerHeight - r.bottom - 12, above = r.top - 12, up = below < 240 && above > below;
+  Object.assign(CL.style, { left: left + 'px', width: w + 'px', maxHeight: Math.max(150, Math.min(440, up ? above : below)) + 'px',
+    top: up ? '' : (r.bottom + 4) + 'px', bottom: up ? (innerHeight - r.top + 4) + 'px' : '' });
+}
+function comboRefresh() {
+  if (!CO) return;
+  const q = CO.inp.value.trim(), R = CO.cfg.search(q, CO.inp);
+  CO.items = R.items; CO.act = R.pickFirst === false ? -1 : R.items.findIndex(it => !it.off);
+  CL.innerHTML = (R.head ? `<div class="cl-head">${R.head}</div>` : '') +
+    R.items.map((it, i) => `<div class="cl-opt${it.off ? ' off' : ''}" role="option" id="clo-${i}" data-i="${i}" aria-selected="false"${it.off ? ' aria-disabled="true"' : ''}>${CO.cfg.render(it, q)}</div>`).join('') +
+    (R.foot ? `<div class="cl-foot">${R.foot}</div>` : '');
+  CL.hidden = false; CL.scrollTop = 0; comboPlace(); comboAct(CO.act, false);
+}
+function comboAct(i, into = true) {
+  if (!CO) return; CO.act = i;
+  CL.querySelectorAll('.cl-opt').forEach(el => { const on = +el.dataset.i === i; el.classList.toggle('act', on); el.setAttribute('aria-selected', String(on)); });
+  if (i >= 0) { CO.inp.setAttribute('aria-activedescendant', 'clo-' + i); if (into) { const el = document.getElementById('clo-' + i); if (el) el.scrollIntoView({ block: 'nearest' }); } }
+  else CO.inp.removeAttribute('aria-activedescendant');
+}
+function comboStep(d) {
+  if (!CO || !CO.items.some(it => !it.off)) return;
+  let i = CO.act; do { i = (i + d + CO.items.length) % CO.items.length; } while (CO.items[i].off);
+  comboAct(i);
+}
+function comboOpen(inp, cfg) { comboClose(); CO = { inp, cfg, items: [], act: -1 }; inp.setAttribute('aria-expanded', 'true'); comboRefresh(); }
+function comboClose() {
+  if (!CO) return;
+  CO.inp.setAttribute('aria-expanded', 'false'); CO.inp.removeAttribute('aria-activedescendant');
+  CL.hidden = true; CL.innerHTML = ''; CO = null;
+}
+function comboPick(i) {
+  if (!CO) return; const it = CO.items[i]; if (!it || it.off) return;
+  const { inp, cfg } = CO; comboClose(); cfg.pick(it, inp);
+}
+function comboAttach(inp, cfg) {
+  if (inp._combo) { inp._combo = cfg; return; }
+  inp._combo = cfg; const x = inp.parentNode.querySelector('.combo-x');
+  const sync = () => { if (x) x.hidden = !inp.value; };
+  inp.addEventListener('focus', () => { if (!CO || CO.inp !== inp) comboOpen(inp, inp._combo); inp.select(); inp._keepSel = true; });
+  inp.addEventListener('mouseup', ev => { if (inp._keepSel) { ev.preventDefault(); inp._keepSel = false; } });   // the click would drop the selection
+  inp.addEventListener('click', () => { if (!CO || CO.inp !== inp) comboOpen(inp, inp._combo); });
+  inp.addEventListener('input', () => { sync(); if (!CO || CO.inp !== inp) comboOpen(inp, inp._combo); else comboRefresh(); });
+  inp.addEventListener('keydown', ev => {
+    const open = CO && CO.inp === inp; inp._keepSel = false;
+    if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') { ev.preventDefault(); if (!open) comboOpen(inp, inp._combo); else comboStep(ev.key === 'ArrowDown' ? 1 : -1); }
+    else if (ev.key === 'Enter') { ev.preventDefault(); if (open && CO.act >= 0) comboPick(CO.act); else if (inp._combo.enter) { comboClose(); inp._combo.enter(inp.value.trim(), inp); } }
+    else if (ev.key === 'Escape') { if (open) { ev.preventDefault(); ev.stopPropagation(); comboClose(); if (inp._combo.restore) inp._combo.restore(inp); sync(); } }
+    else if (ev.key === 'Tab') comboClose();
+  });
+  inp.addEventListener('blur', () => setTimeout(() => {
+    if (document.activeElement === inp) return;
+    if (CO && CO.inp === inp) comboClose();
+    if (inp._combo.restore) inp._combo.restore(inp); sync();
+  }, 150));
+  if (x) x.addEventListener('click', () => { inp.value = ''; sync(); inp.focus(); comboOpen(inp, inp._combo); });
+  sync();
+}
+CL.addEventListener('mousedown', ev => ev.preventDefault());          // the box keeps the focus
+CL.addEventListener('click', ev => { ev.stopPropagation(); const o = ev.target.closest('.cl-opt'); if (o) comboPick(+o.dataset.i); });
+CL.addEventListener('mousemove', ev => { const o = ev.target.closest('.cl-opt'); if (o && CO && !o.classList.contains('off') && +o.dataset.i !== CO.act) comboAct(+o.dataset.i, false); });
+addEventListener('resize', comboPlace);
+addEventListener('scroll', ev => { if (CO && ev.target !== CL) comboPlace(); }, true);
+
+/* the genomes: what one looks a strain up by (pgb_page_meta.py, from PanGBank's metadata) */
+const LEVELS = ['complete', 'chromosome', 'scaffold', 'contigs'];
+const GX = GEN.map((g, i) => {
+  const [strain, org, sero, st, host, src, ctry, year, lvl, nctg, mb, type] = GMETA[g.acc] || [];
+  const f = { i, acc: g.acc, strain: strain || g.strain || g.acc, org: org || '', sero: sero || '', st: st || '', host: host || '',
+    src: src || '', ctry: ctry || '', year: year || 0, lvl: lvl ?? (g.level === 'Complete Genome' ? 0 : 3), nctg: nctg || 0, mb: mb || 0, type: !!type };
+  f.k = [f.strain, f.acc, f.acc.replace(/^GC[AF]_/, '').replace(/\.\d+$/, ''), f.org, f.sero, f.st, f.host, f.src, f.ctry,
+    f.year ? String(f.year) : '', LEVELS[f.lvl]].map(compact);
+  return f;
+});
+const glab = f => `${f.strain} · ${f.acc}`;
+const accOf = inp => inp ? inp.dataset.acc || (inp.value.match(/GC[AF]_\d+\.\d+/) || [])[0] || '' : '';
+function setGenome(inp, f) {
+  inp.value = f ? glab(f) : ''; inp.dataset.acc = f ? f.acc : '';
+  const x = inp.parentNode.querySelector('.combo-x'); if (x) x.hidden = !f;
+}
+function gScore(f, toks) {                                 // every word must match; a better field scores higher
+  let s = 0; const k = f.k;
+  for (const t of toks) {
+    const b = k[1] === t || k[2] === t ? 120 : k[0] === t ? 100 : k[0].startsWith(t) ? 80 : k[4].startsWith(t) || k[5] === t ? 70
+      : k[1].includes(t) || k[2].startsWith(t) ? 65 : k[0].includes(t) ? 55 : k[3].includes(t) || k[4].includes(t) ? 45
+      : k[6].startsWith(t) || k[8].startsWith(t) ? 40 : k[6].includes(t) || k[8].includes(t) ? 30
+      : k[7].includes(t) || k[9] === t || k[10].startsWith(t) ? 25 : 0;
+    if (!b) return 0; s += b;
+  }
+  return s;
+}
+const GCOUNT = LEVELS.map((_, l) => GX.filter(f => f.lvl === l).length);
+const gTips = `Search by strain, serotype (O157, H7), sequence type, host, isolation source, country, year or accession;
+  several words narrow it down (<i>human urine</i>). PanGBank’s pangenome holds ${fmtInt(GX.length)} genomes of the species:
+  ${fmtInt(GCOUNT[0])} complete, ${fmtInt(GCOUNT[1])} at chromosome level, ${fmtInt(GCOUNT[2])} in scaffolds, ${fmtInt(GCOUNT[3])} in contigs.`;
+const WELL_KNOWN = (() => {                                 // reference strains that are in the pangenome
+  const by = s => GX.find(f => f.strain === s), out = [by('Sakai'), GX.find(f => f.type), by('Nissle 1917'), by('ED1a'),
+    GX.find(f => f.lvl === 0 && /^Shigella flexneri/.test(f.org)), GX.find(f => f.lvl === 0 && /^Shigella (sonnei|dysenteriae|boydii)/.test(f.org))];
+  return out.filter(Boolean).map(f => f.i);
+})();
+function genomeSearch(q, inp, ctx) {
+  const cur = GX.find(f => f.acc === inp.dataset.acc), off = f => REG && f.lvl !== 0
+    ? 'a draft assembly: beyond the dnaA window only the complete chromosomes are read' : '';
+  if (!q || (cur && q === glab(cur))) {
+    const ex = ctx === 'card' ? (byId.get((inp.closest('.gview') || {}).dataset?.id || '') || {}).ex || [] : [];
+    const head = ex.length ? `Genomes carrying <b>${esc(byId.get(inp.closest('.gview').dataset.id).label)}</b> here, then well-known strains` : 'Well-known strains';
+    const ids = [...new Set([...(cur ? [cur.i] : []), ...ex, ...WELL_KNOWN])].slice(0, 14);
+    return { head, items: ids.map(i => ({ f: GX[i], off: off(GX[i]), cur: cur && i === cur.i })), foot: gTips, pickFirst: false };
+  }
+  const toks = tokensOf(q), hits = [];
+  if (toks.length) for (const f of GX) { const s = gScore(f, toks); if (s) hits.push([s - (off(f) ? 500 : 0), f]); }
+  hits.sort((a, b) => (b[0] - a[0]) || (a[1].lvl - b[1].lvl) || a[1].strain.localeCompare(b[1].strain));
+  const N = hits.length, MAX = 60;
+  return {
+    head: N ? `<b>${fmtInt(N)}</b> genome${N > 1 ? 's' : ''} match${N > 1 ? '' : 'es'}${N > MAX ? ` &middot; the first ${MAX}; add a word to narrow` : ''}`
+      : `No genome matches <b>${esc(q)}</b>`,
+    items: hits.slice(0, MAX).map(([, f]) => ({ f, off: off(f), cur: cur && f.i === cur.i })), foot: N ? '' : gTips,
+  };
+}
+function genomeRow(it, q) {
+  const f = it.f, lv = f.lvl === 3 ? `${fmtInt(f.nctg)} contigs` : f.lvl === 2 ? `scaffolds, ${fmtInt(f.nctg)} contigs` : LEVELS[f.lvl];
+  const org = f.org && !/^Escherichia coli\b/.test(f.org) ? `<i class="oo">${hiText(f.org, q)}</i>` : '';
+  const bits = [hiText(f.acc, q), f.host && hiText(f.host, q), f.src && hiText(f.src, q), f.ctry && hiText(f.ctry, q), f.year && hiText(String(f.year), q)].filter(Boolean);
+  return `<div class="o1"><span class="os">${hiText(f.strain, q)}</span>${f.sero ? `<span class="tagc">${hiText(f.sero, q)}</span>` : ''}${
+    f.st ? `<span class="tagc">${hiText(f.st, q)}</span>` : ''}${f.type ? '<span class="tagc ty">neotype</span>' : ''}${org}${
+    it.cur ? '<span class="cur">chosen</span>' : ''}<span class="lvl l${f.lvl}">${lv}</span></div>
+    <div class="o2">${bits.join(' &middot; ')}</div>${it.off ? `<div class="o3">${esc(it.off)}</div>` : ''}`;
+}
+function attachGenomePicker(inp, ctx) {
+  comboAttach(inp, {
+    minWidth: 420,
+    search: (q, el) => genomeSearch(q, el, ctx),
+    render: genomeRow,
+    restore: el => { const f = GX.find(x => x.acc === el.dataset.acc); if (el.value !== (f ? glab(f) : '')) setGenome(el, f); },
+    pick: (it, el) => {
+      setGenome(el, it.f);
+      if (ctx === 'card') { const gv = el.closest('.gview'); if (gv) liveGenome(gv); return; }
+      setClickMode('left');                                // the path panel: the genome's own path, up to a box
+      if (lastLeft && byId.get(lastLeft.id) === lastLeft) takeLeft(lastLeft);
+      else { pnote.hidden = false; pnote.innerHTML = `Now click a box: the path becomes <b>${esc(it.f.strain)}</b>’s own proteins from ${REG ? esc(REG.anchor_label) : 'dnaA'} up to it.`; }
+    },
+  });
+}
 
 /* ---------- tabs, help, and the address (#tab=…&at=…) ---------- */
 const hashGet = () => new URLSearchParams(location.hash.replace(/^#/, ''));
@@ -848,23 +1140,37 @@ document.getElementById('minstr').addEventListener('input', e => {
   sel = null; closePop(); draw(); });
 
 /* ---------- cards ---------- */
+/* clusters of the model that the decoder reads as the same family: one row, their probabilities summed */
+function mergeCalls(rows, keyOf) {
+  const out = [], at = new Map();
+  for (const r of rows) { const k = keyOf(r);
+    if (k && at.has(k)) { const o = at.get(k); o.p += r.p; o.k++; o.bfs.push(r.bf); continue; }
+    const o = { ...r, k: 1, bfs: [r.bf] }; out.push(o); if (k) at.set(k, o); }
+  return out.sort((a, b) => b.p - a.p);
+}
+const nodeOfBf = bf => (byBf.get(bf) || [])[0];
+const nclu = (o, lab) => o.k > 1 ? `<span class="ncl" title="${o.k} of the model’s clusters read as ${esc(lab)}: their probabilities are summed">${o.k} clusters</span>` : '';
 function callTable(n, mark) {
   if (!n.call || !n.call.length) return '<p class="miss">No call after it: the window ends right after it in every genome carrying it.</p>';
-  const rows = n.call.map(([bf, p, seen, reads], i) => { const rd = reads && byId.get(reads), lab = rd ? rd.label : (BFL[bf] || 'fam' + bf);
-    return `<tr class="${bf === mark ? 'mk' : ''}"><td style="text-align:left">${i + 1}</td>
-      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${esc(lab)}${seen ? '' : `<span class="never" title="follows it in none of the ${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}">never here</span>`}</td>
-      <td>${fmtProb(p)}<i class="bar" style="width:${Math.max(2, p * 100).toFixed(1)}%"></i></td></tr>`; }).join('');
+  const R = mergeCalls(n.call.map(([bf, p, seen, reads]) => ({ bf, p, seen, reads })), r => r.reads || '');
+  const rows = R.map((r, i) => { const rd = r.reads && byId.get(r.reads), lab = rd ? rd.label : (BFL[r.bf] || 'fam' + r.bf);
+    return `<tr class="${r.bfs.includes(mark) ? 'mk' : ''}"><td style="text-align:left">${i + 1}</td>
+      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${esc(lab)}${nclu(r, lab)}${r.seen ? '' : `<span class="never" title="follows it in none of the ${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}">never here</span>`}</td>
+      <td>${fmtProb(r.p)}<i class="bar" style="width:${Math.max(2, r.p * 100).toFixed(1)}%"></i></td></tr>`; }).join('');
   return `<div class="dist"><h3>Model’s call after it &middot; averaged over ${fmtInt(n.calls)} genomes</h3>
     <table>${DIST_HEAD}<tbody>${rows}</tbody></table>
     <p class="miss">Read in its own vocabulary, it named the gene that actually follows in
       <b>${pct(n.top1_dec ?? n.top1)}</b> of those genomes.</p></div>`;
 }
 function gview(n) {
-  const g0 = GEN[n.ex[0]], v = g0 ? `${g0.strain || g0.org || g0.acc} · ${g0.acc}` : '';
-  return `<div class="gview" data-pfam="${esc(n.fam)}">
+  const f = GX[n.ex[0]];
+  return `<div class="gview" data-pfam="${esc(n.fam)}" data-id="${esc(n.id)}">
     <h4>One genome &middot; the model computed live</h4>
     <label class="sr" for="gpick">Genome</label>
-    <input id="gpick" list="genome-list" value="${esc(v)}" placeholder="strain or accession" autocomplete="off" spellcheck="false">
+    <div class="combo"><svg class="ic"><use href="#i-search"/></svg>
+      <input id="gpick" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combo-list"
+        value="${f ? esc(glab(f)) : ''}" data-acc="${f ? f.acc : ''}" placeholder="strain, serotype, host, country, accession…" autocomplete="off" spellcheck="false">
+      <button type="button" class="combo-x" aria-label="Clear"${f ? '' : ' hidden'}><svg class="ic"><use href="#i-close"/></svg></button></div>
     <div class="gres" aria-live="polite"></div></div>`;
 }
 function nodeCard(n) {
@@ -881,7 +1187,7 @@ function nodeCard(n) {
       <dt>family</dt><dd>${esc(n.fam)}</dd>
     </dl>
     ${n.named && n.product ? `<p class="prod">${esc(n.product)}</p>` : ''}
-    ${nx ? `<h4>Next gene, in the genomes &middot; genomes</h4><ul class="lst">${nx}</ul>` : ''}
+    ${nx ? `<h4>Next gene in the genomes <span class="h-r">genomes</span></h4><ul class="lst">${nx}</ul>` : ''}
     ${callTable(n)}${n.call.length ? gview(n) : ''}`;
 }
 function ghostCard(g) {
@@ -931,18 +1237,20 @@ function hitRow(h, real) {
     <span class="trk" title="position in the ranked distribution, log scale"><i style="left:${x}%"></i></span></div>`;
 }
 async function liveGenome(box) {
-  const res = box.querySelector('.gres'), acc = (box.querySelector('#gpick').value.match(/GC[AF]_\d+\.\d+/) || [])[0];
+  const res = box.querySelector('.gres'), acc = accOf(box.querySelector('#gpick'));
   if (!acc) { res.innerHTML = '<p class="msg">Pick a genome from the list.</p>'; return; }
   if (!(await liveOK())) { res.innerHTML = `<p class="msg">The model is not running. Start it with
       <code>python3 serve_live.py</code> in origin-walk/ to compute this genome’s call and search it.</p>`; return; }
   res.innerHTML = '<p class="msg">Computing…</p>';
   let J; try { J = await gcall(acc, box.dataset.pfam); } catch (e) { LIVE.ok = false; res.innerHTML = '<p class="msg">The model stopped answering.</p>'; return; }
-  if ((box.querySelector('#gpick').value.match(/GC[AF]_\d+\.\d+/) || [])[0] !== acc) return;
+  if (accOf(box.querySelector('#gpick')) !== acc) return;
   if (J.error) { res.innerHTML = `<p class="msg">${esc(J.error)}.</p>`; return; }
   const who = esc(J.strain || J.acc), realLab = J.real.gene || J.real.name || J.real.gene_product || 'fam' + J.real.fam;
-  const rows = J.top.map((h, i) => `<tr class="${h.fam === J.real.fam ? 'real' : ''}"><td style="text-align:left">${i + 1}</td>
-      <td style="text-align:left" class="${h.name ? 'gene' : ''}">${esc(h.name || h.product || 'fam' + h.fam)}</td>
-      <td>${fmtProb(h.p)}<i class="bar" style="width:${Math.max(2, h.p * 100).toFixed(1)}%"></i></td></tr>`).join('');
+  const rows = mergeCalls(J.top.map(h => ({ ...h, bf: h.fam })), r => (nodeOfBf(r.bf) || {}).id || '').slice(0, 8).map((r, i) => {
+    const b = nodeOfBf(r.bf), lab = b ? b.label : r.name || r.product || 'fam' + r.bf;
+    return `<tr class="${r.bfs.includes(J.real.fam) ? 'real' : ''}"><td style="text-align:left">${i + 1}</td>
+      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${esc(lab)}${nclu(r, lab)}</td>
+      <td>${fmtProb(r.p)}<i class="bar" style="width:${Math.max(2, r.p * 100).toFixed(1)}%"></i></td></tr>`; }).join('');
   const missed = J.real.rank > 8 ? `<p class="miss">The gene actually there, <span class="${isGene(realLab) ? 'gene' : ''}">${esc(realLab)}</span>,
       is ranked <b>${fmtInt(J.real.rank)}</b> of 50,000, with a softmax probability ${probPhrase(J.real.p)}.</p>` : '';
   res.innerHTML = `<div class="dist" style="border-top:0;padding-top:4px"><h3>Model’s call for the next gene in ${who}, ${REG ? `column ${J.locus} from ${esc(REG.anchor_label)}` : `gene ${J.locus} from dnaA`} &middot; entropy ${J.entropy.toFixed(2)} bits</h3>
@@ -1033,9 +1341,14 @@ pop.addEventListener('focusin', ev => {                      // typing in a prev
   const id = inp.id; sel = keyOf(anchor); highlight(); openPop(anchor, true);
   const again = document.getElementById(id); if (again) again.focus();
 });
-insp.addEventListener('change', ev => { if (ev.target.id === 'gpick') liveGenome(ev.target.closest('.gview')); });
+insp.addEventListener('focusin', ev => {
+  if (ev.target.id !== 'gpick') return;
+  const inp = ev.target, first = !inp._combo; attachGenomePicker(inp, 'card');
+  if (first) { inp.select(); inp._keepSel = true; }              // its own focus listener came too late this once
+  if (!CO || CO.inp !== inp) comboOpen(inp, inp._combo);
+});
 insp.addEventListener('input', ev => {
-  if (ev.target.id === 'gpick') { if (/GC[AF]_\d+\.\d+/.test(ev.target.value)) liveGenome(ev.target.closest('.gview')); return; }
+  if (ev.target.id === 'gpick') return;
   const box = ev.target.closest('.find'); if (!box) return;
   clearTimeout(findT); findT = setTimeout(() => liveFind(box), 90);
 });
@@ -1112,9 +1425,10 @@ async function runPath() {
   if (J.error) { res.innerHTML = `<p class="msg">${esc(J.error)}.</p>`; return; }
   pathCall = J; pathCP = new Map(J.clusters || []); overlay(); if (attnShown()) loadAttn();
   const last = byId.get(path[path.length - 1].id);
-  const rows = J.top.slice(0, 8).map((h, i) => { const b = (byBf.get(h.fam) || [])[0], lab = h.name || h.product || 'fam' + h.fam;
+  const rows = mergeCalls(J.top.map(h => ({ ...h, bf: h.fam })), r => (nodeOfBf(r.bf) || {}).id || '').slice(0, 8).map((h, i) => {
+    const b = nodeOfBf(h.bf), lab = b ? b.label : h.name || h.product || 'fam' + h.bf;
     return `<tr><td style="text-align:left">${i + 1}</td>
-      <td style="text-align:left" class="${h.name ? 'gene' : ''}">${esc(lab)}${b ? `<button type="button" class="addbtn" data-add="${b.id}" title="add the box ${esc(b.label)} to the path">+ ${esc(short(b.label))}</button>`
+      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${esc(lab)}${nclu(h, lab)}${b ? `<button type="button" class="addbtn" data-add="${b.id}" title="add the box ${esc(b.label)} to the path">+ add</button>`
         : (REG ? '<span class="never" title="no family of this window reads as this model cluster">not in this window</span>'
           : '<span class="never" title="no protein of the 2,002 windows falls in this model cluster">in no window</span>')}</td>
       <td>${fmtProb(h.p)}<i class="bar" style="width:${Math.max(2, h.p * 100).toFixed(1)}%"></i></td></tr>`; }).join('');
@@ -1127,7 +1441,7 @@ async function runPath() {
         <input id="find-path" type="search" placeholder="gene, product or #family" autocomplete="off" spellcheck="false">
         <div class="find-res" aria-live="polite"></div></div>
       <p class="src live" style="font-size:10.5px;margin:7px 0 0">Computed live in ${J.ms} ms. On the graph, each box glows by how likely its family is to come next (log scale, from 1 in 100 million to certain); the 12 likeliest carry their probability. <b>+</b> adds a family to the path.</p></div>
-    <div><h3>After ${esc(last ? last.label : '?')} in the genomes &middot; genomes</h3>
+    <div><h3>After ${esc(last ? last.label : '?')} in the genomes <span class="h-r">genomes</span></h3>
       ${nx ? `<ul class="lst">${nx}</ul>` : '<p class="msg">Nothing follows it in any window.</p>'}
       <p class="msg" style="margin-top:10px">${own ? `${ownFirst ? `The first ${own}` : `${own} of these`} protein${own > 1 ? 's are' : ' is'} ${esc(pathSrc)}’s own; the others are` : 'Each protein is'} the most common one of its family in the ${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}. Every protein is real; a path that no genome carries is a combination the model may never have seen.</p></div>`;
 }
@@ -1166,6 +1480,7 @@ function overlay() {
 /* a genome's own path from dnaA up to a clicked box: the left part of a path taken from a real strain */
 let clickMode = 'add', lastLeft = null;
 const pnote = document.getElementById('ppnote'), pgen = document.getElementById('pgenome');
+attachGenomePicker(pgen, 'path');
 function setClickMode(m) {
   clickMode = m; scroll.classList.toggle('leftmode', m === 'left');
   document.getElementById('pc-add').setAttribute('aria-pressed', String(m === 'add'));
@@ -1176,16 +1491,15 @@ function setClickMode(m) {
   ngTexts();
   if (m === 'add') pnote.hidden = true;
 }
-const glabel = g => `${g.strain || g.org || g.acc} · ${g.acc}`;
 async function takeLeft(n) {
   lastLeft = n;
   if (!(await liveOK())) { pnote.hidden = false; pnote.innerHTML = 'The model is not running. Start it with <code>python3 serve_live.py</code> in origin-walk/.'; return; }
-  let acc = (pgen.value.match(/GC[AF]_\d+\.\d+/) || [])[0];
-  if (!acc) { const g0 = GEN[n.ex[0]]; acc = g0.acc; pgen.value = glabel(g0); }
+  let acc = accOf(pgen);
+  if (!acc) { const f = GX[n.ex[0]]; acc = f.acc; setGenome(pgen, f); }
   let J; try { J = await (await fetch(`${LIVE.url}/prefix?acc=${encodeURIComponent(acc)}&pfam=${encodeURIComponent(n.fam)}${anchorArg()}`, { cache: 'no-store' })).json(); }
   catch (e) { LIVE.ok = false; pnote.hidden = false; pnote.textContent = 'The model stopped answering.'; return; }
   if (J.error) {
-    const who = esc(pgen.value.split(' · ')[0] || acc);
+    const who = esc((GX.find(f => f.acc === acc) || {}).strain || acc);
     pnote.hidden = false;
     pnote.innerHTML = `${who} does not carry <b>${esc(n.label)}</b> in its window. Genomes that do: ` +
       n.ex.slice(0, 8).map(i => `<button type="button" class="gchip" data-acc="${GEN[i].acc}">${esc(GEN[i].strain || GEN[i].org || GEN[i].acc)}</button>`).join('');
@@ -1202,7 +1516,7 @@ document.getElementById('pc-add').addEventListener('click', () => setClickMode('
 document.getElementById('pc-left').addEventListener('click', () => setClickMode('left'));
 pnote.addEventListener('click', ev => {
   const b = ev.target.closest('[data-acc]'); if (!b) return;
-  const g = GEN.find(x => x.acc === b.dataset.acc); if (g) pgen.value = glabel(g);
+  const f = GX.find(x => x.acc === b.dataset.acc); if (f) setGenome(pgen, f);
   if (lastLeft) takeLeft(lastLeft);
 });
 document.getElementById('mode-explore').addEventListener('click', () => setMode('explore'));
@@ -1262,8 +1576,9 @@ atSrc.addEventListener('click', ev => {
   pathSrc = ''; pathCtx = null; renderPath(); loadAttn();
 });
 function srcText() {
-  if (!path.length) return `No path yet: <button type="button" class="btn" data-at="example">take the first ten genes of this window</button>
-    or <button type="button" class="btn" data-at="graph">draw one in the Graph tab</button>.`;
+  if (!path.length) return `Attention maps read a path of proteins, and there is none yet.<br>
+    <button type="button" class="btn" data-at="example">Take the first ten genes of this window</button>
+    or <button type="button" class="btn" data-at="graph">draw a path in the Graph tab</button>`;
   const labs = path.map(it => (byId.get(it.id) || {}).label || '?'), c = ctxNow().length;
   const shown = labs.length > 8 ? labs.slice(0, 4).join(' → ') + ' → … → ' + labs.slice(-3).join(' → ') : labs.join(' → ');
   return `The path of the <b>Graph</b> tab, ${labs.length} protein${labs.length > 1 ? 's' : ''}${c ? `, read after the ${c} before it in ${esc(pathSrc)}` : ''}:
@@ -1272,7 +1587,7 @@ function srcText() {
 function clearAttn() { ['at-heads', 'at-mat', 'at-last'].forEach(id => { const c = document.getElementById(id); c.width = c.height = 0; c.style.width = c.style.height = '0'; }); }
 async function loadAttn() {
   if (!attnShown()) return;
-  atSrc.innerHTML = srcText();
+  atSrc.innerHTML = srcText(); document.getElementById('attncard').classList.toggle('noattn', !path.length);
   if (!path.length) { ATT = null; attnKey = ''; atInfo.textContent = ''; clearAttn(); return; }
   const layer = document.getElementById('at-layer').value, key = pathKey() + '#' + layer;
   if (key === attnKey && ATT) { drawAttn(); return; }
@@ -1362,13 +1677,12 @@ function useGraph(D) {
 function regionTexts() {
   const m = REG;
   document.getElementById('rg-where').innerHTML = m
-    ? `<b>${esc(m.anchor_label)}</b> window &middot; columns 0–${m.window - 1} from ${esc(m.anchor_label)}, about gene ${fmtInt(m.anchor_pos)} from dnaA &middot; ${fmtInt(NG)} of the ${fmtInt(m.genomes_total)} complete chromosomes`
-    : `<b>dnaA</b> window &middot; columns 0–${PG.meta.window - 1} &middot; all ${fmtInt(NG)} genomes`;
-  document.getElementById('rg-home').hidden = document.getElementById('rg-below').hidden = !m;
+    ? `<b>${esc(m.anchor_label)} window</b><span>about genes ${fmtInt(m.anchor_pos)}–${fmtInt(m.anchor_pos + m.window - 1)} from dnaA</span><span>${
+        NG === m.genomes_total ? `the ${fmtInt(NG)} complete chromosomes` : `${fmtInt(NG)} of the ${fmtInt(m.genomes_total)} complete chromosomes, those with ${esc(m.anchor_label)} once`}</span>`
+    : `<b>dnaA window</b><span>genes 0–${PG.meta.window - 1} from dnaA</span><span>all ${fmtInt(NG)} genomes</span>`;
+  document.getElementById('rg-home').hidden = !m;
   document.querySelector('#pp-reset .lbl').textContent = 'Start again at ' + (DNAA ? DNAA.label : 'the start');
-  document.getElementById('genome-list').innerHTML = (m ? GEN.filter(g => g.level === 'Complete Genome') : GEN)
-    .map(g => `<option value="${esc((g.strain || g.org || g.acc) + ' · ' + g.acc)}"></option>`).join('');
-  ngTexts(); setRegionButtons();
+  ngTexts(); setRegionButtons(); windowTexts(); drawChr();
 }
 function setRegionButtons() {
   const pv = document.getElementById('rg-prev'), nx = document.getElementById('rg-next'), m = REG;
@@ -1383,7 +1697,7 @@ function switchTo(D) {
   if (mode === 'path') resetPath();
   hashSet({ at: REG ? REG.anchor : null });
 }
-async function goRegion(q, anchor) {
+async function goRegion(q, anchor, want, pin = true) {
   if (regBusy || stroke || move) return;
   const note = document.getElementById('rg-note');
   if (!(await liveOK())) { note.innerHTML = 'The rest of the chromosome is read by the local server: start <code>python3 serve_live.py</code> in origin-walk/.'; return; }
@@ -1392,16 +1706,131 @@ async function goRegion(q, anchor) {
   catch (e) { LIVE.ok = false; D = { error: 'The model stopped answering' }; }
   regBusy = false; note.textContent = '';
   if (D.error) { note.textContent = D.error + '.'; setRegionButtons(); return; }
-  if (D.meta.anchor_pos === 0) { goHome(); return; }            // dnaA: the window of all genomes
-  REG = D.meta; switchTo(D);
+  if (D.meta.anchor_pos === 0) goHome();                        // dnaA: the window of all genomes
+  else { REG = D.meta; switchTo(D); }
+  if (want) { const n = NODES.filter(x => x.label.toLowerCase() === want.toLowerCase()).sort((a, b) => b.n - a.n)[0]; if (n) focusNode(n, pin); }
 }
 function goHome() { document.getElementById('rg-note').textContent = ''; if (!REG) { setRegionButtons(); return; } REG = null; switchTo(PG); }
+function toColumn(k) { scroll.scrollLeft = Math.max(0, (PADX + k * COLW + NW / 2) * zoom - scroll.clientWidth / 2); }
 document.getElementById('rg-prev').addEventListener('click', () => { if (!REG) return; if (!REG.prev || REG.prev.pos === 0) goHome(); else goRegion('', REG.prev.fam); });
 document.getElementById('rg-next').addEventListener('click', () => { if (!REG) goRegion(String(PG.meta.window - 20)); else if (REG.next) goRegion('', REG.next.fam); });
 document.getElementById('rg-home').addEventListener('click', goHome);
-document.getElementById('rg-go').addEventListener('keydown', ev => { if (ev.key === 'Enter' && ev.target.value.trim()) goRegion(ev.target.value.trim()); });
+/* ---------- the chromosome map: where the window sits, and a click opens the window anywhere else ---------- */
+const chr = document.getElementById('chr'), chrTip = document.getElementById('chr-tip');
+const CLEN = Math.max(CMAP.length, CMAP.anchors[CMAP.anchors.length - 1][1] + 80), CX0 = 10;
+const chrX = p => CX0 + (chr.clientWidth - 2 * CX0) * p / CLEN;
+function drawChr() {
+  const W = chr.clientWidth; if (!W) return;
+  const B = CMAP.bin, R = CMAP.rgp, mx = Math.max(...R), y0 = 27, hh = 20;
+  let d = `M${chrX(0)},${y0}`;
+  R.forEach((v, i) => { if (i * B >= CLEN) return; const y = (y0 - hh * v / mx).toFixed(1); d += `L${chrX(i * B).toFixed(1)},${y}L${chrX(Math.min(CLEN, (i + 1) * B)).toFixed(1)},${y}`; });
+  d += `L${chrX(Math.min(CLEN, R.length * B)).toFixed(1)},${y0}Z`;
+  let h = `<path class="chr-rgp" d="${d}"/><rect class="chr-bar" x="${CX0}" y="${y0}" width="${W - 2 * CX0}" height="5" rx="2.5"/>`;
+  for (let p = 0; p <= CLEN; p += 500) {
+    const x = chrX(p).toFixed(1);
+    h += `<line class="chr-tk" x1="${x}" x2="${x}" y1="${y0 + 5}" y2="${y0 + 9}"/>` +
+      (W > 520 || p % 1000 === 0 ? `<text class="chr-tl" x="${x}" y="${y0 + 20}" text-anchor="${p ? 'middle' : 'start'}">${p ? fmtInt(p) : 'dnaA'}</text>` : '');
+  }
+  const home = PG.meta.window;
+  if (REG) h += `<rect class="chr-home" x="${chrX(0).toFixed(1)}" y="${y0 - hh - 2}" width="${Math.max(3, chrX(home) - chrX(0)).toFixed(1)}" height="${hh + 9}" rx="2"/>`;
+  const a = REG ? REG.anchor_pos : 0, w = REG ? REG.window : home, x = chrX(a), xw = Math.max(5, chrX(a + w) - x);
+  h += `<rect class="chr-win" x="${(x - 1).toFixed(1)}" y="${y0 - hh - 4}" width="${(xw + 2).toFixed(1)}" height="${hh + 13}" rx="2.5"/>
+    <line class="chr-cur" id="chr-cur" x1="0" x2="0" y1="${y0 - hh - 4}" y2="${y0 + 9}" visibility="hidden"/>`;
+  chr.setAttribute('viewBox', `0 0 ${W} 50`); chr.innerHTML = h;
+}
+function chrPos(ev) { const r = chr.getBoundingClientRect(); return Math.round(Math.max(0, Math.min(1, (ev.clientX - r.left - CX0) / (r.width - 2 * CX0))) * CLEN); }
+function anchorNear(p) {                                  // the backbone family at or just before a position
+  const A = CMAP.anchors; let lo = 0, hi = A.length - 1;
+  while (lo < hi) { const m = (lo + hi + 1) >> 1; if (A[m][1] <= p) lo = m; else hi = m - 1; }
+  return A[lo];
+}
+chr.addEventListener('pointermove', ev => {
+  const p = chrPos(ev), a = anchorNear(p), v = CMAP.rgp[Math.floor(p / CMAP.bin)] || 0, cur = document.getElementById('chr-cur');
+  if (cur) { const x = chrX(p).toFixed(1); cur.setAttribute('x1', x); cur.setAttribute('x2', x); cur.setAttribute('visibility', 'visible'); }
+  const inHome = p < PG.meta.window, here = REG ? p >= REG.anchor_pos && p < REG.anchor_pos + REG.window : inHome;
+  chrTip.innerHTML = `<b>gene ${fmtInt(p)}</b> from dnaA, at <span class="gene">${esc(a[0])}</span><br>${Math.round(v * 100)}% of genes in a region of plasticity here<br><span class="faint">${
+    here ? 'the window shown' : inHome ? 'click: back to the dnaA window' : 'click: open the window from ' + esc(a[0])}</span>`;
+  chrTip.hidden = false;
+  const r = chr.parentNode.getBoundingClientRect(), tw = chrTip.offsetWidth;
+  chrTip.style.left = Math.max(4, Math.min(ev.clientX - r.left - tw / 2, r.width - tw - 4)) + 'px';
+});
+chr.addEventListener('pointerleave', () => { chrTip.hidden = true; const c = document.getElementById('chr-cur'); if (c) c.setAttribute('visibility', 'hidden'); });
+chr.addEventListener('click', ev => {
+  const p = chrPos(ev);
+  if (REG ? p >= REG.anchor_pos && p < REG.anchor_pos + REG.window : p < PG.meta.window) return;
+  if (p < PG.meta.window) goHome(); else goRegion(String(p));
+});
+new ResizeObserver(() => drawChr()).observe(chr);
+
+/* the families of the window, by partition, under the graph */
+function windowTexts() {
+  const c = { persistent: 0, shell: 0, cloud: 0 }; NODES.forEach(n => c[n.partition]++);
+  document.getElementById('wcomp').innerHTML = `<span class="wc-n">This window: ${fmtInt(NODES.length)} families</span>
+    <span><i class="sw" style="background:var(--core);border-color:var(--core-line)"></i>${fmtInt(c.persistent)} persistent</span>
+    <span><i class="sw" style="background:var(--shell-bg);border-color:var(--shell)"></i>${fmtInt(c.shell)} shell</span>
+    <span><i class="sw" style="background:var(--cloud-bg);border-color:var(--cloud)"></i>${fmtInt(c.cloud)} cloud</span>
+    <span class="faint">partition by PPanGGOLiN, over all ${fmtInt(PAN.genomes)} genomes</span>`;
+}
+
+/* go to a gene, a family or a position: suggestions from every gene name of the complete chromosomes */
+function focusNode(n, pin = true) {
+  if (!n._vis) {                                          // under the threshold: lower it so the box shows
+    let k = STEPS.length - 1; while (k > 0 && STEPS[k] > n.n) k--;
+    document.getElementById('minstr').value = k; minN = STEPS[k]; document.getElementById('minstrv').textContent = fmtInt(minN); draw();
+  }
+  const el = svg.querySelector(`.nd[data-id="${n.id}"]`); if (!el) return;
+  const r = gcard.getBoundingClientRect(); if (r.top < 0 || r.top > innerHeight * 0.5) gcard.scrollIntoView({ block: 'start' });
+  scroll.scrollLeft = Math.max(0, (n._x + NW / 2) * zoom - scroll.clientWidth / 2);
+  scroll.scrollTop = Math.max(0, (n._y + NH / 2) * zoom - scroll.clientHeight / 2);
+  el.classList.remove('flash'); void el.getBBox(); el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 2400);
+  if (pin && mode !== 'path') { sel = n.id; highlight(); openPop(el, true); }
+}
+const GENES = CMAP.genes;
+function placeSearch(q) {
+  const s = q.replace(/[\s,]/g, ''), items = [], here = new Map(), a0 = REG ? REG.anchor_pos : 0, w0 = REG ? REG.window : PG.meta.window;
+  NODES.forEach(n => { const k = n.label.toLowerCase(); if (!here.has(k) || here.get(k).n < n.n) here.set(k, n); });
+  const usual = g => g[1] >= a0 - 5 && g[1] < a0 + w0 + 5;          // its median place in the complete chromosomes
+  if (!q) return { head: 'A gene (<i>lacZ</i>), a PanGBank family, or a position in genes from dnaA (<i>1500</i>)', items: [], foot: '' };
+  if (/^\d+$/.test(s)) items.push({ kind: 'pos', pos: Math.min(+s, CLEN) });
+  const fam = byFam.get(q.trim()); if (fam) items.push({ kind: 'node', node: fam });
+  const ql = q.toLowerCase(), a = [], b = [];
+  for (const g of GENES) { const nl = g[0].toLowerCase(); if (nl.startsWith(ql)) a.push(g); else if (ql.length > 2 && nl.includes(ql)) b.push(g); }
+  a.sort((x, y) => (x[0].length - y[0].length) || (y[2] - x[2]));
+  for (const g of [...a, ...b].slice(0, 40)) { const n = here.get(g[0].toLowerCase());
+    items.push({ kind: 'gene', g, node: n && usual(g) ? n : null, stray: n && !usual(g) ? n : null }); }
+  if (!REG) for (const [k, n] of here) if (!n.named && k.includes(ql) && ql.length > 3 && items.length < 50) items.push({ kind: 'node', node: n });
+  const nG = items.filter(it => it.kind === 'gene').length;
+  return { head: items.length ? (nG ? `${fmtInt(a.length + b.length)} gene name${a.length + b.length > 1 ? 's' : ''} in the complete chromosomes` : '')
+    : `No gene called <b>${esc(q)}</b> in the complete chromosomes; Enter asks the server anyway`, items };
+}
+function placeRow(it, q) {
+  if (it.kind === 'pos') return `<div class="o1"><span class="os">Gene ${fmtInt(it.pos)} from dnaA</span><span class="lvl">${
+    it.pos < PG.meta.window ? 'dnaA window' : 'at ' + esc(anchorNear(it.pos)[0])}</span></div>`;
+  if (it.kind === 'node') return `<div class="o1"><span class="os ${it.node.named ? 'gene' : ''}">${hiText(it.node.label, q)}</span><span class="tagc here">in this window</span>
+    <span class="lvl">column ${it.node.locus}</span></div><div class="o2">${esc(it.node.fam)} &middot; ${esc(it.node.partition)} &middot; ${fmtInt(it.node.n)} genomes</div>`;
+  const [name, pos, n] = it.g;
+  return `<div class="o1"><span class="os gene">${hiText(name, q)}</span>${it.node ? '<span class="tagc here">in this window</span>' : ''}<span class="lvl">gene ${fmtInt(pos)}</span></div>
+    <div class="o2">in ${fmtInt(n)} of the ${fmtInt(CMAP.chromosomes)} complete chromosomes${it.node ? ` &middot; column ${it.node.locus} here`
+      : it.stray ? ` &middot; also in ${fmtInt(it.stray.n)} genome${it.stray.n > 1 ? 's' : ''} here, column ${it.stray.locus}` : ''}</div>`;
+}
+comboAttach(document.getElementById('rg-go'), {
+  minWidth: 340, search: placeSearch, render: placeRow,
+  pick: (it, inp) => {
+    inp.value = ''; inp.blur();
+    if (it.node) { focusNode(it.node); return; }
+    if (it.kind === 'pos') {                              // in the window shown: scroll to it; else open the window there
+      const a = REG ? REG.anchor_pos : 0, w = REG ? REG.window : PG.meta.window;
+      if (it.pos >= a && it.pos < a + w) toColumn(it.pos - a);
+      else if (it.pos < PG.meta.window) { goHome(); toColumn(it.pos); }
+      else goRegion(String(it.pos));
+      return;
+    }
+    goRegion(it.g[0], '', it.g[0]);
+  },
+  enter: (q, inp) => { if (q) { inp.value = ''; inp.blur(); goRegion(q, '', q); } },
+});
 regionTexts();
-{ const at0 = hashGet().get('at'); if (at0) goRegion(at0); }   // __SLUG__.html#at=lacZ
+{ const at0 = hashGet().get('at'); if (at0) goRegion(at0, '', at0, false); }   // __SLUG__.html#at=lacZ
 
 /* ---------- swipe drawing: press on a box and slide across the next ones, like glide typing ---------- */
 const TRAIL_MS = 650, chipsEl = document.getElementById('chips');
@@ -1679,6 +2108,8 @@ document.addEventListener('keydown', ev => {                    // + − 0 F out
   else if (ev.key === '0') setZoom(1);
   else if (ev.key === 'f' || ev.key === 'F') fitZoom();
   else if (ev.key === 'h' || ev.key === 'H') fillHeight();
+  else if (ev.key === 'n' || ev.key === 'N') document.getElementById('rg-next').click();
+  else if (ev.key === 'p' || ev.key === 'P') document.getElementById('rg-prev').click();
 });
 
 /* ---------- coupled regions: sets of distant elements that go together beyond descent (pg_region_sets.py) ---------- */

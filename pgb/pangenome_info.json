@@ -1,0 +1,15 @@
+{
+ "pangenome": 11587,
+ "ppanggolin": "2.3.0",
+ "genomes": 2002,
+ "genes": 9326424,
+ "families": 59165,
+ "persistent": 3188,
+ "shell": 7524,
+ "cloud": 48453,
+ "edges": 153366,
+ "rgp": 165128,
+ "spots": 1864,
+ "modules": 2114,
+ "families_in_modules": 12141
+}

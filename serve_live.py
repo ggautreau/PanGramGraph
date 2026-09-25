@@ -130,7 +130,7 @@ def dist(pids):
         CACHE.move_to_end(key); return CACHE[key]
 def row(p,rk,f,sc=0):
     return dict(fam=int(f),name=name(int(f)),product=PROD.get(int(f),""),rank=int(rk[f]),p=float(p[f]),score=sc)
-def summary(p,rk,a,ntop=8):
+def summary(p,rk,a,ntop=16):
     nz=p[p>1e-12]; out=dict(top=[row(p,rk,f) for f in np.argsort(-p)[:ntop]],entropy=float(-(nz*np.log2(nz)).sum()))
     if a.get("q","").strip():
         hits=search(a["q"],rk); out.update(n_match=len(hits),matches=[row(p,rk,f,sc) for sc,f in hits[:8]])

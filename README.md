@@ -18,7 +18,12 @@ The page, **PanGramGraph** (first called Origin Fork; `origin-fork.html` now lea
 has five tabs: **Graph** (the pangenome graph with the model's calls, drawn paths, windows
 anywhere on the chromosome), **Attention** (the model's attention maps while it reads a
 path: its 96 heads, the full matrix, the start token left out on demand), **Coupled
-regions**, **Findings** and **About**, with a help behind every "?". It also opens directly
+regions**, **Findings** and **About**, with a help behind every "?". The header gives the
+pangenome as PanGBank built it (59,165 families: 3,188 persistent, 7,524 shell, 48,453 cloud),
+and under the graph each window gives its own families. A map of the complete chromosomes
+sits above the graph: click anywhere to open the window there, or search a gene name among all
+those of the chromosomes. Genomes are picked by strain, serotype, host, isolation source,
+country, year or accession (`pgb_page_meta.py` reads them from PanGBank's metadata). It also opens directly
 (`standalone/pangramgraph.html`): the dnaA window, the coupled regions and the findings
 need nothing else; the live features (a genome's call in the family cards, drawn paths,
 windows beyond dnaA, attention) need the server. The first pass on eleven strains is
