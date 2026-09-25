@@ -33,6 +33,11 @@ __STYLE__
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
 .seg button:focus-visible,.btn:focus-visible,.addbtn:focus-visible,.linkbtn:focus-visible{outline:2px solid var(--obs);outline-offset:1px}
 [hidden]{display:none!important}
+.top-row{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 20px}
+.repo-link{display:inline-flex;align-items:center;gap:7px;margin-top:2px;padding:6px 11px;border:1px solid var(--line-hard);
+  border-radius:8px;background:var(--surface);color:var(--soft);font:500 12px "IBM Plex Mono",monospace;text-decoration:none;white-space:nowrap}
+.repo-link:hover{color:var(--ink);border-color:var(--ink)}
+.repo-link:focus-visible{outline:2px solid var(--obs);outline-offset:1px}
 /* icons, tabs, help */
 .ic{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
 .btn,.seg button,.zoomctl button{display:inline-flex;align-items:center;gap:5px}
@@ -235,6 +240,7 @@ body.nobodyscroll{overflow:hidden}
   <symbol id="i-height" viewBox="0 0 24 24"><path d="M12 3.5v17M8.5 7 12 3.5 15.5 7M8.5 17l3.5 3.5 3.5-3.5"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
   <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="1.5"/><rect x="4" y="13" width="16" height="7" rx="1.5"/><path d="M7.5 7.5h.01M7.5 16.5h.01"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="8" r="2.2"/><path d="M6 7.7v8.6M18 10.2c0 4-4.5 3.8-10.3 6.6"/></symbol>
   <symbol id="i-keys" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="11" rx="2"/><path d="M7 10.5h.01M11 10.5h.01M15 10.5h.01M8 14h8"/></symbol>
 </svg>
 <div class="wrap">
@@ -244,6 +250,8 @@ body.nobodyscroll{overflow:hidden}
       <p class="eyebrow">2,002 Escherichia coli genomes &middot; PanGBank 11587 &middot; Bacformer</p>
       <h1>__NAME__</h1>
     </div>
+    <a class="repo-link" href="https://github.com/ggautreau/PanGramGraph" target="_blank" rel="noopener"
+       title="The code, on GitHub"><svg class="ic"><use href="#i-code"/></svg>github.com/ggautreau/PanGramGraph</a>
   </div>
   <p class="lede">Every <i>E. coli</i> genome in PanGBank’s pangenome of the species, walked gene by gene from its
   replication initiator, and a genomic language model, Bacformer, asked at every position what comes next. Read in
