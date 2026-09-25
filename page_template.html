@@ -99,12 +99,19 @@ __STYLE__
 .chrmap{position:relative;padding:2px 16px 6px;border-bottom:1px solid var(--line)}
 .chr-cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;font-size:11px;color:var(--faint)}
 .chr-key i{display:inline-block;width:14px;height:8px;background:color-mix(in srgb,var(--cloud) 40%,transparent);margin-right:6px;border-radius:1px}
-#chr{display:block;width:100%;height:50px;cursor:pointer;touch-action:manipulation}
+#chr{display:block;width:100%;height:50px;cursor:pointer;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#chr:focus{outline:none}
+#chr:focus-visible{outline:2px solid var(--obs);outline-offset:2px;border-radius:4px}
+#chr.grabbing{cursor:grabbing}
+#chr.moving .chr-win{opacity:.3}
+.chr-ghost{fill:color-mix(in srgb,var(--obs) 24%,transparent);stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 2;pointer-events:none}
+#chr.loading .chr-ghost{animation:chrpulse .8s ease-in-out infinite alternate}
+@keyframes chrpulse{from{opacity:1}to{opacity:.35}}
 .chr-rgp{fill:color-mix(in srgb,var(--cloud) 40%,transparent)}
 .chr-bar{fill:var(--line-hard)}
 .chr-tk{stroke:var(--line-hard)}
 .chr-tl{font:10px "IBM Plex Mono",monospace;fill:var(--faint)}
-.chr-win{fill:color-mix(in srgb,var(--ink) 9%,transparent);stroke:var(--ink);stroke-width:1.5}
+.chr-win{fill:color-mix(in srgb,var(--ink) 9%,transparent);stroke:var(--ink);stroke-width:1.5;cursor:grab}
 .chr-home{fill:none;stroke:var(--faint);stroke-dasharray:2 2}
 .chr-cur{stroke:var(--ink);stroke-width:1;pointer-events:none}
 .chr-tip{position:absolute;bottom:calc(100% - 10px);z-index:25;pointer-events:none;background:var(--ink);color:var(--surface);
@@ -231,6 +238,7 @@ kbd{font:600 11px "IBM Plex Mono",monospace;border:1px solid var(--line-hard);bo
 #rg-note{color:var(--pred);flex-basis:100%}
 #rg-note:empty{display:none}
 .pathpanel{border-bottom:1px solid var(--line);background:var(--sunken);padding:11px 16px;display:grid;gap:10px}
+#graphcard:not(.maxi):not(:fullscreen) .scroll{min-height:400px}   /* windows differ in height: the page should not jump */
 .pathpanel[hidden]{display:none}
 .pp-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:12px;color:var(--soft)}
 .pp-head #pphint{flex:1 1 320px}
@@ -400,9 +408,9 @@ body.nobodyscroll{overflow:hidden}
     <span id="rg-note" aria-live="polite"></span>
   </div>
   <div class="chrmap" id="chrmap">
-    <div class="chr-cap"><span id="chr-what">The 540 complete chromosomes, from dnaA, in genes. Click anywhere to open the window there.</span>
+    <div class="chr-cap"><span id="chr-what">The 540 complete chromosomes, from dnaA, in genes. Drag or swipe the frame, or click anywhere, to open the window there.</span>
       <span class="chr-key"><i></i>share of genes in a region of plasticity</span></div>
-    <svg id="chr" role="img" aria-label="Where the window sits on the chromosome"></svg>
+    <svg id="chr" role="slider" tabindex="0" aria-label="The window’s place on the chromosome, in genes from dnaA" aria-valuemin="0"></svg>
     <div class="chr-tip" id="chr-tip" hidden></div>
   </div>
   <div class="pathpanel" id="pathpanel" hidden>
@@ -723,8 +731,9 @@ body.nobodyscroll{overflow:hidden}
       </dl></section>
       <section id="help-windows"><h3>Along the chromosome</h3><dl class="howto">
         <dt>The map</dt><dd>under the bar, the complete chromosomes from dnaA, in genes, shaded by the share of genes in a
-          region of plasticity. The framed stretch is the window shown; hover to see where you are, click anywhere to
-          open the window there.</dd>
+          region of plasticity. The frame is the window shown: drag it along, swipe it sideways with a finger or two on a
+          trackpad, or click anywhere; the window opens where the frame is left. With the map selected, <kbd>←</kbd>
+          <kbd>→</kbd> move one window, <kbd>PgUp</kbd> <kbd>PgDn</kbd> 500 genes, <kbd>Home</kbd> goes back to dnaA.</dd>
         <dt>The bar above the graph</dt><dd><b>Previous</b> and <b>Next</b> (keys <kbd>P</kbd> and <kbd>N</kbd>) move 60
           genes at a time: a window shares 20 columns with the next. The search box suggests every gene name of the
           complete chromosomes, with its place; it also takes a PanGBank family or a position from dnaA (<i>1500</i>).
@@ -1682,7 +1691,7 @@ function regionTexts() {
     : `<b>dnaA window</b><span>genes 0–${PG.meta.window - 1} from dnaA</span><span>all ${fmtInt(NG)} genomes</span>`;
   document.getElementById('rg-home').hidden = !m;
   document.querySelector('#pp-reset .lbl').textContent = 'Start again at ' + (DNAA ? DNAA.label : 'the start');
-  ngTexts(); setRegionButtons(); windowTexts(); drawChr();
+  ngTexts(); setRegionButtons(); windowTexts(); chrGhost = null; chr.classList.remove('moving', 'loading'); chrTip.hidden = true; drawChr();
 }
 function setRegionButtons() {
   const pv = document.getElementById('rg-prev'), nx = document.getElementById('rg-next'), m = REG;
@@ -1698,14 +1707,14 @@ function switchTo(D) {
   hashSet({ at: REG ? REG.anchor : null });
 }
 async function goRegion(q, anchor, want, pin = true) {
-  if (regBusy || stroke || move) return;
+  if (regBusy || stroke || move) { chrReset(); return; }
   const note = document.getElementById('rg-note');
-  if (!(await liveOK())) { note.innerHTML = 'The rest of the chromosome is read by the local server: start <code>python3 serve_live.py</code> in origin-walk/.'; return; }
-  regBusy = true; setRegionButtons(); note.textContent = 'Building the window…';
+  regBusy = true; setRegionButtons(); note.textContent = 'Building the window…';     // at once, even while the server is looked for
+  if (!(await liveOK())) { regBusy = false; setRegionButtons(); chrReset(); note.innerHTML = 'The rest of the chromosome is read by the local server: start <code>python3 serve_live.py</code> in origin-walk/.'; return; }
   let D; try { D = await (await fetch(`${LIVE.url}/region?${anchor ? 'anchor=' + encodeURIComponent(anchor) : 'q=' + encodeURIComponent(q)}`, { cache: 'no-store' })).json(); }
   catch (e) { LIVE.ok = false; D = { error: 'The model stopped answering' }; }
   regBusy = false; note.textContent = '';
-  if (D.error) { note.textContent = D.error + '.'; setRegionButtons(); return; }
+  if (D.error) { note.textContent = D.error + '.'; setRegionButtons(); chrReset(); return; }
   if (D.meta.anchor_pos === 0) goHome();                        // dnaA: the window of all genomes
   else { REG = D.meta; switchTo(D); }
   if (want) { const n = NODES.filter(x => x.label.toLowerCase() === want.toLowerCase()).sort((a, b) => b.n - a.n)[0]; if (n) focusNode(n, pin); }
@@ -1715,10 +1724,12 @@ function toColumn(k) { scroll.scrollLeft = Math.max(0, (PADX + k * COLW + NW / 2
 document.getElementById('rg-prev').addEventListener('click', () => { if (!REG) return; if (!REG.prev || REG.prev.pos === 0) goHome(); else goRegion('', REG.prev.fam); });
 document.getElementById('rg-next').addEventListener('click', () => { if (!REG) goRegion(String(PG.meta.window - 20)); else if (REG.next) goRegion('', REG.next.fam); });
 document.getElementById('rg-home').addEventListener('click', goHome);
-/* ---------- the chromosome map: where the window sits, and a click opens the window anywhere else ---------- */
+/* ---------- the chromosome map: where the window sits; drag or swipe its frame, or click, to open a window anywhere ---------- */
 const chr = document.getElementById('chr'), chrTip = document.getElementById('chr-tip');
 const CLEN = Math.max(CMAP.length, CMAP.anchors[CMAP.anchors.length - 1][1] + 80), CX0 = 10;
 const chrX = p => CX0 + (chr.clientWidth - 2 * CX0) * p / CLEN;
+const winStart = () => REG ? REG.anchor_pos : 0, winLen = () => REG ? REG.window : PG.meta.window;
+let chrGhost = null, chrDrag = null, chrWheelS = null, chrWheelT = 0;   // the start the frame is being moved to
 function drawChr() {
   const W = chr.clientWidth; if (!W) return;
   const B = CMAP.bin, R = CMAP.rgp, mx = Math.max(...R), y0 = 27, hh = 20;
@@ -1733,10 +1744,14 @@ function drawChr() {
   }
   const home = PG.meta.window;
   if (REG) h += `<rect class="chr-home" x="${chrX(0).toFixed(1)}" y="${y0 - hh - 2}" width="${Math.max(3, chrX(home) - chrX(0)).toFixed(1)}" height="${hh + 9}" rx="2"/>`;
-  const a = REG ? REG.anchor_pos : 0, w = REG ? REG.window : home, x = chrX(a), xw = Math.max(5, chrX(a + w) - x);
+  const a = winStart(), w = winLen(), x = chrX(a), xw = Math.max(5, chrX(a + w) - x);
   h += `<rect class="chr-win" x="${(x - 1).toFixed(1)}" y="${y0 - hh - 4}" width="${(xw + 2).toFixed(1)}" height="${hh + 13}" rx="2.5"/>
+    <rect class="chr-ghost" id="chr-ghost" x="0" y="${y0 - hh - 4}" width="0" height="${hh + 13}" rx="2.5" visibility="hidden"/>
     <line class="chr-cur" id="chr-cur" x1="0" x2="0" y1="${y0 - hh - 4}" y2="${y0 + 9}" visibility="hidden"/>`;
   chr.setAttribute('viewBox', `0 0 ${W} 50`); chr.innerHTML = h;
+  chr.setAttribute('aria-valuenow', a);
+  chr.setAttribute('aria-valuetext', `${REG ? REG.anchor_label : 'dnaA'} window, genes ${fmtInt(a)} to ${fmtInt(a + w - 1)} from dnaA`);
+  if (chrGhost !== null) ghostTo(chrGhost);                // a resize while the frame is on the move
 }
 function chrPos(ev) { const r = chr.getBoundingClientRect(); return Math.round(Math.max(0, Math.min(1, (ev.clientX - r.left - CX0) / (r.width - 2 * CX0))) * CLEN); }
 function anchorNear(p) {                                  // the backbone family at or just before a position
@@ -1744,21 +1759,83 @@ function anchorNear(p) {                                  // the backbone family
   while (lo < hi) { const m = (lo + hi + 1) >> 1; if (A[m][1] <= p) lo = m; else hi = m - 1; }
   return A[lo];
 }
+function startAt(p) {                                     // where a window asked for at p starts: dnaA, or the backbone family at or before p
+  p = Math.max(0, Math.min(CLEN - winLen(), p));
+  return p < 30 ? 0 : anchorNear(p)[1];
+}
+function tipAt(html, cx) {
+  chrTip.innerHTML = html; chrTip.hidden = false;
+  const r = chr.parentNode.getBoundingClientRect(), tw = chrTip.offsetWidth;
+  chrTip.style.left = Math.max(4, Math.min(cx - r.left - tw / 2, r.width - tw - 4)) + 'px';
+}
+function ghostTo(s) {                                     // the frame's shadow at a start, and what releasing it opens
+  chrGhost = s; chr.classList.add('moving');
+  const g = document.getElementById('chr-ghost'), c = document.getElementById('chr-cur'); if (!g) return;
+  const w = winLen(), x = chrX(s), xw = Math.max(5, chrX(s + w) - x);
+  g.setAttribute('x', (x - 1).toFixed(1)); g.setAttribute('width', (xw + 2).toFixed(1)); g.setAttribute('visibility', 'visible');
+  if (c) c.setAttribute('visibility', 'hidden');
+  const same = s === winStart(), v = CMAP.rgp[Math.floor((s + w / 2) / CMAP.bin)] || 0, r = chr.getBoundingClientRect();
+  tipAt(s === 0 ? `<b>the dnaA window</b>, genes 0–${w - 1}, all ${fmtInt(PAN.genomes)} genomes<br><span class="faint">${same ? 'the window shown' : chr.classList.contains('loading') ? 'opening…' : 'release to go back to it'}</span>`
+    : `<b>genes ${fmtInt(s)}–${fmtInt(s + w - 1)}</b> from dnaA, from <span class="gene">${esc(anchorNear(s)[0])}</span><br>${Math.round(v * 100)}% of genes in a region of plasticity there<br><span class="faint">${
+      same ? 'the window shown' : chr.classList.contains('loading') ? 'opening…' : 'release to open this window'}</span>`, r.left + x + xw / 2);
+}
+function chrReset() { chrGhost = null; chr.classList.remove('moving', 'loading'); chrTip.hidden = true; drawChr(); }
+function chrGo(s) {                                       // open the window the frame was left at
+  if (s === null || s === winStart() || regBusy) { chrReset(); return; }
+  chr.classList.add('loading'); ghostTo(s);
+  if (s === 0) goHome(); else goRegion(String(s));
+}
+chr.addEventListener('pointerdown', ev => {
+  if ((ev.pointerType === 'mouse' && ev.button !== 0) || regBusy) return;
+  const p = chrPos(ev), a = winStart(), w = winLen(), slack = 7 * CLEN / (chr.clientWidth - 2 * CX0);
+  const onFrame = p >= a - slack && p <= a + w + slack;   // grab the frame where it was taken, or bring it under the pointer
+  chrDrag = { id: ev.pointerId, off: onFrame ? Math.max(0, Math.min(w, p - a)) : w / 2, x0: ev.clientX, moved: false, onFrame };
+  chr.setPointerCapture(ev.pointerId); chr.classList.add('grabbing');
+  if (!onFrame) ghostTo(startAt(p - chrDrag.off));
+  ev.preventDefault();
+});
 chr.addEventListener('pointermove', ev => {
+  if (chrDrag && ev.pointerId === chrDrag.id) {
+    if (Math.abs(ev.clientX - chrDrag.x0) > 3) chrDrag.moved = true;
+    if (chrDrag.moved || !chrDrag.onFrame) ghostTo(startAt(chrPos(ev) - chrDrag.off));
+    return;
+  }
+  if (chrGhost !== null || ev.pointerType !== 'mouse') return;   // on the move or opening: the tip shows the target
   const p = chrPos(ev), a = anchorNear(p), v = CMAP.rgp[Math.floor(p / CMAP.bin)] || 0, cur = document.getElementById('chr-cur');
   if (cur) { const x = chrX(p).toFixed(1); cur.setAttribute('x1', x); cur.setAttribute('x2', x); cur.setAttribute('visibility', 'visible'); }
-  const inHome = p < PG.meta.window, here = REG ? p >= REG.anchor_pos && p < REG.anchor_pos + REG.window : inHome;
-  chrTip.innerHTML = `<b>gene ${fmtInt(p)}</b> from dnaA, at <span class="gene">${esc(a[0])}</span><br>${Math.round(v * 100)}% of genes in a region of plasticity here<br><span class="faint">${
-    here ? 'the window shown' : inHome ? 'click: back to the dnaA window' : 'click: open the window from ' + esc(a[0])}</span>`;
-  chrTip.hidden = false;
-  const r = chr.parentNode.getBoundingClientRect(), tw = chrTip.offsetWidth;
-  chrTip.style.left = Math.max(4, Math.min(ev.clientX - r.left - tw / 2, r.width - tw - 4)) + 'px';
+  const here = p >= winStart() && p < winStart() + winLen();
+  tipAt(`<b>gene ${fmtInt(p)}</b> from dnaA, at <span class="gene">${esc(a[0])}</span><br>${Math.round(v * 100)}% of genes in a region of plasticity here<br><span class="faint">${
+    here ? 'the window shown: drag its frame along' : p < PG.meta.window ? 'click: back to the dnaA window' : 'click, or drag the frame here, to open the window'}</span>`, ev.clientX);
 });
-chr.addEventListener('pointerleave', () => { chrTip.hidden = true; const c = document.getElementById('chr-cur'); if (c) c.setAttribute('visibility', 'hidden'); });
-chr.addEventListener('click', ev => {
-  const p = chrPos(ev);
-  if (REG ? p >= REG.anchor_pos && p < REG.anchor_pos + REG.window : p < PG.meta.window) return;
-  if (p < PG.meta.window) goHome(); else goRegion(String(p));
+chr.addEventListener('pointerleave', () => {
+  if (chrDrag || chrGhost !== null) return;
+  chrTip.hidden = true; const c = document.getElementById('chr-cur'); if (c) c.setAttribute('visibility', 'hidden');
+});
+function endChrDrag(ev, ok) {
+  if (!chrDrag || ev.pointerId !== chrDrag.id) return;
+  const d = chrDrag; chrDrag = null; chr.classList.remove('grabbing');
+  if (!ok || (d.onFrame && !d.moved)) { chrReset(); return; }
+  chrGo(chrGhost);
+}
+chr.addEventListener('pointerup', ev => endChrDrag(ev, true));
+chr.addEventListener('pointercancel', ev => endChrDrag(ev, false));
+chr.addEventListener('wheel', ev => {                     // a sideways swipe on a trackpad slides the frame; up and down scrolls the page
+  const d = Math.abs(ev.deltaX) > Math.abs(ev.deltaY) ? ev.deltaX : ev.shiftKey ? ev.deltaY : 0;
+  if (!d || regBusy) return;
+  ev.preventDefault();
+  const px = d * (ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? chr.clientWidth : 1);
+  chrWheelS = Math.max(0, Math.min(CLEN - winLen(), (chrWheelS ?? winStart()) + px * CLEN / (chr.clientWidth - 2 * CX0)));
+  ghostTo(startAt(chrWheelS));
+  clearTimeout(chrWheelT); chrWheelT = setTimeout(() => { chrWheelS = null; chrGo(chrGhost); }, 550);
+}, { passive: false });
+chr.addEventListener('keydown', ev => {                   // the map is a slider: arrows a window, page keys 500 genes
+  const a = winStart(), w = winLen();
+  const to = { ArrowRight: 'next', ArrowUp: 'next', ArrowLeft: 'prev', ArrowDown: 'prev', PageUp: a + 500, PageDown: a - 500, Home: 0, End: CLEN - w }[ev.key];
+  if (to === undefined) return;
+  ev.preventDefault(); ev.stopPropagation();
+  if (to === 'next') document.getElementById('rg-next').click();
+  else if (to === 'prev') document.getElementById('rg-prev').click();
+  else chrGo(startAt(to));
 });
 new ResizeObserver(() => drawChr()).observe(chr);
 
