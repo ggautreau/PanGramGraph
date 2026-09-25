@@ -1,0 +1,25 @@
+eco/*.gbff
+corpus.log
+exemplars.log
+*.pyc
+__pycache__/
+*.h5
+
+# data the pipeline regenerates (README, "Rebuild"), too large for git
+pgb/*.f16
+pgb/*.i32
+pgb/*.npy
+pgb/*.npz
+pgb/chrom_prot.txt
+pgb/chrom_genomes.json
+pgb/window.json
+pgb/window_prot.json
+pgb/longrange.json
+pgb/contingency.json
+fam_exemplars.npz
+fam_proto.npz
+
+# working copies and logs
+pgb/*-before-*
+pgb/origin-fork-v3-oldbase.html
+*.log

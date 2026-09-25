@@ -1,0 +1,266 @@
+[
+ {
+  "fork": "DUF957 domain-containing protein",
+  "column": 46,
+  "branches": [
+   [
+    "DUF5983 family protein",
+    165
+   ],
+   [
+    "cbtA",
+    45
+   ]
+  ],
+  "genomes": 210,
+  "model_acc": 0.981,
+  "determinants": [
+   {
+    "family": "DUF4942 domain-containing protein",
+    "fam": "JSQ43_RS20570",
+    "genomes": 187,
+    "mean_drop_bits": 0.112,
+    "flip_rate": 0.048
+   },
+   {
+    "family": "hypothetical protein",
+    "fam": "A7524_RS16840",
+    "genomes": 28,
+    "mean_drop_bits": 0.054,
+    "flip_rate": 0.036
+   },
+   {
+    "family": "yicL",
+    "fam": "G8B09_RS13600",
+    "genomes": 208,
+    "mean_drop_bits": 0.027,
+    "flip_rate": 0.014
+   },
+   {
+    "family": "setC",
+    "fam": "AML28_RS01330",
+    "genomes": 170,
+    "mean_drop_bits": 0.013,
+    "flip_rate": 0.018
+   },
+   {
+    "family": "uhpB",
+    "fam": "LIZ03_RS08260",
+    "genomes": 208,
+    "mean_drop_bits": 0.013,
+    "flip_rate": 0.01
+   },
+   {
+    "family": "yidF",
+    "fam": "G8B09_RS13680",
+    "genomes": 185,
+    "mean_drop_bits": 0.012,
+    "flip_rate": 0.0
+   }
+  ],
+  "allele_swap": {
+   "family": "DUF4942 domain-containing protein",
+   "genomes": 40,
+   "to_majority_branch": 0.075,
+   "note": "minority-branch genomes given the majority-branch allele of DUF4942 domain-containing protein"
+  }
+ },
+ {
+  "fork": "UDP-galactose--(galactosyl) LPS alpha1,2-galactosyltransferase",
+  "column": 75,
+  "branches": [
+   [
+    "glycosyltransferase family 2 protein",
+    168
+   ],
+   [
+    "glycosyltransferase family 25 protein",
+    42
+   ]
+  ],
+  "genomes": 210,
+  "model_acc": 1.0,
+  "determinants": [
+   {
+    "family": "rfaY",
+    "fam": "G8B09_RS13335",
+    "genomes": 210,
+    "mean_drop_bits": 0.134,
+    "flip_rate": 0.033
+   },
+   {
+    "family": "glycosyltransferase family 8 protein",
+    "fam": "G8B09_RS13340",
+    "genomes": 210,
+    "mean_drop_bits": 0.025,
+    "flip_rate": 0.0
+   },
+   {
+    "family": "rfaQ",
+    "fam": "G8B09_RS13360",
+    "genomes": 209,
+    "mean_drop_bits": 0.012,
+    "flip_rate": 0.0
+   },
+   {
+    "family": "waaO",
+    "fam": "FFA72_RS08540",
+    "genomes": 210,
+    "mean_drop_bits": 0.005,
+    "flip_rate": 0.0
+   },
+   {
+    "family": "setC",
+    "fam": "AML28_RS01330",
+    "genomes": 11,
+    "mean_drop_bits": 0.004,
+    "flip_rate": 0.0
+   },
+   {
+    "family": "reverse transcriptase family protein",
+    "fam": "CI672_RS15770",
+    "genomes": 15,
+    "mean_drop_bits": 0.003,
+    "flip_rate": 0.0
+   }
+  ],
+  "allele_swap": {
+   "family": "rfaY",
+   "genomes": 34,
+   "to_majority_branch": 0.0,
+   "note": "minority-branch genomes given the majority-branch allele of rfaY"
+  }
+ },
+ {
+  "fork": "waaZ",
+  "column": 78,
+  "branches": [
+   [
+    "lipopolysaccharide N-acetylglucosaminyltransferase",
+    90
+   ],
+   [
+    "waaU",
+    60
+   ]
+  ],
+  "genomes": 150,
+  "model_acc": 1.0,
+  "determinants": [
+   {
+    "family": "waaA",
+    "fam": "G8B09_RS13365",
+    "genomes": 150,
+    "mean_drop_bits": 0.024,
+    "flip_rate": 0.007
+   },
+   {
+    "family": "rfaY",
+    "fam": "BF026_RS08105",
+    "genomes": 150,
+    "mean_drop_bits": 0.014,
+    "flip_rate": 0.0
+   },
+   {
+    "family": "rfaS",
+    "fam": "NMD29_RS00405",
+    "genomes": 52,
+    "mean_drop_bits": 0.004,
+    "flip_rate": 0.0
+   },
+   {
+    "family": "yicC",
+    "fam": "G8B09_RS13420",
+    "genomes": 150,
+    "mean_drop_bits": 0.001,
+    "flip_rate": 0.007
+   },
+   {
+    "family": "rfaQ",
+    "fam": "LAC72_RS21565",
+    "genomes": 144,
+    "mean_drop_bits": -0.001,
+    "flip_rate": 0.0
+   },
+   {
+    "family": "rfaJ",
+    "fam": "LAC72_RS21535",
+    "genomes": 150,
+    "mean_drop_bits": -0.001,
+    "flip_rate": 0.007
+   }
+  ],
+  "allele_swap": {
+   "family": "waaA",
+   "genomes": 60,
+   "to_majority_branch": 0.0,
+   "note": "minority-branch genomes given the majority-branch allele of waaA"
+  }
+ },
+ {
+  "fork": "yfjQ",
+  "column": 53,
+  "branches": [
+   [
+    "DUF905 family protein",
+    89
+   ],
+   [
+    "agn43",
+    26
+   ]
+  ],
+  "genomes": 115,
+  "model_acc": 0.904,
+  "determinants": [
+   {
+    "family": "cbeA",
+    "fam": "GWK05_RS08010",
+    "genomes": 117,
+    "mean_drop_bits": 0.092,
+    "flip_rate": 0.12
+   },
+   {
+    "family": "DUF957 domain-containing protein",
+    "fam": "C3Y32_RS15285",
+    "genomes": 111,
+    "mean_drop_bits": 0.076,
+    "flip_rate": 0.072
+   },
+   {
+    "family": "antirestriction protein",
+    "fam": "B1200_RS05355",
+    "genomes": 113,
+    "mean_drop_bits": 0.055,
+    "flip_rate": 0.071
+   },
+   {
+    "family": "radC",
+    "fam": "J5I74_RS03220",
+    "genomes": 115,
+    "mean_drop_bits": 0.048,
+    "flip_rate": 0.096
+   },
+   {
+    "family": "yeeT",
+    "fam": "OVE68_RS08000",
+    "genomes": 105,
+    "mean_drop_bits": 0.042,
+    "flip_rate": 0.095
+   },
+   {
+    "family": "cbtA",
+    "fam": "ACPXAS_RS10690",
+    "genomes": 111,
+    "mean_drop_bits": 0.034,
+    "flip_rate": 0.099
+   }
+  ],
+  "allele_swap": {
+   "family": "cbeA",
+   "genomes": 26,
+   "to_majority_branch": 0.269,
+   "note": "minority-branch genomes given the majority-branch allele of cbeA"
+  }
+ }
+]

@@ -1,0 +1,1978 @@
+[
+ {
+  "fork": "DUF957 domain-containing protein",
+  "fam": "C3Y32_RS15285",
+  "column": 46,
+  "genomes": 210,
+  "branches": [
+   [
+    "DUF5983 family protein",
+    165
+   ],
+   [
+    "cbtA",
+    45
+   ]
+  ],
+  "bits": {
+   "frequency": 0.75,
+   "same-11": 0.717,
+   "path-5": 0.719,
+   "phylo-15": 0.79,
+   "model": 0.207
+  },
+  "acc": {
+   "frequency": 0.786,
+   "same-11": 0.8,
+   "path-5": 0.79,
+   "phylo-15": 0.786,
+   "model": 0.971
+  },
+  "gain_vs_frequency": 0.542,
+  "gain_vs_same11": 0.509,
+  "gain_vs_phylo": 0.582,
+  "gain_vs_path": 0.512,
+  "unique_haplotypes": {
+   "n": 190,
+   "model_acc": 0.974,
+   "gain_vs_frequency": 0.545
+  }
+ },
+ {
+  "fork": "UDP-galactose--(galactosyl) LPS alpha1,2-galactosyltransferase",
+  "fam": "DX633_RS00435",
+  "column": 75,
+  "genomes": 210,
+  "branches": [
+   [
+    "glycosyltransferase family 2 protein",
+    168
+   ],
+   [
+    "glycosyltransferase family 25 protein",
+    42
+   ]
+  ],
+  "bits": {
+   "frequency": 0.722,
+   "same-11": 0.413,
+   "path-5": 0.729,
+   "phylo-15": 0.422,
+   "model": 0.022
+  },
+  "acc": {
+   "frequency": 0.8,
+   "same-11": 0.895,
+   "path-5": 0.8,
+   "phylo-15": 0.895,
+   "model": 1.0
+  },
+  "gain_vs_frequency": 0.7,
+  "gain_vs_same11": 0.391,
+  "gain_vs_phylo": 0.4,
+  "gain_vs_path": 0.707,
+  "unique_haplotypes": {
+   "n": 104,
+   "model_acc": 1.0,
+   "gain_vs_frequency": 0.721
+  }
+ },
+ {
+  "fork": "yfjQ",
+  "fam": "CPG99_RS23120",
+  "column": 53,
+  "genomes": 115,
+  "branches": [
+   [
+    "DUF905 family protein",
+    89
+   ],
+   [
+    "agn43",
+    26
+   ]
+  ],
+  "bits": {
+   "frequency": 0.771,
+   "same-11": 0.757,
+   "path-5": 0.731,
+   "phylo-15": 0.832,
+   "model": 0.433
+  },
+  "acc": {
+   "frequency": 0.774,
+   "same-11": 0.774,
+   "path-5": 0.774,
+   "phylo-15": 0.774,
+   "model": 0.922
+  },
+  "gain_vs_frequency": 0.339,
+  "gain_vs_same11": 0.325,
+  "gain_vs_phylo": 0.399,
+  "gain_vs_path": 0.299,
+  "unique_haplotypes": {
+   "n": 107,
+   "model_acc": 0.916,
+   "gain_vs_frequency": 0.347
+  }
+ },
+ {
+  "fork": "waaZ",
+  "fam": "QDX15_RS00430",
+  "column": 78,
+  "genomes": 150,
+  "branches": [
+   [
+    "lipopolysaccharide N-acetylglucosaminyltransferase",
+    90
+   ],
+   [
+    "waaU",
+    60
+   ]
+  ],
+  "bits": {
+   "frequency": 0.971,
+   "same-11": 0.559,
+   "path-5": 0.981,
+   "phylo-15": 0.356,
+   "model": 0.03
+  },
+  "acc": {
+   "frequency": 0.6,
+   "same-11": 0.78,
+   "path-5": 0.6,
+   "phylo-15": 0.853,
+   "model": 1.0
+  },
+  "gain_vs_frequency": 0.941,
+  "gain_vs_same11": 0.53,
+  "gain_vs_phylo": 0.326,
+  "gain_vs_path": 0.951,
+  "unique_haplotypes": {
+   "n": 73,
+   "model_acc": 1.0,
+   "gain_vs_frequency": 0.965
+  }
+ },
+ {
+  "fork": "rfaD",
+  "fam": "LAC72_RS21500",
+  "column": 79,
+  "genomes": 72,
+  "branches": [
+   [
+    "kbl",
+    37
+   ],
+   [
+    "yibB",
+    35
+   ]
+  ],
+  "bits": {
+   "frequency": 0.999,
+   "same-11": 0.918,
+   "path-5": 0.717,
+   "phylo-15": 0.84,
+   "model": 0.693
+  },
+  "acc": {
+   "frequency": 0.514,
+   "same-11": 0.639,
+   "path-5": 0.708,
+   "phylo-15": 0.667,
+   "model": 0.75
+  },
+  "gain_vs_frequency": 0.307,
+  "gain_vs_same11": 0.225,
+  "gain_vs_phylo": 0.148,
+  "gain_vs_path": 0.024,
+  "unique_haplotypes": {
+   "n": 58,
+   "model_acc": 0.828,
+   "gain_vs_frequency": 0.393
+  }
+ },
+ {
+  "fork": "iatC",
+  "fam": "DYA94_RS00345",
+  "column": 46,
+  "genomes": 295,
+  "branches": [
+   [
+    "eilA",
+    268
+   ],
+   [
+    "iatC",
+    27
+   ]
+  ],
+  "bits": {
+   "frequency": 0.442,
+   "same-11": 0.428,
+   "path-5": 0.452,
+   "phylo-15": 0.522,
+   "model": 0.403
+  },
+  "acc": {
+   "frequency": 0.908,
+   "same-11": 0.908,
+   "path-5": 0.908,
+   "phylo-15": 0.908,
+   "model": 0.912
+  },
+  "gain_vs_frequency": 0.038,
+  "gain_vs_same11": 0.024,
+  "gain_vs_phylo": 0.119,
+  "gain_vs_path": 0.048,
+  "unique_haplotypes": {
+   "n": 259,
+   "model_acc": 0.9,
+   "gain_vs_frequency": 0.047
+  }
+ },
+ {
+  "fork": "dinD",
+  "fam": "AABJ72_RS00365",
+  "column": 57,
+  "genomes": 842,
+  "branches": [
+   [
+    "yicC",
+    741
+   ],
+   [
+    "hypothetical protein",
+    29
+   ],
+   [
+    "PerC family transcriptional regulator",
+    26
+   ],
+   [
+    "hypothetical protein",
+    24
+   ],
+   [
+    "ISL3-like element ISKox3 family transposase",
+    22
+   ]
+  ],
+  "bits": {
+   "frequency": 0.768,
+   "same-11": 0.824,
+   "path-5": 0.752,
+   "phylo-15": 0.815,
+   "model": 0.736
+  },
+  "acc": {
+   "frequency": 0.88,
+   "same-11": 0.871,
+   "path-5": 0.888,
+   "phylo-15": 0.884,
+   "model": 0.88
+  },
+  "gain_vs_frequency": 0.032,
+  "gain_vs_same11": 0.088,
+  "gain_vs_phylo": 0.078,
+  "gain_vs_path": 0.016,
+  "unique_haplotypes": {
+   "n": 449,
+   "model_acc": 0.882,
+   "gain_vs_frequency": 0.048
+  }
+ },
+ {
+  "fork": "hypothetical protein",
+  "fam": "A7524_RS16840",
+  "column": 41,
+  "genomes": 127,
+  "branches": [
+   [
+    "rhuM",
+    104
+   ],
+   [
+    "DUF4942 domain-containing protein",
+    23
+   ]
+  ],
+  "bits": {
+   "frequency": 0.683,
+   "same-11": 0.662,
+   "path-5": 0.712,
+   "phylo-15": 0.746,
+   "model": 0.67
+  },
+  "acc": {
+   "frequency": 0.819,
+   "same-11": 0.827,
+   "path-5": 0.819,
+   "phylo-15": 0.819,
+   "model": 0.819
+  },
+  "gain_vs_frequency": 0.013,
+  "gain_vs_same11": -0.008,
+  "gain_vs_phylo": 0.076,
+  "gain_vs_path": 0.043,
+  "unique_haplotypes": {
+   "n": 94,
+   "model_acc": 0.83,
+   "gain_vs_frequency": -0.022
+  }
+ },
+ {
+  "fork": "nepI",
+  "fam": "ECs_4596",
+  "column": 40,
+  "genomes": 1567,
+  "branches": [
+   [
+    "yicS",
+    1270
+   ],
+   [
+    "iatC",
+    297
+   ]
+  ],
+  "bits": {
+   "frequency": 0.7,
+   "same-11": 0.506,
+   "path-5": 0.187,
+   "phylo-15": 0.115,
+   "model": 0.059
+  },
+  "acc": {
+   "frequency": 0.81,
+   "same-11": 0.859,
+   "path-5": 0.948,
+   "phylo-15": 0.977,
+   "model": 0.992
+  },
+  "gain_vs_frequency": 0.641,
+  "gain_vs_same11": 0.447,
+  "gain_vs_phylo": 0.056,
+  "gain_vs_path": 0.128,
+  "unique_haplotypes": {
+   "n": 935,
+   "model_acc": 0.986,
+   "gain_vs_frequency": 0.716
+  }
+ },
+ {
+  "fork": "yicN",
+  "fam": "G8B09_RS13620",
+  "column": 39,
+  "genomes": 1764,
+  "branches": [
+   [
+    "nepI",
+    1195
+   ],
+   [
+    "helix-turn-helix domain-containing protein",
+    489
+   ],
+   [
+    "carbohydrate porin",
+    56
+   ],
+   [
+    "yicS",
+    24
+   ]
+  ],
+  "bits": {
+   "frequency": 1.136,
+   "same-11": 0.877,
+   "path-5": 0.893,
+   "phylo-15": 0.41,
+   "model": 0.355
+  },
+  "acc": {
+   "frequency": 0.677,
+   "same-11": 0.74,
+   "path-5": 0.744,
+   "phylo-15": 0.912,
+   "model": 0.935
+  },
+  "gain_vs_frequency": 0.781,
+  "gain_vs_same11": 0.521,
+  "gain_vs_phylo": 0.054,
+  "gain_vs_path": 0.537,
+  "unique_haplotypes": {
+   "n": 1038,
+   "model_acc": 0.912,
+   "gain_vs_frequency": 0.929
+  }
+ },
+ {
+  "fork": "setC",
+  "fam": "AML28_RS01330",
+  "column": 44,
+  "genomes": 1053,
+  "branches": [
+   [
+    "yicJ",
+    742
+   ],
+   [
+    "DUF4942 domain-containing protein",
+    184
+   ],
+   [
+    "primase-helicase zinc-binding domain-containing protein",
+    90
+   ],
+   [
+    "IS1-like element IS1A family transposase",
+    37
+   ]
+  ],
+  "bits": {
+   "frequency": 1.269,
+   "same-11": 1.244,
+   "path-5": 1.268,
+   "phylo-15": 1.306,
+   "model": 1.278
+  },
+  "acc": {
+   "frequency": 0.705,
+   "same-11": 0.718,
+   "path-5": 0.702,
+   "phylo-15": 0.734,
+   "model": 0.705
+  },
+  "gain_vs_frequency": -0.009,
+  "gain_vs_same11": -0.033,
+  "gain_vs_phylo": 0.029,
+  "gain_vs_path": -0.009,
+  "unique_haplotypes": {
+   "n": 715,
+   "model_acc": 0.685,
+   "gain_vs_frequency": -0.013
+  }
+ },
+ {
+  "fork": "adeD",
+  "fam": "C1P63_RS20390",
+  "column": 37,
+  "genomes": 1704,
+  "branches": [
+   [
+    "adeQ",
+    1651
+   ],
+   [
+    "yicN",
+    33
+   ],
+   [
+    "IS1-like element IS1A family transposase",
+    20
+   ]
+  ],
+  "bits": {
+   "frequency": 0.23,
+   "same-11": 0.23,
+   "path-5": 0.231,
+   "phylo-15": 0.258,
+   "model": 0.236
+  },
+  "acc": {
+   "frequency": 0.969,
+   "same-11": 0.969,
+   "path-5": 0.969,
+   "phylo-15": 0.969,
+   "model": 0.969
+  },
+  "gain_vs_frequency": -0.006,
+  "gain_vs_same11": -0.006,
+  "gain_vs_phylo": 0.022,
+  "gain_vs_path": -0.005,
+  "unique_haplotypes": {
+   "n": 917,
+   "model_acc": 0.964,
+   "gain_vs_frequency": -0.006
+  }
+ },
+ {
+  "fork": "hypothetical protein",
+  "fam": "G8B09_RS22840",
+  "column": 51,
+  "genomes": 102,
+  "branches": [
+   [
+    "ogr/Delta-like zinc finger family protein",
+    65
+   ],
+   [
+    "ogr/Delta-like zinc finger family protein",
+    37
+   ]
+  ],
+  "bits": {
+   "frequency": 0.945,
+   "same-11": 0.876,
+   "path-5": 0.941,
+   "phylo-15": 0.961,
+   "model": 0.947
+  },
+  "acc": {
+   "frequency": 0.637,
+   "same-11": 0.686,
+   "path-5": 0.657,
+   "phylo-15": 0.588,
+   "model": 0.637
+  },
+  "gain_vs_frequency": -0.002,
+  "gain_vs_same11": -0.071,
+  "gain_vs_phylo": 0.014,
+  "gain_vs_path": -0.006,
+  "unique_haplotypes": {
+   "n": 95,
+   "model_acc": 0.663,
+   "gain_vs_frequency": 0.0
+  }
+ },
+ {
+  "fork": "yicS",
+  "fam": "G8B09_RS13610",
+  "column": 41,
+  "genomes": 1561,
+  "branches": [
+   [
+    "nlpA",
+    1535
+   ],
+   [
+    "IS1-like element IS1A family transposase",
+    26
+   ]
+  ],
+  "bits": {
+   "frequency": 0.122,
+   "same-11": 0.11,
+   "path-5": 0.13,
+   "phylo-15": 0.129,
+   "model": 0.117
+  },
+  "acc": {
+   "frequency": 0.983,
+   "same-11": 0.986,
+   "path-5": 0.983,
+   "phylo-15": 0.983,
+   "model": 0.984
+  },
+  "gain_vs_frequency": 0.005,
+  "gain_vs_same11": -0.008,
+  "gain_vs_phylo": 0.012,
+  "gain_vs_path": 0.012,
+  "unique_haplotypes": {
+   "n": 981,
+   "model_acc": 0.987,
+   "gain_vs_frequency": -0.001
+  }
+ },
+ {
+  "fork": "yicJ",
+  "fam": "AB6K79_RS12370",
+  "column": 45,
+  "genomes": 1176,
+  "branches": [
+   [
+    "yicI",
+    1132
+   ],
+   [
+    "yicH",
+    44
+   ]
+  ],
+  "bits": {
+   "frequency": 0.23,
+   "same-11": 0.234,
+   "path-5": 0.247,
+   "phylo-15": 0.248,
+   "model": 0.246
+  },
+  "acc": {
+   "frequency": 0.963,
+   "same-11": 0.964,
+   "path-5": 0.962,
+   "phylo-15": 0.963,
+   "model": 0.963
+  },
+  "gain_vs_frequency": -0.016,
+  "gain_vs_same11": -0.013,
+  "gain_vs_phylo": 0.002,
+  "gain_vs_path": 0.001,
+  "unique_haplotypes": {
+   "n": 879,
+   "model_acc": 0.96,
+   "gain_vs_frequency": -0.017
+  }
+ },
+ {
+  "fork": "yidP",
+  "fam": "C1P56_RS19090",
+  "column": 18,
+  "genomes": 1524,
+  "branches": [
+   [
+    "glvC",
+    1473
+   ],
+   [
+    "yidL",
+    26
+   ],
+   [
+    "glvA",
+    25
+   ]
+  ],
+  "bits": {
+   "frequency": 0.245,
+   "same-11": 0.232,
+   "path-5": 0.246,
+   "phylo-15": 0.283,
+   "model": 0.286
+  },
+  "acc": {
+   "frequency": 0.967,
+   "same-11": 0.969,
+   "path-5": 0.967,
+   "phylo-15": 0.967,
+   "model": 0.967
+  },
+  "gain_vs_frequency": -0.041,
+  "gain_vs_same11": -0.054,
+  "gain_vs_phylo": -0.003,
+  "gain_vs_path": -0.04,
+  "unique_haplotypes": {
+   "n": 879,
+   "model_acc": 0.961,
+   "gain_vs_frequency": -0.024
+  }
+ },
+ {
+  "fork": "yidK",
+  "fam": "ACNHKS_RS21575",
+  "column": 21,
+  "genomes": 1497,
+  "branches": [
+   [
+    "yidJ",
+    1477
+   ],
+   [
+    "yidH",
+    20
+   ]
+  ],
+  "bits": {
+   "frequency": 0.102,
+   "same-11": 0.075,
+   "path-5": 0.073,
+   "phylo-15": 0.071,
+   "model": 0.078
+  },
+  "acc": {
+   "frequency": 0.987,
+   "same-11": 0.985,
+   "path-5": 0.987,
+   "phylo-15": 0.987,
+   "model": 0.987
+  },
+  "gain_vs_frequency": 0.025,
+  "gain_vs_same11": -0.002,
+  "gain_vs_phylo": -0.006,
+  "gain_vs_path": -0.004,
+  "unique_haplotypes": {
+   "n": 1012,
+   "model_acc": 0.992,
+   "gain_vs_frequency": -0.003
+  }
+ },
+ {
+  "fork": "IS1-like element IS1A family transposase",
+  "fam": "OQ616_RS00825",
+  "column": 43,
+  "genomes": 141,
+  "branches": [
+   [
+    "tyrosine-type recombinase/integrase",
+    62
+   ],
+   [
+    "yicJ",
+    40
+   ],
+   [
+    "autotransporter outer membrane beta-barrel domain-containing protein",
+    39
+   ]
+  ],
+  "bits": {
+   "frequency": 1.55,
+   "same-11": 1.416,
+   "path-5": 1.082,
+   "phylo-15": 1.442,
+   "model": 1.451
+  },
+  "acc": {
+   "frequency": 0.44,
+   "same-11": 0.511,
+   "path-5": 0.723,
+   "phylo-15": 0.504,
+   "model": 0.39
+  },
+  "gain_vs_frequency": 0.099,
+  "gain_vs_same11": -0.035,
+  "gain_vs_phylo": -0.009,
+  "gain_vs_path": -0.369,
+  "unique_haplotypes": {
+   "n": 126,
+   "model_acc": 0.437,
+   "gain_vs_frequency": 0.123
+  }
+ },
+ {
+  "fork": "gmk",
+  "fam": "G8B09_RS13440",
+  "column": 54,
+  "genomes": 1172,
+  "branches": [
+   [
+    "ligB",
+    1099
+   ],
+   [
+    "yicG",
+    52
+   ],
+   [
+    "hypothetical protein",
+    21
+   ]
+  ],
+  "bits": {
+   "frequency": 0.39,
+   "same-11": 0.352,
+   "path-5": 0.393,
+   "phylo-15": 0.389,
+   "model": 0.406
+  },
+  "acc": {
+   "frequency": 0.938,
+   "same-11": 0.943,
+   "path-5": 0.938,
+   "phylo-15": 0.95,
+   "model": 0.938
+  },
+  "gain_vs_frequency": -0.016,
+  "gain_vs_same11": -0.054,
+  "gain_vs_phylo": -0.017,
+  "gain_vs_path": -0.013,
+  "unique_haplotypes": {
+   "n": 789,
+   "model_acc": 0.943,
+   "gain_vs_frequency": -0.023
+  }
+ },
+ {
+  "fork": "ysdE",
+  "fam": "C7B06_RS28675",
+  "column": 28,
+  "genomes": 1734,
+  "branches": [
+   [
+    "tisB",
+    1555
+   ],
+   [
+    "ivbL",
+    179
+   ]
+  ],
+  "bits": {
+   "frequency": 0.479,
+   "same-11": 0.363,
+   "path-5": 0.478,
+   "phylo-15": 0.085,
+   "model": 0.106
+  },
+  "acc": {
+   "frequency": 0.897,
+   "same-11": 0.923,
+   "path-5": 0.897,
+   "phylo-15": 0.989,
+   "model": 0.98
+  },
+  "gain_vs_frequency": 0.373,
+  "gain_vs_same11": 0.257,
+  "gain_vs_phylo": -0.02,
+  "gain_vs_path": 0.372,
+  "unique_haplotypes": {
+   "n": 1097,
+   "model_acc": 0.98,
+   "gain_vs_frequency": 0.428
+  }
+ },
+ {
+  "fork": "dgoR",
+  "fam": "G8B09_RS13785",
+  "column": 7,
+  "genomes": 1754,
+  "branches": [
+   [
+    "dgoK",
+    1709
+   ],
+   [
+    "dgoA",
+    45
+   ]
+  ],
+  "bits": {
+   "frequency": 0.172,
+   "same-11": 0.145,
+   "path-5": 0.176,
+   "phylo-15": 0.151,
+   "model": 0.175
+  },
+  "acc": {
+   "frequency": 0.974,
+   "same-11": 0.98,
+   "path-5": 0.974,
+   "phylo-15": 0.982,
+   "model": 0.974
+  },
+  "gain_vs_frequency": -0.003,
+  "gain_vs_same11": -0.03,
+  "gain_vs_phylo": -0.023,
+  "gain_vs_path": 0.001,
+  "unique_haplotypes": {
+   "n": 585,
+   "model_acc": 0.971,
+   "gain_vs_frequency": -0.002
+  }
+ },
+ {
+  "fork": "dgoT",
+  "fam": "A7220_RS17900",
+  "column": 11,
+  "genomes": 1678,
+  "branches": [
+   [
+    "cbrA",
+    1645
+   ],
+   [
+    "yidR",
+    33
+   ]
+  ],
+  "bits": {
+   "frequency": 0.14,
+   "same-11": 0.124,
+   "path-5": 0.142,
+   "phylo-15": 0.13,
+   "model": 0.155
+  },
+  "acc": {
+   "frequency": 0.98,
+   "same-11": 0.983,
+   "path-5": 0.979,
+   "phylo-15": 0.98,
+   "model": 0.98
+  },
+  "gain_vs_frequency": -0.015,
+  "gain_vs_same11": -0.031,
+  "gain_vs_phylo": -0.024,
+  "gain_vs_path": -0.013,
+  "unique_haplotypes": {
+   "n": 875,
+   "model_acc": 0.977,
+   "gain_vs_frequency": -0.013
+  }
+ },
+ {
+  "fork": "dgoD",
+  "fam": "SCX05_RS03505",
+  "column": 10,
+  "genomes": 1701,
+  "branches": [
+   [
+    "dgoT",
+    1640
+   ],
+   [
+    "cbrA",
+    61
+   ]
+  ],
+  "bits": {
+   "frequency": 0.223,
+   "same-11": 0.204,
+   "path-5": 0.216,
+   "phylo-15": 0.237,
+   "model": 0.27
+  },
+  "acc": {
+   "frequency": 0.964,
+   "same-11": 0.971,
+   "path-5": 0.963,
+   "phylo-15": 0.966,
+   "model": 0.964
+  },
+  "gain_vs_frequency": -0.047,
+  "gain_vs_same11": -0.067,
+  "gain_vs_phylo": -0.033,
+  "gain_vs_path": -0.054,
+  "unique_haplotypes": {
+   "n": 786,
+   "model_acc": 0.972,
+   "gain_vs_frequency": -0.059
+  }
+ },
+ {
+  "fork": "yidJ",
+  "fam": "KFU68_RS00120",
+  "column": 22,
+  "genomes": 1531,
+  "branches": [
+   [
+    "yidI",
+    1251
+   ],
+   [
+    "yidH",
+    280
+   ]
+  ],
+  "bits": {
+   "frequency": 0.686,
+   "same-11": 0.544,
+   "path-5": 0.293,
+   "phylo-15": 0.194,
+   "model": 0.249
+  },
+  "acc": {
+   "frequency": 0.817,
+   "same-11": 0.854,
+   "path-5": 0.937,
+   "phylo-15": 0.957,
+   "model": 0.939
+  },
+  "gain_vs_frequency": 0.438,
+  "gain_vs_same11": 0.296,
+  "gain_vs_phylo": -0.055,
+  "gain_vs_path": 0.045,
+  "unique_haplotypes": {
+   "n": 1035,
+   "model_acc": 0.931,
+   "gain_vs_frequency": 0.482
+  }
+ },
+ {
+  "fork": "dgoA",
+  "fam": "G8B09_RS13775",
+  "column": 9,
+  "genomes": 1744,
+  "branches": [
+   [
+    "dgoD",
+    1707
+   ],
+   [
+    "dgoT",
+    37
+   ]
+  ],
+  "bits": {
+   "frequency": 0.148,
+   "same-11": 0.144,
+   "path-5": 0.151,
+   "phylo-15": 0.101,
+   "model": 0.159
+  },
+  "acc": {
+   "frequency": 0.979,
+   "same-11": 0.979,
+   "path-5": 0.979,
+   "phylo-15": 0.989,
+   "model": 0.978
+  },
+  "gain_vs_frequency": -0.011,
+  "gain_vs_same11": -0.015,
+  "gain_vs_phylo": -0.058,
+  "gain_vs_path": -0.008,
+  "unique_haplotypes": {
+   "n": 752,
+   "model_acc": 0.972,
+   "gain_vs_frequency": -0.007
+  }
+ },
+ {
+  "fork": "yicI",
+  "fam": "UQ79_RS03360",
+  "column": 46,
+  "genomes": 1153,
+  "branches": [
+   [
+    "yicH",
+    933
+   ],
+   [
+    "BglG family transcription antiterminator",
+    220
+   ]
+  ],
+  "bits": {
+   "frequency": 0.703,
+   "same-11": 0.59,
+   "path-5": 0.467,
+   "phylo-15": 0.186,
+   "model": 0.276
+  },
+  "acc": {
+   "frequency": 0.809,
+   "same-11": 0.844,
+   "path-5": 0.896,
+   "phylo-15": 0.943,
+   "model": 0.944
+  },
+  "gain_vs_frequency": 0.427,
+  "gain_vs_same11": 0.314,
+  "gain_vs_phylo": -0.089,
+  "gain_vs_path": 0.191,
+  "unique_haplotypes": {
+   "n": 898,
+   "model_acc": 0.932,
+   "gain_vs_frequency": 0.41
+  }
+ },
+ {
+  "fork": "uhpT",
+  "fam": "G8B09_RS13635",
+  "column": 36,
+  "genomes": 1687,
+  "branches": [
+   [
+    "adeD",
+    1629
+   ],
+   [
+    "yicN",
+    58
+   ]
+  ],
+  "bits": {
+   "frequency": 0.216,
+   "same-11": 0.199,
+   "path-5": 0.15,
+   "phylo-15": 0.097,
+   "model": 0.193
+  },
+  "acc": {
+   "frequency": 0.966,
+   "same-11": 0.964,
+   "path-5": 0.965,
+   "phylo-15": 0.969,
+   "model": 0.964
+  },
+  "gain_vs_frequency": 0.023,
+  "gain_vs_same11": 0.006,
+  "gain_vs_phylo": -0.096,
+  "gain_vs_path": -0.043,
+  "unique_haplotypes": {
+   "n": 827,
+   "model_acc": 0.931,
+   "gain_vs_frequency": 0.049
+  }
+ },
+ {
+  "fork": "yidL",
+  "fam": "GJD96_RS01755",
+  "column": 20,
+  "genomes": 1546,
+  "branches": [
+   [
+    "yidK",
+    1472
+   ],
+   [
+    "yidJ",
+    42
+   ],
+   [
+    "yidI",
+    32
+   ]
+  ],
+  "bits": {
+   "frequency": 0.324,
+   "same-11": 0.27,
+   "path-5": 0.294,
+   "phylo-15": 0.21,
+   "model": 0.326
+  },
+  "acc": {
+   "frequency": 0.952,
+   "same-11": 0.953,
+   "path-5": 0.952,
+   "phylo-15": 0.973,
+   "model": 0.952
+  },
+  "gain_vs_frequency": -0.001,
+  "gain_vs_same11": -0.056,
+  "gain_vs_phylo": -0.115,
+  "gain_vs_path": -0.031,
+  "unique_haplotypes": {
+   "n": 999,
+   "model_acc": 0.967,
+   "gain_vs_frequency": -0.007
+  }
+ },
+ {
+  "fork": "rfaP",
+  "fam": "G8B09_RS13350",
+  "column": 72,
+  "genomes": 629,
+  "branches": [
+   [
+    "waaO",
+    310
+   ],
+   [
+    "waaO",
+    147
+   ],
+   [
+    "glycosyltransferase family 8 protein",
+    109
+   ],
+   [
+    "rfaS",
+    63
+   ]
+  ],
+  "bits": {
+   "frequency": 1.764,
+   "same-11": 0.861,
+   "path-5": 1.048,
+   "phylo-15": 0.934,
+   "model": 1.048
+  },
+  "acc": {
+   "frequency": 0.493,
+   "same-11": 0.79,
+   "path-5": 0.652,
+   "phylo-15": 0.752,
+   "model": 0.755
+  },
+  "gain_vs_frequency": 0.716,
+  "gain_vs_same11": -0.187,
+  "gain_vs_phylo": -0.115,
+  "gain_vs_path": -0.0,
+  "unique_haplotypes": {
+   "n": 293,
+   "model_acc": 0.724,
+   "gain_vs_frequency": 0.635
+  }
+ },
+ {
+  "fork": "pyrE",
+  "fam": "ACND39_RS13010",
+  "column": 60,
+  "genomes": 1001,
+  "branches": [
+   [
+    "slmA",
+    950
+   ],
+   [
+    "reverse transcriptase family protein",
+    51
+   ]
+  ],
+  "bits": {
+   "frequency": 0.29,
+   "same-11": 0.154,
+   "path-5": 0.223,
+   "phylo-15": 0.117,
+   "model": 0.233
+  },
+  "acc": {
+   "frequency": 0.949,
+   "same-11": 0.977,
+   "path-5": 0.963,
+   "phylo-15": 0.972,
+   "model": 0.949
+  },
+  "gain_vs_frequency": 0.057,
+  "gain_vs_same11": -0.079,
+  "gain_vs_phylo": -0.116,
+  "gain_vs_path": -0.01,
+  "unique_haplotypes": {
+   "n": 575,
+   "model_acc": 0.96,
+   "gain_vs_frequency": 0.018
+  }
+ },
+ {
+  "fork": "emrD",
+  "fam": "G8B09_RS13675",
+  "column": 27,
+  "genomes": 1776,
+  "branches": [
+   [
+    "ysdE",
+    1724
+   ],
+   [
+    "tisB",
+    52
+   ]
+  ],
+  "bits": {
+   "frequency": 0.191,
+   "same-11": 0.156,
+   "path-5": 0.179,
+   "phylo-15": 0.095,
+   "model": 0.221
+  },
+  "acc": {
+   "frequency": 0.971,
+   "same-11": 0.975,
+   "path-5": 0.971,
+   "phylo-15": 0.974,
+   "model": 0.954
+  },
+  "gain_vs_frequency": -0.03,
+  "gain_vs_same11": -0.065,
+  "gain_vs_phylo": -0.126,
+  "gain_vs_path": -0.042,
+  "unique_haplotypes": {
+   "n": 1143,
+   "model_acc": 0.934,
+   "gain_vs_frequency": -0.035
+  }
+ },
+ {
+  "fork": "glvA",
+  "fam": "QC805_RS00105",
+  "column": 20,
+  "genomes": 792,
+  "branches": [
+   [
+    "yidL",
+    579
+   ],
+   [
+    "insQ",
+    170
+   ],
+   [
+    "tnpA",
+    22
+   ],
+   [
+    "yidH",
+    21
+   ]
+  ],
+  "bits": {
+   "frequency": 1.089,
+   "same-11": 0.89,
+   "path-5": 1.052,
+   "phylo-15": 0.478,
+   "model": 0.605
+  },
+  "acc": {
+   "frequency": 0.731,
+   "same-11": 0.784,
+   "path-5": 0.734,
+   "phylo-15": 0.903,
+   "model": 0.886
+  },
+  "gain_vs_frequency": 0.484,
+  "gain_vs_same11": 0.284,
+  "gain_vs_phylo": -0.127,
+  "gain_vs_path": 0.447,
+  "unique_haplotypes": {
+   "n": 563,
+   "model_acc": 0.877,
+   "gain_vs_frequency": 0.434
+  }
+ },
+ {
+  "fork": "yicL",
+  "fam": "G8B09_RS13600",
+  "column": 43,
+  "genomes": 1521,
+  "branches": [
+   [
+    "setC",
+    1220
+   ],
+   [
+    "hypothetical protein",
+    144
+   ],
+   [
+    "IS1-like element IS1A family transposase",
+    93
+   ],
+   [
+    "SdiA-regulated domain-containing protein",
+    43
+   ],
+   [
+    "yicJ",
+    21
+   ]
+  ],
+  "bits": {
+   "frequency": 1.054,
+   "same-11": 0.828,
+   "path-5": 0.932,
+   "phylo-15": 0.452,
+   "model": 0.585
+  },
+  "acc": {
+   "frequency": 0.802,
+   "same-11": 0.841,
+   "path-5": 0.821,
+   "phylo-15": 0.92,
+   "model": 0.893
+  },
+  "gain_vs_frequency": 0.47,
+  "gain_vs_same11": 0.243,
+  "gain_vs_phylo": -0.133,
+  "gain_vs_path": 0.347,
+  "unique_haplotypes": {
+   "n": 973,
+   "model_acc": 0.893,
+   "gain_vs_frequency": 0.516
+  }
+ },
+ {
+  "fork": "ilvN",
+  "fam": "G8B09_RS13655",
+  "column": 32,
+  "genomes": 1723,
+  "branches": [
+   [
+    "uhpA",
+    1236
+   ],
+   [
+    "hypothetical protein",
+    256
+   ],
+   [
+    "hypothetical protein",
+    90
+   ],
+   [
+    "DUF6708 domain-containing protein",
+    83
+   ],
+   [
+    "hypothetical protein",
+    58
+   ]
+  ],
+  "bits": {
+   "frequency": 1.35,
+   "same-11": 0.946,
+   "path-5": 1.123,
+   "phylo-15": 0.377,
+   "model": 0.532
+  },
+  "acc": {
+   "frequency": 0.717,
+   "same-11": 0.8,
+   "path-5": 0.723,
+   "phylo-15": 0.911,
+   "model": 0.854
+  },
+  "gain_vs_frequency": 0.819,
+  "gain_vs_same11": 0.415,
+  "gain_vs_phylo": -0.154,
+  "gain_vs_path": 0.592,
+  "unique_haplotypes": {
+   "n": 887,
+   "model_acc": 0.771,
+   "gain_vs_frequency": 0.923
+  }
+ },
+ {
+  "fork": "helix-turn-helix domain-containing protein",
+  "fam": "MHY27_RS17475",
+  "column": 43,
+  "genomes": 486,
+  "branches": [
+   [
+    "type II toxin-antitoxin system RelE/ParE family toxin",
+    440
+   ],
+   [
+    "nepI",
+    46
+   ]
+  ],
+  "bits": {
+   "frequency": 0.452,
+   "same-11": 0.325,
+   "path-5": 0.449,
+   "phylo-15": 0.159,
+   "model": 0.36
+  },
+  "acc": {
+   "frequency": 0.905,
+   "same-11": 0.94,
+   "path-5": 0.905,
+   "phylo-15": 0.975,
+   "model": 0.924
+  },
+  "gain_vs_frequency": 0.092,
+  "gain_vs_same11": -0.035,
+  "gain_vs_phylo": -0.201,
+  "gain_vs_path": 0.089,
+  "unique_haplotypes": {
+   "n": 371,
+   "model_acc": 0.93,
+   "gain_vs_frequency": 0.029
+  }
+ },
+ {
+  "fork": "gyrB",
+  "fam": "G8B09_RS13805",
+  "column": 3,
+  "genomes": 1954,
+  "branches": [
+   [
+    "yidB",
+    1830
+   ],
+   [
+    "yidA",
+    124
+   ]
+  ],
+  "bits": {
+   "frequency": 0.341,
+   "same-11": 0.295,
+   "path-5": 0.341,
+   "phylo-15": 0.141,
+   "model": 0.347
+  },
+  "acc": {
+   "frequency": 0.937,
+   "same-11": 0.937,
+   "path-5": 0.937,
+   "phylo-15": 0.972,
+   "model": 0.937
+  },
+  "gain_vs_frequency": -0.006,
+  "gain_vs_same11": -0.052,
+  "gain_vs_phylo": -0.207,
+  "gain_vs_path": -0.006,
+  "unique_haplotypes": {
+   "n": 263,
+   "model_acc": 0.939,
+   "gain_vs_frequency": -0.009
+  }
+ },
+ {
+  "fork": "gltS",
+  "fam": "G8B09_RS13470",
+  "column": 49,
+  "genomes": 1191,
+  "branches": [
+   [
+    "recG",
+    957
+   ],
+   [
+    "hypothetical protein",
+    234
+   ]
+  ],
+  "bits": {
+   "frequency": 0.715,
+   "same-11": 0.587,
+   "path-5": 0.686,
+   "phylo-15": 0.335,
+   "model": 0.543
+  },
+  "acc": {
+   "frequency": 0.804,
+   "same-11": 0.844,
+   "path-5": 0.804,
+   "phylo-15": 0.914,
+   "model": 0.842
+  },
+  "gain_vs_frequency": 0.171,
+  "gain_vs_same11": 0.044,
+  "gain_vs_phylo": -0.208,
+  "gain_vs_path": 0.143,
+  "unique_haplotypes": {
+   "n": 884,
+   "model_acc": 0.828,
+   "gain_vs_frequency": 0.156
+  }
+ },
+ {
+  "fork": "sctE",
+  "fam": "MHY27_RS17510",
+  "column": 50,
+  "genomes": 292,
+  "branches": [
+   [
+    "hypothetical protein",
+    254
+   ],
+   [
+    "SycD/LcrH family type III secretion system chaperone",
+    38
+   ]
+  ],
+  "bits": {
+   "frequency": 0.558,
+   "same-11": 0.478,
+   "path-5": 0.487,
+   "phylo-15": 0.2,
+   "model": 0.427
+  },
+  "acc": {
+   "frequency": 0.87,
+   "same-11": 0.897,
+   "path-5": 0.87,
+   "phylo-15": 0.955,
+   "model": 0.921
+  },
+  "gain_vs_frequency": 0.13,
+  "gain_vs_same11": 0.051,
+  "gain_vs_phylo": -0.227,
+  "gain_vs_path": 0.06,
+  "unique_haplotypes": {
+   "n": 265,
+   "model_acc": 0.94,
+   "gain_vs_frequency": 0.095
+  }
+ },
+ {
+  "fork": "hypothetical protein",
+  "fam": "MHY27_RS17430",
+  "column": 34,
+  "genomes": 244,
+  "branches": [
+   [
+    "hypothetical protein",
+    174
+   ],
+   [
+    "hypothetical protein",
+    70
+   ]
+  ],
+  "bits": {
+   "frequency": 0.865,
+   "same-11": 0.635,
+   "path-5": 0.866,
+   "phylo-15": 0.379,
+   "model": 0.618
+  },
+  "acc": {
+   "frequency": 0.713,
+   "same-11": 0.775,
+   "path-5": 0.721,
+   "phylo-15": 0.885,
+   "model": 0.807
+  },
+  "gain_vs_frequency": 0.246,
+  "gain_vs_same11": 0.017,
+  "gain_vs_phylo": -0.24,
+  "gain_vs_path": 0.247,
+  "unique_haplotypes": {
+   "n": 142,
+   "model_acc": 0.732,
+   "gain_vs_frequency": 0.269
+  }
+ },
+ {
+  "fork": "yidX",
+  "fam": "ACTVHJ_RS16750",
+  "column": 6,
+  "genomes": 1391,
+  "branches": [
+   [
+    "dgoR",
+    1231
+   ],
+   [
+    "cbrA",
+    160
+   ]
+  ],
+  "bits": {
+   "frequency": 0.515,
+   "same-11": 0.281,
+   "path-5": 0.51,
+   "phylo-15": 0.068,
+   "model": 0.333
+  },
+  "acc": {
+   "frequency": 0.885,
+   "same-11": 0.931,
+   "path-5": 0.885,
+   "phylo-15": 0.987,
+   "model": 0.89
+  },
+  "gain_vs_frequency": 0.182,
+  "gain_vs_same11": -0.052,
+  "gain_vs_phylo": -0.265,
+  "gain_vs_path": 0.177,
+  "unique_haplotypes": {
+   "n": 375,
+   "model_acc": 0.76,
+   "gain_vs_frequency": 0.311
+  }
+ },
+ {
+  "fork": "yidE",
+  "fam": "BEC89_RS09615",
+  "column": 17,
+  "genomes": 1910,
+  "branches": [
+   [
+    "yidP",
+    1528
+   ],
+   [
+    "yidL",
+    210
+   ],
+   [
+    "glvC",
+    172
+   ]
+  ],
+  "bits": {
+   "frequency": 0.92,
+   "same-11": 0.638,
+   "path-5": 0.918,
+   "phylo-15": 0.25,
+   "model": 0.545
+  },
+  "acc": {
+   "frequency": 0.8,
+   "same-11": 0.867,
+   "path-5": 0.799,
+   "phylo-15": 0.95,
+   "model": 0.895
+  },
+  "gain_vs_frequency": 0.376,
+  "gain_vs_same11": 0.094,
+  "gain_vs_phylo": -0.295,
+  "gain_vs_path": 0.373,
+  "unique_haplotypes": {
+   "n": 1108,
+   "model_acc": 0.898,
+   "gain_vs_frequency": 0.435
+  }
+ },
+ {
+  "fork": "yicG",
+  "fam": "G8B09_RS13430",
+  "column": 56,
+  "genomes": 1119,
+  "branches": [
+   [
+    "dinD",
+    911
+   ],
+   [
+    "yicC",
+    175
+   ],
+   [
+    "dinD",
+    33
+   ]
+  ],
+  "bits": {
+   "frequency": 0.81,
+   "same-11": 0.604,
+   "path-5": 0.768,
+   "phylo-15": 0.421,
+   "model": 0.72
+  },
+  "acc": {
+   "frequency": 0.814,
+   "same-11": 0.854,
+   "path-5": 0.823,
+   "phylo-15": 0.88,
+   "model": 0.834
+  },
+  "gain_vs_frequency": 0.09,
+  "gain_vs_same11": -0.116,
+  "gain_vs_phylo": -0.299,
+  "gain_vs_path": 0.048,
+  "unique_haplotypes": {
+   "n": 662,
+   "model_acc": 0.792,
+   "gain_vs_frequency": 0.12
+  }
+ },
+ {
+  "fork": "autotransporter outer membrane beta-barrel domain-containing protein",
+  "fam": "K6711_RS03335",
+  "column": 44,
+  "genomes": 74,
+  "branches": [
+   [
+    "IS1-like element IS1A family transposase",
+    50
+   ],
+   [
+    "hypothetical protein",
+    24
+   ]
+  ],
+  "bits": {
+   "frequency": 0.909,
+   "same-11": 0.806,
+   "path-5": 0.54,
+   "phylo-15": 0.348,
+   "model": 0.736
+  },
+  "acc": {
+   "frequency": 0.676,
+   "same-11": 0.73,
+   "path-5": 0.838,
+   "phylo-15": 0.919,
+   "model": 0.824
+  },
+  "gain_vs_frequency": 0.173,
+  "gain_vs_same11": 0.07,
+  "gain_vs_phylo": -0.389,
+  "gain_vs_path": -0.196,
+  "unique_haplotypes": {
+   "n": 62,
+   "model_acc": 0.79,
+   "gain_vs_frequency": 0.134
+  }
+ },
+ {
+  "fork": "glvC",
+  "fam": "P4G42_RS18720",
+  "column": 19,
+  "genomes": 1576,
+  "branches": [
+   [
+    "glvA",
+    819
+   ],
+   [
+    "yidL",
+    757
+   ]
+  ],
+  "bits": {
+   "frequency": 0.999,
+   "same-11": 0.701,
+   "path-5": 0.96,
+   "phylo-15": 0.285,
+   "model": 0.709
+  },
+  "acc": {
+   "frequency": 0.52,
+   "same-11": 0.732,
+   "path-5": 0.563,
+   "phylo-15": 0.944,
+   "model": 0.799
+  },
+  "gain_vs_frequency": 0.29,
+  "gain_vs_same11": -0.008,
+  "gain_vs_phylo": -0.423,
+  "gain_vs_path": 0.252,
+  "unique_haplotypes": {
+   "n": 958,
+   "model_acc": 0.766,
+   "gain_vs_frequency": 0.239
+  }
+ },
+ {
+  "fork": "waaA",
+  "fam": "G8B09_RS13365",
+  "column": 69,
+  "genomes": 729,
+  "branches": [
+   [
+    "rfaQ",
+    540
+   ],
+   [
+    "rfaQ",
+    189
+   ]
+  ],
+  "bits": {
+   "frequency": 0.826,
+   "same-11": 0.409,
+   "path-5": 0.83,
+   "phylo-15": 0.377,
+   "model": 0.826
+  },
+  "acc": {
+   "frequency": 0.741,
+   "same-11": 0.905,
+   "path-5": 0.739,
+   "phylo-15": 0.898,
+   "model": 0.741
+  },
+  "gain_vs_frequency": -0.0,
+  "gain_vs_same11": -0.417,
+  "gain_vs_phylo": -0.449,
+  "gain_vs_path": 0.005,
+  "unique_haplotypes": {
+   "n": 265,
+   "model_acc": 0.819,
+   "gain_vs_frequency": -0.002
+  }
+ },
+ {
+  "fork": "IpaD/SipD/SspD family type III secretion system needle tip protein",
+  "fam": "G913_RS03920",
+  "column": 48,
+  "genomes": 291,
+  "branches": [
+   [
+    "hypothetical protein",
+    159
+   ],
+   [
+    "hypothetical protein",
+    112
+   ],
+   [
+    "hypothetical protein",
+    20
+   ]
+  ],
+  "bits": {
+   "frequency": 1.272,
+   "same-11": 1.192,
+   "path-5": 1.227,
+   "phylo-15": 0.761,
+   "model": 1.276
+  },
+  "acc": {
+   "frequency": 0.546,
+   "same-11": 0.57,
+   "path-5": 0.564,
+   "phylo-15": 0.773,
+   "model": 0.546
+  },
+  "gain_vs_frequency": -0.004,
+  "gain_vs_same11": -0.084,
+  "gain_vs_phylo": -0.515,
+  "gain_vs_path": -0.049,
+  "unique_haplotypes": {
+   "n": 262,
+   "model_acc": 0.523,
+   "gain_vs_frequency": -0.004
+  }
+ },
+ {
+  "fork": "hypothetical protein",
+  "fam": "EEL45_RS24735",
+  "column": 29,
+  "genomes": 72,
+  "branches": [
+   [
+    "hypothetical protein",
+    41
+   ],
+   [
+    "hypothetical protein",
+    31
+   ]
+  ],
+  "bits": {
+   "frequency": 0.986,
+   "same-11": 0.89,
+   "path-5": 1.006,
+   "phylo-15": 0.391,
+   "model": 0.921
+  },
+  "acc": {
+   "frequency": 0.569,
+   "same-11": 0.681,
+   "path-5": 0.569,
+   "phylo-15": 0.875,
+   "model": 0.597
+  },
+  "gain_vs_frequency": 0.065,
+  "gain_vs_same11": -0.031,
+  "gain_vs_phylo": -0.53,
+  "gain_vs_path": 0.085,
+  "unique_haplotypes": {
+   "n": 64,
+   "model_acc": 0.547,
+   "gain_vs_frequency": 0.007
+  }
+ },
+ {
+  "fork": "yidA",
+  "fam": "G8B09_RS13795",
+  "column": 5,
+  "genomes": 1946,
+  "branches": [
+   [
+    "yidX",
+    1405
+   ],
+   [
+    "hypothetical protein",
+    498
+   ],
+   [
+    "dgoR",
+    43
+   ]
+  ],
+  "bits": {
+   "frequency": 0.964,
+   "same-11": 0.535,
+   "path-5": 0.953,
+   "phylo-15": 0.348,
+   "model": 0.965
+  },
+  "acc": {
+   "frequency": 0.722,
+   "same-11": 0.871,
+   "path-5": 0.721,
+   "phylo-15": 0.947,
+   "model": 0.722
+  },
+  "gain_vs_frequency": -0.001,
+  "gain_vs_same11": -0.43,
+  "gain_vs_phylo": -0.617,
+  "gain_vs_path": -0.012,
+  "unique_haplotypes": {
+   "n": 478,
+   "model_acc": 0.613,
+   "gain_vs_frequency": -0.003
+  }
+ }
+]
