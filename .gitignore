@@ -23,3 +23,6 @@ fam_proto.npz
 pgb/*-before-*
 pgb/origin-fork-v3-oldbase.html
 *.log
+
+# the Hugging Face Space, put together by space/assemble.py
+space_build/

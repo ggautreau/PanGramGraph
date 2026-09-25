@@ -1,0 +1,6 @@
+torch==2.7.1+cpu
+transformers==4.53.3
+numpy==1.26.4
+scipy==1.14.0
+huggingface_hub>=0.32,<1
+safetensors>=0.5

@@ -7,15 +7,22 @@ families and partitions, and Bacformer's prediction at every position (130,837 c
 is laid on top. The answer, in one line: **it knows where the chromosome is
 constrained, and its hesitation rises where the pangenome is plastic.**
 
+**Online:** https://huggingface.co/spaces/ggautreau/PanGramGraph (the page and its model's
+server, on a CPU). Locally:
+
 ```bash
 python3 serve_live.py        # then open http://localhost:8765/
 ```
 
 The page, **PanGramGraph** (first called Origin Fork; `origin-fork.html` now leads to it),
-also opens directly (`standalone/pangramgraph.html`): the dnaA window, the coupled regions
-and the findings need nothing else; the live features (a genome's call in the family
-cards, drawn paths, windows beyond dnaA, attention) need the server. The first pass on
-eleven strains is kept in `pgb/origin-fork-11strains.html`.
+has five tabs: **Graph** (the pangenome graph with the model's calls, drawn paths, windows
+anywhere on the chromosome), **Attention** (the model's attention maps while it reads a
+path: its 96 heads, the full matrix, the start token left out on demand), **Coupled
+regions**, **Findings** and **About**, with a help behind every "?". It also opens directly
+(`standalone/pangramgraph.html`): the dnaA window, the coupled regions and the findings
+need nothing else; the live features (a genome's call in the family cards, drawn paths,
+windows beyond dnaA, attention) need the server. The first pass on eleven strains is
+kept in `pgb/origin-fork-11strains.html`.
 
 ---
 
@@ -306,6 +313,56 @@ python3 probs_at.py --strain "Sakai" --locus 3            # 0.997 on gyrB, 0.04 
 python3 probs_at.py --strain "Sakai" --locus 13 --csv d.csv   # real gene at rank 5
 ```
 
+## Hugging Face Space
+
+The page and its model's server run together in a Docker Space, on a CPU: Bacformer has 27
+million parameters and the ESM-2 embeddings are precomputed, so two cores answer a drawn
+path in about 0.1 s and a genome's call with 800 proteins of context in about 1 to 2 s.
+
+```bash
+python3 build_page.py && python3 space/assemble.py      # -> space_build/: Dockerfile, code, page, data (~680 MB)
+docker build -t pangramgraph-space space_build && docker run -p 7861:7860 pangramgraph-space   # try it here
+huggingface-cli upload ggautreau/PanGramGraph space_build . --repo-type space              # publish
+```
+
+`space/` holds the Space's own files: the `Dockerfile` (the model is baked into the image),
+the `README.md` with the Space's settings (`sdk: docker`, `app_port: 7860`), `requirements.txt`
+(CPU PyTorch, transformers 4.53) and `start.py`. With `space/assemble.py --no-data` the data
+stay out of the Space and `start.py` fetches them at start from the dataset repository named by
+the variable `PGG_DATA_REPO`, with the secret `HF_TOKEN` if it is private. `serve_live.py`
+takes `--host`/`--port` (or `HOST`/`PORT`), runs in float32 on a CPU, lets at most
+`MAX_QUEUE` (6) requests wait for the model and answers 503 beyond; the page finds the server
+that served it, else one on the visitor's own machine.
+
+## Every bacterial species of PanGBank (`scale/`)
+
+The same reading for all 2,029 bacterial pangenomes of PanGBank's GTDB_refseq (latest
+release; the 15 archaeal ones left out): 219,049 genomes and 807 M genes, every genome and
+every gene, run on the LaBIA cluster (Slurm, RTX A6000).
+
+```bash
+bash scale/setup_env.sh                   # micromamba env in the project space (PyTorch 2.6 / CUDA 12.4, transformers 4.53)
+sbatch scale/slurm/smoke.sbatch <id>      # one species end to end, with the 8-bit check
+sbatch scale/slurm/download.sbatch        # the only process that talks to PanGBank: one request per 31 s
+sbatch scale/slurm/extract.sbatch         # file -> compact tables; the PanGBank file is then deleted
+sbatch scale/slurm/gpu.sbatch             # ESM-2 embeddings + Bacformer's call at every gene (one or two of these)
+python scale/status.py                    # where it stands, and the disk it will take
+```
+
+- `extract.py`: genomes in order, contigs longest first, a circular (or complete-genome)
+  chromosome started at dnaA in its direction; families, regions of plasticity and spots,
+  distinct proteins translated with each gene's own genetic code. Checked on *E. coli*:
+  539 of the 540 complete chromosomes identical to `pg_chrom.py` (the last has no dnaA).
+- `gpu.py`: ESM-2 t12 35M mean-pooled embeddings (its attention run through PyTorch's fused
+  kernel: 2 to 2.5x faster, same embeddings to cosine 0.99993), then Bacformer's call at every
+  gene, the genome read as its own preprocessing reads it (CLS, contigs, separators, END,
+  token type = contig; windows of 6,000). Calls are computed from full-precision embeddings;
+  the embeddings are kept in 8 bits with one scale per dimension (a scale per protein changed
+  the top-1 in 2 to 16 % of calls; per dimension, 0.2 to 2 %).
+- Kept per species (`out/<id>/`): `genes.npz`, `meta.json`, `emb.u8` + `emb_range.npy`,
+  `calls_f.u16`, `calls_p.f16`, `calls_ent.f16`; about 77 GB for all. PanGBank files, protein
+  sequences and float16 embeddings are deleted as soon as they are used.
+
 ## Files
 
 | | |
@@ -342,3 +399,7 @@ Genomes, families, partitions and plasticity regions from **PanGBank**
 **CC BY-SA 4.0**, as is the GTDB taxonomy it adapts; share-alike propagates to
 redistributed derivatives. Chromosomes from NCBI RefSeq. Model: Bacformer, Wiatrak
 *et al.*, bioRxiv 2025.07.20.665723.
+
+---
+
+Created using Claude Opus 5.5, prompted by G. Gautreau

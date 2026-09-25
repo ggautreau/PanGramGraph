@@ -64,6 +64,7 @@ header.top{margin-bottom:0}
 .files td{vertical-align:top}
 .files code,.help-content code{font:12px "IBM Plex Mono",monospace}
 kbd{font:600 11px "IBM Plex Mono",monospace;border:1px solid var(--line-hard);border-bottom-width:2px;border-radius:4px;padding:0 4px;background:var(--sunken)}
+.pagefoot{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);color:var(--faint);font-size:12px}
 #help{width:min(920px,94vw);max-height:86vh;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);
   color:var(--ink);box-shadow:var(--shadow)}
 #help[open]{display:flex;flex-direction:column}
@@ -113,15 +114,17 @@ kbd{font:600 11px "IBM Plex Mono",monospace;border:1px solid var(--line-hard);bo
 .st-el h3{font-size:12px;font-weight:600;margin:12px 0 6px}
 .st-el h3:first-child{margin-top:0}
 #st-pres{display:block;max-width:100%;cursor:crosshair}
-.attn{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:10px 12px;display:grid;gap:8px}
-.attn[hidden]{display:none}
-.attn-head{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:12px;color:var(--soft)}
-.attn-head b{color:var(--ink)}
-.attn-head select{font:12px "IBM Plex Mono",monospace;padding:2px 4px;border:1px solid var(--line-hard);border-radius:5px;background:var(--surface);color:var(--ink)}
-.attn-grid{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
-.attn figure{margin:0;overflow:auto;max-width:100%}
-.attn figcaption{font-size:11px;color:var(--faint);margin:0 0 4px;max-width:34em}
-.attn canvas{display:block;cursor:crosshair}
+#attncard .body{padding:12px 16px 16px;display:grid;gap:10px}
+.at-src{font-size:12.5px;color:var(--soft)}
+.at-src b{color:var(--ink)}
+.at-ctl{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:12px;color:var(--soft)}
+.at-ctl select,.at-heads select{font:12px "IBM Plex Mono",monospace;padding:2px 4px;border:1px solid var(--line-hard);border-radius:5px;background:var(--surface);color:var(--ink)}
+.at-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start}
+.at-lastfig{grid-column:1/-1}
+@media (max-width:900px){.at-grid{grid-template-columns:1fr}}
+#attncard figure{margin:0;overflow:auto;max-width:100%}
+#attncard figcaption{font-size:11px;color:var(--faint);margin:0 0 4px;max-width:40em}
+#attncard canvas{display:block;cursor:crosshair}
 #at-tip{min-height:1.4em;font:11px "IBM Plex Mono",monospace;color:var(--ink);margin:0}
 .btn[aria-pressed="true"]{background:var(--pred-bg);border-color:var(--pred)}
 .regionbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:7px 16px;border-bottom:1px solid var(--line);font-size:12px;color:var(--soft)}
@@ -251,6 +254,7 @@ body.nobodyscroll{overflow:hidden}
 
 <nav class="tabs" role="tablist" aria-label="Sections of the page">
   <button type="button" role="tab" id="tb-graph" data-tab="graph" aria-controls="tab-graph" aria-selected="true"><svg class="ic"><use href="#i-graph"/></svg><span>Graph</span></button>
+  <button type="button" role="tab" id="tb-attention" data-tab="attention" aria-controls="tab-attention" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-eye"/></svg><span>Attention</span></button>
   <button type="button" role="tab" id="tb-regions" data-tab="regions" aria-controls="tab-regions" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-links"/></svg><span>Coupled regions</span></button>
   <button type="button" role="tab" id="tb-findings" data-tab="findings" aria-controls="tab-findings" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-chart"/></svg><span>Findings</span></button>
   <button type="button" role="tab" id="tb-about" data-tab="about" aria-controls="tab-about" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-info"/></svg><span>About</span></button>
@@ -301,7 +305,7 @@ body.nobodyscroll{overflow:hidden}
         most common protein in the <span class="ngtxt">2,002 genomes</span>.</span>
       <button type="button" class="btn" id="pp-undo" title="Revert the last change"><svg class="ic"><use href="#i-undo"/></svg>Undo</button>
       <button type="button" class="btn" id="pp-reset"><svg class="ic"><use href="#i-restart"/></svg><span class="lbl">Start again at dnaA</span></button>
-      <button type="button" class="btn" id="pp-attn" aria-pressed="false" title="The model’s attention while it reads the path"><svg class="ic"><use href="#i-eye"/></svg>Attention</button>
+      <button type="button" class="btn" id="pp-attn" title="The model’s attention while it reads this path, in the Attention tab"><svg class="ic"><use href="#i-eye"/></svg>Attention</button>
     </div>
     <div class="pp-row">
       <div class="seg" role="group" aria-label="What a click on a box does while drawing">
@@ -314,25 +318,6 @@ body.nobodyscroll{overflow:hidden}
     <div class="pp-note" id="ppnote" hidden></div>
     <ol class="chips" id="chips" aria-label="The path, from its first protein"></ol>
     <div class="pp-res" id="ppres"></div>
-    <div class="attn" id="attnpanel" hidden>
-      <div class="attn-head"><b>Attention while the model reads the path</b>
-        <label>layer <select id="at-layer"></select></label>
-        <label>head <select id="at-head"></select></label>
-        <span id="at-info"></span></div>
-      <div class="attn-grid">
-        <figure><figcaption>Each protein of the path (rows) and what it attends to (columns): the start token, the
-          proteins before the path when a genome’s own path brings them, and the path itself. The model is causal:
-          a protein sees only those before it. The last row is what it looks at when it calls the next family.</figcaption>
-          <canvas id="at-mat" aria-label="Attention matrix of the path"></canvas></figure>
-        <figure><figcaption>That last row in every layer (L1 to L12) and head (8 per layer): where each head looks
-          when the model calls the next family.</figcaption>
-          <canvas id="at-last" aria-label="Attention of the last protein, every layer and head"></canvas></figure>
-      </div>
-      <p id="at-tip">&nbsp;</p>
-      <p class="src" style="font-size:10.5px;margin:0">Colour: attention weight, square-root scale. Much of the weight often goes
-        to the start token, where a head rests when nothing in the path is relevant to it (an attention sink).
-        Attention shows where the model looks, not why it calls what it calls.</p>
-    </div>
   </div>
   <div class="scroll" id="scroll"><svg id="ent"></svg><svg id="g"></svg></div>
   <div id="pop" hidden role="dialog" aria-label="Family details">
@@ -348,6 +333,40 @@ body.nobodyscroll{overflow:hidden}
     <span><i class="dash"></i>expected by the model, follows it in no genome</span>
     <span>line width &prop; log genomes sharing it</span>
     <span>bars on top: the model’s perplexity at each column</span>
+  </div>
+</section>
+</div>
+
+<div class="tabpanel" id="tab-attention" role="tabpanel" aria-labelledby="tb-attention" hidden>
+<section class="card" id="attncard" style="margin-top:0">
+  <div class="card-h"><h2>Attention maps</h2><span class="hint">hover a cell &middot; click a head in the map to show it</span>
+    <button type="button" class="helpbtn" data-help="attention" aria-label="Help on attention maps"><svg class="ic"><use href="#i-help"/></svg></button></div>
+  <div class="body">
+    <div class="at-src" id="at-src"></div>
+    <div class="at-ctl">
+      <label>layer <select id="at-layer"></select></label>
+      <label>head <select id="at-head"></select></label>
+      <label>colour <select id="at-scale"><option value="sqrt">square root</option><option value="lin">linear</option><option value="log">log</option></select></label>
+      <label><input type="checkbox" id="at-nostart"> leave the start token out</label>
+      <span id="at-info"></span>
+    </div>
+    <div class="at-grid">
+      <figure class="at-heads"><figcaption>The 96 heads: <select id="at-metric">
+          <option value="dist">how far back each looks</option><option value="prev">its share on the previous protein</option>
+          <option value="start">its share on the start token</option><option value="self">its share on the protein itself</option></select>
+          &middot; click one</figcaption>
+        <canvas id="at-heads" aria-label="The model's heads, one cell each"></canvas></figure>
+      <figure class="at-main"><figcaption id="at-main-cap">Each protein of the path (rows) and what it attends to (columns)</figcaption>
+        <canvas id="at-mat" aria-label="Attention matrix of the path"></canvas></figure>
+      <figure class="at-lastfig"><figcaption>The last protein, in every layer and head: where the model looks when it calls the next family</figcaption>
+        <canvas id="at-last" aria-label="Attention of the last protein, every layer and head"></canvas></figure>
+    </div>
+    <p id="at-tip">&nbsp;</p>
+    <p class="src" style="font-size:10.5px;margin:0">Rows: each protein of the path as the model reads it; columns: the start token, the
+      proteins before the path when a genome’s own path brings them (summed), and the path itself. The model is causal: a
+      protein sees only those before it. Much of the weight rests on the start token, where a head goes when nothing in the path
+      concerns it (an attention sink); leave it out to see the rest, each row renormalised. Attention shows where the model
+      looks, not why it calls what it calls.</p>
   </div>
 </section>
 </div>
@@ -524,6 +543,8 @@ body.nobodyscroll{overflow:hidden}
 </section>
 </div>
 
+<footer class="pagefoot">Created using Claude Opus 5.5, prompted by G. Gautreau</footer>
+
 <dialog id="help" aria-labelledby="help-title">
   <div class="help-head"><h2 id="help-title"><svg class="ic"><use href="#i-help"/></svg>Help</h2>
     <button type="button" class="iconbtn" id="help-close" aria-label="Close the help"><svg class="ic"><use href="#i-close"/></svg></button></div>
@@ -533,6 +554,7 @@ body.nobodyscroll{overflow:hidden}
       <a href="#help-explore" data-sec="explore"><svg class="ic"><use href="#i-cursor"/></svg>Exploring</a>
       <a href="#help-path" data-sec="path"><svg class="ic"><use href="#i-pencil"/></svg>Drawing a path</a>
       <a href="#help-windows" data-sec="windows"><svg class="ic"><use href="#i-right"/></svg>Along the chromosome</a>
+      <a href="#help-attention" data-sec="attention"><svg class="ic"><use href="#i-eye"/></svg>Attention</a>
       <a href="#help-regions" data-sec="regions"><svg class="ic"><use href="#i-links"/></svg>Coupled regions</a>
       <a href="#help-keys" data-sec="keys"><svg class="ic"><use href="#i-keys"/></svg>Mouse and keys</a>
       <a href="#help-server" data-sec="server"><svg class="ic"><use href="#i-server"/></svg>The local server</a>
@@ -580,9 +602,8 @@ body.nobodyscroll{overflow:hidden}
           Esc cancels. <b>Undo</b> reverts the last change, a whole stroke included.</dd>
         <dt>A genome’s path</dt><dd><b>Take a genome’s path up to the box</b> puts a real genome’s own proteins in the
           path. In a window beyond dnaA the model also reads, unseen, the 400 proteins before the window in that genome.</dd>
-        <dt>Attention</dt><dd>the <b>Attention</b> button shows the model’s attention weights while it reads the path,
-          for any of its 12 layers and 8 heads or their means: which earlier proteins each protein attends to, and where
-          the last one looks when the model calls the next family. Much of the weight rests on the start token.</dd>
+        <dt>Attention</dt><dd>the <b>Attention</b> button opens the <a href="#help-attention" data-sec="attention">Attention</a>
+          tab on the path.</dd>
       </dl></section>
       <section id="help-windows"><h3>Along the chromosome</h3><dl class="howto">
         <dt>The bar above the graph</dt><dd><b>Previous</b> and <b>Next</b> move 60 genes at a time (a window shares 20
@@ -592,6 +613,19 @@ body.nobodyscroll{overflow:hidden}
           model’s call at every gene, so a window elsewhere is read in them. It starts at a backbone family, present once
           in at least 95% of the chromosomes, and walks 80 genes in dnaA’s direction. The local server builds it in about
           two seconds. The text and tables of <b>Findings</b> describe the dnaA window.</dd>
+      </dl></section>
+      <section id="help-attention"><h3>Attention</h3><dl class="howto">
+        <dt>What is read</dt><dd>the path drawn in the <b>Graph</b> tab, and, for a genome’s own path in a window beyond dnaA,
+          the 400 proteins before it (one column, summed). Without a path, the tab offers the first ten genes of the window.</dd>
+        <dt>The heads</dt><dd>Bacformer has 12 layers of 8 heads. The map gives one cell per head, coloured by how far back it
+          looks on average among the path’s proteins, or by its share on the previous protein, the start token or the protein
+          itself. Click a cell to show that head’s matrix.</dd>
+        <dt>The matrix</dt><dd>rows are the path’s proteins, columns what each one attends to; causal, so nothing above the
+          diagonal. <b>Leave the start token out</b> hides the attention sink and renormalises each row over the rest. Colour
+          on a square-root, linear or log scale.</dd>
+        <dt>The last row</dt><dd>for every layer and head: where the model looks when it calls the next family.</dd>
+        <dt>How far to read it</dt><dd>attention shows where the model looks, not why it calls what it calls; heads that rest
+          on the start token are often idle, not blind. Computed live by the <a href="#help-server" data-sec="server">local server</a>.</dd>
       </dl></section>
       <section id="help-regions"><h3>Coupled regions</h3><dl class="howto">
         <dt>What is shown</dt><dd>accessory families more than 500 genes apart, in different insertion spots, whose
@@ -616,7 +650,7 @@ body.nobodyscroll{overflow:hidden}
       <section id="help-server"><h3>The local server</h3><dl class="howto">
         <dt>Start it</dt><dd><code>python3 serve_live.py</code> in <code>origin-walk/</code>, then open
           <code>http://localhost:8765/</code>. It listens on 127.0.0.1 only.</dd>
-        <dt>What needs it</dt><dd>the model’s call in one genome, drawn paths, windows beyond dnaA and attention. The
+        <dt>What needs it</dt><dd>the model’s call in one genome, drawn paths, windows beyond dnaA and attention maps. The
           graph of the dnaA window, the coupled regions and the findings work without it.</dd>
       </dl></section>
     </div>
@@ -689,13 +723,14 @@ function hashSet(kv) {
   const q = hashGet(); for (const [k, v] of Object.entries(kv)) { if (v === null || v === undefined || v === '') q.delete(k); else q.set(k, v); }
   const h = q.toString(); try { history.replaceState(null, '', h ? '#' + h : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
-const TABS = ['graph', 'regions', 'findings', 'about'];
+const TABS = ['graph', 'attention', 'regions', 'findings', 'about'];
 function showTab(t, focus) {
   if (!TABS.includes(t)) t = 'graph';
   document.querySelectorAll('.tabs [role="tab"]').forEach(b => { const on = b.dataset.tab === t;
     b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
   document.querySelectorAll('.tabpanel').forEach(p => { p.hidden = p.id !== 'tab-' + t; });
   if (t !== 'graph') { try { closePop(); } catch (e) { /* not drawn yet */ } }
+  if (t === 'attention') { try { loadAttn(); } catch (e) { /* its block runs later, and loads then */ } }
   hashSet({ tab: t === 'graph' ? null : t });
 }
 document.querySelector('.tabs').addEventListener('click', ev => { const b = ev.target.closest('[role="tab"]'); if (b) showTab(b.dataset.tab); });
@@ -714,7 +749,7 @@ function helpSection(sec) {
 function openHelp(sec) {
   if (!helpDlg.open) { try { helpDlg.showModal(); } catch (e) { helpDlg.setAttribute('open', ''); } }
   const tab = (document.querySelector('.tabs [aria-selected="true"]') || {}).dataset || {};
-  helpSection(sec || { regions: 'regions', findings: 'explore', about: 'server' }[tab.tab] || (mode === 'path' ? 'path' : 'graph'));
+  helpSection(sec || { attention: 'attention', regions: 'regions', findings: 'explore', about: 'server' }[tab.tab] || (mode === 'path' ? 'path' : 'graph'));
 }
 document.addEventListener('click', ev => { const b = ev.target.closest('.helpbtn'); if (b) openHelp(b.dataset.help); });
 helpDlg.addEventListener('click', ev => {
@@ -857,14 +892,21 @@ function ghostCard(g) {
 }
 
 /* ---------- live model (serve_live.py) ---------- */
-const LIVE = { url: (/^https?:$/.test(location.protocol) && /^(localhost|127\.0\.0\.1)$/.test(location.hostname))
-  ? '' : 'http://127.0.0.1:8765', ok: null, t: 0, dev: '' };
+// the model's server: the one that served this page (localhost, or the Hugging Face Space),
+// else one running on this machine, for the page opened as a file or from a static host
+const LIVE = { cands: /^https?:$/.test(location.protocol) ? ['', 'http://127.0.0.1:8765'] : ['http://127.0.0.1:8765'],
+  url: '', ok: null, t: 0, dev: '' };
+LIVE.url = LIVE.cands[0];
 async function liveOK() {
   if (LIVE.ok === true || (LIVE.ok === false && Date.now() - LIVE.t < 15000)) return LIVE.ok;
-  try { const c = new AbortController(), tm = setTimeout(() => c.abort(), 800);
-    const r = await fetch(LIVE.url + '/health', { signal: c.signal, cache: 'no-store' });
-    clearTimeout(tm); const J = await r.json(); LIVE.ok = !!J.ok; LIVE.dev = J.device || ''; }
-  catch (e) { LIVE.ok = false; }
+  LIVE.ok = false;
+  for (const u of LIVE.cands) {
+    try { const c = new AbortController(), tm = setTimeout(() => c.abort(), 2500);
+      const r = await fetch(u + '/health', { signal: c.signal, cache: 'no-store' });
+      clearTimeout(tm); const J = await r.json();
+      if (J.ok) { LIVE.ok = true; LIVE.url = u; LIVE.dev = J.device || ''; break; } }
+    catch (e) { /* not there */ }
+  }
   LIVE.t = Date.now(); return LIVE.ok;
 }
 async function gcall(acc, pfam, q) {
@@ -1051,7 +1093,7 @@ const pathQuery = () => { const c = ctxNow(); return `pids=${path.map(p => p.pid
 const anchorArg = () => REG ? '&anchor=' + encodeURIComponent(REG.anchor) : '';
 async function runPath() {
   const res = document.getElementById('ppres'), fresh = () => res.classList.remove('stale');
-  if (!path.length) { fresh(); res.innerHTML = '<p class="msg">Click a box, or press on one and slide across the next, to start the path, usually at dnaA.</p>'; if (attnOn) loadAttn(); return; }
+  if (!path.length) { fresh(); res.innerHTML = '<p class="msg">Click a box, or press on one and slide across the next, to start the path, usually at dnaA.</p>'; if (attnShown()) loadAttn(); return; }
   if (!(await liveOK())) { fresh(); res.innerHTML = `<p class="msg">The model is not running. Start it with
       <code>python3 serve_live.py</code> in origin-walk/ to draw paths.</p>`; return; }
   const key = pathKey();
@@ -1060,7 +1102,7 @@ async function runPath() {
   if (pathKey() !== key) return;
   fresh();
   if (J.error) { res.innerHTML = `<p class="msg">${esc(J.error)}.</p>`; return; }
-  pathCall = J; pathCP = new Map(J.clusters || []); overlay(); if (attnOn) loadAttn();
+  pathCall = J; pathCP = new Map(J.clusters || []); overlay(); if (attnShown()) loadAttn();
   const last = byId.get(path[path.length - 1].id);
   const rows = J.top.slice(0, 8).map((h, i) => { const b = (byBf.get(h.fam) || [])[0], lab = h.name || h.product || 'fam' + h.fam;
     return `<tr><td style="text-align:left">${i + 1}</td>
@@ -1194,18 +1236,36 @@ insp.addEventListener('click', async ev => {                  // a pinned card's
 });
 
 /* ---------- attention: where the model looks while it reads the path ---------- */
-let attnOn = false, ATT = null, attnKey = '';
-const atPanel = document.getElementById('attnpanel'), atInfo = document.getElementById('at-info'), atTip = document.getElementById('at-tip');
+let ATT = null, attnKey = '';
+const atInfo = document.getElementById('at-info'), atTip = document.getElementById('at-tip'), atSrc = document.getElementById('at-src');
+function attnShown() { return !document.getElementById('tab-attention').hidden; }
 document.getElementById('at-layer').innerHTML = '<option value="mean">mean of the 12</option>' + Array.from({ length: 12 }, (_, i) => `<option value="${i}">${i + 1}</option>`).join('');
 document.getElementById('at-head').innerHTML = '<option value="8">mean of the 8</option>' + Array.from({ length: 8 }, (_, i) => `<option value="${i}">${i + 1}</option>`).join('');
-document.getElementById('pp-attn').addEventListener('click', ev => {
-  attnOn = !attnOn; ev.currentTarget.setAttribute('aria-pressed', String(attnOn)); atPanel.hidden = !attnOn; if (attnOn) loadAttn();
-});
+document.getElementById('pp-attn').addEventListener('click', () => showTab('attention'));
 document.getElementById('at-layer').addEventListener('change', () => loadAttn());
-document.getElementById('at-head').addEventListener('change', () => { if (ATT) drawAttn(); });
+['at-head', 'at-scale', 'at-nostart', 'at-metric'].forEach(id => document.getElementById(id).addEventListener('change', () => { if (ATT) drawAttn(); }));
+atSrc.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-at]'); if (!b) return;
+  if (mode !== 'path') setMode('path');
+  if (b.dataset.at === 'graph') { showTab('graph'); return; }
+  remember(snap()); path = [];                              // the example: the best-carried box of the first ten columns
+  for (let k = 0; k < 10; k++) { const c = colIndex.get(k); if (!c || !c.length) continue;
+    const n = c.slice().sort((a, b) => b.n - a.n)[0]; path.push({ id: n.id, pid: n.pid }); }
+  pathSrc = ''; pathCtx = null; renderPath(); loadAttn();
+});
+function srcText() {
+  if (!path.length) return `No path yet: <button type="button" class="btn" data-at="example">take the first ten genes of this window</button>
+    or <button type="button" class="btn" data-at="graph">draw one in the Graph tab</button>.`;
+  const labs = path.map(it => (byId.get(it.id) || {}).label || '?'), c = ctxNow().length;
+  const shown = labs.length > 8 ? labs.slice(0, 4).join(' → ') + ' → … → ' + labs.slice(-3).join(' → ') : labs.join(' → ');
+  return `The path of the <b>Graph</b> tab, ${labs.length} protein${labs.length > 1 ? 's' : ''}${c ? `, read after the ${c} before it in ${esc(pathSrc)}` : ''}:
+    <span class="gene">${esc(shown)}</span> <button type="button" class="linkbtn" data-at="graph">change it</button>`;
+}
+function clearAttn() { ['at-heads', 'at-mat', 'at-last'].forEach(id => { const c = document.getElementById(id); c.width = c.height = 0; c.style.width = c.style.height = '0'; }); }
 async function loadAttn() {
-  if (!attnOn) return;
-  if (!path.length) { ATT = null; attnKey = ''; atInfo.textContent = 'Draw a path first.'; ['at-mat', 'at-last'].forEach(id => { const c = document.getElementById(id); c.width = c.height = 0; }); return; }
+  if (!attnShown()) return;
+  atSrc.innerHTML = srcText();
+  if (!path.length) { ATT = null; attnKey = ''; atInfo.textContent = ''; clearAttn(); return; }
   const layer = document.getElementById('at-layer').value, key = pathKey() + '#' + layer;
   if (key === attnKey && ATT) { drawAttn(); return; }
   if (!(await liveOK())) { atInfo.textContent = 'The model is not running: start python3 serve_live.py in origin-walk/.'; return; }
@@ -1214,50 +1274,71 @@ async function loadAttn() {
   catch (e) { LIVE.ok = false; atInfo.textContent = 'The model stopped answering.'; return; }
   if (pathKey() + '#' + document.getElementById('at-layer').value !== key) return;
   if (J.error) { atInfo.textContent = J.error + '.'; return; }
-  ATT = J; attnKey = key;
-  atInfo.textContent = `${J.n} protein${J.n > 1 ? 's' : ''}${J.ctx ? `, read after the ${J.ctx} before them in ${pathSrc}` : ''} · computed in ${J.ms} ms`;
-  drawAttn();
+  ATT = J; attnKey = key; atInfo.textContent = `computed in ${J.ms} ms`; drawAttn();
 }
 const hexRGB = h => { h = h.replace('#', ''); if (h.length === 3) h = [...h].map(c => c + c).join(''); const v = parseInt(h, 16); return `${v >> 16 & 255},${v >> 8 & 255},${v & 255}`; };
-function heat(id, V, R, C, rl, cl, dropBefore, tip, group) {
-  const cv = document.getElementById(id), cols = [...Array(C).keys()].filter(j => !(dropBefore && j === 1));
+const alphaOf = (v, sc) => sc === 'lin' ? v : sc === 'log' ? (v > 0 ? Math.max(0, (Math.log10(v) + 3) / 3) : 0) : Math.sqrt(v);   // v in 0..1
+function renorm(V, R, C, noStart) {                        // per mille -> fractions, the start token left out if asked
+  const out = new Float32Array(R * C);
+  for (let i = 0; i < R; i++) { const d = noStart ? Math.max(1, 1000 - V[i * C]) : 1000;
+    for (let j = 0; j < C; j++) out[i * C + j] = noStart && j === 0 ? 0 : V[i * C + j] / d; }
+  return out;
+}
+function heat(id, V, R, C, rl, cl, o) {
+  const cv = document.getElementById(id), cols = [...Array(C).keys()].filter(j => !(o.hide || []).includes(j));
   const m = document.createElement('canvas').getContext('2d'); m.font = '10px "IBM Plex Mono", monospace';
-  const cw = Math.max(6, Math.min(20, Math.floor(560 / cols.length))), ch = group ? 4 : cw;
   const lw = Math.min(150, Math.max(24, ...rl.map(t => m.measureText(t).width)) + 8);
   const tw = Math.min(130, Math.max(...cols.map(j => m.measureText(cl[j]).width)));
-  const th = Math.round(tw * 0.87) + 10, W = lw + cols.length * cw + Math.round(tw * 0.5) + 6, H = th + R * ch + 4, dpr = devicePixelRatio || 1;
-  cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  const avail = Math.max(300, (cv.parentElement.clientWidth || 700) - lw - tw * 0.5 - 10);
+  const cw = o.cw || Math.max(4, Math.min(o.max || 26, Math.floor(avail / cols.length))), ch = o.ch || cw;
+  const th = o.noColLabels ? 6 : Math.round(tw * 0.87) + 10, W = lw + cols.length * cw + (o.noColLabels ? 6 : Math.round(tw * 0.5) + 6), H = th + R * ch + 4;
+  const dpr = devicePixelRatio || 1; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
   const x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const css = getComputedStyle(document.documentElement), rgb = hexRGB(css.getPropertyValue('--pred').trim());
+  const css = getComputedStyle(document.documentElement), rgb = hexRGB(css.getPropertyValue('--pred').trim()), sc = o.scale || 'sqrt';
   x.font = '10px "IBM Plex Mono", monospace'; x.fillStyle = css.getPropertyValue('--soft').trim(); x.textBaseline = 'middle';
-  cols.forEach((j, c) => { x.save(); x.translate(lw + c * cw + cw / 2, th - 5); x.rotate(-Math.PI / 3); x.textAlign = 'left'; x.fillText(cl[j], 0, 0); x.restore(); });
-  x.textAlign = 'right'; rl.forEach((t, i) => { if (t) x.fillText(t, lw - 5, th + i * ch + (group ? ch * group / 2 : ch / 2)); });
+  if (!o.noColLabels) cols.forEach((j, c) => { x.save(); x.translate(lw + c * cw + cw / 2, th - 5); x.rotate(-Math.PI / 3); x.textAlign = 'left'; x.fillText(cl[j], 0, 0); x.restore(); });
+  x.textAlign = 'right'; rl.forEach((t, i) => { if (t) x.fillText(t, lw - 5, th + i * ch + (o.group ? ch * o.group / 2 : ch / 2)); });
   for (let i = 0; i < R; i++) cols.forEach((j, c) => {
-    const v = V[i * C + j]; if (!v) return;
-    x.fillStyle = `rgba(${rgb},${Math.sqrt(v / 1000).toFixed(3)})`;
-    x.fillRect(lw + c * cw, th + i * ch, cw - (cw > 8 ? 1 : 0), ch - (group ? 0 : 1));
+    const a = alphaOf(V[i * C + j], sc); if (a <= 0.004) return;
+    x.fillStyle = `rgba(${rgb},${Math.min(1, a).toFixed(3)})`; x.fillRect(lw + c * cw, th + i * ch, cw - (cw > 8 ? 1 : 0), ch - (o.group || ch <= 4 ? 0 : 1));
   });
-  if (group) { x.strokeStyle = css.getPropertyValue('--line').trim(); x.lineWidth = 1;
-    for (let i = group; i < R; i += group) { x.beginPath(); x.moveTo(lw, th + i * ch + 0.5); x.lineTo(lw + cols.length * cw, th + i * ch + 0.5); x.stroke(); } }
-  cv.onmousemove = ev => {
-    const r = cv.getBoundingClientRect(), c = Math.floor((ev.clientX - r.left - lw) / cw), i = Math.floor((ev.clientY - r.top - th) / ch);
-    if (c < 0 || c >= cols.length || i < 0 || i >= R) { atTip.innerHTML = '&nbsp;'; return; }
-    atTip.textContent = tip(i, cols[c], V[i * C + cols[c]]);
-  };
+  if (o.group) { x.strokeStyle = css.getPropertyValue('--line').trim(); x.lineWidth = 1;
+    for (let i = o.group; i < R; i += o.group) { x.beginPath(); x.moveTo(lw, th + i * ch + 0.5); x.lineTo(lw + cols.length * cw, th + i * ch + 0.5); x.stroke(); } }
+  if (o.mark) { x.strokeStyle = css.getPropertyValue('--ink').trim(); x.lineWidth = 2; x.strokeRect(lw + o.mark[1] * cw + 1, th + o.mark[0] * ch + 1, cw - 2, ch - 2); }
+  const at = ev => { const r = cv.getBoundingClientRect(), c = Math.floor((ev.clientX - r.left - lw) / cw), i = Math.floor((ev.clientY - r.top - th) / ch);
+    return c < 0 || c >= cols.length || i < 0 || i >= R ? null : [i, cols[c]]; };
+  cv.onmousemove = ev => { const p = at(ev); if (p) atTip.textContent = o.tip(p[0], p[1], V[p[0] * C + p[1]]); else atTip.innerHTML = '&nbsp;'; };
   cv.onmouseleave = () => { atTip.innerHTML = '&nbsp;'; };
+  cv.onclick = o.click ? (ev => { const p = at(ev); if (p) o.click(p[0], p[1]); }) : null;
 }
 function drawAttn() {
   const J = ATT; if (!J) return;
-  const n = J.n, K = n + 2, h = +document.getElementById('at-head').value;
+  const n = J.n, K = n + 2, h = +document.getElementById('at-head').value, sc = document.getElementById('at-scale').value;
+  const noStart = document.getElementById('at-nostart').checked, metric = document.getElementById('at-metric').value;
   const labs = path.slice(0, n).map((it, i) => `${i} ${short((byId.get(it.id) || {}).label || '?')}`);
-  const keys = ['start', J.ctx ? `${J.ctx} before` : '(before)', ...labs];
-  const lay = J.layer === 'mean' ? 'mean of the layers' : 'layer ' + (+J.layer + 1), hd = h === 8 ? 'mean of the heads' : 'head ' + (h + 1);
-  heat('at-mat', J.m.slice(h * n * K, (h + 1) * n * K), n, K, labs, keys, !J.ctx,
-       (i, j, v) => `${lay}, ${hd}: ${labs[i]} → ${keys[j]}   ${(v / 10).toFixed(1)} %`);
+  const keys = ['start', J.ctx ? `${J.ctx} before` : '(before)', ...labs], hide = [...(J.ctx ? [] : [1]), ...(noStart ? [0] : [])];
+  const L = J.layer === 'mean' ? -1 : +J.layer, lay = L < 0 ? 'mean of the layers' : 'layer ' + (L + 1), hd = h === 8 ? 'mean of the heads' : 'head ' + (h + 1);
+  const pc = v => (v * 100).toFixed(1) + ' %';
+  // the heads: one cell per layer and head, coloured by the chosen measure
+  const S = J.stats, val = S[metric], mx = metric === 'dist' ? Math.max(1e-9, ...val.flat()) : 1, HV = new Float32Array(96);
+  for (let l = 0; l < 12; l++) for (let k = 0; k < 8; k++) HV[l * 8 + k] = val[l][k] / mx;
+  heat('at-heads', HV, 12, 8, Array.from({ length: 12 }, (_, l) => `L${l + 1}`), Array.from({ length: 8 }, (_, k) => `H${k + 1}`),
+    { cw: 26, ch: 20, scale: 'lin', mark: L >= 0 && h < 8 ? [L, h] : null,
+      tip: (l, k) => `layer ${l + 1}, head ${k + 1}: looks back ${S.dist[l][k].toFixed(1)} proteins on average · ${pc(S.prev[l][k])} on the previous protein · ${pc(S.start[l][k])} on the start token · ${pc(S.self[l][k])} on itself${J.ctx ? ` · ${pc(S.before[l][k])} on the proteins before the path` : ''}`,
+      click: (l, k) => { document.getElementById('at-head').value = String(k);
+        if (document.getElementById('at-layer').value !== String(l)) { document.getElementById('at-layer').value = String(l); loadAttn(); } else drawAttn(); } });
+  // the matrix of the chosen layer and head
+  document.getElementById('at-main-cap').textContent = `${lay[0].toUpperCase() + lay.slice(1)}, ${hd}: each protein of the path (rows) and what it attends to (columns)${noStart ? ', the start token left out' : ''}`;
+  const M = renorm(J.m.slice(h * n * K, (h + 1) * n * K), n, K, noStart);
+  heat('at-mat', M, n, K, labs, keys, { hide, scale: sc, tip: (i, j, v) => `${lay}, ${hd}: ${labs[i]} → ${keys[j]}   ${pc(v)}${noStart ? ' of what is not on the start token' : ''}` });
+  // the last protein in every layer and head
   const rl = []; for (let l = 0; l < J.layers; l++) for (let k = 0; k < J.heads; k++) rl.push(k ? '' : `L${l + 1}`);
-  heat('at-last', J.last, J.layers * J.heads, K, rl, keys, !J.ctx,
-       (i, j, v) => `layer ${Math.floor(i / J.heads) + 1}, head ${i % J.heads + 1}: the last protein, ${labs[n - 1]} → ${keys[j]}   ${(v / 10).toFixed(1)} %`, J.heads);
+  heat('at-last', renorm(J.last, J.layers * J.heads, K, noStart), J.layers * J.heads, K, rl, keys,
+    { hide, scale: sc, ch: 4, group: J.heads, max: 22,
+      tip: (i, j, v) => `layer ${Math.floor(i / J.heads) + 1}, head ${i % J.heads + 1}: the last protein, ${labs[n - 1]} → ${keys[j]}   ${pc(v)}` });
 }
+
+if (attnShown()) loadAttn();
 
 /* ---------- the rest of the chromosome: windows of the complete genomes, built by the local server ---------- */
 let regBusy = false;

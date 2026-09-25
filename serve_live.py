@@ -5,7 +5,8 @@ probability of any of its 50,000 families there, computed when the page asks.
     python3 serve_live.py            # then open http://localhost:8765/
 
 Serves standalone/ and answers the page; the page also finds it when opened as a
-local file. Listens on 127.0.0.1 only. Proteins are the dnaA windows extracted by
+local file. Listens on 127.0.0.1 unless --host says otherwise (0.0.0.0 in the
+Hugging Face Space, space/). Proteins are the dnaA windows extracted by
 pgb_window.py, embedded once by pgb_model.py (pgb/window_emb.npy). Each call is one
 forward pass on the genome's real prefix, cached.
 
@@ -27,14 +28,18 @@ forward pass on the genome's real prefix, cached.
         the path summed, the path's proteins), and for every layer and head the last
         protein's row, where the model looks when it calls the next family. Per mille.
 """
-import json, re, time, argparse, threading, urllib.parse, collections, numpy as np, torch
+import os, json, re, time, argparse, threading, urllib.parse, collections, numpy as np, torch
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from transformers import AutoModelForCausalLM
 
-P=argparse.ArgumentParser(); P.add_argument("--port",type=int,default=8765); A=P.parse_args()
+P=argparse.ArgumentParser()
+P.add_argument("--host",default=os.environ.get("HOST","127.0.0.1"),help="0.0.0.0 inside a container (a Space)")
+P.add_argument("--port",type=int,default=int(os.environ.get("PORT",8765))); A=P.parse_args()
 dev="cuda:0" if torch.cuda.is_available() else "cpu"; CLS,PROT=2,4
+DT=torch.bfloat16 if dev!="cpu" else torch.float32         # bfloat16 on a GPU; float32 on a CPU, where it is faster
+if dev=="cpu": torch.set_num_threads(int(os.environ.get("OMP_NUM_THREADS","2")))
 MODEL="macwiatrak/bacformer-causal-complete-genomes"
-cm=AutoModelForCausalLM.from_pretrained(MODEL,trust_remote_code=True).to(torch.bfloat16).eval().to(dev)
+cm=AutoModelForCausalLM.from_pretrained(MODEL,trust_remote_code=True).to(DT).eval().to(dev)
 import sys, math
 def _attn_weights(query,key,value,attn_mask=None,dropout_p=0.0,is_causal=False,scale=None):
     """the model's own attention with its weights, fixed: its causal mask was built on the CPU (fails on
@@ -72,7 +77,7 @@ for n in GRAPH:                      # a cluster the model uses for a family is 
 LNAME={f:[x.lower() for x in v] for f,v in NAMES.items()}; LPROD={f:v.lower() for f,v in PROD.items()}
 # the rest of the chromosome: windows of the complete genomes, built on demand
 import pgb_region as RG
-NCE=sum(1 for _ in open("pgb/chrom_prot.txt")); CEMB=np.memmap("pgb/chrom_emb.f16",dtype=np.float16,mode="r",shape=(NCE,480))
+NCE=os.path.getsize("pgb/chrom_emb.f16")//(480*2); CEMB=np.memmap("pgb/chrom_emb.f16",dtype=np.float16,mode="r",shape=(NCE,480))
 CIDX={g["acc"]:i for i,g in enumerate(RG.CGEN)}
 CLSET=set(CL.tolist()); REG=collections.OrderedDict(); REG_LOCK=threading.Lock()
 def register(D):
@@ -84,10 +89,14 @@ def register(D):
             if w>=0.5 and n.get("named") and n["label"] not in NAMES.setdefault(int(c),[]):
                 NAMES[int(c)].insert(0,n["label"]); PROD.setdefault(int(c),n.get("product",""))
     CL=np.array(sorted(CLSET)); LNAME={f:[x.lower() for x in v] for f,v in NAMES.items()}; LPROD={f:v.lower() for f,v in PROD.items()}
+BUILD_LOCK=threading.Lock()                                # one window built at a time: memory stays bounded
 def region_of(anc):
     with REG_LOCK:
         if anc in REG: REG.move_to_end(anc); return REG[anc]
-    D=RG.build(anc)
+    with BUILD_LOCK:
+        with REG_LOCK:
+            if anc in REG: return REG[anc]
+        D=RG.build(anc)
     with REG_LOCK:
         register(D); REG[anc]=D
         if len(REG)>16: REG.popitem(last=False)
@@ -101,7 +110,7 @@ print(f"ready on {dev}: {len(GEN)} genomes, {len(EMB)} proteins, {len(NAMES)} na
 @torch.no_grad()
 def nxt(pe):
     n=pe.shape[0]+1;x=np.zeros((1,n,480),dtype=np.float32);x[0,1:]=pe
-    return torch.softmax(cm(protein_embeddings=torch.tensor(x,device=dev).to(torch.bfloat16),
+    return torch.softmax(cm(protein_embeddings=torch.tensor(x,device=dev).to(DT),
         special_tokens_mask=torch.tensor([[CLS]+[PROT]*pe.shape[0]],device=dev),
         token_type_ids=torch.zeros((1,n),dtype=torch.long,device=dev),
         return_dict=True).logits[0,-1].float(),-1).cpu().numpy()
@@ -203,7 +212,7 @@ ACACHE=collections.OrderedDict()
 def attention(pids,nctx):
     """(layers, heads, path queries, [start token, context summed, path keys]) for one read of ctx + path"""
     n=len(pids)+1; x=np.zeros((1,n,480),dtype=np.float32); x[0,1:]=emb(pids)
-    out=cm(protein_embeddings=torch.tensor(x,device=dev).to(torch.bfloat16),
+    out=cm(protein_embeddings=torch.tensor(x,device=dev).to(DT),
            special_tokens_mask=torch.tensor([[CLS]+[PROT]*len(pids)],device=dev),
            token_type_ids=torch.zeros((1,n),dtype=torch.long,device=dev),return_attn_weights=True,return_dict=True)
     A=torch.stack([w[0] for w in out.attentions]).float()                 # layers x heads x n x n
@@ -220,7 +229,14 @@ def attncall(a):
     M=R.mean(0) if lay=="mean" else R[int(lay)]                           # heads x n x (n+2)
     M=np.concatenate([M,M.mean(0,keepdims=True)])                          # and the mean of the heads
     pm=lambda X: np.rint(X*1000).astype(int).ravel().tolist()
-    return dict(layers=L,heads=H,n=len(pids),ctx=len(ctx),layer=lay,m=pm(M),last=pm(R[:,:,-1,:]),ms=round((time.time()-t0)*1000,1))
+    # each head over all rows: its share on the start token, on the context before the path, on the previous
+    # protein and on itself, and how far back it looks among the path's proteins (mean distance, in proteins)
+    n=len(pids); P=R[:,:,:,2:]; ii=np.arange(n)
+    dist=(P*np.clip(ii[:,None]-ii[None,:],0,None)).sum(-1)/np.maximum(P.sum(-1),1e-9)
+    prev=P[:,:,ii[1:],ii[1:]-1].mean(-1) if n>1 else np.zeros((L,H))
+    r3=lambda X: np.round(np.asarray(X,dtype=np.float64),3).tolist()
+    stats=dict(start=r3(R[:,:,:,0].mean(-1)),before=r3(R[:,:,:,1].mean(-1)),prev=r3(prev),self=r3(P[:,:,ii,ii].mean(-1)),dist=r3(dist.mean(-1)))
+    return dict(layers=L,heads=H,n=n,ctx=len(ctx),layer=lay,m=pm(M),last=pm(R[:,:,-1,:]),stats=stats,ms=round((time.time()-t0)*1000,1))
 def prefix(a):
     if a.get("anchor"):                        # a complete genome's own path from the window's anchor
         gi,s,L,seq,k,anc=in_window(a); g=RG.CGEN[gi]
@@ -230,6 +246,17 @@ def prefix(a):
     g,k=locate(a)
     return dict(acc=g["acc"],strain=g.get("strain",""),
                 items=[dict(pid=x[3],pfam=W["families"][str(x[1])][0],gene=lab(x)) for x in g["genes"][:k+1]])
+
+MAXQ=int(os.environ.get("MAX_QUEUE","6")); QN=[0]; QL=threading.Lock()
+class Busy(Exception): pass
+def queued(fn,a):
+    """at most MAXQ requests wait for the model; beyond that the page is asked to try again"""
+    with QL:
+        if QN[0]>=MAXQ: raise Busy("the model is busy, try again in a moment")
+        QN[0]+=1
+    try: return fn(a)
+    finally:
+        with QL: QN[0]-=1
 
 class H(SimpleHTTPRequestHandler):
     extensions_map={**SimpleHTTPRequestHandler.extensions_map,".html":"text/html; charset=utf-8",
@@ -251,9 +278,12 @@ class H(SimpleHTTPRequestHandler):
         if u.path=="/health": return self.js(dict(ok=True,model=MODEL,device=dev,genomes=len(GEN)))
         route={"/gcall":gcall,"/path":pathcall,"/prefix":prefix,"/region":region,"/attn":attncall}.get(u.path)
         if route is None: return super().do_GET()
-        try: self.js(route(a))
+        try: self.js(queued(route,a))
+        except Busy as e: self.js(dict(error=str(e)),503)
         except (KeyError,ValueError) as e: self.js(dict(error=str(e).strip("'\"")),400)
+    def list_directory(self,path): self.send_error(404); return None     # files only, no listings
     def log_message(self,format,*args): pass
 
 print(f"open http://localhost:{A.port}/",flush=True)
-ThreadingHTTPServer(("127.0.0.1",A.port),H).serve_forever()
+ThreadingHTTPServer.daemon_threads=True
+ThreadingHTTPServer((A.host,A.port),H).serve_forever()
