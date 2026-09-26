@@ -4,6 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="The pangenome graph of Escherichia coli from PanGBank (2,002 genomes), read with Bacformer, a genomic language model: what the genomes carry, and what the model expects next.">
 <title>__NAME__</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlBhbkdyYW1HcmFwaCI+CiAgPHN0eWxlPkBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6ZGFyayl7Lm97c3Ryb2tlOiM4Mjk2QTF9LnB7c3Ryb2tlOiNBMjkyRDZ9Lmd7ZmlsbDojQTI5MkQ2O2ZpbGwtb3BhY2l0eTouMn0uY3tmaWxsOiNFMEEwM0F9LnN7ZmlsbDojMzdCMjZBfX08L3N0eWxlPgogIDxwYXRoIGNsYXNzPSJvIiBkPSJNOCAzMkMyMiAzMiAxOCAxMiAzMiAxMlM0MiAzMiA1NiAzMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNUM2RTc5IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGNsYXNzPSJwIiBkPSJNOCAzMkMyMCAzMiAxNCA1MiAyNiA1Mk01NiAzMkM0NCAzMiA1MCA1MiAzOCA1MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNkU1RkEwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxyZWN0IGNsYXNzPSJjIiB4PSIwIiB5PSIyNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iMy41IiBmaWxsPSIjRTU5QzA0Ii8+CiAgPHJlY3QgY2xhc3M9InMiIHg9IjI0IiB5PSI0IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSIzLjUiIGZpbGw9IiMxMkE2NTMiLz4KICA8cmVjdCBjbGFzcz0icCBnIiB4PSIyNiIgeT0iNDYiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgcng9IjEuNSIgZmlsbD0iIzZFNUZBMCIgZmlsbC1vcGFjaXR5PSIuMTYiIHN0cm9rZT0iIzZFNUZBMCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgPHJlY3QgY2xhc3M9ImMiIHg9IjQ4IiB5PSIyNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iMy41IiBmaWxsPSIjRTU5QzA0Ii8+Cjwvc3ZnPgo=">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAC9ElEQVRYhe2XzUtUYRTGf+d6ZywIoxAXai4FCYJ2bZKgVVFYiEaN+dGH1EIlHIWMbBZpoUY4LpLswzGnKHEhQS0L/4EoiMBNYWYQYmht5sM5LeYKZnO/RNrUsxlm3uc8z/O+855zufCvQ/wW7IxXNyP0AwXrlpYRwosnJ0f86Bl+A9iYAxSg9PuV8x8gt/kqtv+NAJsKXwFCLVf2bQZnQwFCLZ2lIvrcjSeiz0MtnaWbHUBEzDhoYV5G0nakvIyRAi3Mcr11mKcAda1dNaCVwLyZyesAlnLQlsyU0QnMg1Zma9zhmvJAJGKWLibeA+UqNMcHbzj2eajt8nlR7gIzczvzd7+ORGxPDDycQMn3RBNQDsx82ZH/0I1vcWaAcqvWETI/EmhW0ZyT7cfKtmvX31/sAIpBToxHe5+5CQLUtXbVgj4F5q9W3BnYFvgZyaUvImHDxhygYIuR6LPMp8ejvRNezAGyXJkGivOzGjaTU/sNm0UAApIKgCyopkOAeg0AaLZGFgJ5KdOWBNtd74CIHokP9c35MAcgPtQ3pypHXfW/3DMdd1ZyLu37ibkWbvquJ9BWH9uzUXMvtQawbLeYWNmKinZvNICKdifSW23XBZYMEQlLjskmyPKrj7VpoKr95ONCv+ZWTdXrTzVpQf7YZNZTwmbx2dQIkHO6tTXsfwEcSgeTVcB9PwGsGvPt18qXZ24+OGzHc7sDk9ZntR/zdTWTTiTbHgUwk8GpVDA5rHDwwumxouFH9d9aG0ZrFQYEdq2jz4poeHC0aeLC6bEiJXMQSJvJ4JSTh+MJ3HpyagGYAoIBI9Np/dyfwxygTFUGACxuEJiyNGzh2uNt9bE9KvoGyIjKJRUdIvul4redqHwAEJUWFb0NGKKyd3Cs4Z2TvuscsAS6AXPV3AkWxwS63cw9BQCIxhp7DNHjwLQH+jQqx6Kxxh4v2r7HbGvDqIL9XxCNNfrSdOwCG8wCZauGa6Hw2a+Y7/cCEQ3bGM0aou1+9f7jF3UIDXFvppthAAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 __STYLE__
@@ -34,6 +37,29 @@ __STYLE__
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
 .seg button:focus-visible,.btn:focus-visible,.addbtn:focus-visible,.linkbtn:focus-visible{outline:2px solid var(--obs);outline-offset:1px}
 [hidden]{display:none!important}
+/* a greyed layer over what is being computed */
+.busy-host{position:relative}
+.busy{position:absolute;inset:0;z-index:15;display:grid;place-items:center;padding:16px;border-radius:inherit;
+  background:color-mix(in srgb,var(--ground) 70%,transparent);backdrop-filter:grayscale(.85) blur(1px);-webkit-backdrop-filter:grayscale(.85) blur(1px);
+  animation:busyin .25s ease-out}
+.busy-card{width:min(400px,100%);background:var(--surface);border:1px solid var(--line-hard);border-radius:10px;box-shadow:var(--shadow);padding:15px 18px}
+.busy-top{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;color:var(--ink)}
+.spin{flex:none;width:17px;height:17px;border-radius:50%;border:2.5px solid var(--line-hard);border-top-color:var(--pred);animation:spin .8s linear infinite}
+.busy-stage{font-size:12.5px;color:var(--soft);margin-top:6px;line-height:1.45}
+.busy-bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:11px}
+.busy-bar i{display:block;height:100%;width:0;background:var(--pred);border-radius:3px;transition:width .5s ease}
+.busy-bar.indet i{width:32%;animation:indet 1.3s ease-in-out infinite}
+.busy-meta{display:flex;justify-content:space-between;gap:10px;font:11.5px "IBM Plex Mono",monospace;color:var(--faint);margin-top:6px}
+.busy-note{font-size:11.5px;color:var(--faint);margin-top:9px;line-height:1.45}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes indet{from{margin-left:-32%}to{margin-left:100%}}
+@keyframes busyin{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.spin,.busy-bar.indet i,.busy{animation:none}.busy-bar.indet i{width:100%;opacity:.4}}
+/* a silhouette of the influence result while it is computed */
+.inf-skel{padding:6px 0 4px}
+.inf-skel i{display:block;height:10px;border-radius:5px;background:var(--line);margin:9px 0}
+.inf-skel .ch{height:170px;border-radius:8px;margin-top:16px;background:linear-gradient(180deg,var(--sunken),var(--line))}
+#inf-res.inf-busy{min-height:280px}
 /* the header: the pangenome's own numbers, then the model's */
 .pan{display:grid;grid-template-columns:minmax(0,2.55fr) minmax(0,1fr);gap:12px 16px;margin-top:22px}
 .pan-grp{min-width:0;display:flex;flex-direction:column}
@@ -134,6 +160,9 @@ tr.real .ncl,tr.mk .ncl{color:inherit;opacity:.7}
 #attncard.noattn .at-ctl,#attncard.noattn .at-grid,#attncard.noattn #at-tip{display:none}
 #attncard.noattn .at-src{padding:30px 20px;text-align:center;border:1px dashed var(--line-hard);border-radius:10px;background:var(--sunken);
   font-size:13.5px;color:var(--soft);line-height:2}
+.brand{display:flex;align-items:flex-end;gap:14px}
+.brand-mark{flex:none;width:48px;height:48px;margin-bottom:1px}
+@media (max-width:560px){.brand-mark{width:40px;height:40px}}
 .top-row{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 20px}
 .repo-link{display:inline-flex;align-items:center;gap:7px;margin-top:2px;padding:6px 11px;border:1px solid var(--line-hard);
   border-radius:8px;background:var(--surface);color:var(--soft);font:500 12px "IBM Plex Mono",monospace;text-decoration:none;white-space:nowrap}
@@ -496,9 +525,19 @@ body.nobodyscroll{overflow:hidden}
 <div class="wrap">
 <header class="top">
   <div class="top-row">
-    <div>
-      <p class="eyebrow">2,002 Escherichia coli genomes &middot; PanGBank 11587 &middot; Bacformer</p>
-      <h1>__NAME__</h1>
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" width="48" height="48" aria-hidden="true" focusable="false">
+        <path d="M8 32C22 32 18 14 32 14S42 32 56 32" style="fill:none;stroke:var(--obs);stroke-width:5;stroke-linecap:round"/>
+        <path d="M8 32C20 32 14 50 26 50M56 32C44 32 50 50 38 50" style="fill:none;stroke:var(--pred);stroke-width:4;stroke-linecap:round"/>
+        <rect x="0" y="26" width="16" height="12" rx="3.5" style="fill:var(--core)"/>
+        <rect x="24" y="8" width="16" height="12" rx="3.5" style="fill:var(--shell)"/>
+        <rect x="26" y="46" width="12" height="8" rx="1.5" style="fill:var(--pred);fill-opacity:.18;stroke:var(--pred);stroke-width:4"/>
+        <rect x="48" y="26" width="16" height="12" rx="3.5" style="fill:var(--core)"/>
+      </svg>
+      <div>
+        <p class="eyebrow">2,002 Escherichia coli genomes &middot; PanGBank 11587 &middot; Bacformer</p>
+        <h1>__NAME__</h1>
+      </div>
     </div>
     <a class="repo-link" href="https://github.com/ggautreau/PanGramGraph" target="_blank" rel="noopener"
        title="The code, on GitHub"><svg class="ic"><use href="#i-code"/></svg>github.com/ggautreau/PanGramGraph</a>
@@ -2026,14 +2065,40 @@ function switchTo(D) {
   if (mode === 'path') resetPath();
   hashSet({ at: REG ? REG.anchor : null });
 }
+/* busy(host, o): a greyed layer with a progress card over host (or over o.over, a child of host); busy(host, null) removes it.
+   o = { title, stage, frac (0..1, or null for an unknown length), left, right, note } */
+function busy(host, o) {
+  let el = host.querySelector(':scope > .busy');
+  if (!o) { if (el) el.remove(); host.classList.remove('busy-host'); return; }
+  host.classList.add('busy-host');
+  if (!el) {
+    el = document.createElement('div'); el.className = 'busy'; el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite');
+    el.innerHTML = '<div class="busy-card"><div class="busy-top"><span class="spin" aria-hidden="true"></span><span class="busy-t"></span></div>' +
+      '<div class="busy-stage"></div><div class="busy-bar"><i></i></div><div class="busy-meta"><span class="busy-l"></span><span class="busy-r"></span></div>' +
+      '<div class="busy-note" hidden></div></div>';
+    host.appendChild(el);
+  }
+  if (o.over) { el.style.inset = 'auto 0'; el.style.top = o.over.offsetTop + 'px'; el.style.height = o.over.offsetHeight + 'px'; }
+  const set = (sel, t) => { const x = el.querySelector(sel); if (x.textContent !== (t || '')) x.textContent = t || ''; };
+  set('.busy-t', o.title); set('.busy-stage', o.stage); set('.busy-l', o.left); set('.busy-r', o.right);
+  const nt = el.querySelector('.busy-note'); nt.hidden = !o.note; set('.busy-note', o.note);
+  const bar = el.querySelector('.busy-bar'), fr = o.frac;
+  bar.classList.toggle('indet', fr === null || fr === undefined);
+  bar.firstChild.style.width = fr === null || fr === undefined ? '' : Math.max(3, Math.round(fr * 100)) + '%';
+}
 async function goRegion(q, anchor, want, pin = true) {
   if (regBusy || stroke || move) { chrReset(); return; }
   const note = document.getElementById('rg-note');
   regBusy = true; setRegionButtons(); note.textContent = 'Building the window…';     // at once, even while the server is looked for
-  if (!(await liveOK())) { regBusy = false; setRegionButtons(); chrReset(); note.innerHTML = 'The rest of the chromosome is read by the local server: start <code>python3 serve_live.py</code> in origin-walk/.'; return; }
+  const what = anchor ? 'the next window' : /^\d+$/.test(q) ? `the window at gene ${fmtInt(+q)} from dnaA` : `the window of ${q}`, t0 = Date.now();
+  const tick = () => busy(gcard, { over: scroll, title: `Building ${what}`, stage: 'The server gathers the 540 complete chromosomes there and the model’s call at every gene.',
+    frac: null, right: `${Math.round((Date.now() - t0) / 1000)} s` });
+  const bt = setTimeout(() => { tick(); bt2 = setInterval(tick, 1000); }, 350); let bt2 = 0;
+  const unbusy = () => { clearTimeout(bt); clearInterval(bt2); busy(gcard, null); };
+  if (!(await liveOK())) { unbusy(); regBusy = false; setRegionButtons(); chrReset(); note.innerHTML = 'The rest of the chromosome is read by the local server: start <code>python3 serve_live.py</code> in origin-walk/.'; return; }
   let D; try { D = await (await fetch(`${LIVE.url}/region?${anchor ? 'anchor=' + encodeURIComponent(anchor) : 'q=' + encodeURIComponent(q)}`, { cache: 'no-store' })).json(); }
   catch (e) { LIVE.ok = false; D = { error: 'The model stopped answering' }; }
-  regBusy = false; note.textContent = '';
+  unbusy(); regBusy = false; note.textContent = '';
   if (D.error) { note.textContent = D.error + '.'; setRegionButtons(); chrReset(); return; }
   if (D.meta.anchor_pos === 0) goHome();                        // dnaA: the window of all genomes
   else { REG = D.meta; switchTo(D); }
@@ -3069,11 +3134,17 @@ const RSETS = __RSETS__;
   function infShow(ri, layer) {                     // the panel of element ri, if open: its result, its job's progress, or its error
     if (layer && layer !== K) return;
     const res = $('inf-res'), k = shownKey(); if (!res || !k || !sel || sel.id !== ri) return;
-    if (INF.cache.has(k)) { if (!res.querySelector('.inf-read') || res.dataset.k !== k) { res.dataset.k = k; renderInfluence(INF.cache.get(k), ri); } const go = $('inf-go'); if (go && !$('inf-why').innerHTML) go.disabled = false; return; }
+    if (INF.cache.has(k)) { busy(res, null); res.classList.remove('inf-busy'); if (!res.querySelector('.inf-read') || res.dataset.k !== k) { res.dataset.k = k; renderInfluence(INF.cache.get(k), ri); } const go = $('inf-go'); if (go && !$('inf-why').innerHTML) go.disabled = false; return; }
     res.dataset.k = '';
     const job = INF.jobs.get(k), go = $('inf-go');
-    if (!job) { res.innerHTML = ''; if (go && !$('inf-why').innerHTML) go.disabled = false; return; }
-    if (!job.done) { if (go) go.disabled = true; res.innerHTML = progText(job); return; }
+    if (!job) { busy(res, null); res.classList.remove('inf-busy'); res.innerHTML = ''; if (go && !$('inf-why').innerHTML) go.disabled = false; return; }
+    if (!job.done) {
+      if (go) go.disabled = true;
+      if (!res.querySelector('.inf-read') && !res.querySelector('.inf-skel'))
+        res.innerHTML = '<div class="inf-skel" aria-hidden="true"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><div class="ch"></div></div>';
+      res.classList.add('inf-busy'); busy(res, progBusy(job)); return;
+    }
+    busy(res, null); res.classList.remove('inf-busy');
     if (go && !$('inf-why').innerHTML) go.disabled = false;
     INF.jobs.delete(k);                              // an error is shown once; the button asks again
     const J = job.J, code = job.code;
@@ -3082,6 +3153,15 @@ const RSETS = __RSETS__;
       <code>?influence=http://127.0.0.1:8767</code>.</p>`; return; }
     res.innerHTML = `<p class="msg">${esc(J.error || 'The computation failed')}${/[.!?]$/.test(J.error || '') ? '' : '.'}${code === 503 || code === 410 || code === 404 || code === 0 ? ` <button type="button" class="linkbtn" id="inf-again">try again${
       J.retry_s ? ` in ${Math.round(J.retry_s)} s` : ''}</button>` : ''}</p>`;
+  }
+  function progBusy(job) {                          // the progress card over the result area
+    const J = job.J || {}, s = Math.round((Date.now() - job.t0) / 1000), n = J.total || J.of || 0, d = J.done || 0;
+    const what = J.state === 'queued' ? (J.position ? `Waiting: ${pl(J.position, 'computation')} before it` : 'Starting')
+      : J.loading ? `Loading the model and its decoder (the server’s first request${job.first ? `, about ${fdur(job.first)}` : ''})` : J.stage ? J.stage[0].toUpperCase() + J.stage.slice(1) : 'Computing';
+    const g = GXA.get(job.acc), el = R[job.ri];
+    return { title: `The model without ${el ? lab(el) : 'this element'}${g ? ` in ${g.strain}` : ''}`, stage: `${what} on ${J.device || job.dev || 'the server'}.`,
+      frac: n ? d / n : null, left: n ? `${fmtInt(d)} of ${fmtInt(n)} passes` : '', right: `${fdur(Math.max(1, s))}${J.eta_s ? ` · about ${fdur(J.eta_s)} left` : ''}`,
+      note: job.cpu ? 'On the public Space the model runs on a CPU: one to three minutes. You can look at other elements meanwhile; the result waits here.' : '' };
   }
   function progText(job) {
     const J = job.J || {}, s = Math.round((Date.now() - job.t0) / 1000), n = J.total || J.of || 0, d = J.done || 0;

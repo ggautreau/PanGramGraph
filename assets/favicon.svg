@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="PanGramGraph">
+  <style>@media (prefers-color-scheme:dark){.o{stroke:#8296A1}.p{stroke:#A292D6}.g{fill:#A292D6;fill-opacity:.2}.c{fill:#E0A03A}.s{fill:#37B26A}}</style>
+  <path class="o" d="M8 32C22 32 18 12 32 12S42 32 56 32" fill="none" stroke="#5C6E79" stroke-width="4" stroke-linecap="round"/>
+  <path class="p" d="M8 32C20 32 14 52 26 52M56 32C44 32 50 52 38 52" fill="none" stroke="#6E5FA0" stroke-width="4" stroke-linecap="round"/>
+  <rect class="c" x="0" y="24" width="16" height="16" rx="3.5" fill="#E59C04"/>
+  <rect class="s" x="24" y="4" width="16" height="16" rx="3.5" fill="#12A653"/>
+  <rect class="p g" x="26" y="46" width="12" height="12" rx="1.5" fill="#6E5FA0" fill-opacity=".16" stroke="#6E5FA0" stroke-width="4"/>
+  <rect class="c" x="48" y="24" width="16" height="16" rx="3.5" fill="#E59C04"/>
+</svg>
