@@ -5,7 +5,11 @@ Every *E. coli* genome of PanGBank pangenome 11587 (2,002 genomes) is walked gen
 gene from `dnaA`, the pangenome graph of that window is drawn from PanGBank's own
 families and partitions, and Bacformer's prediction at every position (130,837 calls)
 is laid on top. The answer, in one line: **it knows where the chromosome is
-constrained, and its hesitation rises where the pangenome is plastic.**
+constrained, and its hesitation rises where the pangenome is plastic** — but asked, by
+in-silico knockout, whether it knows any *pairwise* coupling between distant accessory
+regions, it does not: of 298 testable long-range links none survives, and the single
+close-range one that does turns out to be a genomic-background marker
+([Coupled regions](#coupled-regions-and-what-the-model-knows-of-them)).
 
 **Online:** https://huggingface.co/spaces/ggautreau/PanGramGraph (the page and its model's
 server, on a CPU). Locally:
@@ -23,7 +27,11 @@ pangenome as PanGBank built it (59,165 families: 3,188 persistent, 7,524 shell, 
 and under the graph each window gives its own families. A map of the complete chromosomes
 sits above the graph: click anywhere to open the window there, or search a gene name among all
 those of the chromosomes. Genomes are picked by strain, serotype, host, isolation source,
-country, year or accession (`pgb_page_meta.py` reads them from PanGBank's metadata). It also opens directly
+country, year or accession (`pgb_page_meta.py` reads them from PanGBank's metadata). **Coupled regions** carries the
+model's verdict on every arc and, on click, what the model expects downstream when an element
+is deleted; **Findings** describes the window shown, written for it by
+DeepSeek-V4.1-Flash from facts the server computes, every number and gene name checked
+against them. It also opens directly
 (`standalone/pangramgraph.html`): the dnaA window, the coupled regions and the findings
 need nothing else; the live features (a genome's call in the family cards, drawn paths,
 windows beyond dnaA, attention) need the server. The first pass on eleven strains is
@@ -47,6 +55,52 @@ sharing the fork family's allele take the same branch more often in every distan
 (Mantel-Haenszel odds ratio 2.11 over 20,897 strata; +3.5 points, 24 sigma above a
 within-stratum permutation). Chain: `pg_chrom.py`, `pg_embed.py`, `pg_calls.py`,
 `pg_allelic.py`, `pg_swap.py`, `pgb_cgmlst.py`. References in `REFERENCES.md`.
+
+## Coupled regions, and what the model knows of them
+
+Accessory families whose presence goes together (or apart) **within** lineages and within
+tertiles of accessory content, beyond a permutation null and replicated in two
+lineage-disjoint halves: 2,290 family pairs more than 500 genes apart in different insertion
+spots, grouped into 290 elements and 533 links (`pg_epistasis.py --ctrl_content`,
+`pg_region_sets.py`), and a close-range set of 362 pairs at 50-500 genes, separate
+insertions only, giving 143 elements and 113 links. These tests read presence in the
+genomes; the model is not in them.
+
+**Does Bacformer know these couplings?** In-silico knockout on the 540 complete
+chromosomes (`pg_knock.py`, `pg_knockout.py`): in each genome carrying both, the upstream
+element is deleted from the chromosome and the model's decoded probability of the
+downstream one is read, in fp32, one causal pass over the whole chromosome, against
+deletions of *whole* accessory elements matched on size and distance, with off-target
+elements at comparable distance scored the same way, lineage-mean aggregation in two
+disjoint halves, and an empirical calibration by pseudo-knockout draws. 105,276 passes,
+5.0 h of GPU.
+
+| | tested links | knows | not specific | opposite | none | not testable |
+|---|---|---|---|---|---|---|
+| long range, > 500 genes | 298 | **0** | 20 (+21 opposite) | 1 | 256 | 235 |
+| close range, 50-500 genes | 47 | **1** | 3 (+11 opposite) | 1 | 31 | 66 |
+
+The first run gave 7 long-range "knows"; all seven fell when the raw-specificity
+calibration was fixed. Its pseudo-knockout values were not centred within each unit, so its
+null spanned 0.59 instead of 1 and rejected 0.1 % of null draws instead of 5 %, turning
+non-effects into the very gate that was meant to catch them. Centred, and gated on
+max(nominal, calibrated), the long-range result is empty. An independent re-derivation
+matches every verdict of both runs.
+
+The one surviving link, espX1 to chpB at 184 genes, is **not** a functional coupling: the
+two sit 200 kb apart with no shared family or protein, 75-85 % of their association is
+absorbed by the rest of the accessory genome, both track the core phylogeny, and the effect
+concentrates in the 30 genomes where espX1 is the only remaining clue of its insertion
+site — remove it where the rest of its operon stays, and the model barely moves. What
+Bacformer reads is *which kind of genome* it is looking at, then what such a genome
+usually carries. A real statistical skill, not knowledge of the pair.
+
+What the knockouts do show is that deleting an element shifts the model's expectation of
+**all** accessory content downstream, over a few hundred genes: broad, position-dependent,
+not pairwise. The page turns that into an on-demand measurement — pick an element and a
+genome, and the server deletes it live and draws how far the model's expectations move
+(`serve_live.py /influence`, a few seconds on a GPU, one to three minutes on the Space's
+CPU).
 
 ## Results on all 2,002 PanGBank genomes
 
@@ -247,6 +301,13 @@ python3 pgb_model.py      # ESM-2 once per distinct protein, one causal pass per
 python3 pgb_graph.py      # graph + model calls aggregated  -> pgb/graph_pgb.json, summary tables  (~3 s)
 python3 pg_epistasis.py --ctrl_content   # distant families that go together within lineages -> pgb/epistasis.json
 python3 pg_region_sets.py # ... grouped into elements and sets                   -> pgb/region_sets.json
+python3 pg_epistasis.py --ctrl_content --mindist 50 --maxdist 500 --dist carriers --halves lineage --sep 10
+python3 pg_region_sets.py --in pgb/epistasis_close_sep.json --out pgb/region_sets_close.json
+python3 pg_link_flags.py  # per link: one element at two spots, tract, replication   -> pgb/link_flags*.json
+python3 pg_knockout.py --baselines        # 540 fp32 whole-chromosome passes          (~3 min, GPU)
+python3 pg_knockout.py --all --tag all --flags pgb/link_flags.json                  # (~4 h, GPU)
+python3 pg_knockout.py --all --sets pgb/region_sets_close.json --tag close --min_apart 50 \
+        --max_apart 600 --ctrl_near --match_log 3 --flags pgb/link_flags_close.json # (~2 h, GPU)
 python3 build_page.py     # page_template.html + data -> standalone/pangramgraph.html (NAME in the script)
 python3 serve_live.py     # per-genome calls and search, live, for the page's family cards
 ```
@@ -374,8 +435,12 @@ python scale/status.py                    # where it stands, and the disk it wil
 |---|---|
 | `standalone/pangramgraph.html` | **the page**: 2,002 genomes, built by `build_page.py` from `page_template.html`; `index.html` and `origin-fork.html` lead to it |
 | `pgb_region.py` | any other window of the 540 complete chromosomes, built when the page asks (through `serve_live.py`) |
-| `pg_region_sets.py`, `pgb/region_sets.json` | the coupled regions: elements, links and sets, from `pg_epistasis.py --ctrl_content` |
-| `serve_live.py` | local server: serves the page, computes per-genome calls and searches |
+| `pg_region_sets.py`, `pgb/region_sets.json` | the coupled regions: elements, links and sets, from `pg_epistasis.py --ctrl_content`; `pgb/region_sets_close.json` the 50-500 gene set |
+| `pg_knock.py`, `pg_knockout.py` | the in-silico knockout: units, whole-element null, off-target specificity, lineage halves, calibration; `pgb/knock/{all,close}_arcs.json` are the verdicts the page shows, `pgb/knock/*_report.md` the runs |
+| `pg_link_flags.py`, `pgb/link_flags*.json` | per link: one element at several spots, transfer tract, replication in lineage-disjoint halves |
+| `pg_reading.py`, `pgb/readings/*.json` | the model-written reading of a window: facts, prompt, checker, cache; served at `/reading` |
+| `pgb_page_meta.py` | the pangenome's own numbers, what each genome is searched by, the chromosome map |
+| `serve_live.py` | local server: serves the page, computes per-genome calls, searches, windows, attention, `/influence` and `/reading` |
 | `pgb/ecoli_11587.h5` | PanGBank pangenome 11587, 1.33 GB (not in git) |
 | not in git either | what the pipeline regenerates from it: `pgb/window*.json`, `pgb/window_emb.npy`, `pgb/model_calls.npz`, `pgb/chrom*`, `pgb/calls_*`, `pgb/*.npy`, `pgb/longrange.json`, `pgb/contingency.json`, `fam_exemplars.npz`, `fam_proto.npz` (see `.gitignore`). The page, `standalone/pangramgraph.html`, holds its own data and opens without them; the live server needs them |
 | `pgb/window.json`, `pgb/window_prot.json` | the 2,002 dnaA windows and their 19,198 distinct proteins |
@@ -394,6 +459,16 @@ python scale/status.py                    # where it stands, and the disk it wil
 - Beyond 80 genes: PanGBank windows cover whole contigs; the model saw 6,000-protein
   genomes.
 - Calibration per column: which RGPs does the model find predictable (the `dgo` case)?
+- Couplings the model could reach: the knockouts show its content-specific range decays to
+  the noise floor well before 1,000 genes, while the presence tests find most of their
+  signal far beyond it. Pairs under ~300 genes, with the off-target test as the primary
+  statistic, would be a fair test of the same question.
+- A competitor model on the same test: PanBART (Horsfield *et al.*, 2026) reads one gene
+  family per token over a whole chromosome and is trained on 394,000 *E. coli* genomes, so
+  it would say whether the null result is Bacformer's or the question's. Its published
+  weights lack the family representatives needed to tokenise new chromosomes; the masked
+  Bacformer and a plain co-occurrence baseline cost nothing and isolate the objective and
+  the population structure.
 
 ## Credit
 
