@@ -206,8 +206,9 @@ for key, *rest in LAYERS:
 rsets = (json.dumps(dict(genomes=[[g["acc"], g.get("strain", ""), g["cl"]] for g in base["genomes"]], bounds=base["bounds"],
                          layers=LY), separators=(",", ":"), ensure_ascii=False) if LY else "null")
 page=(T.replace("__STYLE__",style).replace("__DATA__",data).replace("__RSETS__",rsets).replace("__NAME__",NAME).replace("__SLUG__",SLUG)
-       .replace("__PAN__",small("pgb/pangenome_info.json")).replace("__GMETA__",small("pgb/genome_meta.json")).replace("__CMAP__",small("pgb/chrom_map.json")))
-assert not [x for x in ("__STYLE__","__DATA__","__RSETS__","__NAME__","__SLUG__","__PAN__","__GMETA__","__CMAP__") if x in page]
+       .replace("__PAN__",small("pgb/pangenome_info.json")).replace("__GMETA__",small("pgb/genome_meta.json")).replace("__CMAP__",small("pgb/chrom_map.json"))
+       .replace("__PGBID__",json.dumps(json.load(open("pgb/pangbank_genome_ids.json"))["ids"] if os.path.exists("pgb/pangbank_genome_ids.json") else {},separators=(",",":"))))
+assert not [x for x in ("__STYLE__","__DATA__","__RSETS__","__NAME__","__SLUG__","__PAN__","__GMETA__","__CMAP__","__PGBID__") if x in page]
 open(f"standalone/{SLUG}.html","w").write(page)
 go=(f'<!doctype html><meta charset="utf-8"><title>{NAME}</title><meta http-equiv="refresh" content="0;url={SLUG}.html">'
     f'<script>location.replace("{SLUG}.html"+location.hash)</script><p><a href="{SLUG}.html">{NAME}</a></p>')
