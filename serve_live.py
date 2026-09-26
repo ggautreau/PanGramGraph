@@ -27,6 +27,40 @@ forward pass on the genome's real prefix, cached.
         their mean (rows: the path's proteins; columns: the start token, the context before
         the path summed, the path's proteins), and for every layer and head the last
         protein's row, where the model looks when it calls the next family. Per mille.
+
+What the model itself knows about one accessory element (the Coupled regions tab): pg_knock.influence,
+the in-silico knockout of pg_knockout.py on demand, with the request and response of serve_influence.py.
+pg_knock is imported at the first of these requests, never at start: without its files (pg_knock.py,
+pgb/region_sets.json, and the decoder pgb/knock/decoder_halves.npz or base_top64_{f,p}.npy) the server
+starts and serves the rest as before, and /health says why influence is not available.
+    sets=long (default) | close: the link sets the elements and their links come from, the page's two layers
+        (pgb/region_sets.json, pgb/region_sets_close.json, which is optional); /health lists the sets present
+        with the md5 of each file, and every answer names its set and md5 (the page checks it shows the same)
+    GET /elements?acc=<assembly> | g=<index 0-539 of the complete chromosomes> [&sets=]
+        the accessory elements of that chromosome (panRGP runs by spot, coupled regions present at
+        their spot): kind, id, label, start, end, entry gene, size
+    GET /influence?acc= | g=  &region=<region id> | &spot=<spot id> | &genes=<p,q,...>  [&sets=] [&n_ctrl=8] [&wait=<s>]
+        baseline, deletion of the element and n_ctrl size-matched whole-element control deletions, one
+        fp32 pass each (its own fp32 copy of the model): ~3 s on a GPU (~8 s for the first request), ~2-4 min
+        on 2 CPU threads (a Hugging Face Space). One computation at a time, in a queue; results cached.
+          200  the result (serve_influence.py's JSON) with sets, sets_md5 and links: the elements linked to
+               the deleted one and where each is in this genome (read among the neighbours, before it, beyond
+               the 1,500 genes read, not located at its spot, absent)
+          202  a job: {job, state: queued | running, stage, loading, done, total, position, elapsed_s, eta_s};
+               poll GET /influence?job=<id>[&wait=<s>] until 200 (or an error). eta_s: from the passes done
+               (none before the first one), for a queued job from the jobs before it
+        wait: hold the request until the result is ready or for that many seconds (at most 60; default
+        60 on a GPU, 0 on a CPU, where a call is a background job to poll)
+          400  bad request (unknown genome or set, element not present in it...), checked before any queue
+          404  unknown or expired job;  410  a queued job dropped because nobody asked for it for 30 s
+          500  the computation failed (also a failed numerical check)
+          503  influence not available here (why in `error`; a failed load is retried after a minute), or too
+               many requests waiting (`retry_s`)
+    GPU_MEM_FRAC=<0-1> caps the GPU memory of the whole process (a second instance next to a running one);
+    INFLUENCE_DECODER=compact | full forces the decoder (default: the compact one when it is there, identical);
+    INFLUENCE_JOBS=1 makes every influence call a job on a GPU too; INFLUENCE_QUEUE caps the jobs waiting (2 on a
+    CPU, 4 on a GPU). On a CPU the influence passes run on 2 threads (the whole process then does): their
+    exactness check (genes before the deletion unchanged, bit for bit) holds at 1-2 threads, not at 4 or more.
 """
 import os, json, re, time, argparse, threading, urllib.parse, collections, numpy as np, torch
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
@@ -38,6 +72,7 @@ P.add_argument("--port",type=int,default=int(os.environ.get("PORT",8765))); A=P.
 dev="cuda:0" if torch.cuda.is_available() else "cpu"; CLS,PROT=2,4
 DT=torch.bfloat16 if dev!="cpu" else torch.float32         # bfloat16 on a GPU; float32 on a CPU, where it is faster
 if dev=="cpu": torch.set_num_threads(int(os.environ.get("OMP_NUM_THREADS","2")))
+elif os.environ.get("GPU_MEM_FRAC"): torch.cuda.set_per_process_memory_fraction(float(os.environ["GPU_MEM_FRAC"]),0)
 MODEL="macwiatrak/bacformer-causal-complete-genomes"
 cm=AutoModelForCausalLM.from_pretrained(MODEL,trust_remote_code=True).to(DT).eval().to(dev)
 import sys, math
@@ -249,14 +284,262 @@ def prefix(a):
 
 MAXQ=int(os.environ.get("MAX_QUEUE","6")); QN=[0]; QL=threading.Lock()
 class Busy(Exception): pass
-def queued(fn,a):
-    """at most MAXQ requests wait for the model; beyond that the page is asked to try again"""
+def queued(fn,a,admitted=False):
+    """at most MAXQ requests wait for the model; beyond that the page is asked to try again
+    (admitted: an influence job, refused or not when it was queued, only counted while it runs)"""
     with QL:
-        if QN[0]>=MAXQ: raise Busy("the model is busy, try again in a moment")
+        if QN[0]>=MAXQ and not admitted: raise Busy("the model is busy, try again in a moment")
         QN[0]+=1
     try: return fn(a)
     finally:
         with QL: QN[0]-=1
+
+# ---------------------------------------------------------------- influence of one accessory element (Coupled regions)
+# pg_knock (its data, its lineage-CV decoder and its own fp32 copy of the model) is loaded at the first request, per
+# link set (long: pgb/region_sets.json, close: pgb/region_sets_close.json; one model and one decoder serve both).
+# Each computation is a job run by one worker thread, first in first out, counted by queued() while it runs;
+# a request waits for it (GPU, ~3 s) or gets the job to poll (CPU, ~2-4 min on 2 threads).
+import queue, secrets, hashlib
+class Unavailable(Exception): pass
+INF_NEED=["pg_knock.py","pgb/region_sets.json","pgb/chrom.npz","pgb/chrom_genomes.json","pgb/chrom_emb.f16"]
+INF_SETS={"long":"pgb/region_sets.json","close":"pgb/region_sets_close.json"}   # the page's two layers; close is optional
+INF_DECODERS={"full":["pgb/knock/base_top64_f.npy","pgb/knock/base_top64_p.npy"],"compact":["pgb/knock/decoder_halves.npz"]}
+INF_FORCE=os.environ.get("INFLUENCE_DECODER","").strip().lower() or None       # compact | full | None (auto)
+INF_JOB=dev=="cpu" or os.environ.get("INFLUENCE_JOBS")=="1"
+INF_MAXQ=int(os.environ.get("INFLUENCE_QUEUE","2" if dev=="cpu" else "4"))     # jobs waiting at most (a CPU job is minutes)
+INF_KEEP=600                     # seconds a finished job stays to be fetched
+INF_IDLE=30.0                    # a queued job that nobody has asked about for this long is dropped (the page polls every ~4 s)
+INF_RETRY=60.0                   # a failed load is tried again by a request after this long
+INF_THREADS=2                    # CPU threads of the influence passes: its exactness check (g) holds at 1-2 threads, not at 4+
+INF=dict(K=None,D={},ACC=None,ctx={},error=None,error_t=0.0,load_s=None,last_s=None)
+INF_LOAD=threading.Lock(); JL=threading.Lock(); JOBS=collections.OrderedDict(); INF_CACHE=collections.OrderedDict()
+INF_Q=queue.Queue(); INF_W=[]; _MD5={}
+def inf_decoder():
+    """which decoder influence reads here, or None: the compact one (the same rows bit for bit, loaded in 1 s instead of
+    3, and a genome's rows in 50 ms instead of ~9 s) unless the full one is newer (rebuilt since the export)"""
+    have={k:all(os.path.exists(f) for f in v) for k,v in INF_DECODERS.items()}
+    if INF_FORCE in have: return INF_FORCE if have[INF_FORCE] else None
+    if have["compact"] and have["full"]:
+        return "full" if max(map(os.path.getmtime,INF_DECODERS["full"]))>os.path.getmtime(INF_DECODERS["compact"][0]) else "compact"
+    return "full" if have["full"] else "compact" if have["compact"] else None
+def inf_missing():
+    miss=[f for f in INF_NEED if not os.path.exists(f)]
+    if inf_decoder() is None: miss.append("the decoder pgb/knock/decoder_halves.npz" if INF_FORCE!="full" else "pgb/knock/base_top64_{f,p}.npy")
+    return miss
+def inf_sets():
+    """{set: md5 of its file} for the link sets present here: the page checks that it shows the same elements"""
+    out={}
+    for k,p in INF_SETS.items():
+        try: st=os.stat(p)
+        except OSError: continue
+        c=_MD5.get(p)
+        if not c or c[0]!=(st.st_mtime,st.st_size): c=_MD5[p]=((st.st_mtime,st.st_size),hashlib.md5(open(p,"rb").read()).hexdigest())
+        out[k]=c[1]
+    return out
+def inf_failed():
+    """the load error, if any; after INF_RETRY seconds the next request tries again"""
+    if INF["error"] and time.time()-INF["error_t"]>INF_RETRY: INF["error"]=None
+    return INF["error"]
+def inf_fail(msg):
+    INF.update(error=msg,error_t=time.time()); raise Unavailable(msg)
+def inf_setname(a):
+    s=(a.get("sets") or "long").strip().lower()
+    if s not in INF_SETS: raise ValueError("sets: long (the default) or close")
+    if s not in inf_sets(): raise ValueError(f"this server has no {s}-range link sets ({INF_SETS[s]} is missing): it reads the "+" and ".join(inf_sets()))
+    return s
+def inf_data(sets="long"):
+    """pg_knock and the Data of one link set (chromosomes, accessory elements, controls): enough for /elements"""
+    if sets not in INF["D"]:
+        with INF_LOAD:
+            if sets not in INF["D"]:
+                miss=inf_missing()
+                if miss: raise Unavailable("influence is not available on this server: missing "+", ".join(miss))
+                if inf_failed(): raise Unavailable(INF["error"])
+                try:
+                    t0=time.time(); import pg_knock as K
+                    path=None if sets=="long" else INF_SETS[sets]
+                    try: D=K.Data(sets=path)
+                    except Exception as e:          # units cache unreadable or not writable: rebuilt in memory (~5-10 s)
+                        print(f"influence: the units cache of the {sets}-range sets is not usable ({type(e).__name__}: {e}); rebuilding it in memory",flush=True)
+                        D=K.Data(cache=False,sets=path)
+                    INF["K"]=K; INF["D"][sets]=D
+                    if INF["ACC"] is None: INF["ACC"]={a:i for i,a in enumerate(D.ACC)}
+                    INF["load_s"]=(INF["load_s"] or 0)+time.time()-t0
+                except Exception as e: inf_fail(f"influence could not load its data: {type(e).__name__}: {e}")
+    return INF["K"],INF["D"][sets]
+def inf_ctx(sets="long"):
+    """(Data, Decoder, Runner) of pg_knock for one link set: the decoder and the fp32 model too, for /influence. One
+    model and one decoder serve both sets when their lineage halves agree (the same 540 genomes and clusters)"""
+    K,D=inf_data(sets)
+    if sets not in INF["ctx"]:
+        with INF_LOAD:
+            if inf_failed(): raise Unavailable(INF["error"])
+            if sets not in INF["ctx"]:
+                try:
+                    t0=time.time(); comp={"compact":True,"full":False}.get(inf_decoder())
+                    if not INF["ctx"]:
+                        INF["ctx"][sets]=K.context(dev=dev,threads=min(INF_THREADS,torch.get_num_threads()),frac=None,data=D,compact=comp)
+                    else:
+                        D0,dec,R=next(iter(INF["ctx"].values()))
+                        if not (D0.NP==D.NP and np.array_equal(D0.HALF,D.HALF) and list(D0.LIN)==list(D.LIN)): dec=K.Decoder(D,compact=comp)
+                        INF["ctx"][sets]=(D,dec,R)
+                    INF["load_s"]=(INF["load_s"] or 0)+time.time()-t0
+                except Exception as e: inf_fail(f"influence could not load the model or its decoder: {type(e).__name__}: {e}")
+    return INF["ctx"][sets]
+def inf_genome(D,a):
+    if a.get("acc"):
+        if a["acc"] not in INF["ACC"]: raise ValueError(f"unknown assembly {a['acc']} (influence reads the {D.NG} complete chromosomes)")
+        return INF["ACC"][a["acc"]]
+    try: g=int(a.get("g",-1))
+    except ValueError: g=-1
+    if not 0<=g<D.NG: raise ValueError(f"give acc=<assembly> or g=<genome index 0-{D.NG-1}>")
+    return g
+def elements(a):
+    sets=inf_setname(a); K,D=inf_data(sets); g=inf_genome(D,a); E=D.elements(g)
+    return dict(g=g,acc=D.ACC[g],strain=D.STRAIN[g],n_genes=int(D.GL[g]),sets=sets,sets_md5=D.SETS_MD5,
+                elements=[dict(kind="region" if int(k)==1 else "spot",id=int(i),label=D.element_label(k,i)[:60],
+                               start=int(s),end=int(e),entry=int(en),size=int(z))
+                          for k,i,s,e,en,z in zip(E["kind"],E["id"],E["start"],E["end"],E["entry"],E["size"])])
+def inf_request(a):
+    """-> (cache key, genome, element, n_ctrl), the element checked against the genome (400 before any queue)"""
+    sets=inf_setname(a); K,D=inf_data(sets); g=inf_genome(D,a)
+    try:
+        n_ctrl=max(3,min(16,int(a.get("n_ctrl",8))))
+        if "region" in a: el=("region",int(a["region"]))
+        elif "spot" in a: el=("spot",int(a["spot"]))
+        elif "genes" in a:
+            el=("genes",tuple(sorted({int(x) for x in a["genes"].split(",") if x.strip()})))
+            if not el[1] or not all(0<=p<int(D.GL[g]) for p in el[1]): raise ValueError(f"genes: positions 0-{int(D.GL[g])-1} of this chromosome")
+            if len(el[1])>2000: raise ValueError("genes: 2,000 at most")
+        else: raise ValueError("give region=, spot= or genes=")
+        if el[0]=="region" and not 0<=el[1]<D.NR: raise ValueError(f"region: an id 0-{D.NR-1} of the {sets}-range sets")
+        K.resolve_element(D,g,el)
+    except AssertionError as e: raise ValueError(str(e))
+    return (sets,g,el,n_ctrl),g,el,n_ctrl
+def inf_left(x,now):
+    """seconds left of a running job, from its passes so far (None before the first pass is done)"""
+    if x.get("loading") or not (x["done"] and x["total"] and x.get("t_pass0")): return None
+    tp=(x["t_tick"]-x["t_pass0"])/x["done"]; return max(0.5,tp*(x["total"]-x["done"])-(now-x["t_tick"]))
+def inf_status(j):
+    """what a job is doing, for the page's progress"""
+    now=time.time()
+    with JL: js=list(JOBS.values())
+    run=[x for x in js if x["state"]=="running"]
+    ahead=sum(1 for x in js if x["state"]=="queued" and x["t"]<j["t"])
+    per=INF["last_s"] or (150.0 if dev=="cpu" else 4.0)                  # a whole call: the last one measured here
+    if j["state"]=="running": pos=0; eta=inf_left(j,now)
+    else:
+        pos=ahead+len(run)
+        lr=[inf_left(x,now) for x in run]; eta=sum(per if v is None else v for v in lr)+per*(ahead+1)
+    stage=j["stage"] if j["state"]!="queued" else ("starting" if pos==0 else f"waiting for {pos} computation{'s' if pos>1 else ''} before it")
+    return dict(job=j["id"],state=j["state"],stage=stage,loading=bool(j.get("loading")),done=j["done"],total=j["total"],position=pos,
+                elapsed_s=round(now-j["t"],1),eta_s=None if eta is None else round(eta,1),device=dev,poll=f"/influence?job={j['id']}")
+def inf_worker():
+    while True:
+        j=INF_Q.get()
+        with JL: idle=j["watch"]==0 and time.time()-j["t_seen"]>INF_IDLE
+        if idle:                                                          # nobody is waiting for it any more
+            j.update(state="error",error=f"dropped: nobody asked for it for {INF_IDLE:.0f} s; ask again",code=410,t_end=time.time())
+            j["event"].set(); continue
+        try: queued(inf_run,j,admitted=True)
+        except Exception as e:
+            j.update(state="error",error=f"the computation failed: {type(e).__name__}: {e}",code=500)
+            if dev!="cpu": torch.cuda.empty_cache()
+        finally:
+            j["t_end"]=time.time(); j["event"].set()
+def inf_links(D,g,res):
+    """the elements linked to the deleted one in the set read, and where each is in this genome: among the neighbours
+    read (where="read"), before it (the model reads from dnaA on: the deletion cannot change it), beyond the 1,500
+    genes read, listed but not read, carried but not located at its spot, or absent"""
+    el=res["element"]
+    if el["kind"]!=1: return []
+    ri=int(el["id"]); nb={x["id"] for x in res["neighbours"] if x["kind"]=="region"}
+    E=D.elements(g); at={int(i):(int(s),int(e)) for k,i,s,e in zip(E["kind"],E["id"],E["start"],E["end"]) if int(k)==1}
+    out=[]
+    for l in D.LINKS:
+        if ri not in (l["a"],l["b"]): continue
+        rj=int(l["b"] if l["a"]==ri else l["a"]); r=D.REG[rj]
+        x=dict(id=rj,label=r["label"][:60],sign=int(l["sign"]),spot=-1 if r["spot"] is None else int(r["spot"]))
+        if rj in at:
+            s,e=at[rj]; d=s-int(el["end"])
+            x.update(start=s,end=e,dist=d,where="read" if rj in nb else "before" if d<=0 else "beyond" if d>1500 else "unread")
+        else: x["where"]="unlocated" if D.PRES[rj,g] else "absent"
+        out.append(x)
+    return out
+def inf_run(j):
+    sets,g,el,n_ctrl=j["key"]; first=sets not in INF["ctx"]
+    j.update(state="running",loading=first,t_run=time.time(),
+             stage=("loading the model and its decoder (first request)" if not INF["ctx"] else "loading the close-range elements") if first else "choosing the controls")
+    try: ctx=inf_ctx(sets)
+    except Unavailable as e: j.update(state="error",error=str(e),code=503); return
+    j.update(stage="choosing the controls",loading=False)
+    K=INF["K"]
+    def tick(done,total,what): j.update(done=done,total=total,stage=what,t_pass0=j.get("t_pass0") or time.time(),t_tick=time.time())
+    try: res=K.influence(g,el,n_ctrl=n_ctrl,ctx=ctx,progress=tick)
+    except AssertionError as e:                                    # an internal check (the input was checked before queueing)
+        j.update(state="error",error=f"a numerical check of the computation failed ({e})",code=500); return
+    res=dict(res,sets=sets,sets_md5=ctx[0].SETS_MD5,links=inf_links(ctx[0],g,res))
+    INF["last_s"]=time.time()-(j["t_pass0"] or j["t_run"])
+    with JL:
+        INF_CACHE[j["key"]]=res
+        while len(INF_CACHE)>64: INF_CACHE.popitem(last=False)
+    j.update(state="done",stage="done",result=res,t_end=time.time())
+def inf_submit(key):
+    """the job computing `key`: the one already queued or running, else a new one (503 when too many wait)"""
+    with JL:
+        now=time.time()
+        old=[k for k,x in JOBS.items() if x["state"] in ("done","error") and now-(x["t_end"] or now)>INF_KEEP]
+        old+=[k for k,x in JOBS.items() if x["state"] in ("done","error")][:max(0,len(JOBS)-len(old)-200)]
+        for k in set(old): del JOBS[k]
+        for x in JOBS.values():
+            if x["key"]==key and x["state"] in ("queued","running"): x["t_seen"]=now; return x
+        waiting=sum(1 for x in JOBS.values() if x["state"] in ("queued","running"))
+        if waiting>=INF_MAXQ: raise Busy(f"{waiting} influence computation{'s are' if waiting>1 else ' is'} already waiting, try again "
+                                         +("in a few minutes" if dev=="cpu" else "in a moment"))
+        if QN[0]>=MAXQ: raise Busy("the model is busy, try again in a moment")
+        j=dict(id=secrets.token_hex(6),key=key,state="queued",stage="",done=0,total=None,
+               t=now,t_seen=now,watch=0,t_pass0=None,t_end=None,event=threading.Event())
+        JOBS[j["id"]]=j
+        if not INF_W:
+            INF_W.append(threading.Thread(target=inf_worker,daemon=True)); INF_W[0].start()
+    INF_Q.put(j); return j
+def inf_answer(j,wait):
+    with JL: j["watch"]+=1; j["t_seen"]=time.time()
+    try:
+        if wait>0: j["event"].wait(min(wait,60.0))
+    finally:
+        with JL: j["watch"]-=1; j["t_seen"]=time.time()
+    if j["state"]=="done": return 200,j["result"]
+    if j["state"]=="error": return j.get("code",500),dict(error=j["error"],job=j["id"],state="error")
+    return 202,inf_status(j)
+def influence(a):
+    """-> (HTTP code, JSON) for /influence: a result (200), a job to poll (202) or an error"""
+    wait=a.get("wait")
+    try: wait=float(wait) if wait not in (None,"") else None
+    except ValueError: raise ValueError("wait: seconds")
+    if a.get("job"):
+        with JL: j=JOBS.get(a["job"])
+        if j is None: return 404,dict(error="unknown or expired job: ask again with the genome and the element")
+        return inf_answer(j,wait or 0)
+    if inf_failed(): raise Unavailable(INF["error"])
+    key,g,el,n_ctrl=inf_request(a)
+    with JL:
+        if key in INF_CACHE: INF_CACHE.move_to_end(key); return 200,INF_CACHE[key]
+    return inf_answer(inf_submit(key),(0.0 if INF_JOB else 60.0) if wait is None else wait)
+def inf_health():
+    miss=inf_missing(); err=inf_failed(); ok=not miss and not err
+    with JL: waiting=sum(1 for x in JOBS.values() if x["state"] in ("queued","running"))
+    r1=lambda x: None if x is None else round(x,1)
+    out=dict(available=ok,loaded=bool(INF["ctx"]),device=dev,mode="job" if INF_JOB else "wait",decoder=inf_decoder(),sets=inf_sets(),
+             waiting=waiting,max_waiting=INF_MAXQ,cached=len(INF_CACHE),
+             seconds=dict(load=r1(INF["load_s"]),last=r1(INF["last_s"]),     # measured here: loading; the last computation
+                          expected=r1(INF["last_s"]) or (150 if dev=="cpu" else 4),   # per element until one is measured
+                          expected_first_load=15 if dev=="cpu" else 8))
+    if not ok: out["reason"]=err or "missing "+", ".join(miss)
+    return out
+def emsg(e):
+    """the message of a KeyError without its quotes, of anything else as is"""
+    return str(e.args[0]) if isinstance(e,KeyError) and e.args else str(e)
 
 class H(SimpleHTTPRequestHandler):
     extensions_map={**SimpleHTTPRequestHandler.extensions_map,".html":"text/html; charset=utf-8",
@@ -264,7 +547,7 @@ class H(SimpleHTTPRequestHandler):
     def __init__(self,*a,**k): super().__init__(*a,directory="standalone",**k)
     def end_headers(self):
         o=self.headers.get("Origin") or ""
-        if o in ("null","http://localhost:%d"%A.port,"http://127.0.0.1:%d"%A.port):
+        if o=="null" or re.fullmatch(r"http://(localhost|127\.0\.0\.1)(:\d+)?",o):     # a local page, or one opened as a file
             self.send_header("Access-Control-Allow-Origin",o)
             self.send_header("Access-Control-Allow-Private-Network","true")
         super().end_headers()
@@ -275,12 +558,20 @@ class H(SimpleHTTPRequestHandler):
         self.send_header("Cache-Control","no-store"); self.end_headers(); self.wfile.write(b)
     def do_GET(self):
         u=urllib.parse.urlparse(self.path); a=dict(urllib.parse.parse_qsl(u.query))
-        if u.path=="/health": return self.js(dict(ok=True,model=MODEL,device=dev,genomes=len(GEN)))
+        if u.path=="/health": return self.js(dict(ok=True,model=MODEL,device=dev,genomes=len(GEN),influence=inf_health()))
+        if u.path in ("/influence","/elements"):
+            try:
+                if u.path=="/elements": return self.js(elements(a))
+                code,obj=influence(a); return self.js(obj,code)
+            except Busy as e: return self.js(dict(error=str(e),retry_s=10 if dev=="cpu" else 3),503)
+            except Unavailable as e: return self.js(dict(error=str(e),available=False),503)
+            except (KeyError,ValueError) as e: return self.js(dict(error=emsg(e)),400)
+            except Exception as e: return self.js(dict(error=f"{type(e).__name__}: {e}"),500)
         route={"/gcall":gcall,"/path":pathcall,"/prefix":prefix,"/region":region,"/attn":attncall}.get(u.path)
         if route is None: return super().do_GET()
         try: self.js(queued(route,a))
         except Busy as e: self.js(dict(error=str(e)),503)
-        except (KeyError,ValueError) as e: self.js(dict(error=str(e).strip("'\"")),400)
+        except (KeyError,ValueError) as e: self.js(dict(error=emsg(e)),400)
     def list_directory(self,path): self.send_error(404); return None     # files only, no listings
     def log_message(self,format,*args): pass
 

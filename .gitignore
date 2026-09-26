@@ -26,3 +26,11 @@ pgb/origin-fork-v3-oldbase.html
 
 # the Hugging Face Space, put together by space/assemble.py
 space_build/
+# knockout runs: per-genome passes, baselines and the decoder are regenerable and large (pg_knockout.py);
+# keep the aggregated verdicts and the reports
+pgb/knock/*
+!pgb/knock/*_arcs.json
+!pgb/knock/*_summary.json
+!pgb/knock/*_links.parquet
+!pgb/knock/pilot_report.md
+pgb/knock/smoke*

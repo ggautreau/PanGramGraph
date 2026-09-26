@@ -150,11 +150,18 @@ def build(anchor, W=80):
             S = (Q @ Pn).toarray(); hit[mm] = (S.argmax(1) == fam_at[mm]) & (S.max(1) > 0); ptrue[mm] = S[np.arange(len(mm)), fam_at[mm]]
     p_eff = np.where(ptrue > 0, ptrue, top_p[:, -1])
     ppl = lambda m: round(float(2 ** np.mean(-np.log2(np.maximum(p_eff[m], 1e-12)))), 3)
+    rgp_c = RGP[rows].astype(bool); part_c = np.array([PARTITION[int(f)] for f in fam_at_f])
     per_locus = []
     for k in range(W):
         m = call_k == k
         if m.sum(): per_locus.append(dict(locus=k, n=int(m.sum()), entropy=round(float(ent[m].mean()), 3), ppl=ppl(m),
-                                          unread=round(float((ptrue[m] == 0).mean()), 4), top1=None, top1_dec=round(float(hit[m].mean()), 3)))
+                                          unread=round(float((ptrue[m] == 0).mean()), 4), top1=None, top1_dec=round(float(hit[m].mean()), 3),
+                                          rgp=round(float(rgp_c[m].mean()), 3)))
+    def table(m):                                                    # the calls of the window, by the gene actually there
+        return dict(n=int(m.sum()), top1=None, top1_dec=round(float(hit[m].mean()), 3), med_rank=None,
+                    entropy=round(float(ent[m].mean()), 3), ppl=ppl(m)) if m.sum() else None
+    by_partition = {k: table(part_c == k) for k in ("persistent", "shell", "cloud")}
+    by_rgp = {"outside an RGP": table(~rgp_c), "inside an RGP": table(rgp_c)}
     call_of = {(int(gg), int(kk)): i for i, (gg, kk) in enumerate(zip(call_g, call_k))}
     # --- families: carriers, columns, neighbours, proteins, names
     occ = collections.defaultdict(list); loci = collections.defaultdict(collections.Counter); rg = collections.defaultdict(list)
@@ -205,7 +212,7 @@ def build(anchor, W=80):
                 prev=prev, next=nextw, window=W, n_genomes=G, genomes_total=NG, calls=int(len(fam_at)),
                 top1=None, top1_dec=round(float(hit.mean()), 3), ppl=ppl(np.ones(len(fam_at), bool)), unread=round(float((ptrue == 0).mean()), 4),
                 families=len(nodes), edges=len(E), ms=round((time.time() - t0) * 1000))
-    return dict(meta=meta, per_locus=per_locus, nodes=nodes, edges=E, ghosts=ghosts,
+    return dict(meta=meta, per_locus=per_locus, by_partition=by_partition, by_rgp=by_rgp, nodes=nodes, edges=E, ghosts=ghosts,
                 bflabels={str(ff): bflabel(ff) for nd in nodes for ff, *_ in nd["call"]})
 
 if __name__ == "__main__":

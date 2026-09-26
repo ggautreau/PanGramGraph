@@ -1,0 +1,96 @@
+{
+ "tag": "pilot",
+ "links": 24,
+ "units": 3435,
+ "genomes": 537,
+ "skip": {
+  "U and D < 100 genes apart": 2,
+  "avoidance: the absent element is upstream (would need an insertion)": 807,
+  "avoidance: no insertion anchor (D's flanking family is not within 40 genes of the spot here)": 747,
+  "avoidance: D not cleanly absent (its families elsewhere or a minority at its spot)": 345,
+  "no position for an element": 2,
+  "avoidance: no insertion anchor (no flanking family of D that is consensus in its carriers and reproduces D's entry when the rule is applied to a carrier)": 2
+ },
+ "passes": 42655,
+ "seconds_per_pass_median": 0.15744709968566895,
+ "seconds_per_pass_mean": 0.19556180283579203,
+ "gpu_seconds": 8341.688699960709,
+ "noise_floor": {
+  "median": 1.1120046919499416e-05,
+  "p90": 1.8207156907124047e-05,
+  "share_units_resolved": 0.8959183673469387
+ },
+ "panel": {
+  "per_genome_median": 72.0,
+  "candidates_median": 72.0,
+  "size_median": 1.0,
+  "size_p90": 3.0
+ },
+ "matched_ctrl": {
+  "median": 12.0,
+  "share_ge3": 0.870160116448326,
+  "share_widened": 0.2430858806404658,
+  "share_0": 0.11761280931586608
+ },
+ "partial_ko": {
+  "share_units": 0.028529839883551674,
+  "links_all_partial": 3
+ },
+ "offtarget": {
+  "units_with_off": 3003,
+  "median_n_off": 12.0
+ },
+ "calibration": {
+  "median_fp_exp": 0.047,
+  "median_fp_opp": 0.036,
+  "draws": 2000
+ },
+ "verdicts": {
+  "nt": 12,
+  "none": 9,
+  "not specific (opposite)": 2,
+  "not specific": 1
+ },
+ "global_test": {
+  "n_links": 12,
+  "median_effect": 0.05765978336883475,
+  "wilcoxon_p_exp": 0.190185546875,
+  "sign_pos": 8,
+  "sign_p": 0.19384765625,
+  "n_links_region_disjoint": 8,
+  "median_effect_disjoint": 0.09690811177739507,
+  "wilcoxon_p_exp_disjoint": 0.23046875,
+  "spearman_vs_link_absz": [
+   -0.14685314685314685,
+   0.6487957097846664
+  ],
+  "spearman_vs_pairs": [
+   0.1907291859617253,
+   0.5526610642112648
+  ],
+  "offtarget_vs_phi_spearman": [
+   -0.06038855328480899,
+   0.3598353685737754
+  ]
+ },
+ "checks": {
+  "identity_rows": 5082956,
+  "causal_rows_exact": 2053737,
+  "passes": 42118,
+  "check_a": 537,
+  "check_a_max_abs_delta": 0.0,
+  "check_b": 537,
+  "check_b_max_abs_delta": 0.0,
+  "row_conv_rows": 52252,
+  "insertion_passes": 360,
+  "decoder_saw_lineage": 0,
+  "genomes": 537,
+  "decoder_other_half": 537,
+  "row_conv_gain_min": 2.1764890662202476,
+  "row_conv_gain_median": 3.3958092854654955,
+  "row_conv_gain_max": 4.368669201215897,
+  "noise_floor_max_min": 0.0,
+  "noise_floor_max_median": 1.1120046919499416e-05,
+  "noise_floor_max_max": 4.085439472234498e-05
+ }
+}

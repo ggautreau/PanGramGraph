@@ -24,13 +24,40 @@ in two disjoint halves of the lineages.
             families it carries; genomes in cgMLST order (average linkage), lineage clusters marked.
 
     python3 pg_region_sets.py        # -> pgb/region_sets.json
+    python3 pg_region_sets.py --in pgb/epistasis_close.json --out pgb/region_sets_close.json
+
+  close range: when the input comes from `pg_epistasis.py --maxdist` (pairs 50-500 genes apart), each link
+  also gets `dmin` (the smallest distance among its family pairs, median positions) and `gap` (median over
+  the genomes carrying both regions of the smallest number of genes between a member gene of one and of the
+  other), and `tract` = min(dmin, gap) < 100 genes: possibly ONE transfer tract (or one element straddling
+  two spots) rather than two regions that depend on each other; `same_spot` (median over its family pairs of
+  the share of co-carriers where a copy of each sits in one panRGP spot) and `one_site` = same_spot >= 0.5:
+  one element, or parts of one, that sits at different spots in different genomes. meta gains maxdist, dist,
+  bands, bands_carriers, tract_links, one_site_links.
+  Also in close mode: `expected_by_chance` is the permutation null of the selected pairs (sum of the bands'
+  `null_beyond`; the 0.1 % global tail, which the uninformative pairs make up, is kept as
+  `expected_by_chance_global_tail`) and `replicated_by_chance` the null of the replication filter; per link
+  `site` = the consensus backbone flanks (left, right: the nearest single-copy >= 95 % family on each side of the
+  element's block in its carriers) of each region, and for an avoidance link `site_competition` = the two share a
+  flank on the same side: two elements competing for ONE insertion site (they exclude each other physically,
+  not through a coupling); with an input made with --sep, `sep` (median over the family pairs of the share of
+  co-carriers with >= K backbone genes between them), `alone` (min over the pairs of the genomes carrying one
+  family without the other) and `geometry` (carriers / median: whether the pair's geometry was read in >= 10
+  co-carriers). meta gains halves (lineage-disjoint replication or not) and sep.
+  Without such an input the output is exactly as before.
 """
-import json, re, collections, warnings, numpy as np
+import json, re, argparse, collections, warnings, numpy as np
 warnings.simplefilter("ignore")
 from scipy.cluster.hierarchy import linkage, fcluster, leaves_list
 from scipy.spatial.distance import squareform
 
-E = json.load(open("pgb/epistasis.json"))
+ap = argparse.ArgumentParser()
+ap.add_argument("--in", dest="inp", default="pgb/epistasis.json")
+ap.add_argument("--out", default="pgb/region_sets.json")
+A = ap.parse_args()
+E = json.load(open(A.inp))
+CLOSE = E.get("maxdist") is not None
+TRACT = 100                                            # genes: below this, possibly one transfer tract
 assert E.get("ctrl_content"), "run pg_epistasis.py --ctrl_content first"
 Z = np.load("pgb/chrom.npz"); OFF = Z["offsets"]; FAM = Z["fam"]; SPOT = Z["spot"]; RGP = Z["rgp"]
 NG = len(OFF) - 1; GL = np.diff(OFF); GID = np.repeat(np.arange(NG), GL); LOC = np.arange(len(FAM)) - OFF[GID]
@@ -98,6 +125,34 @@ for r in keys:
                         families=[FN[f] for f in fs]))
 
 # --- links between regions
+if CLOSE:                                              # consensus backbone flanks of a region's element (its insertion site)
+    _uk, _cnt = np.unique(GID.astype(np.int64) * len(FN) + FAM, return_counts=True)
+    BB = np.bincount((_uk % len(FN))[_cnt == 1], minlength=len(FN)) >= 0.95 * NG
+    _site = {}
+    def site_of(r_):
+        """(left, right): the family of the nearest backbone gene on each side of the region's largest block (genes of
+        its families <= 30 apart) in each carrier (>= half of its families), most common over carriers (>= 50 %
+        of them, else None)"""
+        if r_ in _site: return _site[r_]
+        fs = members[keys[r_]]; byg = collections.defaultdict(list); nf_ = collections.Counter()
+        for f in fs:
+            i0, i1 = np.searchsorted(sf, f), np.searchsorted(sf, f, "right"); idx = order[i0:i1]
+            for gg in np.unique(GID[idx]).tolist(): nf_[gg] += 1
+            for gg, lc in zip(GID[idx].tolist(), LOC[idx].tolist()): byg[gg].append(lc)
+        lc_, rc_ = collections.Counter(), collections.Counter(); n_ = 0
+        for gg, c in nf_.items():
+            if c / len(fs) < 0.5: continue
+            ps = sorted(byg[gg]); cut = [0] + [i for i in range(1, len(ps)) if ps[i] - ps[i - 1] > 30] + [len(ps)]
+            blk = max((ps[cut[k]:cut[k + 1]] for k in range(len(cut) - 1)), key=len)
+            sl = FAM[OFF[gg]:OFF[gg + 1]]; Lg = len(sl); n_ += 1
+            for side, p0, step in ((lc_, blk[0], -1), (rc_, blk[-1], 1)):
+                p = p0
+                for _ in range(200):
+                    p = (p + step) % Lg
+                    if BB[sl[p]]: side[int(sl[p])] += 1; break
+        pick = lambda c: (FN[c.most_common(1)[0][0]] if c and c.most_common(1)[0][1] >= 0.5 * n_ else None)
+        _site[r_] = (pick(lc_), pick(rc_))
+        return _site[r_]
 L = collections.defaultdict(list)
 for h in hits:
     a, b = RID[reg_of[FIDX[h["a_family"]]]], RID[reg_of[FIDX[h["b_family"]]]]
@@ -110,6 +165,32 @@ for (a, b), hs in L.items():
     links.append(dict(a=a, b=b, sign=1 if pos * 2 >= len(hs) else -1, pairs=len(hs), pos=pos, neg=len(hs) - pos,
                       z=best["z"], zA=best["zA"], zB=best["zB"], best=[best["a"], best["b"]], distance=best["distance"],
                       shared=shared[:3]))
+    if CLOSE:                                          # how far apart are the two elements in the genomes carrying both?
+        loc = []
+        for r_ in (a, b):
+            fs = members[keys[r_]]; byg = collections.defaultdict(list); nf = collections.Counter()
+            for f in fs:
+                i0, i1 = np.searchsorted(sf, f), np.searchsorted(sf, f, "right"); idx = order[i0:i1]
+                for gg in np.unique(GID[idx]).tolist(): nf[gg] += 1
+                for gg, lc in zip(GID[idx].tolist(), LOC[idx].tolist()): byg[gg].append(lc)
+            loc.append((byg, {gg for gg, c in nf.items() if c / len(fs) >= 0.5}))
+        both = sorted(loc[0][1] & loc[1][1]); gaps = []
+        for gg in both:
+            dd = np.abs(np.array(loc[0][0][gg])[:, None] - np.array(loc[1][0][gg])[None]); dd = np.minimum(dd, GL[gg] - dd)
+            gaps.append(int(dd.min()) - 1)
+        dmin = min(h["distance"] for h in hs); gap = float(np.median(gaps)) if gaps else None
+        links[-1].update(dmin=dmin, gap=gap, both=len(both), tract=bool(dmin < TRACT or (gap is not None and gap < TRACT)))
+        if "same_spot" in hs[0]:                       # per family pair, from pg_epistasis.py --maxdist
+            ss = float(np.median([h["same_spot"] for h in hs]))
+            links[-1].update(same_spot=round(ss, 2), one_site=bool(ss >= 0.5))
+        if "sep" in hs[0]:                             # from pg_epistasis.py --sep: two separate insertions?
+            links[-1].update(sep=round(float(np.median([h["sep"] for h in hs])), 2),
+                             alone=int(min(min(h["alone_a"], h["alone_b"]) for h in hs)),
+                             geometry="carriers" if any(h["geometry"] == "carriers" for h in hs) else "median")
+        fa, fb = site_of(a), site_of(b)
+        links[-1]["site"] = [fa, fb]
+        if links[-1]["sign"] < 0:                      # one insertion site for both: they exclude each other physically
+            links[-1]["site_competition"] = bool((fa[0] is not None and fa[0] == fb[0]) or (fa[1] is not None and fa[1] == fb[1]))
 
 # --- sets: communities of the co-occurrence links
 import networkx as nx
@@ -129,6 +210,9 @@ for rs in comm:
                      zmax=round(max(abs(l["z"]) for l in inner if l["sign"] > 0), 2),
                      shared=round(sum(bool(l["shared"]) for l in inner if l["sign"] > 0) / max(1, len([l for l in inner if l["sign"] > 0])), 2),
                      families=sum(regions[i]["n"] for i in rs)))
+    if CLOSE:
+        co_ = [l for l in inner if l["sign"] > 0]
+        sets[-1]["tract"] = round(sum(l["tract"] for l in co_) / max(1, len(co_)), 2)
 sets.sort(key=lambda s: (-s["pairs"], -s["zmax"]))
 for i, s in enumerate(sets):
     s["id"] = i
@@ -142,10 +226,36 @@ out = dict(meta=dict(method="CMH within lineage x accessory-content strata, 99.9
                      regions=len(regions), links=len(links), sets=len(sets), genomes=NG, chrom_len=int(np.median(GL))),
            genomes=[dict(acc=CJ["genomes"][g]["acc"], strain=CJ["genomes"][g].get("strain", ""), cl=int(cl[g])) for g in leaf],
            bounds=bounds, regions=regions, links=links, sets=sets)
-json.dump(out, open("pgb/region_sets.json", "w"), separators=(",", ":"))
+if CLOSE:
+    bnd = E.get("bands") or []
+    out["meta"].update(method=out["meta"]["method"] + f"; pairs {E['mindist']}-{E['maxdist']} genes apart in different spots"
+                       + ("" if E.get("halves") == "lineage" else " (replication halves: halves of the lineage x content STRATA, "
+                          "which share lineages)"),
+                       maxdist=E["maxdist"], expected_by_chance=round(sum(b["null_beyond"] for b in bnd), 1) if bnd else None,
+                       expected_by_chance_global_tail=round(E["far"] * E.get("tail", 0.001), 1),
+                       replicated_by_chance=round(sum(b["null_replicated"] for b in bnd), 2) if bnd else None,
+                       halves=E.get("halves", "strata"), sep=E.get("sep"),
+                       site_competition_links=sum(l.get("site_competition", False) for l in links),
+                       separate_links=sum(1 for l in links if l.get("geometry") == "carriers"),
+                       bands=E.get("bands"),
+                       tract_links=sum(l["tract"] for l in links), tract_below=TRACT, dist=E.get("dist", "median"),
+                       one_site_links=sum(l.get("one_site", False) for l in links), bands_carriers=E.get("bands_carriers"))
+# sanity: a link joins two different elements, at two different spots (or a spot and a loose group elsewhere)
+bad = [l for l in links if l["a"] == l["b"] or (regions[l["a"]]["spot"] is not None and regions[l["a"]]["spot"] == regions[l["b"]]["spot"])
+       or (regions[l["a"]]["spot"] is None and regions[l["b"]]["spot"] is None)]
+print(f"links joining the same element / the same spot / two loose groups: {len(bad)}")
+json.dump(out, open(A.out, "w"), separators=(",", ":"))
 print(f"{len(hits)} family pairs -> {len(regions)} regions ({sum(r['spot'] is not None for r in regions)} spots), {len(links)} links "
       f"({sum(l['sign'] > 0 for l in links)} co-occurrence, {sum(l['sign'] < 0 for l in links)} avoidance), {len(sets)} sets of >= 2 regions")
 for s in sets[:12]:
     print(f"  set {s['id']}: {len(s['regions'])} regions, {s['links']} links / {s['pairs']} pairs, |Z| max {s['zmax']}, shared-product links {s['shared']:.0%} | "
           + " ; ".join(f"{regions[i]['label'][:22]} @{regions[i]['center']}" for i in s["regions"][:5]))
-import os; print(f"pgb/region_sets.json {os.path.getsize('pgb/region_sets.json') / 1e3:.0f} kB")
+if CLOSE:
+    tl = [l for l in links if l["tract"]]
+    print(f"close range: {len(tl)} of {len(links)} links possibly one transfer tract (dmin or median gap in carriers < {TRACT} genes); "
+          f"{sum(l.get('one_site', False) for l in links)} whose family pairs sit in ONE spot in most genomes carrying both; "
+          f"{sum(bool(l['shared']) for l in links)} with a shared specific product; "
+          f"{sum(l.get('site_competition', False) for l in links)} avoidance links whose two elements share an insertion site; "
+          f"geometry read in co-carriers for {sum(1 for l in links if l.get('geometry') == 'carriers')}; "
+          f"expected by chance {out['meta']['expected_by_chance']} beyond the null, {out['meta']['replicated_by_chance']} replicated")
+import os; print(f"{A.out} {os.path.getsize(A.out) / 1e3:.0f} kB")

@@ -187,35 +187,187 @@ kbd{font:600 11px "IBM Plex Mono",monospace;border:1px solid var(--line-hard);bo
 .help-content a{color:inherit;text-decoration:underline;text-decoration-color:var(--line-hard)}
 @media (max-width:700px){.help-body{grid-template-columns:1fr}.help-toc{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line)}}
 /* coupled regions */
-#setscard .body{padding:12px 16px 16px;display:grid;gap:10px}
+:root{--v-k:#0a8f6a;--v-s:#c7850a;--v-o:#b0306e;--v-n:#3f6fc2;--v-t:#a3b1b8;--v-c:#a3b1b8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--v-k:#2aa87e;--v-s:#bb8526;--v-o:#d4598f;--v-n:#5b86d6;--v-t:#4f636d;--v-c:#4f636d}}
+:root[data-theme="dark"]{--v-k:#2aa87e;--v-s:#bb8526;--v-o:#d4598f;--v-n:#5b86d6;--v-t:#4f636d;--v-c:#4f636d}
+#setscard .body{padding:12px 16px 16px;display:grid;gap:10px;min-width:0}
+.st-layers{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.st-layers .seg{display:flex;max-width:100%}
+.st-layers .seg button{flex:1 1 auto;min-width:0}
+@media (max-width:520px){.st-layers .seg{width:100%}.st-layers .seg button{flex:1 1 0;padding:6px 9px}.st-layers .seg button span{font-size:10.5px}}
+.st-layers .seg button{flex-direction:column;align-items:flex-start;gap:0;padding:6px 13px;line-height:1.3;text-align:left}
+.st-layers .seg button b{font-weight:600}
+.st-layers .seg button span{font:11px "IBM Plex Mono",monospace;opacity:.85}
 .st-ctl{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:12px;color:var(--soft)}
+.st-ctl label{display:inline-flex;align-items:center;gap:5px}
 .st-ctl select{font:12px "IBM Plex Mono",monospace;padding:2px 4px;border:1px solid var(--line-hard);border-radius:5px;background:var(--surface);color:var(--ink)}
-#st-map{width:100%;height:320px;display:block;background:var(--sunken);border:1px solid var(--line);border-radius:8px}
+.st-ctl .num{font:11.5px "IBM Plex Mono",monospace;color:var(--faint)}
+.seg.sm button{padding:3px 9px;font-size:11.5px}
+.st-cm{display:inline-flex;align-items:center;gap:6px}
+.st-leg{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:11.5px;color:var(--soft);min-height:26px}
+.st-leg .lh{font-weight:600;color:var(--ink);margin-right:2px}
+.st-leg .num{font:11px "IBM Plex Mono",monospace;color:var(--faint);margin-right:2px}
+.seg button:disabled{opacity:.45;cursor:default}
+.vchip{display:inline-flex;align-items:center;gap:6px;font:500 11.5px "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line-hard);border-radius:13px;padding:2px 9px 2px 7px;cursor:pointer;line-height:1.5}
+.vchip b{font:600 11px "IBM Plex Mono",monospace;color:var(--soft)}
+.vchip[aria-pressed="false"]{opacity:.45;text-decoration:line-through;text-decoration-color:var(--faint)}
+.vchip:hover{border-color:var(--ink)}
+.vchip:focus-visible{outline:2px solid var(--obs);outline-offset:1px}
+.vchip.static{cursor:default}
+.vchip.static:hover{border-color:var(--line-hard)}
+.vk{display:inline-block;width:16px;height:0;border-top:3px solid var(--c,var(--faint));border-radius:2px;flex:none}
+.vk.dash{border-top-style:dashed;border-top-width:2px}
+.vk.dot{border-top-style:dotted;border-top-width:3px}
+.vtag{display:inline-flex;align-items:center;gap:5px;font:500 11px "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);white-space:nowrap}
+.vtag .vk{width:12px}
+.st-leg .pat{display:inline-flex;align-items:center;gap:5px;margin-left:8px;color:var(--soft)}
+.st-leg .run{flex-basis:100%;font-size:11px;color:var(--faint)}
+.st-leg .run b{color:var(--soft);font-weight:600}
+.st-leg .run.dev{color:var(--pred)}
+#st-map{width:100%;height:320px;display:block;background:var(--sunken);border:1px solid var(--line);border-radius:8px;touch-action:manipulation}
 #st-map .axis{stroke:var(--line-hard);stroke-width:1}
 #st-map .tick{font:10px "IBM Plex Mono",monospace;fill:var(--faint)}
 #st-map .el{stroke:var(--surface);stroke-width:.5;cursor:pointer}
+#st-map .el.neutral{fill:var(--soft)}
+#st-map .elh{fill:transparent;cursor:pointer}
+#st-map .axl{font:10.5px "IBM Plex Sans",system-ui,sans-serif;fill:var(--faint)}
+#st-map .wrapl{font:10px "IBM Plex Sans",system-ui,sans-serif;fill:var(--faint)}
 #st-map .el.off{opacity:.15}
-#st-map .co{fill:none;stroke-opacity:.4}
-#st-map .co.on{stroke-opacity:.95}
-#st-map .co.dim,#st-map .av.dim{stroke-opacity:.08}
-#st-map .av{fill:none;stroke:var(--faint);stroke-dasharray:3 3;stroke-opacity:.45}
-#st-map .av.on{stroke:var(--soft);stroke-opacity:.75}
-#st-tip{min-height:1.4em;font:11px "IBM Plex Mono",monospace;color:var(--ink);margin:0}
+#st-map .el.sel{stroke:var(--ink);stroke-width:1.6}
+#st-map .arc{fill:none;stroke-opacity:.5;stroke-linecap:round;pointer-events:none}
+#st-map .arc.av{stroke-dasharray:4 3;stroke-linecap:butt}
+#st-map .arc.one{stroke-dasharray:.1 3.2}
+#st-map .arc.grey{stroke:var(--faint);stroke-opacity:.4}
+#st-map .arc.on{stroke-opacity:.95}
+#st-map .arc.dim{stroke-opacity:.07}
+#st-map .arc.sel{stroke-opacity:1}
+#st-map .arc.hov{stroke-opacity:1}
+#st-map .hit{fill:none;stroke:transparent;stroke-width:12;pointer-events:stroke;cursor:pointer}
+#st-tip{min-height:1.4em;font:11px "IBM Plex Mono",monospace;color:var(--ink);margin:0;overflow-wrap:anywhere}
+.st-cap{font-size:11.5px;color:var(--soft);margin:-4px 0 0;max-width:110ch;display:flex;gap:7px;align-items:baseline}
+.st-cap .pk{flex:none;transform:translateY(-1px)}
+.pk{flex:none;display:inline-block;vertical-align:middle}
+.st-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:8px 28px;align-items:start}
+.st-notes .note{max-width:none;margin:0}
+.st-notes .corr{border-left:3px solid var(--core);padding:1px 0 1px 11px}
+@media (max-width:1100px){.st-notes .corr{grid-column:1/-1}}
+#st-detail,#inf-h,#setscard{scroll-margin-top:56px}
 .st-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:18px;align-items:start}
 @media (max-width:900px){.st-body{grid-template-columns:1fr}}
-.st-list,.st-el{overflow-x:auto}
+.st-list,.st-el{overflow-x:auto;min-width:0}
+.st-lhead{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:11.5px;color:var(--faint)}
+.st-lhead .seg{flex:none}
+.st-list td:not(:nth-child(2)){white-space:nowrap}
+.st-list .scrolly{max-height:640px;overflow:auto;overscroll-behavior:contain}
 .st-list table,.st-el table{width:100%;border-collapse:collapse;font-size:11.5px}
 .st-list th,.st-list td,.st-el th,.st-el td{padding:3px 6px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
-.st-list th,.st-el th{font-weight:500;color:var(--faint)}
+.st-list th,.st-el th{font-weight:500;color:var(--faint);position:sticky;top:0;background:var(--surface)}
 .st-list td:nth-child(2),.st-el td:nth-child(2),.st-list th:nth-child(2),.st-el th:nth-child(2){text-align:left}
 .st-list td:first-child{white-space:nowrap}
 .st-list tbody tr{cursor:pointer}
 .st-list tbody tr:hover td{background:var(--sunken)}
 .st-list tr.sel td{background:var(--pred-bg)}
+.st-list tbody tr:focus-visible{outline:2px solid var(--obs);outline-offset:-2px}
+.st-list .lk td:first-child{white-space:normal;text-align:left}
+.st-list .lk td:last-child{text-align:left}
 .st-sw{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:4px}
-.st-el h3{font-size:12px;font-weight:600;margin:12px 0 6px}
+.st-el h3{font-size:12px;font-weight:600;margin:14px 0 6px}
 .st-el h3:first-child{margin-top:0}
+.st-el h3.big{font-size:14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.st-el h3 .kind{font:500 11px "IBM Plex Mono",monospace;color:var(--faint)}
+.st-el .note{font-size:12.5px;max-width:none}
+.st-el .elb{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left;text-decoration:underline;
+  text-decoration-color:var(--line-hard);text-underline-offset:2px}
+.st-el .elb:hover{text-decoration-color:var(--ink)}
+.st-el .elb:focus-visible{outline:2px solid var(--obs);outline-offset:1px}
+.st-el .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.hint2{font:11px "IBM Plex Sans",system-ui,sans-serif;color:var(--faint);white-space:nowrap}
+.st-el .note .linkbtn{margin-left:4px}
+.st-flags{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 0}
+.flag{font:500 11px "IBM Plex Sans",system-ui,sans-serif;border-radius:10px;padding:1px 8px;border:1px solid var(--line-hard);color:var(--soft);background:var(--surface)}
+.flag.ok{border-color:color-mix(in srgb,var(--shell) 55%,var(--line-hard));color:var(--ink)}
+.flag.warn{border-color:color-mix(in srgb,var(--core) 70%,var(--line-hard));color:var(--ink);background:color-mix(in srgb,var(--core) 9%,var(--surface))}
+.kv{display:grid;grid-template-columns:minmax(0,11.5rem) minmax(0,1fr);gap:0 12px;margin:8px 0 0;font-size:12px}
+.kv dt{color:var(--soft);padding:4px 0;border-bottom:1px solid var(--line)}
+.kv dd{margin:0;padding:4px 0;border-bottom:1px solid var(--line);color:var(--ink)}
+.kv dd .mono{font-size:12px}
+.kv dd small{display:block;color:var(--faint);font:11px/1.35 "IBM Plex Sans",system-ui,sans-serif}
+@media (max-width:520px){.kv{grid-template-columns:1fr}.kv dt{border-bottom:0;padding-bottom:0}}
+.cav{margin:8px 0 0;padding-left:18px;font-size:12px;color:var(--soft)}
+.cav li{margin:3px 0}
+.vbox{border:1px solid var(--line);border-left:3px solid var(--c,var(--line-hard));border-radius:6px;padding:8px 11px;margin-top:6px;background:var(--sunken)}
+.vbox .vtag{font-size:12px;font-weight:600;margin-bottom:3px}
+.vbox p{margin:0;font-size:12.5px;color:var(--soft);line-height:1.5}
+.vbox p b{color:var(--ink);font-weight:600}
+.vbox p+p{margin-top:6px}
 #st-pres{display:block;max-width:100%;cursor:crosshair}
+.st-ptip{min-height:1.4em;font:11px "IBM Plex Mono",monospace;color:var(--ink);margin:3px 0 0;overflow-wrap:anywhere}
+.st-pkey{display:flex;flex-wrap:wrap;align-items:center;gap:3px 12px;font-size:11px;color:var(--soft);margin:4px 0 0}
+.st-pkey span{display:inline-flex;align-items:center;gap:5px}
+.st-pkey .ramp{display:inline-block;width:46px;height:9px;border-radius:2px}
+.st-pkey .lin{display:inline-block;width:1px;height:11px;background:var(--line-hard)}
+.st-list tr.none td{color:var(--faint)}
+.st-list .narrow{display:none}
+.st-list tr.none td:first-child .st-sw{opacity:.4}
+.st-list .elr td:nth-child(2){text-align:left}
+@media (max-width:520px){.st-list .wide,.st-el .wide{display:none}
+  .st-list .narrow{display:block;margin-top:2px}
+  .st-list td:nth-child(2),.st-el td:nth-child(2){min-width:7em;overflow-wrap:anywhere}
+  .lst li{flex-wrap:wrap;row-gap:0}
+  .lst li span:last-child{margin-left:0;flex-basis:100%;font-size:11.5px;color:var(--soft)}}
+/* what the model does without an element */
+.inf{margin-top:6px;border-top:1px solid var(--line);padding-top:4px}
+.inf-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 0}
+.inf-bar .combo{flex:1 1 260px;max-width:440px}
+.inf-bar .btn{white-space:nowrap}
+.inf-bar .btn:disabled{opacity:.5;cursor:default}
+.inf-prog{height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin:8px 0 0;max-width:440px}
+.inf-prog i{display:block;height:100%;background:var(--pred);transition:width .4s}
+.inf-read{margin:10px 0 0;font-size:12.5px;color:var(--soft);line-height:1.5}
+.inf-read b{color:var(--ink);font-weight:600}
+.inf-read p{margin:0 0 6px}
+.inf-verdict{display:inline-block;font:600 11px "IBM Plex Mono",monospace;border-radius:10px;padding:1px 8px;margin-right:6px;
+  background:var(--sunken);border:1px solid var(--line-hard);color:var(--ink)}
+.inf-verdict.spec{background:var(--pred-bg);border-color:var(--pred)}
+.inf-verdict.ctl{background:var(--surface);border-style:dashed;color:var(--soft)}
+.inf-links{margin:4px 0 8px;padding-left:18px}
+.inf-links li{margin:2px 0}
+.inf-links .ok{color:var(--shell)}
+.inf-links .ko{color:var(--pred)}
+.inf-nbh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:14px 0 0}
+.inf-nbh h3{margin:0!important}
+.inf-foot{font-size:10.5px;color:var(--faint);margin:5px 0 0;line-height:1.45}
+.inf-fig{margin:10px 0 0;position:relative}
+.inf-fig svg{width:100%;height:auto;display:block;overflow:visible}
+.inf-fig .ax{stroke:var(--line-hard);stroke-width:1}
+.inf-fig .grid{stroke:var(--line);stroke-width:1}
+.inf-fig .tk{font:10px "IBM Plex Mono",monospace;fill:var(--faint)}
+.inf-fig .axl{font:10.5px "IBM Plex Sans",system-ui,sans-serif;fill:var(--soft)}
+.inf-fig .band{fill:var(--obs);fill-opacity:.17;stroke:none}
+.inf-fig .cmed{fill:none;stroke:var(--obs);stroke-width:1.5;stroke-dasharray:4 3}
+.inf-fig .elline{fill:none;stroke:var(--pred);stroke-width:2;stroke-linejoin:round}
+.inf-fig .above{fill:var(--pred);stroke:var(--surface);stroke-width:1.5}
+.inf-fig .rug{stroke:var(--faint);stroke-width:1.2}
+.inf-fig .rug.sig{stroke:var(--ink);stroke-width:1.6}
+.inf-fig .rug.lnk{stroke:var(--core-line);stroke-width:2.4}
+.inf-fig .xh{stroke:var(--ink);stroke-width:1;stroke-opacity:.5}
+.inf-fig .ov{fill:transparent;cursor:crosshair}
+.inf-leg{display:flex;flex-wrap:wrap;gap:3px 14px;font-size:11px;color:var(--soft);margin:4px 0 0}
+.inf-leg span{display:inline-flex;align-items:center;gap:5px}
+.inf-leg .sw{display:inline-block;width:16px;height:9px;background:color-mix(in srgb,var(--obs) 17%,transparent);border-radius:2px}
+.inf-src{font-size:10.5px;color:var(--faint);margin:8px 0 0;line-height:1.45}
+.inf-tip{min-height:1.4em;font:11px "IBM Plex Mono",monospace;color:var(--ink);margin:3px 0 0}
+.inf-nb{max-height:330px;overflow:auto;margin-top:6px;border:1px solid var(--line);border-radius:6px;overscroll-behavior:contain}
+.inf-nb table td,.inf-nb table th{white-space:nowrap}
+.inf-nb table td:nth-child(2){white-space:normal;min-width:12em}
+@media (max-width:520px){.inf-nb table td:nth-child(2){min-width:6em;overflow-wrap:anywhere}.inf-nb .wide{display:none}.inf-nb table{font-size:11px}
+  .inf-nb table td,.inf-nb table th{padding:3px 3px}}
+.inf-nb tr.lnk td{background:color-mix(in srgb,var(--core) 12%,var(--surface))}
+.tagl{display:inline-block;font:500 10.5px "IBM Plex Mono",monospace;padding:0 6px;border-radius:9px;line-height:1.6;margin-left:4px;
+  color:var(--core-line);border:1px solid color-mix(in srgb,var(--core) 60%,transparent)}
+.inf-nb tr.sig td:nth-child(5),.inf-nb tr.sig td:nth-child(6){font-weight:600;color:var(--ink)}
+.inf-nb .fam{display:block;color:var(--faint);font-size:10.5px;font-family:"IBM Plex Mono",monospace}
 #attncard .body{padding:12px 16px 16px;display:grid;gap:10px}
 .at-src{font-size:12.5px;color:var(--soft)}
 .at-src b{color:var(--ink)}
@@ -490,21 +642,29 @@ body.nobodyscroll{overflow:hidden}
 <div class="tabpanel" id="tab-regions" role="tabpanel" aria-labelledby="tb-regions" hidden>
 
 <section class="card" id="setscard">
-  <div class="card-h"><h2>Coupled regions</h2><span class="hint">click a set or an element &middot; hover for details</span>
+  <div class="card-h"><h2>Coupled regions</h2><span class="hint">click an arc or an element, or pick in the lists &middot; hover for details</span>
     <button type="button" class="helpbtn" data-help="regions" aria-label="Help on coupled regions"><svg class="ic"><use href="#i-help"/></svg></button></div>
   <div class="body">
-    <p class="note" id="st-note"></p>
+    <div class="st-layers"><div class="seg" id="st-layer" role="group" aria-label="Distance between the coupled elements"></div></div>
+    <div class="st-notes" id="st-note"></div>
     <div class="st-ctl">
-      <label>links behind at least <select id="st-min"><option value="1">1</option><option value="2" selected>2</option>
+      <label><input type="checkbox" id="st-rep" checked> only links replicated in lineage-disjoint halves <span class="num" id="st-rep-n"></span></label>
+      <label>links behind at least <select id="st-min"><option value="1" selected>1</option><option value="2">2</option>
         <option value="5">5</option><option value="10">10</option></select> family pairs</label>
       <label><input type="checkbox" id="st-avoid" checked> avoidance (dashed, below the chromosome)</label>
-      <span id="st-count"></span>
+      <span class="st-cm">colour <span class="seg sm" id="st-colour" role="group" aria-label="Colour the arcs by">
+        <button type="button" data-c="model" aria-pressed="true">model verdict</button><button type="button" data-c="set" aria-pressed="false">set</button></span></span>
+      <span id="st-count" class="num"></span>
     </div>
-    <svg id="st-map" role="img" aria-label="Coupled elements along the chromosome"></svg>
+    <div class="st-leg" id="st-leg"></div>
+    <svg id="st-map" role="img" aria-label="Coupled elements along the chromosome, with the links between them"></svg>
     <p id="st-tip">&nbsp;</p>
+    <p class="st-cap" id="st-cap"></p>
     <div class="st-body">
-      <div class="st-list" id="st-list"></div>
-      <div class="st-el" id="st-detail"></div>
+      <div class="st-list"><div class="st-lhead"><span class="seg sm" id="st-lview" role="group" aria-label="List">
+        <button type="button" data-v="sets" aria-pressed="true">sets</button><button type="button" data-v="links" aria-pressed="false">links</button><button type="button" data-v="elements" aria-pressed="false">elements</button></span>
+        <span id="st-lcount"></span></div><div id="st-list"></div></div>
+      <div class="st-el" id="st-detail" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -512,11 +672,13 @@ body.nobodyscroll{overflow:hidden}
 </div>
 
 <div class="tabpanel" id="tab-findings" role="tabpanel" aria-labelledby="tb-findings" hidden>
-<p class="tabintro">What the model gets right and where it doubts, measured on the dnaA window: 80 genes from
+<p class="tabintro" id="f-intro">What the model gets right and where it doubts, measured on the dnaA window: 80 genes from
 <span class="gene">dnaA</span> in all 2,002 genomes, 130,837 calls, each on a genome’s real proteins.</p>
 <section class="card" style="margin-top:0">
-  <div class="card-h"><h2>Reading the fork</h2><span class="hint">the dnaA window, column by column</span></div>
+  <div class="card-h"><h2>Reading the window</h2><span class="hint" id="f-read-hint">the dnaA window, column by column</span></div>
   <div class="pad">
+    <div id="read-auto" hidden></div>
+    <div id="read-dnaa">
     <p class="note"><b>The spine starts at the origin.</b> Columns 0 to 5,
     <span class="gene">dnaA</span>, <span class="gene">dnaN</span>, <span class="gene">recF</span>,
     <span class="gene">gyrB</span>, <span class="gene">yidB</span> and <span class="gene">yidA</span>,
@@ -542,12 +704,13 @@ body.nobodyscroll{overflow:hidden}
     <p class="note" style="margin-top:11px"><b>The window ends in the <span class="gene">waa</span>
     locus</b>, which builds the lipopolysaccharide core: <span class="gene">waaA</span> in most genomes,
     then a spread of glycosyltransferases that differ between core types.</p>
+    </div>
   </div>
 </section>
 
 <section class="card">
   <div class="card-h"><h2>Where the model is sure, and where it hesitates</h2>
-    <span class="hint">130,837 calls &middot; 2,002 genomes</span></div>
+    <span class="hint" id="f-calls-hint">130,837 calls &middot; 2,002 genomes</span></div>
   <div class="pad" style="padding-bottom:4px">
     <p class="note">Each call is joined to the gene actually at that position, with its PPanGGOLiN
     partition and whether panRGP places it in a region of genomic plasticity.</p>
@@ -561,6 +724,8 @@ body.nobodyscroll{overflow:hidden}
     <tbody id="trgp"></tbody>
   </table></div>
   <div class="pad" style="border-top:1px solid var(--line)">
+    <p class="note" id="f-acc-auto" hidden></p>
+    <div class="f-dnaa">
     <p class="note"><b>Accuracy follows the partition.</b> Read in its own vocabulary, the model names
     the next gene 95% of the time when it is persistent, 80% when shell, 29% when cloud, and 94% outside
     a region of plasticity against 78% inside.</p>
@@ -586,6 +751,7 @@ body.nobodyscroll{overflow:hidden}
     gives 90.0%; the model gives 88.8%. Where the graph is certain the model adds nothing. After a fork,
     where two or more families follow, the model is right 79.6% of the time against 72.0% for the graph:
     it reads upstream context that single adjacencies do not hold.</p>
+    </div>
   </div>
 </section>
 
@@ -600,11 +766,11 @@ body.nobodyscroll{overflow:hidden}
   </table></div>
   <div class="pad" style="border-top:1px solid var(--line)">
     <p class="note">Every call is made on the real proteins of a real genome, so this measures the
-    model, not a substitution. <b>The anchor is what makes the difference.</b> Along the replication
+    model, not a substitution.<span class="f-dnaa"> <b>The anchor is what makes the difference.</b> Along the replication
     cassette its first guess is right in every genome, out of fifty thousand families, and its
     distribution is nearly a point mass. It stays right nine times in ten along the persistent stretch,
     and drops where the genomes vary, down to three times in four in the <span class="gene">waa</span>
-    locus.</p>
+    locus.</span></p>
     <p class="note caveat" style="margin-top:13px"><b>The model’s families are its own.</b> Bacformer
     predicts among 50,000 clusters of its training set. An exemplar bank built from 37 genomes covers
     9,814 of them; where a family’s cluster is missing from it, the bank scores the model wrong even
@@ -647,6 +813,12 @@ body.nobodyscroll{overflow:hidden}
       <tr><td>the pangenome’s own numbers, what each genome is searched by, and the map of the chromosome</td><td><code>pgb_page_meta.py</code></td><td><code>pgb/pangenome_info.json</code>, <code>pgb/genome_meta.json</code>, <code>pgb/chrom_map.json</code></td></tr>
       <tr><td>any other window of the chromosome, when the page asks</td><td><code>pgb_region.py</code></td><td>served live</td></tr>
       <tr><td>distant families that go together within lineages, and their sets</td><td><code>pg_epistasis.py --ctrl_content</code>, <code>pg_region_sets.py</code></td><td><code>pgb/region_sets.json</code></td></tr>
+      <tr><td>the same at close range, 50–500 genes apart in separate insertions, replicated in lineage-disjoint halves</td><td><code>pg_epistasis.py --halves lineage</code>, <code>pg_region_sets.py</code> (close mode)</td><td><code>pgb/region_sets_close.json</code></td></tr>
+      <tr><td>what each link is in the genomes: one element at several spots, one tract, separate insertions, one insertion site, replicated in lineage-disjoint halves</td><td><code>pg_link_flags.py</code></td><td><code>pgb/link_flags.json</code>, <code>pgb/link_flags_close.json</code></td></tr>
+      <tr><td>the knockout engine: full-precision passes over whole chromosomes, the decoder of the other lineage half, whole-element controls, self-checks</td><td><code>pg_knock.py</code></td><td><code>pgb/knock/base_*</code></td></tr>
+      <tr><td>the in-silico knockout of every link, and the model’s verdict on each arc</td><td><code>pg_knockout.py --all</code></td><td><code>pgb/knock/all_arcs.json</code>, <code>close_arcs.json</code>, <code>pilot_report.md</code></td></tr>
+      <tr><td>the genomes carrying each element at its spot</td><td><code>pg_region_carriers.py</code></td><td><code>pgb/region_carriers.json</code></td></tr>
+      <tr><td>what the model does without one element, on demand</td><td><code>serve_live.py</code> <code>/influence</code> (<code>pg_knock.influence</code>)</td><td>served live</td></tr>
       <tr><td>the live model: calls in one genome, drawn paths, windows, attention</td><td><code>serve_live.py</code></td><td>127.0.0.1:8765</td></tr>
       <tr><td>this page</td><td><code>build_page.py</code></td><td><code>standalone/__SLUG__.html</code></td></tr>
     </tbody>
@@ -758,15 +930,61 @@ body.nobodyscroll{overflow:hidden}
           on the start token are often idle, not blind. Computed live by the <a href="#help-server" data-sec="server">local server</a>.</dd>
       </dl></section>
       <section id="help-regions"><h3>Coupled regions</h3><dl class="howto">
-        <dt>What is shown</dt><dd>accessory families more than 500 genes apart, in different insertion spots, whose
-          presence goes together (arcs above the chromosome) or apart (dashed, below) within lineages and within
-          tertiles of accessory content. An element is a cassette of an insertion spot that comes and goes as one; a set
-          is a community of co-occurrence links. Pick a set to see its elements, their presence in the 540 complete
-          genomes in cgMLST order, and a <b>graph</b> button that opens the graph there.</dd>
-        <dt>How far to trust it</dt><dd>pairs beyond a permutation null and replicated in two disjoint halves of the
-          lineages; about a thousand would cross the null’s threshold by chance before that replication. A link may join
-          two copies of one mobile element: <i>both</i> marks elements that share a product. These tests read the
-          presence of genes, not the model.</dd>
+        <dt>What is shown</dt><dd>accessory gene families in different insertion spots whose presence goes together (arcs above
+          the chromosome) or apart (dashed, below) <b>within</b> lineages and within tertiles of accessory content, beyond a
+          permutation null. An element is a cassette of an insertion spot that comes and goes as one; a set is a community of
+          co-occurrence links. These tests read the presence of genes in the <span data-rs="long.genomes">540</span> complete genomes, not the model.</dd>
+        <dt>Two layers</dt><dd><b>Long range</b>: elements more than <span data-rs="long.mindist">500</span> genes apart
+          (<span data-rs="long.links">533</span> links). <b>Close range</b>: <span data-rs="close.mindist">50</span> to
+          <span data-rs="close.maxdist">500</span> genes apart in the genomes carrying both, in separate insertions
+          (<span data-rs="close.links">113</span> links), where the model’s use of the context is strongest; a pair on both sides of
+          dnaA is drawn the short way round, leaving the map at both ends. Arcs join the elements’ median positions; a link’s detail
+          also gives how far apart the two sit in the genomes carrying both (when fewer than 10 genomes do, as for most close-range
+          avoidance links, only the median positions). The map, the three lists (sets, links, elements) and the detail work on
+          either; the lists are also the way in on a phone and from the keyboard (arrow keys, Enter).</dd>
+        <dt>Colours and lines</dt><dd>with <b>model verdict</b>, an arc’s colour is what the model says about the link (below),
+          and the elements are grey; with <b>set</b>, the set of its two ends. The line says what the link is in the genomes: solid
+          co-occurrence, dashed avoidance, dotted <b>one element at several spots</b>. Click a legend entry to hide or show its
+          arcs; the legend counts the links the filters keep.</dd>
+        <dt>What the model says</dt><dd>an <b>in-silico knockout</b> of Bacformer on the complete chromosomes, in full
+          precision: in each genome carrying both elements (or one, for avoidance), the element that comes first from dnaA is
+          deleted and the model’s probability of the other element’s first family is read again, against deletions of other
+          whole accessory elements of about the same size and distance, with each genome read by a decoder learned on the other
+          lineages. <b>knows</b>: the other element moves the way the genomes go, more than under control deletions, in both
+          halves of the lineages, and more than the other elements the same deletion moves (specificity, in z and in raw units).
+          <b>not specific</b>: it moves the way the genomes go, but no more than everything else downstream; the deletion shifts the
+          model’s expectation broadly. <b>opposite</b>: a specific move against the genomes. <b>none</b>: no move that passes the
+          tests either way; the detail says which condition failed. <b>not testable</b>: fewer than 5 lineages, no readout, only
+          partial deletions, or changes below the numerical floor.</dd>
+        <dt>How far to trust each verdict</dt><dd><b>knows</b> is the strongest claim: calibrated on pseudo-deletions and
+          corrected over the links, and it holds in two lineage-disjoint halves. <b>not specific</b> shows the model uses
+          distant content, not that it knows the pair. <b>none</b> is only as strong as its smallest detectable effect and its
+          distance: the model’s use of context decays (a 2-gene deletion moves the call of a gene 10 genes on by 0.044 in
+          logit, 100 genes on by 0.014, 1,000 genes on by 0.006), so a <i>none</i> tested beyond 500 genes means the test could not
+          see it, not that the model ignores the link. <b>not testable</b> says nothing. A pilot on 24 long-range links, tested at a
+          median 1,414 genes, found none known, 3 not specific, 9 none and 12 not testable. The detail of a link gives every number:
+          genomes tested, lineages, the median effect overall and in each lineage half, the share tested within the model’s range, the
+          smallest detectable effect and the q values each verdict was decided on.</dd>
+        <dt>A correction</dt><dd>an earlier version of this tab called a link replicated when it held in two halves of the
+          genomes, but those halves shared lineages (6 of the 8 lineage clusters were in both). With
+          lineage-disjoint halves, <span data-rs="long.rep_lineage">267</span> of the <span data-rs="long.links">533</span> long-range
+          links replicate; <b>only links replicated in lineage-disjoint halves</b> shows those (on by default), and the sets list
+          greys the sets left with none. Every close-range link was selected that way.</dd>
+        <dt>One element at several spots</dt><dd>when, in the genomes carrying both, a copy of each sits in one spot, the
+          “link” is one element that lands at different places in different genomes, not two regions that go together
+          (<span data-rs="long.one_site">110</span> long-range links, <span data-rs="close.one_site">4</span> close-range ones). Flags in a
+          link’s detail also say when the two lie under 100 genes apart (possibly one transfer tract), in separate insertions, or
+          share an insertion site.</dd>
+        <dt>Without an element</dt><dd>click an element, pick a genome carrying it at its spot, and <b>Delete it and read the
+          model</b>: the page’s <a href="#help-server" data-sec="server">server</a> deletes it, then 8 whole accessory elements
+          of about its size in turn, and draws the mean change of the model’s expectation per 25 genes out to 1,500 genes
+          downstream, against the controls’ range. A close-range element is deleted as an element of the close-range sets, and its
+          links are the close-range ones. <b>specific</b>: some elements downstream move differently from the others at their distance
+          (q &lt; 0.05); <b>broad</b>: none does, while the deletion moves the model more than a typical one; <b>like a control
+          deletion</b>: none does, and it moves the model no more than a random element of its size. Each linked element is then
+          placed: read, with its change and whether it goes the way the genomes go, or before the element (the model reads from dnaA
+          on), beyond 1,500 genes, not at its spot, or absent. A few seconds on a GPU; on a CPU, as on the public Space, 2 to 4
+          minutes, with the progress shown; a computation keeps running if you look at something else meanwhile.</dd>
       </dl></section>
       <section id="help-keys"><h3>Mouse and keys</h3><dl class="howto">
         <dt>Move</dt><dd>drag the background, or drag anywhere with the wheel pressed. Shift + wheel scrolls along the
@@ -780,8 +998,9 @@ body.nobodyscroll{overflow:hidden}
       <section id="help-server"><h3>The local server</h3><dl class="howto">
         <dt>Start it</dt><dd><code>python3 serve_live.py</code> in <code>origin-walk/</code>, then open
           <code>http://localhost:8765/</code>. It listens on 127.0.0.1 only.</dd>
-        <dt>What needs it</dt><dd>the model’s call in one genome, drawn paths, windows beyond dnaA and attention maps. The
-          graph of the dnaA window, the coupled regions and the findings work without it.</dd>
+        <dt>What needs it</dt><dd>the model’s call in one genome, drawn paths, windows beyond dnaA, attention maps and what the
+          model does without a coupled element. The graph of the dnaA window, the coupled regions with their verdicts and the
+          findings work without it. A page opened from another local server (another port) reaches it too.</dd>
       </dl></section>
     </div>
   </div>
@@ -846,15 +1065,97 @@ const RI = PG.by_rgp['inside an RGP'], RO = PG.by_rgp['outside an RGP'];
         ${cell(RI.entropy.toFixed(2) + ' / ' + RO.entropy.toFixed(2), 'bits of doubt, in / out of a region of plasticity')}
       </div></div>`;
 }
-const trow = (k, r) => `<tr><td>${k}</td><td>${fmtInt(r.n)}</td><td>${(r.top1_dec * 100).toFixed(1)}%</td><td>${(r.top1 * 100).toFixed(1)}%</td><td>${r.entropy.toFixed(2)} bits</td></tr>`;
-document.getElementById('tpart').innerHTML = ['persistent', 'shell', 'cloud'].map(k => trow(k, PG.by_partition[k])).join('');
-document.getElementById('trgp').innerHTML = trow('outside a region', RO) + trow('inside a region', RI);
-document.getElementById('decay').innerHTML = [[1, 3, 'dnaN, recF, gyrB'], [1, 10, 'the cassette and dgo'], [11, 40], [41, 79]].map(([a, b, lab]) => {
-  const r = PG.per_locus.filter(x => x.locus >= a && x.locus <= b), n = r.reduce((s, x) => s + x.n, 0);
-  const e = r.reduce((s, x) => s + x.entropy * x.n, 0) / n, t = r.reduce((s, x) => s + x.top1 * x.n, 0) / n;
-  const td = r.reduce((s, x) => s + x.top1_dec * x.n, 0) / n;
-  return `<tr><td>${a} – ${b}${lab ? ' (' + lab + ')' : ''}</td><td>${fmtInt(n)}</td><td>${e.toFixed(2)} bits</td><td>${(td * 100).toFixed(1)}%</td><td>${(t * 100).toFixed(1)}%</td></tr>`;
-}).join('');
+/* ---------- Findings follow the window: tables from its calls, and a reading written from its data ---------- */
+let CUR = PG;                                              // the data of the window shown (PG: the dnaA window)
+const pctR = v => v == null ? '—' : (v * 100).toFixed(1) + '%';
+const trow = (k, r) => r ? `<tr><td>${k}</td><td>${fmtInt(r.n)}</td><td>${pctR(r.top1_dec)}</td><td>${pctR(r.top1)}</td><td>${r.entropy.toFixed(2)} bits</td></tr>`
+  : `<tr><td>${k}</td><td>0</td><td>—</td><td>—</td><td>—</td></tr>`;
+const nlab = n => n.named ? `<span class="gene">${esc(n.label)}</span>` : esc(n.label.length > 38 ? n.label.slice(0, 36) + '…' : n.label);
+function autoReading(D) {                                  // the window in three kinds of stretch, in its own numbers
+  const W = D.meta.window, pl = new Map(D.per_locus.map(r => [r.locus, r])), cols = [];
+  for (let k = 0; k < W; k++) {
+    const here = D.nodes.filter(n => n.locus === k).sort((a, b) => b.n - a.n), top = here[0], r = pl.get(k);
+    if (!top) continue;
+    const tot = here.reduce((s, n) => s + n.n, 0) || 1, s1 = top.n / NG, s2 = here[1] ? here[1].n / NG : 0;
+    const rgp = r && r.rgp != null ? r.rgp : here.reduce((s, n) => s + n.n * n.rgp, 0) / tot;
+    cols.push({ k, top, here, s1, kind: s1 >= 0.9 ? 'spine' : s2 >= 0.1 ? 'fork' : 'var', rgp, r });
+  }
+  const runs = [];
+  for (const c of cols) { const last = runs[runs.length - 1];
+    if (last && last.kind === c.kind && c.k === last.b + 1) { last.b = c.k; last.cols.push(c); }
+    else runs.push({ kind: c.kind, a: c.k, b: c.k, cols: [c] }); }
+  const acc = cs => { const w = cs.filter(c => c.r); const n = w.reduce((s, c) => s + c.r.n, 0);
+    return n ? w.reduce((s, c) => s + c.r.top1_dec * c.r.n, 0) / n : null; };
+  const rg = cs => Math.round(cs.reduce((s, c) => s + c.rgp, 0) / cs.length * 100);
+  const peak = cs => cs.filter(c => c.r).sort((a, b) => b.r.entropy - a.r.entropy)[0];
+  const span = run => run.a === run.b ? `Column ${run.a}` : `Columns ${run.a} to ${run.b}`;
+  const range = cs => { const lo = Math.round(Math.min(...cs.map(c => c.s1)) * 100), hi = Math.round(Math.max(...cs.map(c => c.s1)) * 100);
+    return lo === hi ? `${lo}%` : `${lo} to ${hi}%`; };
+  const genes = cs => { const u = [...new Set(cs.map(c => c.top))]; const nm = u.slice(0, 5).map(nlab);
+    return nm.join(', ') + (u.length > 5 ? ' …' : ''); };
+  const model = cs => { const a = acc(cs), p = peak(cs); if (a == null) return '';
+    return ` The model names the next gene in ${Math.round(a * 100)}% of genomes${p && p.r.entropy > 0.5 ? `, and hesitates most at column ${p.k} (${p.r.entropy.toFixed(2)} bits, as unsure as a choice among ${p.r.ppl.toFixed(1)} families)` : ''}.`; };
+  const keep = new Set([
+    ...runs.filter(r => r.kind === 'spine' && r.cols.length >= 3),
+    ...runs.filter(r => r.kind === 'fork').sort((x, y) => y.cols.length - x.cols.length).slice(0, 4),
+    ...runs.filter(r => r.kind === 'var').sort((x, y) => y.cols.length - x.cols.length).slice(0, 3)]);
+  const out = [];
+  for (const run of runs) {
+    if (!keep.has(run)) continue;
+    const cs = run.cols;
+    if (run.kind === 'spine') out.push(`<b>${span(run)}, ${nlab(cs[0].top)} to ${nlab(cs[cs.length - 1].top)}, form a spine:</b> one family in at least
+      nine genomes out of ten at every column, ${100 - rg(cs)}% of the genes outside any region of plasticity.${model(cs)}`);
+    else if (run.kind === 'var') out.push(`<b>${span(run)}, ${genes(cs)}, ${cs.length > 1 ? 'are' : 'is'} carried by ${range(cs)} of the genomes</b>,
+      with no other family there in more than one genome in ten: the rest lack ${cs.length > 1 ? 'them' : 'it'}. ${rg(cs)}% of these genes are in a region of plasticity.${model(cs)}`);
+    else {
+      const alt = new Map(), mains = new Set(cs.map(c => c.top.label));
+      cs.forEach(c => c.here.slice(1).forEach(n => { if (n.n / NG >= 0.1 && !mains.has(n.label)) alt.set(n.label, Math.max(alt.get(n.label) || 0, n.n / NG)); }));
+      const altTxt = [...alt].sort((x, y) => y[1] - x[1]).slice(0, 4).map(([l, v]) => `${nlab({ label: l, named: isGene(l) })} (${Math.round(v * 100)}%)`).join(', ');
+      out.push(`<b>${span(run)} fork:</b> the most carried branch, ${genes(cs)}, is in ${range(cs)} of the genomes${altTxt ? `; the others carry ${altTxt}` : ''}.
+        ${rg(cs)}% of the genes there are in a region of plasticity.${model(cs)}`);
+    }
+  }
+  const lastC = cols[cols.length - 1];
+  if (lastC) out.push(`<b>The window ends at ${nlab(lastC.top)}</b>, column ${lastC.k}, in ${Math.round(lastC.s1 * 100)}% of the genomes.`);
+  const n = kind => runs.filter(r => r.kind === kind).length, nc = kind => cols.filter(c => c.kind === kind).length;
+  const head = `<p class="note faint" style="margin-bottom:11px">Of ${W} columns, ${nc('spine')} form a spine, ${nc('fork')} fork
+    (${n('fork')} stretch${n('fork') === 1 ? '' : 'es'}) and ${nc('var')} are carried by fewer genomes with no alternative. Written from this window’s
+    data; the longest stretches are described. <button type="button" class="linkbtn" data-home>The hand-written reading of the dnaA window</button></p>`;
+  return head + out.map((t, i) => `<p class="note"${i ? ' style="margin-top:11px"' : ''}>${t}</p>`).join('');
+}
+function renderFindings() {
+  const D = CUR, m = D.meta, home = !REG, part = D.by_partition || {}, rgp = D.by_rgp || {};
+  const where = home ? `the dnaA window: 80 genes from <span class="gene">dnaA</span> in all ${fmtInt(NG)} genomes`
+    : `the <span class="gene">${esc(REG.anchor_label)}</span> window: about genes ${fmtInt(REG.anchor_pos)}–${fmtInt(REG.anchor_pos + m.window - 1)} from dnaA, in ${fmtInt(NG)} complete chromosomes`;
+  document.getElementById('f-intro').innerHTML = `What the model gets right and where it doubts, in ${where}, ${fmtInt(m.calls)} calls, each on a genome’s real proteins.`;
+  document.getElementById('f-read-hint').textContent = `the ${home ? 'dnaA' : REG.anchor_label} window, column by column`;
+  document.getElementById('f-calls-hint').textContent = `${fmtInt(m.calls)} calls · ${fmtInt(NG)} ${home ? 'genomes' : 'complete chromosomes'}`;
+  document.getElementById('read-dnaa').hidden = !home;
+  const ra = document.getElementById('read-auto'); ra.hidden = home; if (!home) ra.innerHTML = autoReading(D);
+  document.getElementById('tpart').innerHTML = ['persistent', 'shell', 'cloud'].map(k => trow(k, part[k])).join('');
+  const RO = rgp['outside an RGP'], RI = rgp['inside an RGP'];
+  document.getElementById('trgp').innerHTML = trow('outside a region', RO) + trow('inside a region', RI);
+  document.querySelectorAll('.f-dnaa').forEach(e => { e.hidden = !home; });
+  const fa = document.getElementById('f-acc-auto'); fa.hidden = home;
+  if (!home) {
+    const P = k => part[k] ? Math.round(part[k].top1_dec * 100) + '%' : '—', E = k => part[k] ? part[k].entropy.toFixed(2) : '—';
+    fa.innerHTML = `<b>In this window,</b> read in its own vocabulary, the model names the next gene ${P('persistent')} of the time when it
+      is persistent, ${P('shell')} when shell and ${P('cloud')} when cloud, and ${RO ? Math.round(RO.top1_dec * 100) + '%' : '—'} outside a region of
+      plasticity against ${RI ? Math.round(RI.top1_dec * 100) + '%' : '—'} inside. Its entropy is ${RO ? RO.entropy.toFixed(2) : '—'} bits outside a
+      region of plasticity and ${RI ? RI.entropy.toFixed(2) : '—'} inside, ${E('persistent')} bits on persistent genes and ${E('cloud')} on cloud genes.
+      <span class="faint">The robustness checks and the comparison with the graph were run on the dnaA window.</span>
+      <button type="button" class="linkbtn" data-home>Open the dnaA window</button>`;
+  }
+  const ranges = home ? [[1, 3, 'dnaN, recF, gyrB'], [1, 10, 'the cassette and dgo'], [11, 40], [41, 79]] : [[0, 9], [10, 39], [40, m.window - 1]];
+  document.getElementById('decay').innerHTML = ranges.map(([a, b, lab]) => {
+    const r = D.per_locus.filter(x => x.locus >= a && x.locus <= b), n = r.reduce((s, x) => s + x.n, 0);
+    if (!n) return '';
+    const e = r.reduce((s, x) => s + x.entropy * x.n, 0) / n, td = r.reduce((s, x) => s + x.top1_dec * x.n, 0) / n;
+    const t = r.every(x => x.top1 != null) ? r.reduce((s, x) => s + x.top1 * x.n, 0) / n : null;
+    return `<tr><td>${a} – ${b}${lab ? ' (' + lab + ')' : ''}</td><td>${fmtInt(n)}</td><td>${e.toFixed(2)} bits</td><td>${(td * 100).toFixed(1)}%</td><td>${pctR(t)}</td></tr>`;
+  }).join('');
+}
+document.getElementById('tab-findings').addEventListener('click', ev => { if (ev.target.closest('[data-home]')) goHome(); });
 document.getElementById('foot').textContent = 'Model: macwiatrak/bacformer-causal-complete-genomes. Genomes: the ' +
   fmtInt(NG) + ' assemblies of PanGBank pangenome ' + PG.meta.pangenome + ', each walked ' + PG.meta.window +
   ' genes from the dnaA family in its direction of transcription (8 genomes without a dnaA gene start at dnaN, column 1). ' +
@@ -982,9 +1283,14 @@ const WELL_KNOWN = (() => {                                 // reference strains
     GX.find(f => f.lvl === 0 && /^Shigella flexneri/.test(f.org)), GX.find(f => f.lvl === 0 && /^Shigella (sonnei|dysenteriae|boydii)/.test(f.org))];
   return out.filter(Boolean).map(f => f.i);
 })();
-function genomeSearch(q, inp, ctx) {
-  const cur = GX.find(f => f.acc === inp.dataset.acc), off = f => REG && f.lvl !== 0
+function genomeSearch(q, inp, ctx, opt) {
+  const pool = opt && opt.only ? opt.only : GX;             // opt.only: the genomes to choose from (e.g. an element's carriers)
+  const cur = GX.find(f => f.acc === inp.dataset.acc), off = f => REG && f.lvl !== 0 && !(opt && opt.only)
     ? 'a draft assembly: beyond the dnaA window only the complete chromosomes are read' : '';
+  if (opt && opt.only && (!q || (cur && q === glab(cur)))) {
+    const items = [...new Set([...(cur ? [cur] : []), ...pool])].slice(0, 14);
+    return { head: opt.head, items: items.map(f => ({ f, off: '', cur: cur && f.i === cur.i, nolvl: true })), foot: '', pickFirst: false };
+  }
   if (!q || (cur && q === glab(cur))) {
     const ex = ctx === 'card' ? (byId.get((inp.closest('.gview') || {}).dataset?.id || '') || {}).ex || [] : [];
     const head = ex.length ? `Genomes carrying <b>${esc(byId.get(inp.closest('.gview').dataset.id).label)}</b> here, then well-known strains` : 'Well-known strains';
@@ -992,13 +1298,13 @@ function genomeSearch(q, inp, ctx) {
     return { head, items: ids.map(i => ({ f: GX[i], off: off(GX[i]), cur: cur && i === cur.i })), foot: gTips, pickFirst: false };
   }
   const toks = tokensOf(q), hits = [];
-  if (toks.length) for (const f of GX) { const s = gScore(f, toks); if (s) hits.push([s - (off(f) ? 500 : 0), f]); }
+  if (toks.length) for (const f of pool) { const s = gScore(f, toks); if (s) hits.push([s - (off(f) ? 500 : 0), f]); }
   hits.sort((a, b) => (b[0] - a[0]) || (a[1].lvl - b[1].lvl) || a[1].strain.localeCompare(b[1].strain));
   const N = hits.length, MAX = 60;
   return {
-    head: N ? `<b>${fmtInt(N)}</b> genome${N > 1 ? 's' : ''} match${N > 1 ? '' : 'es'}${N > MAX ? ` &middot; the first ${MAX}; add a word to narrow` : ''}`
-      : `No genome matches <b>${esc(q)}</b>`,
-    items: hits.slice(0, MAX).map(([, f]) => ({ f, off: off(f), cur: cur && f.i === cur.i })), foot: N ? '' : gTips,
+    head: N ? `<b>${fmtInt(N)}</b> genome${N > 1 ? 's' : ''}${opt && opt.only ? ' carrying it' : ''} match${N > 1 ? '' : 'es'}${N > MAX ? ` &middot; the first ${MAX}; add a word to narrow` : ''}`
+      : `No genome${opt && opt.only ? ' carrying it' : ''} matches <b>${esc(q)}</b>`,
+    items: hits.slice(0, MAX).map(([, f]) => ({ f, off: off(f), cur: cur && f.i === cur.i, nolvl: !!(opt && opt.only) })), foot: N ? '' : opt && opt.only ? opt.head : gTips,
   };
 }
 function genomeRow(it, q) {
@@ -1007,17 +1313,18 @@ function genomeRow(it, q) {
   const bits = [hiText(f.acc, q), f.host && hiText(f.host, q), f.src && hiText(f.src, q), f.ctry && hiText(f.ctry, q), f.year && hiText(String(f.year), q)].filter(Boolean);
   return `<div class="o1"><span class="os">${hiText(f.strain, q)}</span>${f.sero ? `<span class="tagc">${hiText(f.sero, q)}</span>` : ''}${
     f.st ? `<span class="tagc">${hiText(f.st, q)}</span>` : ''}${f.type ? '<span class="tagc ty">neotype</span>' : ''}${org}${
-    it.cur ? '<span class="cur">chosen</span>' : ''}<span class="lvl l${f.lvl}">${lv}</span></div>
+    it.cur ? '<span class="cur">chosen</span>' : ''}${it.nolvl ? '' : `<span class="lvl l${f.lvl}">${lv}</span>`}</div>
     <div class="o2">${bits.join(' &middot; ')}</div>${it.off ? `<div class="o3">${esc(it.off)}</div>` : ''}`;
 }
-function attachGenomePicker(inp, ctx) {
+function attachGenomePicker(inp, ctx, opt) {           // opt: { only: [genomes], head, pick(f, inp) }
   comboAttach(inp, {
     minWidth: 420,
-    search: (q, el) => genomeSearch(q, el, ctx),
+    search: (q, el) => genomeSearch(q, el, ctx, opt),
     render: genomeRow,
     restore: el => { const f = GX.find(x => x.acc === el.dataset.acc); if (el.value !== (f ? glab(f) : '')) setGenome(el, f); },
     pick: (it, el) => {
       setGenome(el, it.f);
+      if (opt && opt.pick) return opt.pick(it.f, el);
       if (ctx === 'card') { const gv = el.closest('.gview'); if (gv) liveGenome(gv); return; }
       setClickMode('left');                                // the path panel: the genome's own path, up to a box
       if (lastLeft && byId.get(lastLeft.id) === lastLeft) takeLeft(lastLeft);
@@ -1028,20 +1335,33 @@ function attachGenomePicker(inp, ctx) {
 
 /* ---------- tabs, help, and the address (#tab=…&at=…) ---------- */
 const hashGet = () => new URLSearchParams(location.hash.replace(/^#/, ''));
-function hashSet(kv) {
+function hashSet(kv, push) {                            // push: a new history entry (a choice the visitor made), else in place
   const q = hashGet(); for (const [k, v] of Object.entries(kv)) { if (v === null || v === undefined || v === '') q.delete(k); else q.set(k, v); }
-  const h = q.toString(); try { history.replaceState(null, '', h ? '#' + h : location.pathname + location.search); } catch (e) { /* file:// */ }
+  const h = q.toString(), now = location.hash.replace(/^#/, '');
+  if (h === now) return;
+  try { history[push ? 'pushState' : 'replaceState'](null, '', h ? '#' + h : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
 const TABS = ['graph', 'attention', 'regions', 'findings', 'about'];
-function showTab(t, focus) {
+function showTab(t, focus, fromHistory) {
   if (!TABS.includes(t)) t = 'graph';
+  const was = hashGet().get('tab') || 'graph';
   document.querySelectorAll('.tabs [role="tab"]').forEach(b => { const on = b.dataset.tab === t;
     b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
   document.querySelectorAll('.tabpanel').forEach(p => { p.hidden = p.id !== 'tab-' + t; });
   if (t !== 'graph') { try { closePop(); } catch (e) { /* not drawn yet */ } }
   if (t === 'attention') { try { loadAttn(); } catch (e) { /* its block runs later, and loads then */ } }
-  hashSet({ tab: t === 'graph' ? null : t });
+  if (!fromHistory) hashSet({ tab: t === 'graph' ? null : t }, t !== was);
 }
+// Back, Forward and an address edited by hand: the tab, then whoever listens (the coupled regions, the graph's window)
+let hashT = 0;
+function hashApply() {
+  clearTimeout(hashT); hashT = setTimeout(() => {
+    showTab(hashGet().get('tab') || 'graph', false, true);
+    document.dispatchEvent(new CustomEvent('pgg-hash', { detail: hashGet() }));
+  }, 0);
+}
+addEventListener('popstate', hashApply);
+addEventListener('hashchange', hashApply);
 document.querySelector('.tabs').addEventListener('click', ev => { const b = ev.target.closest('[role="tab"]'); if (b) showTab(b.dataset.tab); });
 document.querySelector('.tabs').addEventListener('keydown', ev => {          // arrows move between tabs
   if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(ev.key) || !ev.target.closest('[role="tab"]')) return;
@@ -1676,7 +1996,7 @@ if (attnShown()) loadAttn();
 let regBusy = false;
 function ngTexts() { document.querySelectorAll('.ngtxt').forEach(e => { e.textContent = `${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}`; }); }
 function useGraph(D) {
-  NG = D.meta.n_genomes; NODES = D.nodes; EDG = D.edges; GH = D.ghosts; BFL = D.bflabels;
+  CUR = D; NG = D.meta.n_genomes; NODES = D.nodes; EDG = D.edges; GH = D.ghosts; BFL = D.bflabels;
   byId = new Map(NODES.map(n => [n.id, n])); byFam = new Map(NODES.map(n => [n.fam, n]));
   byBf = new Map(); NODES.forEach(n => (n.bfs || [n.bf]).forEach(b => { if (!byBf.has(b)) byBf.set(b, []); byBf.get(b).push(n); }));
   EDGESET = new Set(EDG.map(e => e.s + '>' + e.t));
@@ -1691,7 +2011,7 @@ function regionTexts() {
     : `<b>dnaA window</b><span>genes 0–${PG.meta.window - 1} from dnaA</span><span>all ${fmtInt(NG)} genomes</span>`;
   document.getElementById('rg-home').hidden = !m;
   document.querySelector('#pp-reset .lbl').textContent = 'Start again at ' + (DNAA ? DNAA.label : 'the start');
-  ngTexts(); setRegionButtons(); windowTexts(); chrGhost = null; chr.classList.remove('moving', 'loading'); chrTip.hidden = true; drawChr();
+  ngTexts(); setRegionButtons(); windowTexts(); renderFindings(); chrGhost = null; chr.classList.remove('moving', 'loading'); chrTip.hidden = true; drawChr();
 }
 function setRegionButtons() {
   const pv = document.getElementById('rg-prev'), nx = document.getElementById('rg-next'), m = REG;
@@ -1908,6 +2228,10 @@ comboAttach(document.getElementById('rg-go'), {
 });
 regionTexts();
 { const at0 = hashGet().get('at'); if (at0) goRegion(at0, '', at0, false); }   // __SLUG__.html#at=lacZ
+document.addEventListener('pgg-hash', e => {                // Back / Forward: the window the address names
+  const at = e.detail.get('at') || null, cur = REG ? REG.anchor : null;
+  if (at !== cur && !regBusy) { if (at) goRegion(at, '', '', false); else goHome(); }
+});
 
 /* ---------- swipe drawing: press on a box and slide across the next ones, like glide typing ---------- */
 const TRAIL_MS = 650, chipsEl = document.getElementById('chips');
@@ -2189,31 +2513,146 @@ document.addEventListener('keydown', ev => {                    // + − 0 F out
   else if (ev.key === 'p' || ev.key === 'P') document.getElementById('rg-prev').click();
 });
 
-/* ---------- coupled regions: sets of distant elements that go together beyond descent (pg_region_sets.py) ---------- */
-const SETS = __SETS__;
+/* ---------- coupled regions: elements whose presence goes together beyond descent (pg_region_sets.py), two layers
+   (long > 500 genes, close 50-500), the model's verdict on each link (in-silico knockout, pg_knockout.py), flags on what
+   each link is in the genomes (pg_link_flags.py), and on demand what the model does without one element (/influence) ---------- */
+const RSETS = __RSETS__;
 (function () {
   const card = document.getElementById('setscard');
-  if (!SETS) { card.hidden = true; return; }
-  const M = SETS.meta, R = SETS.regions, LK = SETS.links, ST = SETS.sets, GS = SETS.genomes;
+  if (!RSETS) { card.hidden = true; return; }
+  const $ = id => document.getElementById(id);
+  const GS = RSETS.genomes.map(([acc, strain, cl]) => ({ acc, strain, cl })), BOUNDS = RSETS.bounds;
+  const GI = new Map(GS.map((g, i) => [g.acc, i]));             // an assembly's column in the presence strings and carriers
+  const KEYS = ['long', 'close'].filter(k => RSETS.layers[k]);
+  const GXA = new Map(GX.map(f => [f.acc, f]));
   const PAL = ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e', '#e6ab02', '#a6761d', '#1f78b4', '#b15928', '#6a3d9a', '#33a02c', '#e31a1c'];
   const colOf = s => s === null || s === undefined ? '#9aa4aa' : PAL[s % PAL.length];
-  const svgm = document.getElementById('st-map'), tip = document.getElementById('st-tip');
-  let selSet = null;
-  document.getElementById('st-note').innerHTML = `Accessory families more than ${fmtInt(M.mindist)} genes apart and in different insertion
-    spots, whose presence goes together, or apart, <b>within</b> lineages and within tertiles of accessory content, beyond a
-    permutation null and replicated in two disjoint halves of the lineages: ${fmtInt(M.pairs)} family pairs, where about
-    ${fmtInt(Math.round(M.expected_by_chance))} would cross the null’s threshold by chance before that replication. They are grouped
-    into ${fmtInt(M.regions)} elements, the cassettes of an insertion spot that come and go together, and ${fmtInt(M.sets)} sets,
-    communities of co-occurrence links. A link may join two copies of one mobile element, and these tests read presence
-    in the genomes, not the model.`;
-  const elTip = r => `${r.label} · about gene ${fmtInt(r.center)} from dnaA${r.spot !== null ? ', spot ' + r.spot : ''} · ${r.n} coupled famil${r.n > 1 ? 'ies' : 'y'} · in ${Math.round(r.freq * 100)}% of the ${fmtInt(M.genomes)} complete genomes · ${r.set !== null ? 'set ' + r.set : 'in no set'}`;
+  const svgm = $('st-map'), tip = $('st-tip');
+  // the model's verdicts; 'so' (not specific, the other way) is drawn and counted with 'not specific'
+  const VG = { k: 'knows', s: 'not specific', o: 'opposite', n: 'none', t: 'not testable', c: 'being computed' };
+  const VLAB = { k: 'knows', s: 'not specific', so: 'not specific (opposite direction)', o: 'opposite', n: 'none', t: 'not testable', c: 'being computed' };
+  const VORD = ['k', 's', 'o', 'n', 't'];
+  const fz = x => x === null || x === undefined ? '–' : (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(x).toFixed(Math.abs(x) >= 10 ? 1 : 2);
+  const fzc = x => x === null || x === undefined ? '–' : Math.abs(x) > 10 ? (x > 0 ? '> +10' : '< −10') : fz(x);   // a raw z, capped for display
+  const fq = x => x === null || x === undefined ? '–' : x < 0.001 ? '< 0.001' : x.toFixed(x < 0.01 ? 3 : 2);
+  const fx = v => v === null || v === undefined ? '–' : (v < 0 ? '−' : '') + (Math.abs(v) >= 0.01 ? Math.abs(v).toFixed(3) : Math.abs(v).toPrecision(2));
+  const pl = (n, one, many) => `${fmtInt(n)} ${n === 1 ? one : many || one + 's'}`;
+  const fdur = s => s < 90 ? `${Math.max(1, Math.round(s))} s` : `${Math.round(s / 60)} min`;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+  const pow10 = e => e === 0 ? '1' : e === 1 ? '10' : '10' + String(e).split('').map(c => SUP[c]).join('');
+  let K = null, L = null, R = [], LK = [], ST = [], CARR = [];
+  let sel = null, colour = null, colourSet = false, lview = 'sets', hov = null;
+  const hide = new Set();
+  const vOf = l => !L.model ? 'c' : !l.m ? 't' : l.m.v;
+  const vGrp = l => { const v = vOf(l); return v === 'so' ? 's' : v; };
+  const vCol = g => `var(--v-${g})`;
+  const patKey = (k, c = 'var(--soft)') => `<svg class="pk" width="22" height="8" aria-hidden="true"><line x1="2" y1="4" x2="20" y2="4" stroke="${c}" stroke-width="${k === 'one' ? 2.6 : 2}" stroke-linecap="${k === 'av' ? 'butt' : 'round'}"${
+    k === 'av' ? ' stroke-dasharray="4 3"' : k === 'one' ? ' stroke-dasharray=".1 4"' : ''}/></svg>`;
+  const vTag = l => `<span class="vtag"><i class="vk" style="--c:${vCol(vGrp(l))}"></i>${VLAB[vOf(l)]}</span>`;
+  const layerName = k => k === 'long' ? 'Long range' : 'Close range';
+  const layerSpan = k => { const M = RSETS.layers[k].meta;
+    return k === 'long' ? `${fmtInt(M.links)} links, > ${fmtInt(M.mindist)} genes` : `${fmtInt(M.links)} links, ${fmtInt(M.mindist)}–${fmtInt(M.maxdist)} genes`; };
+  $('st-layer').innerHTML = KEYS.map(k => `<button type="button" data-layer="${k}" aria-pressed="false"><b>${layerName(k)}</b><span>${layerSpan(k)}</span></button>`).join('');
+  const bitsOf = b64 => { const s = atob(b64), out = []; for (let g = 0; g < GS.length; g++) if (s.charCodeAt(g >> 3) >> (g & 7) & 1) out.push(g); return out; };
+  const partners = ri => LK.map((l, i) => [l, i]).filter(([l]) => l.a === ri || l.b === ri);
+  const lab = r => r.disp || r.label;                          // the label, with its position when two elements share it
+  const arrow = l => l.sign > 0 ? '↔' : '✕';
+  // how far apart a link's two elements sit: in the genomes carrying both, unless fewer than 10 do (then median positions)
+  const byMedian = l => l.geo === 'm' || (l.carriers !== undefined && l.carriers !== null && l.carriers < 10) || l.cdist === undefined || l.cdist === null;
+  const apart = l => byMedian(l) ? l.distance : l.cdist;
+  const wraps = l => K === 'close' && Math.abs(R[l.a].center - R[l.b].center) > L.meta.chrom_len / 2;
+
+  /* ---- which links are drawn */
+  function shown() {
+    const min = +$('st-min').value, av = $('st-avoid').checked, rep = $('st-rep').checked && !$('st-rep').disabled && L.meta.flags, out = [];
+    LK.forEach((l, i) => { if (l.pairs >= min && (l.sign > 0 || av) && (!rep || l.rep)) out.push(i); });
+    return out;
+  }
+  const visible = i => colour !== 'model' || !hide.has(vGrp(LK[i]));
+  function hiddenWhy(i) {                            // why a link is not on the map, or ''
+    const l = LK[i], w = [];
+    if (l.pairs < +$('st-min').value) w.push(`it rests on ${pl(l.pairs, 'family pair')}, below the minimum chosen`);
+    if (l.sign < 0 && !$('st-avoid').checked) w.push('avoidance links are hidden');
+    if ($('st-rep').checked && !$('st-rep').disabled && L.meta.flags && !l.rep) w.push('it does not replicate in lineage-disjoint halves');
+    if (!w.length && !visible(i)) w.push(`the “${VG[vGrp(l)]}” arcs are hidden in the legend`);
+    return w.join('; ');
+  }
+
+  /* ---- the texts that depend on the layer */
+  function noteText() {
+    const M = L.meta, MO = L.model, far = K === 'long';
+    const tenths = M.pairs ? Math.round(10 * M.expected_by_chance / M.pairs) : 0;
+    const what = far
+      ? `Accessory elements more than ${fmtInt(M.mindist)} genes apart, in different insertion spots, whose presence goes together
+         (arcs above the chromosome) or apart (dashed, below) <b>within</b> lineages and within tertiles of accessory content:
+         ${fmtInt(M.pairs)} family pairs beyond a permutation null, grouped into ${fmtInt(M.regions)} elements, ${fmtInt(M.links)} links and
+         ${fmtInt(M.sets)} sets. About ${fmtInt(Math.round(M.expected_by_chance))} pairs would cross that null by chance${tenths ? `, about ${tenths} in 10` : ''}:
+         ${M.flags ? `a single pair can be chance. Requiring a link to hold in two lineage-disjoint halves (on by default) keeps
+         ${fmtInt(M.rep_lineage)} of the ${fmtInt(M.links)} links.` : 'a single pair can be chance.'}`
+      : `Accessory elements ${fmtInt(M.mindist)} to ${fmtInt(M.maxdist)} genes apart, in different insertion spots and in separate
+         insertions, whose presence goes together (arcs above) or apart (dashed, below) <b>within</b> lineages and within tertiles of
+         accessory content: ${fmtInt(M.pairs)} family pairs beyond a permutation null and replicated in lineage-disjoint halves
+         (about ${fmtInt(Math.round(M.replicated_by_chance || 0))} of them would pass both by chance), grouped into ${fmtInt(M.regions)} elements,
+         ${fmtInt(M.links)} links and ${fmtInt(M.sets)} sets. This is the model’s range: its use of the context decays with distance.`;
+    let model;
+    if (MO && !MO.dev) {
+      const c = {}; LK.forEach(l => { const g = vGrp(l); c[g] = (c[g] || 0) + 1; });
+      const tested = LK.length - (c.t || 0);
+      model = `<b>What the model says.</b> Bacformer does use accessory content hundreds of genes away: deleting an element in silico
+        shifts its expectation of the accessory content downstream. Each link was tested that way in the ${fmtInt(MO.genomes)} complete
+        chromosomes, reading the model’s expectation of the other element. Of all ${fmtInt(LK.length)} links of this layer, it could test
+        ${fmtInt(tested)}: ${fmtInt(c.k || 0)} ${c.k === 1 ? 'is' : 'are'} known to the model (a specific effect in the direction the genomes go),
+        ${fmtInt(c.s || 0)} move${c.s === 1 ? 's' : ''} with everything downstream (not specific), ${fmtInt(c.o || 0)} go${c.o === 1 ? 'es' : ''} the
+        opposite way and ${fmtInt(c.n || 0)} show${c.n === 1 ? 's' : ''} no effect beyond control deletions; ${fmtInt(c.t || 0)} could not be tested.
+        The legend counts the links the filters keep.`;
+    } else if (far) {
+      model = `<b>What the model says.</b> Bacformer does use accessory content hundreds of genes away: deleting an element in
+        silico shifts its expectation of the accessory content downstream. Each arc asks whether that shift singles out the
+        linked element. In a pilot on 24 long-range links, tested at a median 1,414 genes, it never did: 3 moved with everything
+        downstream (not specific), 9 showed no effect, 12 could not be tested, none was specific. That far, the model’s use of distant
+        content is broad, not pairwise. The verdict of every link is <b>being computed</b>${MO ? ' (the arcs show a 3-genome smoke run, for developing this page)' : ''}.`;
+    } else {
+      model = `<b>What the model says.</b> Bacformer does use accessory content hundreds of genes away: deleting an element in
+        silico shifts its expectation of the accessory content downstream, the more so the closer it is. Each arc asks whether
+        that shift singles out the linked element. At long range a pilot on 24 links (tested at a median 1,414 genes) found it never did:
+        the shift was broad, not pairwise. These links, 50 to 500 genes apart, are where a specific effect has the best chance
+        to show; their verdicts are <b>being computed</b>${MO ? ' (the arcs show a 3-genome smoke run, for developing this page)' : ''}.`;
+    }
+    const corr = far && M.flags
+      ? `<b>Correction.</b> An earlier version of this tab counted a link as replicated when it held in two halves of the genomes
+         that shared lineages (6 of the 8 lineage clusters). Split into lineage-disjoint halves, ${fmtInt(M.rep_lineage)} of the
+         ${fmtInt(M.links)} links replicate; the map shows those by default. ${fmtInt(M.one_site)} links are one element found at
+         several spots (dotted), not two regions.`
+      : M.flags ? `Every close-range link replicates in lineage-disjoint halves: it was selected that way. (An earlier version of this tab
+         counted the long-range links as replicated over halves that shared lineages; see the long-range layer.) ${fmtInt(M.one_site)} of these
+         links ${M.one_site === 1 ? 'is' : 'are'} one element found at several spots (dotted).` : '';
+    return `<p class="note">${what}</p><p class="note">${model}</p>${corr ? `<p class="note corr">${corr}</p>` : ''}`;
+  }
+  function runText() {
+    const MO = L.model;
+    if (!MO) return `<b>Model verdicts: being computed.</b> The in-silico knockout of these ${fmtInt(LK.length)} links is running on the 540 complete chromosomes; the arcs take their verdict when it ends.`;
+    if (MO.dev) return `Smoke run <b>${esc(MO.tag)}</b>: ${pl(MO.genomes || 0, 'genome')}, for developing this page, not a result.`;
+    return `In-silico knockout (run ${esc(MO.tag)}): ${fmtInt(MO.genomes)} complete chromosomes, ${fmtInt(MO.units_tested || 0)} link × genome tests,
+      ${fmtInt(MO.units_within_500 || 0)} of them within 500 genes.${colour === 'model' ? ' Click a legend entry to hide or show its arcs.' : ''}`;
+  }
+
+  /* ---- the map */
+  function focusOf() {
+    if (!sel) return null;
+    if (sel.t === 'set') return { el: r => r.set === sel.id, arc: (l) => (R[l.a].set === sel.id || R[l.b].set === sel.id) && (l.sign < 0 || R[l.a].set === R[l.b].set), hl: new Set() };
+    if (sel.t === 'el') { const ps = new Set([sel.id, ...partners(sel.id).map(([l]) => l.a === sel.id ? l.b : l.a)]);
+      return { el: r => ps.has(r.id), arc: l => l.a === sel.id || l.b === sel.id, hl: new Set([sel.id]) }; }
+    const l0 = LK[sel.id];
+    return { el: r => r.id === l0.a || r.id === l0.b, arc: (l, i) => i === sel.id, hl: new Set([l0.a, l0.b]) };
+  }
   function drawMap() {
-    const W = Math.max(600, svgm.clientWidth || 1000), H = 320, X0 = 34, X1 = W - 14, AX = 182;
+    const cw = svgm.clientWidth || 1000, W = Math.max(600, cw), H = 334, X0 = 34, X1 = W - 14, AX = 182, M = L.meta;
     svgm.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    const xs = p => X0 + (X1 - X0) * p / M.chrom_len, min = +document.getElementById('st-min').value, av = document.getElementById('st-avoid').checked;
-    // elements that would overlap go on separate lanes, like a gene track
-    // an element at its median position, as wide as its coupled families (the spread of the medians
-    // reflects rearrangements between genomes more than the element's own length)
+    svgm.style.height = cw < 600 ? Math.round(cw * H / W) + 'px' : '';
+    const xs = p => X0 + (X1 - X0) * p / M.chrom_len;
+    // elements that would overlap go on separate lanes, like a gene track; an element at its median position, as wide
+    // as its coupled families (the spread of the medians reflects rearrangements more than the element's own length)
     const x0s = r => xs(r.center - r.n / 2), wd = r => Math.max(3, xs(r.n) - xs(0));
     const laneEnd = [], lane = new Map();
     for (const r of [...R].sort((a, b) => x0s(a) - x0s(b))) {
@@ -2221,78 +2660,696 @@ const SETS = __SETS__;
       if (k < 0) { k = laneEnd.length; laneEnd.push(0); } laneEnd[k] = x0 + wd(r); lane.set(r.id, k);
     }
     const nL = laneEnd.length, LH = Math.max(4, Math.min(9, Math.floor(96 / nL))), top = AX - Math.round(nL * LH / 2), bot = top + nL * LH;
-    let h = `<rect x="${X0}" y="${top - 2}" width="${X1 - X0}" height="${bot - top + 3}" rx="3" fill="var(--surface)" stroke="var(--line)"></rect>`;
+    let h = `<defs><clipPath id="st-clip"><rect x="${X0}" y="0" width="${X1 - X0}" height="${H}"></rect></clipPath></defs>
+      <rect x="${X0}" y="${top - 2}" width="${X1 - X0}" height="${bot - top + 3}" rx="3" fill="var(--surface)" stroke="var(--line)"></rect>`;
     for (let p = 0; p <= M.chrom_len; p += 500)
-      h += `<line class="axis" x1="${xs(p)}" y1="${bot + 6}" x2="${xs(p)}" y2="${bot + 10}"></line><text class="tick" x="${xs(p)}" y="${H - 6}" text-anchor="middle">${p ? fmtInt(p) : 'dnaA'}</text>`;
-    let nco = 0, nav = 0;
-    for (const l of LK.filter(l => l.pairs >= min && (l.sign > 0 || av)).sort((a, b) => a.pairs - b.pairs)) {
-      const a = R[l.a], b = R[l.b], x1 = xs(a.center), x2 = xs(b.center), d = Math.abs(x2 - x1), w = (0.6 + Math.log2(1 + l.pairs) * 0.6).toFixed(2);
-      const same = a.set !== null && a.set === b.set, mine = selSet !== null && (a.set === selSet || b.set === selSet);
-      const cls = selSet === null ? '' : mine && (l.sign < 0 || same) ? ' on' : ' dim';
-      if (l.sign > 0) { nco++; const hh = Math.min(top - 10, 14 + d * 0.3);
-        h += `<path class="co${cls}" d="M${x1},${top - 2} Q${(x1 + x2) / 2},${top - 2 - 2 * hh} ${x2},${top - 2}" stroke="${same ? colOf(a.set) : '#9aa4aa'}" stroke-width="${w}"><title>${esc(a.label)} ↔ ${esc(b.label)}: ${l.pairs} family pair${l.pairs > 1 ? 's go' : ' goes'} together, Z up to ${l.z}${l.shared.length ? ' · both carry ' + esc(l.shared.join(', ')) : ''}</title></path>`; }
-      else { nav++; const hh = Math.min(H - bot - 30, 8 + d * 0.1);
-        h += `<path class="av${cls}" d="M${x1},${bot + 1} Q${(x1 + x2) / 2},${bot + 1 + 2 * hh} ${x2},${bot + 1}" stroke-width="${Math.min(1.6, w)}"><title>${esc(a.label)} ✕ ${esc(b.label)}: ${l.pairs} family pair${l.pairs > 1 ? 's avoid' : ' avoids'} each other, Z down to ${l.z}</title></path>`; }
+      h += `<line class="axis" x1="${xs(p)}" y1="${bot + 6}" x2="${xs(p)}" y2="${bot + 10}"></line><text class="tick" x="${xs(p)}" y="${H - 20}" text-anchor="middle">${p ? fmtInt(p) : 'dnaA'}</text>`;
+    h += `<text class="axl" x="${(X0 + X1) / 2}" y="${H - 5}" text-anchor="middle">genes from dnaA, in its reading order (median position of each element)</text>`;
+    const S = shown(), V = S.filter(visible), F = focusOf(), rank = g => VORD.length - VORD.indexOf(g);
+    const order = colour === 'model' ? [...V].sort((i, j) => rank(vGrp(LK[i])) - rank(vGrp(LK[j])) || LK[i].pairs - LK[j].pairs)
+      : [...V].sort((i, j) => LK[i].pairs - LK[j].pairs);
+    if (sel && sel.t === 'link' && order.includes(sel.id)) { order.splice(order.indexOf(sel.id), 1); order.push(sel.id); }
+    // arc height grows with the square root of the distance, so that long arcs stay apart instead of hitting the ceiling
+    const kco = K === 'long' ? 3.1 : 5.5, kav = K === 'long' ? 1.5 : 2.6;
+    let arcs = '', hits = '', nco = 0, nav = 0, n1 = 0, nwrap = 0;
+    for (const i of order) {
+      const l = LK[i], a = R[l.a], b = R[l.b], xl = xs(Math.min(a.center, b.center)), xr = xs(Math.max(a.center, b.center));
+      // close range: a pair on both sides of dnaA is drawn the short way round, leaving the map at both ends (clipped there)
+      const wrap = wraps(l), d = wrap ? xs(M.chrom_len - Math.abs(a.center - b.center)) - xs(0) : xr - xl;
+      if (wrap) nwrap++;
+      const arc = (y, hh) => { const f = v => v.toFixed(1), yy = f(y + hh * 2);
+        return wrap ? `M${f(xl)},${y} Q${f(xl - d / 2)},${yy} ${f(xl - d)},${y} M${f(xr)},${y} Q${f(xr + d / 2)},${yy} ${f(xr + d)},${y}`
+          : `M${f(xl)},${y} Q${f((xl + xr) / 2)},${yy} ${f(xr)},${y}`; };
+      let w = 0.6 + Math.log2(1 + l.pairs) * 0.6, path;
+      if (l.sign > 0) { nco++; path = arc(top - 2, -Math.min(top - 12, 14 + kco * Math.sqrt(d))); }
+      else { nav++; w = Math.min(1.6, w); path = arc(bot + 1, Math.min(H - bot - 44, 8 + kav * Math.sqrt(d))); }
+      if (l.one) n1++;
+      let cls = `arc ${l.sign > 0 ? 'co' : 'av'}${l.one ? ' one' : ''}`, st = '';
+      if (colour === 'model') st = `stroke:${vCol(vGrp(l))}`;
+      else if (l.sign > 0 && a.set !== null && a.set === b.set) st = `stroke:${colOf(a.set)}`;
+      else cls += ' grey';
+      if (l.one) w = Math.max(w, 1.8);
+      if (F) cls += F.arc(l, i) ? (sel.t === 'link' ? ' sel' : ' on') : ' dim';
+      if (sel && sel.t === 'link' && sel.id === i) w += 1.4;
+      arcs += `<path class="${cls}" data-l="${i}" d="${path}" style="${st}" stroke-width="${w.toFixed(2)}"></path>`;
+      hits += `<path class="hit" data-l="${i}" d="${path}"></path>`;
     }
-    for (const r of R) h += `<rect class="el${selSet !== null && r.set !== selSet ? ' off' : ''}" data-r="${r.id}" x="${x0s(r).toFixed(1)}" y="${top + lane.get(r.id) * LH}" width="${wd(r).toFixed(1)}" height="${LH - 1}" rx="1" fill="${colOf(r.set)}"></rect>`;
-    svgm.innerHTML = h;
-    document.getElementById('st-count').textContent = `${fmtInt(nco)} co-occurrence and ${fmtInt(nav)} avoidance links shown`;
+    if (nwrap) h += `<text class="wrapl" x="${X0 + 3}" y="${top - 6}">← across dnaA</text><text class="wrapl" x="${X1 - 3}" y="${top - 6}" text-anchor="end">across dnaA →</text>`;
+    // elements: coloured by set when the arcs are, neutral under the verdicts' colours; an invisible wider box for touch
+    let els = '', elh = '';
+    for (const r of R) {
+      const x = x0s(r), ww = wd(r), y = top + lane.get(r.id) * LH, hw = Math.max(ww, 12);
+      elh += `<rect class="elh" data-r="${r.id}" x="${(x + ww / 2 - hw / 2).toFixed(1)}" y="${y - 2}" width="${hw.toFixed(1)}" height="${LH + 3}"></rect>`;
+      els += `<rect class="el${colour === 'model' ? ' neutral' : ''}${F && !F.el(r) ? ' off' : ''}${F && F.hl.has(r.id) ? ' sel' : ''}" data-r="${r.id}" x="${x.toFixed(1)}" y="${y}" width="${ww.toFixed(1)}" height="${LH - 1}" rx="1"${colour === 'model' ? '' : ` fill="${colOf(r.set)}"`}></rect>`;
+    }
+    svgm.innerHTML = h + `<g clip-path="url(#st-clip)">${arcs}${hits}</g>` + elh + els;
+    hov = null;
+    $('st-count').textContent = `${fmtInt(nco)} co-occurrence and ${fmtInt(nav)} avoidance links drawn`;
+    drawLegend(S, V, n1);
   }
+  function drawLegend(S, V, n1) {
+    const c = {}; let nso = 0;
+    for (const i of S) { const l = LK[i], g = vGrp(l); c[g] = (c[g] || 0) + 1; if (vOf(l) === 'so') nso++; }
+    let h = '';
+    if (colour === 'model') {
+      h += `<span class="lh">Model verdict</span><span class="num">of the ${fmtInt(S.length)} links the filters keep:</span>`;
+      if (!L.model) h += `<span class="vchip static"><i class="vk" style="--c:var(--v-c)"></i>being computed <b>${fmtInt(S.length)}</b></span>`;
+      else h += VORD.map(g => `<button type="button" class="vchip" data-v="${g}" aria-pressed="${!hide.has(g)}" title="${hide.has(g) ? 'Show' : 'Hide'} these arcs${
+        g === 's' && nso ? ` (${nso} of them in the opposite direction)` : ''}"><i class="vk" style="--c:${vCol(g)}"></i>${VG[g]} <b>${fmtInt(c[g] || 0)}</b></button>`).join('');
+    } else h += '<span class="lh">Colour</span><span>the set of both ends; grey: ends in different sets, and avoidance</span>';
+    h += `<span class="pat">${patKey('')}co-occurrence</span><span class="pat">${patKey('av')}avoidance</span><span class="pat">${patKey('one')}one element at several spots</span>`;
+    h += `<span class="run${L.model && L.model.dev ? ' dev' : ''}">${runText()}</span>`;
+    $('st-leg').innerHTML = h;
+    const cap = $('st-cap');
+    cap.hidden = !L.meta.one_site;
+    cap.innerHTML = `${patKey('one')}<span><b>Dotted: one element at several spots</b> (${fmtInt(n1)} of the ${fmtInt(V.length)} links drawn,
+      ${fmtInt(L.meta.one_site)} of all ${fmtInt(LK.length)}). In the genomes carrying both, a copy of each sits in one spot: the arc records one
+      element landing at different places, not two regions that go together.</span>`;
+  }
+  const elTip = r => `${lab(r)} · about gene ${fmtInt(r.center)} from dnaA${r.spot !== null ? ', spot ' + r.spot : ''} · ${pl(r.n, 'coupled family', 'coupled families')} · in ${Math.round(r.freq * 100)}% of the ${fmtInt(GS.length)} complete genomes · ${r.set !== null ? 'set ' + r.set : 'in no set'} · click for what the model does without it`;
+  function modelShort(l) {
+    const v = vOf(l), m = l.m;
+    if (v === 'c') return 'being computed';
+    if (v === 't') return `not testable${m && m.why ? ' (' + whyText(m.why) + ')' : ''}`;
+    return `${VLAB[v]}: ${pl(m.nt, 'genome')} and ${pl(m.nl, 'lineage')} tested${m.d[1] !== null ? `, median ${fmtInt(m.d[1])} genes apart` : ''}${
+      m.w !== null ? ` (${Math.round(m.w * 100)}% within 500)` : ''}, effect z ${fz(m.e)}${m.mde !== null ? `, detectable from ${m.mde.toFixed(2)}` : ''}`;
+  }
+  function arcTip(i) {
+    const l = LK[i], a = R[l.a], b = R[l.b];
+    const pres = l.sign > 0 ? `${pl(l.pairs, 'family pair')} ${l.pairs > 1 ? 'go' : 'goes'} together, Z up to ${fZ(l.z)}` : `${pl(l.pairs, 'family pair')} ${l.pairs > 1 ? 'avoid' : 'avoids'} each other, Z down to ${fZ(l.z)}`;
+    const fl = [l.rep === false ? 'not replicated in lineage-disjoint halves' : l.rep ? 'replicated in lineage-disjoint halves' : '', l.one ? 'one element at several spots' : '',
+      wraps(l) ? 'drawn across dnaA' : ''].filter(Boolean);
+    return `${lab(a)} ${arrow(l)} ${lab(b)}: ${pres}${fl.length ? ' · ' + fl.join(' · ') : ''} · model: ${modelShort(l)}`;
+  }
+  const fZ = z => String(z).replace('-', '−');
+  const whyText = w => { const m = /^(\d+) lineages < 5$/.exec(w || ''); return m ? `only ${pl(+m[1], 'lineage')}, at least 5 needed` : w; };
+
+  /* ---- the list: sets, links or elements */
   function drawList() {
-    document.getElementById('st-list').innerHTML = `<table><thead><tr><th style="text-align:left">set</th><th>its elements</th><th>elements</th><th>links</th><th>family pairs</th><th>Z max</th></tr></thead><tbody>${
-      ST.map(s => `<tr data-s="${s.id}" class="${s.id === selSet ? 'sel' : ''}"><td style="text-align:left"><i class="st-sw" style="background:${colOf(s.id)}"></i>${s.id}</td>
-        <td>${esc(s.regions.slice(0, 3).map(i => R[i].label).join(' · '))}${s.regions.length > 3 ? ' …' : ''}</td><td>${s.regions.length}</td><td>${s.links}</td><td>${s.pairs}</td><td>${s.zmax}</td></tr>`).join('')}</tbody></table>`;
+    document.querySelectorAll('#st-lview button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === lview)));
+    const selTr = (t, id) => sel && sel.t === t && sel.id === id ? 'sel' : '';
+    if (lview === 'sets') {
+      const repOn = $('st-rep').checked && !$('st-rep').disabled && L.meta.flags;
+      const rows = ST.map(s => { const inner = LK.filter(l => s.regions.includes(l.a) && s.regions.includes(l.b)); return { s, n: inner.length, rep: inner.filter(l => l.rep).length }; });
+      const none = rows.filter(x => L.meta.flags && !x.rep).length;
+      $('st-lcount').textContent = `${pl(ST.length, 'set')}: communities of co-occurrence links${L.meta.flags && none ? `; ${fmtInt(none)} with no link replicated in lineage-disjoint halves${repOn ? ' (greyed)' : ''}` : ''}`;
+      $('st-list').innerHTML = `<div class="scrolly"><table><thead><tr><th style="text-align:left">set</th><th>its elements</th><th class="wide">elements</th><th>links</th>${
+        L.meta.flags ? '<th title="links between its elements that replicate in lineage-disjoint halves">replicated</th>' : ''}<th class="wide">family pairs</th><th class="wide">Z max</th></tr></thead><tbody>${
+        rows.map(({ s, n, rep }) => `<tr data-s="${s.id}" tabindex="0" class="${selTr('set', s.id)}${repOn && !rep ? ' none' : ''}"${repOn && !rep ? ' title="none of its links replicates in lineage-disjoint halves: the map hides them"' : ''}><td style="text-align:left"><i class="st-sw" style="background:${colOf(s.id)}"></i>${s.id}</td>
+          <td>${esc(s.regions.slice(0, 3).map(i => lab(R[i])).join(' · '))}${s.regions.length > 3 ? ' …' : ''}</td><td class="wide">${s.regions.length}</td><td>${s.links}</td>${
+          L.meta.flags ? `<td>${fmtInt(rep)} of ${fmtInt(n)}</td>` : ''}<td class="wide">${s.pairs}</td><td class="wide">${s.zmax}</td></tr>`).join('')}</tbody></table></div>`;
+      return;
+    }
+    if (lview === 'elements') {
+      const S = new Set(shown().filter(visible)), rows = [...R].sort((a, b) => a.center - b.center);
+      $('st-lcount').textContent = `the ${pl(R.length, 'element')}, along the chromosome`;
+      $('st-list').innerHTML = `<div class="scrolly"><table class="elr"><thead><tr><th style="text-align:left">gene</th><th>element</th><th class="wide">spot</th><th title="its links drawn with the current filters, of all its links">links drawn</th><th title="complete genomes carrying most of its coupled families">genomes</th></tr></thead><tbody>${
+        rows.map(r => { const ps = partners(r.id);
+          return `<tr data-e="${r.id}" tabindex="0" class="${selTr('el', r.id)}"><td style="text-align:left">~${fmtInt(r.center)}</td><td><i class="st-sw" style="background:${colOf(r.set)}"></i>${esc(lab(r))}</td>
+          <td class="wide">${r.spot !== null ? r.spot : '–'}</td><td>${fmtInt(ps.filter(([, i]) => S.has(i)).length)} of ${fmtInt(ps.length)}</td><td>${Math.round(r.freq * 100)}%</td></tr>`; }).join('')}</tbody></table></div>`;
+      return;
+    }
+    const S = shown().filter(visible), rank = g => VORD.indexOf(g);
+    S.sort((i, j) => (colour === 'model' ? rank(vGrp(LK[i])) - rank(vGrp(LK[j])) : 0) || Math.abs(LK[j].z) - Math.abs(LK[i].z));
+    const nm = S.filter(i => byMedian(LK[i])).length;
+    $('st-lcount').textContent = `the ${pl(S.length, 'link')} drawn, ${colour === 'model' && L.model ? 'by verdict, then ' : 'by '}|Z|`;
+    $('st-list').innerHTML = `<div class="scrolly"><table class="lk"><thead><tr><th style="text-align:left">link</th><th>pairs</th><th class="wide">Z</th><th class="wide" title="in the genomes carrying both (median); m: between the elements' median positions, when fewer than 10 genomes carry both">genes apart</th><th class="wide" style="text-align:left">model</th></tr></thead><tbody>${
+      S.map(i => { const l = LK[i], m = byMedian(l);
+        return `<tr data-l="${i}" tabindex="0" class="${selTr('link', i)}"><td>${esc(lab(R[l.a]))} ${arrow(l)} ${esc(lab(R[l.b]))}${l.one ? ' <span class="hint2" title="in the genomes carrying both, a copy of each sits in one spot">one element</span>' : ''}<span class="narrow">${vTag(l)}</span></td>
+          <td>${l.pairs}</td><td class="wide">${fZ(l.z)}</td><td class="wide"${m ? ' title="between the median positions: fewer than 10 genomes carry both"' : ''}>${fmtInt(apart(l))}${m ? '<sup>m</sup>' : ''}</td><td class="wide">${vTag(l)}</td></tr>`; }).join('')}</tbody></table></div>${
+      nm ? `<p class="msg"><sup>m</sup> between the two elements’ median positions: fewer than 10 genomes carry both (mostly avoidance links), so their distance there says little.</p>` : ''}`;
   }
+
+  /* ---- the detail: a set, a link or an element */
   function drawDetail() {
-    const box = document.getElementById('st-detail');
-    if (selSet === null) { box.innerHTML = '<p class="msg">Pick a set in the list, or an element on the chromosome.</p>'; return; }
-    const s = ST[selSet], rs = s.regions.map(i => R[i]), inner = LK.filter(l => s.regions.includes(l.a) && s.regions.includes(l.b)).sort((a, b) => b.pairs - a.pairs);
-    box.innerHTML = `<h3><i class="st-sw" style="background:${colOf(s.id)}"></i>Set ${s.id}: ${rs.length} elements, ${s.links} co-occurrence link${s.links > 1 ? 's' : ''} (${s.pairs} family pairs)${s.avoid ? `, ${s.avoid} avoidance inside` : ''}</h3>
-      <table><thead><tr><th>gene</th><th>element</th><th>families</th><th>genomes</th><th>mobile</th><th></th></tr></thead><tbody>${rs.map(r => `<tr>
-        <td>~${fmtInt(r.center)}</td><td><span class="${r.genes.length ? 'gene' : ''}">${esc(r.label)}</span>${r.products.length ? `<br><span class="faint" style="font-size:11px">${esc(r.products.slice(0, 2).join(' · '))}</span>` : ''}</td>
-        <td>${r.n}</td><td>${Math.round(r.freq * 100)}%</td><td>${Math.round(r.mobile * 100)}%</td>
-        <td><button type="button" class="linkbtn" data-go="${Math.max(0, r.start - 10)}" title="Open the window of the graph at this element">graph</button></td></tr>`).join('')}</tbody></table>
-      <h3>Presence in the ${fmtInt(M.genomes)} complete genomes, in cgMLST order (lines: lineage clusters)</h3>
-      <canvas id="st-pres" aria-label="Presence of the set's elements across genomes"></canvas>
-      <h3>Strongest links</h3><ul class="lst">${inner.slice(0, 8).map(l => `<li><span>${esc(R[l.a].label)} ${l.sign > 0 ? '↔' : '✕'} ${esc(R[l.b].label)}${
-        l.shared.length ? ` <span class="never" title="the two elements carry this product: possibly one element at two sites">both: ${esc(l.shared[0])}</span>` : ''}</span><span>${l.pairs} pairs · Z ${l.z}</span></li>`).join('')}</ul>`;
+    const box = $('st-detail');
+    if (!sel) { box.innerHTML = '<p class="msg">Pick an arc, an element on the chromosome, or a set, a link or an element in the list.</p>'; return; }
+    if (sel.t === 'set') return setDetail(box);
+    if (sel.t === 'link') return linkDetail(box);
+    return elDetail(box);
+  }
+  const elBtn = ri => `<button type="button" class="elb" data-el="${ri}" title="What the model does without it">${esc(lab(R[ri]))}</button>`;
+  const graphBtn = r => `<button type="button" class="linkbtn" data-go="${Math.max(0, r.start - 10)}" data-want="${esc(r.genes[0] || '')}" title="Open the window of the graph at this element">graph</button>`;
+  const presBlock = aria => `<canvas id="st-pres" aria-label="${aria}"></canvas><p class="st-ptip" id="st-ptip">&nbsp;</p>
+      <div class="st-pkey"><span><i class="ramp" id="st-ramp"></i>share of the element’s coupled families a genome carries (blank: none)</span><span><i class="lin"></i>lineage clusters</span><span>hover for a genome</span></div>`;
+  function setDetail(box) {
+    const s = ST[sel.id], rs = s.regions.map(i => R[i]), inner = LK.map((l, i) => [l, i]).filter(([l]) => s.regions.includes(l.a) && s.regions.includes(l.b)).sort((a, b) => b[0].pairs - a[0].pairs);
+    const nrep = inner.filter(([l]) => l.rep).length, none = inner.filter(([l]) => l.one).length;
+    const repTxt = inner.length === 1 ? `Its one link ${nrep ? 'replicates' : 'does not replicate'} in lineage-disjoint halves`
+      : `${fmtInt(nrep)} of its ${fmtInt(inner.length)} links replicate in lineage-disjoint halves`;
+    box.innerHTML = `<h3 class="big"><i class="st-sw" style="background:${colOf(s.id)}"></i>Set ${s.id}<span class="kind">${pl(rs.length, 'element')}, ${pl(s.links, 'co-occurrence link')} (${pl(s.pairs, 'family pair')})${s.avoid ? `, ${pl(s.avoid, 'avoidance link')} inside` : ''}</span></h3>
+      ${L.meta.flags ? `<p class="msg">${repTxt}${none ? `; ${fmtInt(none)} ${none === 1 ? 'is' : 'are'} one element at several spots` : ''}.</p>` : ''}
+      <table><thead><tr><th>gene</th><th>element</th><th class="wide">families</th><th>genomes</th><th class="wide">mobile</th><th></th></tr></thead><tbody>${rs.map(r => `<tr>
+        <td>~${fmtInt(r.center)}</td><td><span class="${r.genes.length ? 'gene' : ''}">${elBtn(r.id)}</span>${r.products.length ? `<br><span class="faint" style="font-size:11px">${esc(r.products.slice(0, 2).join(' · '))}</span>` : ''}</td>
+        <td class="wide">${r.n}</td><td>${Math.round(r.freq * 100)}%</td><td class="wide">${Math.round(r.mobile * 100)}%</td>
+        <td>${graphBtn(r)}</td></tr>`).join('')}</tbody></table>
+      <h3>Presence in the ${fmtInt(GS.length)} complete genomes, in cgMLST order</h3>${presBlock("Presence of the set's elements across genomes")}
+      <h3>Strongest links</h3><ul class="lst">${inner.slice(0, 10).map(([l, i]) => `<li><span><button type="button" class="elb" data-link="${i}">${esc(lab(R[l.a]))} ${arrow(l)} ${esc(lab(R[l.b]))}</button>${
+        l.shared.length ? ` <span class="never" title="the two elements carry this product: possibly one element at two sites">both: ${esc(l.shared[0])}</span>` : ''}${l.one ? ' <span class="never" title="in the genomes carrying both, a copy of each sits in one spot">one element</span>' : ''}</span><span>${pl(l.pairs, 'pair')} · Z ${fZ(l.z)} · ${vTag(l)}</span></li>`).join('')}</ul>`;
     drawPres(rs, colOf(s.id));
   }
-  function drawPres(rs, col) {
-    const cv = document.getElementById('st-pres'), n = GS.length, lw = 120, ch = 14, W = lw + n, H = rs.length * ch + 4, dpr = devicePixelRatio || 1;
-    cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
-    const x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const css = getComputedStyle(document.documentElement), rgb = hexRGB(col);
-    x.font = '10px "IBM Plex Mono", monospace'; x.textBaseline = 'middle'; x.textAlign = 'right'; x.fillStyle = css.getPropertyValue('--soft').trim();
-    rs.forEach((r, i) => {
-      x.fillText(r.label.length > 17 ? r.label.slice(0, 16) + '…' : r.label, lw - 6, i * ch + ch / 2 + 2);
-      for (let g = 0; g < n; g++) { const v = +r.presence[g]; if (!v) continue; x.fillStyle = `rgba(${rgb},${(0.15 + 0.85 * v / 9).toFixed(3)})`; x.fillRect(lw + g, i * ch + 2, 1, ch - 2); }
-      x.fillStyle = css.getPropertyValue('--soft').trim();
-    });
-    x.strokeStyle = css.getPropertyValue('--line-hard').trim(); x.lineWidth = 0.5;
-    for (const b of SETS.bounds) { x.beginPath(); x.moveTo(lw + b + 0.5, 0); x.lineTo(lw + b + 0.5, H); x.stroke(); }
-    cv.onmousemove = ev => {
-      const r = cv.getBoundingClientRect(), g = Math.floor((ev.clientX - r.left) * W / r.width - lw), i = Math.floor(((ev.clientY - r.top) * H / r.height - 2) / ch);
-      if (g < 0 || g >= n || i < 0 || i >= rs.length) { tip.innerHTML = '&nbsp;'; return; }
-      const gg = GS[g], v = +rs[i].presence[g];
-      tip.textContent = `${gg.strain || gg.acc} (${gg.acc}, lineage cluster ${gg.cl}): ${rs[i].label}, ${v ? `carries about ${Math.round(v / 9 * rs[i].n)} of its ${rs[i].n} coupled families` : 'absent'}`;
-    };
-    cv.onmouseleave = () => { tip.innerHTML = '&nbsp;'; };
+  function flagsOf(l) {
+    const f = [];
+    if (l.rep === true) f.push(`<span class="flag ok" title="the link's family pairs pass the test in two halves of the genomes that share no lineage${l.repP ? ` (${l.repP} of its pairs)` : ''}">replicated in lineage-disjoint halves</span>`);
+    if (l.rep === false) f.push('<span class="flag warn" title="the earlier replication used halves that shared lineages; in lineage-disjoint halves this link does not replicate">not replicated in lineage-disjoint halves</span>');
+    if (l.one) f.push(`<span class="flag warn" title="in the genomes carrying both, a copy of each sits in one spot${l.cdist !== undefined ? ` (median nearest distance ${fmtInt(l.cdist)} genes)` : ''}">one element at several spots</span>`);
+    else if (l.tract) f.push(`<span class="flag warn" title="fewer than 100 genes apart in the genomes carrying both">possibly one transfer tract</span>`);
+    if (l.sep) f.push('<span class="flag ok" title="at least 10 backbone genes between every copy of one and every copy of the other, in most co-carriers">separate insertions</span>');
+    if (l.comp) f.push('<span class="flag warn" title="the two share a backbone flank on the same side: they compete for one insertion site">share an insertion site</span>');
+    if (wraps(l)) f.push('<span class="flag" title="the chromosome is circular: the pair sits on both sides of dnaA, drawn the short way round">across dnaA</span>');
+    return f.join('');
   }
-  function pick(sid) { selSet = sid === selSet ? null : sid; drawMap(); drawList(); drawDetail(); }
-  svgm.addEventListener('mousemove', ev => { const el = ev.target.closest('.el'); tip.textContent = el ? elTip(R[+el.dataset.r]) : ' '; });
-  svgm.addEventListener('mouseleave', () => { tip.innerHTML = '&nbsp;'; });
-  svgm.addEventListener('click', ev => { const el = ev.target.closest('.el'); if (el && R[+el.dataset.r].set !== null) pick(R[+el.dataset.r].set); });
-  document.getElementById('st-list').addEventListener('click', ev => { const tr = ev.target.closest('tr[data-s]'); if (tr) pick(+tr.dataset.s); });
-  document.getElementById('st-detail').addEventListener('click', ev => {
-    const b = ev.target.closest('[data-go]'); if (!b) return;
-    showTab('graph'); goRegion(b.dataset.go); document.getElementById('graphcard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-  ['st-min', 'st-avoid'].forEach(id => document.getElementById(id).addEventListener('change', drawMap));
-  new ResizeObserver(() => drawMap()).observe(svgm);
-  drawMap(); drawList(); drawDetail();
-})();
+  // how far the model's use of the context reaches (pilot --decay: a 2-gene deletion, the logit of the gene read)
+  function reachText(d) {
+    const [n, v] = d === null || d === undefined || d <= 30 ? [10, 0.044] : d <= 300 ? [100, 0.014] : [1000, 0.006];
+    return `The model does read context this far: in the pilot, deleting 2 genes moved its call of a gene ${fmtInt(n)} genes on by ${v} in logit${d > 1500 ? ', less beyond' : ''}.`;
+  }
+  // the conditions of a verdict (pg_knockout.py), in words, with the numbers they were decided on
+  function condText(m, c) {
+    const h = m.h || [null, null];
+    return { q_exp: `calibrated q ${fq(m.q[0])} (needs &lt; 0.05)`, sign: `sign test over the lineages p ${fq(m.ps)} (needs &lt; 0.05)`,
+      halves: `lineage halves ${fz(h[0])} and ${fz(h[1])} (need both &gt; 0)` }[c] || c;
+  }
+  function failText(m, f) {                        // 'none': what failed, the genomes' way and the opposite way
+    const h = m.h || [null, null], own = f.filter(c => ['q_exp', 'sign', 'halves'].includes(c)), qo = m.qo ? fq(m.qo[0]) : '–';
+    const oq = f.includes('q_opp'), oh = f.includes('halves_opp');
+    return `the genomes’ way fails on ${own.map(c => condText(m, c)).join(', ')}; the opposite way ${oq && oh ? `fails too (calibrated q ${qo}, halves not both &lt; 0)`
+      : oq ? `fails on its calibrated q (${qo})` : `passes its calibrated q (${qo}) but not in both lineage halves (${fz(h[0])} and ${fz(h[1])})`}`;
+  }
+  function specText(m, f, opp) {                   // not specific: which comparison with the other elements failed
+    if (opp) return `in raw logit units it moves no more than the other elements this deletion reaches at that distance (specificity q ${fq(m.qo && m.qo[1])})`;
+    const z = f.includes('spec_z'), r = f.includes('spec_raw');
+    return z && r ? `it moves no more than the other elements this deletion reaches at that distance, in units of their spread (specificity q ${fq(m.q[1])}) or in raw logit units (q ${fq(m.q[2])})`
+      : r ? `in raw logit units it moves no more than the other elements this deletion reaches at that distance (specificity q ${fq(m.q[2])}), though in units of their spread it does (q ${fq(m.q[1])})`
+      : `in units of their spread it moves no more than the other elements this deletion reaches at that distance (specificity q ${fq(m.q[1])}), though in raw logit units it does (q ${fq(m.q[2])})`;
+  }
+  function verdictBox(l) {
+    const MO = L.model, m = l.m, v = vOf(l), co = l.sign > 0, f = m && m.f;
+    const way = co ? 'without the first, the second becomes less expected, as the genomes carry them together'
+      : 'without the first, the second becomes more expected, as the genomes carry them apart';
+    const reach = reachText(m && m.d && m.d[1] !== null ? m.d[1] : apart(l));
+    const halves = m && m.h ? `; ${fz(m.h[0])} and ${fz(m.h[1])} in the two lineage halves` : '';
+    let p = '';
+    if (v === 'c') p = `<p>${reach} Whether it knows <b>this</b> link is <b>being computed</b>: the upstream element is deleted in each complete chromosome carrying the pair, and the model’s expectation of the other is read against size-matched deletions of other elements.</p>`;
+    else if (v === 'k') p = `<p><b>The model knows this link.</b> Deleting the upstream element moves the model’s expectation of the other the way the genomes go (${way}): median effect z ${fz(m.e)} over ${pl(m.nl, 'lineage')} (q ${fq(m.q[0])}${halves}), more than size-matched deletions move it, and more than the same deletion moves the other elements at that distance (specificity q ${fq(m.q[1])} in z, ${fq(m.q[2])} in raw units).</p>`;
+    else if (v === 's') p = `<p>Deleting the upstream element moves the model’s expectation of the other the way the genomes go (median effect z ${fz(m.e)}, q ${fq(m.q[0])}${halves}): the model uses that distant context. <b>Not specific</b>: ${
+      f && f.length ? specText(m, f) : `specificity q ${fq(m.q[1])} in z and ${fq(m.q[2])} in raw units, where “knows” needs both below 0.05`}. A broad effect of removing the element, not knowledge of this pair.</p>`;
+    else if (v === 'so') p = `<p>Deleting the upstream element moves the model’s expectation of the other <b>against</b> the way the genomes go (median effect z ${fz(m.e)}${
+      m.qo ? `, q ${fq(m.qo[0])} for that direction` : ''}${halves}), but ${m.qo ? specText(m, f || [], true) : 'no more than it moves the other elements at that distance'}: a broad effect of removing the element, <b>not specific</b> to this pair.</p>`;
+    else if (v === 'o') p = `<p>Deleting the upstream element moves the model’s expectation of the other specifically, but <b>against</b> the way the genomes go (median effect z ${fz(m.e)}${
+      m.qo ? `, q ${fq(m.qo[0])} for that direction${halves}; specificity q ${fq(m.qo[1])} in raw units` : ''}).</p>`;
+    else if (v === 'n') p = `<p>${reach} Here, though, its expectation of the other element passed no test${f && f.length ? `: ${failText(m, f)}` : ` (calibrated q ${fq(m.q[0])})`}.
+      Median effect z ${fz(m.e)} over ${pl(m.nl, 'lineage')}; the test detects z ${m.mde !== null ? '≥ ' + m.mde.toFixed(2) : '(not computed)'} at 80% power${
+      m.d[1] !== null && m.d[1] > 500 ? `, tested at a median ${fmtInt(m.d[1])} genes, where the model’s use of context is weak` : ''}.</p>`;
+    else p = `<p>${m && m.nu ? `The knockout could set the pair up in ${pl(m.nu, 'genome')}, ${fmtInt(m.nt)} of them with a complete deletion, a readout and at least 3 matched control deletions` : 'The knockout could not set the pair up in any genome'}${m && m.why && m.why !== 'no testable genome' ? `: ${esc(whyText(m.why))}` : ''}.</p>`;
+    if (MO && MO.dev) p += `<p>These numbers come from a ${fmtInt(MO.genomes || 0)}-genome smoke run, for developing this page: not a result.</p>`;
+    const opp = v === 'o' || v === 'so';
+    const kv = m && v !== 'c' && !(v === 't' && !m.nt) ? `<dl class="kv">
+      <dt>genomes tested</dt><dd><span class="mono">${fmtInt(m.nt)}</span> of ${fmtInt(m.nu)}<small>with a complete deletion, a readout of the other element and ≥ 3 matched control deletions, of the genomes where the pair could be set up</small></dd>
+      <dt>lineages</dt><dd><span class="mono">${fmtInt(m.nl)}</span>${m.hn ? ` <span class="mono">(${fmtInt(m.hn[0])} + ${fmtInt(m.hn[1])})</span>` : ''}<small>the test’s unit: one mean per lineage; at least 5 needed${m.hn ? ' (in each lineage half)' : ''}</small></dd>
+      <dt>median effect</dt><dd><span class="mono">${fz(m.e)}</span> z<small>change at the other element in units of the control deletions’ spread; &gt; 0 the way the genomes go</small></dd>
+      ${m.h ? `<dt>lineage halves</dt><dd><span class="mono">${fz(m.h[0])} / ${fz(m.h[1])}</span> z<small>the median effect in each of the two lineage-disjoint halves: a verdict needs both on its side</small></dd>` : ''}
+      <dt>tested at</dt><dd><span class="mono">${m.d[1] !== null ? fmtInt(m.d[1]) : '–'}</span> genes${m.d[0] !== null ? ` <span class="mono">(${fmtInt(m.d[0])}–${fmtInt(m.d[2])})</span>` : ''}<small>median distance from the deleted element to the readout (10th–90th percentile)</small></dd>
+      <dt>within the model’s range</dt><dd><span class="mono">${m.w !== null ? Math.round(m.w * 100) + '%' : '–'}</span>${m.wu ? ` (${pl(m.wu, 'genome')})` : ''}<small>tested genomes where the two are at most 500 genes apart</small></dd>
+      <dt>smallest detectable effect</dt><dd><span class="mono">${m.mde !== null ? m.mde.toFixed(2) : '–'}</span> z<small>what the test sees at 80% power, Bonferroni-adjusted over all the links of this layer</small></dd>
+      <dt>q, direction</dt><dd><span class="mono">${fq(m.q[0])}${m.qo ? ` / ${fq(m.qo[0])}` : ''}</span><small>calibrated on pseudo-deletions, Benjamini–Hochberg over the links: ${m.qo ? 'the genomes’ way / the opposite way' : 'the genomes’ way'}${m.ps !== undefined ? `; sign test over the lineages p ${fq(m.ps)}` : ''}</small></dd>
+      <dt>q, specificity</dt><dd><span class="mono">${opp && m.qo ? fq(m.qo[1]) : `${fq(m.q[1])} / ${fq(m.q[2])}`}</span><small>${opp && m.qo ? 'the other element against the other elements the same deletion moves, in raw units, the opposite way; “opposite” needs it &lt; 0.05'
+        : 'the other element against the other elements the same deletion moves, in z / in raw units; “knows” needs both &lt; 0.05'}</small></dd></dl>` : '';
+    const cav = m && m.c && m.c.length ? `<ul class="cav">${m.c.map(i => `<li>${esc(MO.caveats[i])}</li>`).join('')}</ul>` : '';
+    return `<div class="vbox" style="--c:${vCol(vGrp(l))}"><div class="vtag"><i class="vk" style="--c:${vCol(vGrp(l))}"></i>${VLAB[v]}</div>${p}</div>${kv}${cav}`;
+  }
+  const short = (r, where) => esc(r.label.length > 26 ? r.label.slice(0, 25) + '…' : r.label) + (where ? ` (gene ~${fmtInt(r.center)})` : '');
+  function linkDetail(box) {
+    const i = sel.id, l = LK[i], a = R[l.a], b = R[l.b], co = l.sign > 0;
+    const pres = co ? `${pl(l.pairs, 'family pair')} of the two ${l.pairs > 1 ? 'go' : 'goes'} together` : `${pl(l.pairs, 'family pair')} of the two ${l.pairs > 1 ? 'avoid' : 'avoids'} each other`;
+    const rep = l.rep === true ? ` It replicates in lineage-disjoint halves${l.repP ? (l.pairs === 1 ? ' (its one family pair passes the test in both)' : l.repP === l.pairs ? ` (all ${fmtInt(l.pairs)} of its family pairs pass the test in both)` : ` (${fmtInt(l.repP)} of its ${fmtInt(l.pairs)} family pairs pass the test in both)`) : ''}.`
+      : l.rep === false ? ' It does not replicate in lineage-disjoint halves.' : '';
+    const nb = l.carriers !== undefined && l.carriers !== null ? l.carriers : null;
+    const dist = byMedian(l)
+      ? `Their median positions are about ${fmtInt(l.distance)} genes apart; ${nb === null ? 'the genomes carrying both are not counted' : nb ? `only ${pl(nb, 'genome')} carr${nb === 1 ? 'ies' : 'y'} both${
+          co ? '' : ', as an avoidance link predicts'}${l.cdist !== undefined && l.cdist !== null ? ` (${fmtInt(l.cdist)} genes apart there)` : ''}, too few to measure their distance` : 'no genome carries both'}.`
+      : `In the ${nb !== null ? pl(nb, 'genome') : 'genomes'} carrying both they sit ${fmtInt(l.cdist)} genes apart (median); their median positions are about ${fmtInt(l.distance)} genes apart.`;
+    const hid = hiddenWhy(i);
+    box.innerHTML = `<h3 class="big">${elBtn(l.a)} ${arrow(l)} ${elBtn(l.b)}<span class="kind">${co ? 'co-occurrence' : 'avoidance'} link · ${layerName(K).toLowerCase()}</span></h3>
+      ${hid ? `<p class="msg">Not drawn on the map now: ${esc(hid)}.</p>` : ''}
+      <p class="note">In the genomes: ${pres} within lineages and within tertiles of accessory content, Z ${co ? 'up to' : 'down to'} ${fZ(l.z)}.${rep}
+        ${dist}${wraps(l) ? ' The chromosome is circular and they sit on both sides of dnaA: the map draws the arc the short way round.' : ''}${
+        l.shared.length ? ` Both carry ${esc(l.shared.join(', '))}: possibly one element at two sites.` : ''}</p>
+      <div class="st-flags">${flagsOf(l)}</div>
+      <h3>What the model says: in-silico knockout</h3>${verdictBox(l)}
+      <div class="acts"><button type="button" class="btn" data-el="${l.a}">What the model does without ${short(a, a.label === b.label)}</button>
+        <button type="button" class="btn" data-el="${l.b}">… without ${short(b, a.label === b.label)}</button></div>`;
+  }
+  function elDetail(box) {
+    const r = R[sel.id], ps = partners(r.id), car = CARR[r.id] || [];
+    const pr = [r, ...ps.map(([l]) => R[l.a === r.id ? l.b : l.a]).filter((x, k, A) => A.indexOf(x) === k)].slice(0, 10);
+    box.innerHTML = `<h3 class="big"><span class="${r.genes.length ? 'gene' : ''}">${esc(lab(r))}</span><span class="kind">element · about gene ${fmtInt(r.center)} from dnaA${r.spot !== null ? ' · spot ' + r.spot : ''}</span></h3>
+      <p class="note">${pl(r.n, 'coupled family', 'coupled families')}${r.products.length ? ` (${esc(r.products.slice(0, 3).join(' · '))})` : ''}; in ${Math.round(r.freq * 100)}% of the
+        ${fmtInt(GS.length)} complete genomes, ${car.length ? `at its spot in ${fmtInt(car.length)}` : 'its spot not located'}; ${Math.round(r.mobile * 100)}% mobile-element products.
+        ${r.set !== null ? `<button type="button" class="elb" data-set="${r.set}">Set ${r.set}</button>.` : 'In no set.'}
+        ${graphBtn(r)}</p>
+      <h3>Its links at ${K === 'long' ? 'long' : 'close'} range</h3>
+      ${ps.length ? `<ul class="lst">${ps.sort((x, y) => VORD.indexOf(vGrp(x[0])) - VORD.indexOf(vGrp(y[0])) || y[0].pairs - x[0].pairs).map(([l, i]) => `<li><span>${arrow(l)} <button type="button" class="elb" data-link="${i}">${esc(lab(R[l.a === r.id ? l.b : l.a]))}</button>${
+        l.one ? ' <span class="never" title="in the genomes carrying both, a copy of each sits in one spot">one element</span>' : ''}${l.rep === false ? ' <span class="hint2">not replicated in lineage-disjoint halves</span>' : ''}</span><span>${pl(l.pairs, 'pair')} · Z ${fZ(l.z)} · ${vTag(l)}</span></li>`).join('')}</ul>` : '<p class="msg">None.</p>'}
+      <h3>Presence with its linked elements, in cgMLST order</h3>${presBlock('Presence of the element and its linked elements across genomes')}
+      <section class="inf" aria-labelledby="inf-h"><h3 id="inf-h">What the model does without it</h3>
+      <p class="msg">Delete it in one genome, then, in turn, 8 whole accessory elements of the same genome of about its size, and read
+        how the model’s expectation of every gene out to 1,500 genes downstream changes. The model reads from dnaA onwards, so a
+        deletion changes only what comes after it. Computed on demand by the page’s server: a few seconds on a GPU, 2 to 4 minutes on a CPU (the public Space).</p>
+      ${car.length ? `<div class="inf-bar"><label class="sr" for="inf-g">Genome</label>
+        <div class="combo"><svg class="ic"><use href="#i-search"/></svg>
+          <input id="inf-g" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combo-list"
+            placeholder="a genome carrying it: strain, serotype, host…" autocomplete="off" spellcheck="false">
+          <button type="button" class="combo-x" aria-label="Clear" hidden><svg class="ic"><use href="#i-close"/></svg></button></div>
+        <button type="button" class="btn" id="inf-go">Delete it and read the model</button></div>
+        <p class="msg" id="inf-why" hidden></p>
+        <div id="inf-res" aria-live="polite"></div>` : '<p class="msg">Its spot could not be located in any complete genome, so there is nothing to delete.</p>'}</section>`;
+    drawPres(pr, colOf(r.set));
+    if (!car.length) return;
+    const inp = $('inf-g'), pool = car.map(g => GXA.get(GS[g].acc)).filter(Boolean);
+    const want = INF.last.get(`${K}|${r.id}`), first = (want && pool.find(f => f.acc === want)) || pool[0];   // the genome chosen before, if any
+    if (first) setGenome(inp, first);
+    attachGenomePicker(inp, 'infl', { only: pool, head: `<b>${fmtInt(pool.length)}</b> complete genomes carry <b>${esc(lab(r))}</b> at its spot${pool.length > 14 ? ': the first in cgMLST order; type to search them' : ''}`,
+      pick: () => runInfluence(r.id) });
+    $('inf-go').addEventListener('click', () => runInfluence(r.id));
+    infShow(r.id);                                   // a result already here, or a computation still running for it
+    infReady(r.id);                                  // can this server do it? said before any click
+  }
+  function drawPres(rs, col) {
+    const cv = $('st-pres'); if (!cv) return;
+    const n = GS.length, lw = 116, ch = 14, avail = Math.max(260, Math.floor((cv.parentNode.clientWidth || lw + n) - 2));
+    const W = Math.min(lw + n, avail), gw = (W - lw) / n, H = rs.length * ch + 4, dpr = devicePixelRatio || 1;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    const x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const css = getComputedStyle(document.documentElement), rgb = hexRGB(col), soft = css.getPropertyValue('--soft').trim();
+    const ramp = $('st-ramp'); if (ramp) ramp.style.background = `linear-gradient(90deg, rgba(${rgb},.15), rgba(${rgb},1))`;
+    x.strokeStyle = css.getPropertyValue('--line-hard').trim(); x.lineWidth = 1;          // lineage clusters, under the cells
+    for (const b of BOUNDS) { const xx = Math.round(lw + b * gw) + 0.5; x.beginPath(); x.moveTo(xx, 1); x.lineTo(xx, H - 1); x.stroke(); }
+    x.font = '10px "IBM Plex Mono", monospace'; x.textBaseline = 'middle'; x.textAlign = 'right';
+    rs.forEach((r, i) => {
+      x.fillStyle = soft; const t = lab(r); x.fillText(t.length > 17 ? t.slice(0, 16) + '…' : t, lw - 6, i * ch + ch / 2 + 2);
+      for (let g = 0; g < n; g++) { const v = +r.presence[g]; if (!v) continue; x.fillStyle = `rgba(${rgb},${(0.15 + 0.85 * v / 9).toFixed(3)})`; x.fillRect(lw + g * gw, i * ch + 2, Math.max(gw, 0.75), ch - 2); }
+    });
+    const pt = $('st-ptip');
+    cv.onmousemove = ev => {
+      const b = cv.getBoundingClientRect(), g = Math.floor(((ev.clientX - b.left) * W / b.width - lw) / gw), i = Math.floor(((ev.clientY - b.top) * H / b.height - 2) / ch);
+      if (!pt) return;
+      if (g < 0 || g >= n || i < 0 || i >= rs.length) { pt.innerHTML = '&nbsp;'; return; }
+      const gg = GS[g], v = +rs[i].presence[g];
+      pt.textContent = `${gg.strain || gg.acc} (${gg.acc}, lineage cluster ${gg.cl}): ${lab(rs[i])}, ${v ? `carries about ${Math.round(v / 9 * rs[i].n)} of its ${pl(rs[i].n, 'coupled family', 'coupled families')}` : 'absent'}`;
+    };
+    cv.onmouseleave = () => { if (pt) pt.innerHTML = '&nbsp;'; };
+  }
 
+  /* ---- what the model does without an element: the server's /influence (serve_live.py, or serve_influence.py) */
+  // ?influence=http://127.0.0.1:8767 points it at another local server (development: serve_influence.py, a test instance)
+  const INF = { over: (() => { try { const u = new URLSearchParams(location.search).get('influence');
+      return u && /^http:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/.test(u) ? u : null; } catch (e) { return null; } })(),
+    ok: null, t: 0, dev: '', info: null, base: null, cache: new Map(), jobs: new Map(), timer: 0, last: new Map() };   // last: the genome chosen per element
+  async function infBase() {                        // { url, dev, info: /health's influence block (serve_live.py) or null } or { none: why }
+    const base = INF.over || ((await liveOK()) ? LIVE.url : null);
+    if (base === null) return { none: 'down' };
+    if (!(INF.base === base && INF.ok !== null && Date.now() - INF.t < 15000)) {
+      INF.ok = false; INF.base = base;
+      try { const c = new AbortController(), tm = setTimeout(() => c.abort(), 2500);
+        const J = await (await fetch(base + '/health', { signal: c.signal, cache: 'no-store' })).json(); clearTimeout(tm);
+        INF.ok = !!J.ok; INF.dev = J.device || ''; INF.info = J.influence || null; } catch (e) { /* not there, or blocked */ }
+      INF.t = Date.now();
+    }
+    return INF.ok ? { url: base, dev: (INF.info && INF.info.device) || INF.dev, info: INF.info } : { none: INF.over ? 'blocked' : 'down' };
+  }
+  const noServer = (why, url) => why === 'blocked'
+    ? `The server at <code>${esc(url || INF.over)}</code> is unreachable, or it does not let this page read it (CORS): start it, or open the page from it.`
+    : `The model’s server is not running, or this page cannot reach it. Start it with <code>python3 serve_live.py</code> in origin-walk/ and open the page
+      from it, to compute what the model does without this element in one genome.`;
+  // the element as the server knows it: its region id in the set of the layer shown (serve_live.py reads both), or, on a
+  // server that reads the long-range set only, the long-range element with the same families (its twin)
+  function apiElement(ri, info) {
+    const r = R[ri], sets = info && info.sets, LG = RSETS.layers.long;
+    if (K === 'long') return { q: `region=${r.id}`, set: 'long', md5: LG && LG.meta.md5, label: r.label, spot: r.spot };
+    if (sets && sets.close) return { q: `region=${r.id}&sets=close`, set: 'close', md5: L.meta.md5, label: r.label, spot: r.spot };
+    if (r.twin !== null && r.twin !== undefined && LG) { const t = LG.regions[r.twin];
+      return { q: `region=${r.twin}`, set: 'long', twin: r.twin, md5: LG.meta.md5, label: t.label, spot: t.spot, twinLabel: t.label }; }
+    return { none: true };
+  }
+  const infKey = (ri, acc) => `${K}|${ri}|${acc}`;
+  const shownKey = () => { const inp = $('inf-g'); return inp && $('inf-res') && sel && sel.t === 'el' && accOf(inp) ? infKey(sel.id, accOf(inp)) : null; };
+  // before any click: say it when this server cannot do it for this element (no server is said at the click)
+  async function infReady(ri) {
+    const B = await infBase(), go = $('inf-go'), why = $('inf-why');
+    if (!go || !why || !sel || sel.t !== 'el' || sel.id !== ri || B.none) return;
+    let msg = '';
+    if (!B.info) { if (!INF.over) msg = 'The server running here predates this computation: restart <code>python3 serve_live.py</code> to get it.'; }
+    else if (B.info.available === false) msg = `This server cannot compute it${B.info.reason ? `: ${esc(B.info.reason)}` : ''}.`;
+    if (!msg) { const api = apiElement(ri, B.info), have = B.info && B.info.sets && B.info.sets[api.set];
+      if (api.none) msg = 'This server reads the long-range elements only (its close-range sets file is missing), and this close-range element has none with the same families there.';
+      else if (have && api.md5 && have !== api.md5) msg = `This server reads another version of the ${api.set}-range elements than this page (a different sets file): its element ids would not match. Rebuild the page, or restart the server, with the same files.`; }
+    go.disabled = !!msg; why.hidden = !msg; why.innerHTML = msg;
+  }
+  // GET /influence answers 200 with the result, or 202 with a job to poll ({job, state, stage, loading, done, total, position,
+  // eta_s, poll}; serve_live.py on a CPU), or an error (400, 404/410: ask again, 503 with retry_s); an older shape {pending, job, done, of} is read too.
+  // A job is polled in the background until it ends, whatever is shown; its result goes to the cache, and the panel of its
+  // element and genome shows its progress whenever it is open.
+  async function runInfluence(ri) {
+    const res = $('inf-res'), inp = $('inf-g'); if (!res || !inp) return;
+    const acc = accOf(inp);
+    if (!acc) { res.innerHTML = '<p class="msg">Pick a genome from the list.</p>'; return; }
+    const key = infKey(ri, acc); INF.last.set(`${K}|${ri}`, acc);
+    if (INF.cache.has(key) || (INF.jobs.has(key) && !INF.jobs.get(key).done)) return infShow(ri);
+    INF.jobs.delete(key);
+    res.innerHTML = '<p class="msg">Looking for the model’s server…</p>';
+    const B = await infBase();
+    if (B.none) { if (shownKey() === key) res.innerHTML = `<p class="msg">${noServer(B.none)}</p>`; return; }
+    if (!B.info && !INF.over) {                      // serve_influence.py (?influence=) has no such block: it is asked anyway
+      if (shownKey() === key) res.innerHTML = `<p class="msg">The server running here predates this computation (no <code>/influence</code>): restart
+      <code>python3 serve_live.py</code>, or run <code>python3 serve_influence.py</code> and open the page with <code>?influence=http://127.0.0.1:8767</code>.</p>`;
+      return; }
+    if (B.info && B.info.available === false) { if (shownKey() === key) res.innerHTML = `<p class="msg">This server cannot compute it${B.info.reason ? `: ${esc(B.info.reason)}` : ''}.</p>`; return; }
+    const api = apiElement(ri, B.info);
+    if (api.none) { if (shownKey() === key) res.innerHTML = '<p class="msg">This server reads the long-range elements only, and this close-range element has none with the same families there.</p>'; return; }
+    const have = B.info && B.info.sets && B.info.sets[api.set];
+    if (have && api.md5 && have !== api.md5) { if (shownKey() === key) res.innerHTML = `<p class="msg">This server reads another version of the ${api.set}-range elements than this page: its element ids would not match.</p>`; return; }
+    const first = B.info && B.info.loaded === false && B.info.seconds ? B.info.seconds.expected_first_load : null;
+    const job = { key, ri, acc, api, layer: K, t0: Date.now(), dev: B.dev, cpu: /cpu/i.test(B.dev), first, code: 0, done: false,
+      J: { stage: first ? 'loading the model and its decoder (the server’s first request)' : 'asking the model', loading: !!first } };
+    INF.jobs.set(key, job); infShow(ri); infTimer();
+    const go = $('inf-go'); if (go) go.disabled = true;
+    const get = async u => { const r = await fetch(u, { cache: 'no-store' }); let J = null; try { J = await r.json(); } catch (e) { /* not JSON */ } return [r.status, J]; };
+    const url = `${B.url}/influence?acc=${encodeURIComponent(acc)}&${api.q}`;
+    let code, J;
+    try {
+      [code, J] = await get(url);
+      for (let again = 1; J && (code === 202 || J.pending); ) {
+        job.J = J; infShow(job.ri, job.layer);
+        const u = J.poll ? B.url + J.poll : `${B.url}/influence?job=${encodeURIComponent(J.job)}`;
+        if (J.pending) await wait(1200);
+        [code, J] = await get(u + (J.poll ? '&wait=4' : ''));
+        if ((code === 404 || code === 410) && again--) [code, J] = await get(url);       // the job expired or was dropped: ask once more
+      }
+    } catch (e) { code = 0; J = { error: 'The model’s server stopped answering' }; if (!INF.over) LIVE.ok = false; INF.ok = null; }
+    job.code = code; job.J = J; job.done = true;
+    if (code === 200 && J && J.profile) {
+      J._api = api; J._ri = ri; J._layer = job.layer;
+      const bad = J.sets_md5 && api.md5 && J.sets_md5 !== api.md5 ? `The server read another version of the ${api.set}-range elements than this page (its sets file differs): its result is not shown.`
+        : J.element && (String(J.element.label).slice(0, 60) !== String(api.label).slice(0, 60) || J.element.spot !== (api.spot === null ? -1 : api.spot))
+          ? `The server deleted another element (${esc(J.element.label)}) than this one: the page and the server do not read the same elements.` : '';
+      if (bad) { job.J = { error: bad }; job.code = 409; }
+      else { INF.cache.set(key, J); if (INF.cache.size > 40) INF.cache.delete(INF.cache.keys().next().value); INF.jobs.delete(key); }
+    }
+    infShow(job.ri, job.layer);
+  }
+  function infTimer() {                             // a clock for the progress shown, between the server's answers
+    if (INF.timer) return;
+    INF.timer = setInterval(() => {
+      const running = [...INF.jobs.values()].some(j => !j.done);
+      if (!running) { clearInterval(INF.timer); INF.timer = 0; return; }
+      const k = shownKey(), j = k && INF.jobs.get(k); if (j && !j.done) infShow(j.ri, j.layer);
+    }, 1000);
+  }
+  function infShow(ri, layer) {                     // the panel of element ri, if open: its result, its job's progress, or its error
+    if (layer && layer !== K) return;
+    const res = $('inf-res'), k = shownKey(); if (!res || !k || !sel || sel.id !== ri) return;
+    if (INF.cache.has(k)) { if (!res.querySelector('.inf-read') || res.dataset.k !== k) { res.dataset.k = k; renderInfluence(INF.cache.get(k), ri); } const go = $('inf-go'); if (go && !$('inf-why').innerHTML) go.disabled = false; return; }
+    res.dataset.k = '';
+    const job = INF.jobs.get(k), go = $('inf-go');
+    if (!job) { res.innerHTML = ''; if (go && !$('inf-why').innerHTML) go.disabled = false; return; }
+    if (!job.done) { if (go) go.disabled = true; res.innerHTML = progText(job); return; }
+    if (go && !$('inf-why').innerHTML) go.disabled = false;
+    INF.jobs.delete(k);                              // an error is shown once; the button asks again
+    const J = job.J, code = job.code;
+    if (!J) { res.innerHTML = `<p class="msg">This server does not compute it (it predates <code>/influence</code>): restart
+      <code>python3 serve_live.py</code>, or run <code>python3 serve_influence.py</code> and open the page with
+      <code>?influence=http://127.0.0.1:8767</code>.</p>`; return; }
+    res.innerHTML = `<p class="msg">${esc(J.error || 'The computation failed')}${/[.!?]$/.test(J.error || '') ? '' : '.'}${code === 503 || code === 410 || code === 404 || code === 0 ? ` <button type="button" class="linkbtn" id="inf-again">try again${
+      J.retry_s ? ` in ${Math.round(J.retry_s)} s` : ''}</button>` : ''}</p>`;
+  }
+  function progText(job) {
+    const J = job.J || {}, s = Math.round((Date.now() - job.t0) / 1000), n = J.total || J.of || 0, d = J.done || 0;
+    const what = J.state === 'queued' ? (J.position ? `waiting: ${pl(J.position, 'computation')} before it` : 'starting')
+      : J.loading ? `loading the model and its decoder (the server’s first request${job.first ? `, about ${fdur(job.first)}` : ''})` : J.stage || 'computing';
+    const left = J.eta_s ? `, about ${fdur(J.eta_s)} left` : job.cpu && !J.loading ? ' (on a CPU, as on the public Space, 2 to 4 minutes in all)' : '';
+    return `<p class="msg">${esc(what)} on ${esc(J.device || job.dev || 'the server')}${n ? `, ${fmtInt(d)} of ${fmtInt(n)} passes` : ''} · ${s} s${left}</p>${
+      n ? `<div class="inf-prog"><i style="width:${Math.round(100 * d / n)}%"></i></div>` : ''}`;
+  }
+  // the neighbours of the result, one row per entry gene: an element and its spot's panRGP run often share it (same numbers)
+  function mergeNb(NB) {
+    const by = new Map();
+    for (const n of NB) { const m = by.get(n.entry); if (!m) by.set(n.entry, { ...n, parts: [n] }); else { m.parts.push(n); m.linked = m.linked || n.linked; } }
+    return [...by.values()].map(m => { const rg = m.parts.filter(p => p.kind === 'region'), sp = m.parts.filter(p => p.kind === 'spot');
+      const nm = s => s.length >= 60 ? s.slice(0, 59) + '…' : s;
+      return { ...m, label: rg.length ? rg.map(p => nm(p.label)).join(' · ') + (sp.length ? ` (spot ${sp.map(p => p.id).join(', ')})` : '') : sp.map(p => nm(p.label)).join(', '),
+        rids: new Set(rg.map(p => p.id)) }; });
+  }
+  function renderInfluence(J, ri) {
+    const res = $('inf-res'); if (!res) return;
+    const r = R[ri], g = GXA.get(J.acc), who = g ? g.strain : J.acc, P = J.profile.abs, Q = J.ctrl_abs_q, nb = J.bins.length;
+    const fin = P.map((v, k) => v !== null && Q[2][k] !== null);
+    const nB = fin.filter(Boolean).length, nAbove = P.filter((v, k) => fin[k] && v > Q[2][k]).length;
+    const NB = mergeNb(J.neighbours || []), scored = NB.filter(n => n.q_spec !== null && n.q_spec !== undefined), spec = scored.filter(n => n.q_spec < 0.05);
+    const nctl = (J.controls || []).length, twin = J._api.twin !== undefined, setName = J.sets || J._api.set || 'long';
+    const kAs = J.broad_p !== null && J.broad_p !== undefined ? Math.max(0, Math.round(J.broad_p * (nctl + 1)) - 1) : null;
+    const likeCtl = (J.broad !== null && J.broad !== undefined && J.broad <= 1) || (kAs !== null && kAs >= 2);
+    const mean = (a, b) => { const v = P.slice(a, b).filter(x => x !== null); return v.length ? v.reduce((s, x) => s + x, 0) / v.length : null; };
+    const near = mean(0, 4), far = mean(40, 60);
+    const nm = n => `<b>${esc(n.label)}</b>`;
+    const way = n => n.delta === null || n.delta === undefined ? '' : n.delta < 0 ? 'less likely' : n.delta > 0 ? 'more likely' : 'unchanged';
+    // the linked elements: from the server's `links` (serve_live.py), else its `linked` flags (serve_influence.py)
+    const LKS = J.links || null, rowOf = id => NB.find(n => n.rids.has(id));
+    const linkedRow = n => LKS ? LKS.some(x => x.where === 'read' && n.rids.has(x.id)) : n.linked;
+    let h = `<div class="inf-read"><p>Without <b>${esc(lab(r))}</b> in <b>${esc(who)}</b>, the model’s expectation of
+      the genes downstream changes: a mean |change| of ${fx(near)} in logit over the first 100 genes, ${fx(far)} at 1,000–1,500 genes.
+      ${J.broad !== null ? `That is ${J.broad.toFixed(2)}× what a typical size-matched deletion of the same genome does (median over the ${nb} bins of 25 genes)${
+        kAs !== null ? `; ${kAs} of the ${nctl} controls, each taken in turn as the element, ${kAs === 1 ? 'reaches' : 'reach'} as much` : ''}.` : ''}</p>`;
+    if (spec.length) h += `<p><span class="inf-verdict spec">specific</span>${pl(spec.length, 'element')} downstream, of the ${fmtInt(scored.length)} scored,
+      ${spec.length === 1 ? 'moves' : 'move'} differently from the other elements at ${spec.length === 1 ? 'its' : 'their'} distance (q < 0.05): ${spec.slice(0, 4).map(n => `${nm(n)} at ${fmtInt(n.dist)} genes (${way(n)}, raw z ${fzc(n.z_spec)})`).join(', ')}${spec.length > 4 ? '…' : ''}.
+      ${spec.some(linkedRow) ? 'Some of them are linked to it in the genomes: the model singles them out.' : 'None of them is linked to it in the genomes.'}${likeCtl ? ' Overall, though, this deletion moves the model no more than a random accessory element of its size would.' : ''}</p>`;
+    else if (likeCtl) h += `<p><span class="inf-verdict ctl">like a control deletion</span>No element downstream moves differently from the others at its distance (${fmtInt(scored.length)} scored,
+      all q ≥ 0.05), and the deletion moves the model’s expectations downstream no more than a random accessory element of its size would: nothing here sets this element apart.</p>`;
+    else h += `<p><span class="inf-verdict">broad</span>No element downstream moves differently from the others at its distance (${fmtInt(scored.length)} scored,
+      all q ≥ 0.05), while the deletion moves the model more than a typical one: it shifts the model’s expectation of everything downstream alike, the pattern the knockout of the links found.</p>`;
+    if (LKS) {
+      const scope = twin ? 'at long range (the server read its long-range twin, the element with the same families)' : `at ${setName} range`;
+      if (!LKS.length) h += `<p>It has no linked element ${scope}.</p>`;
+      else h += `<p>Its ${pl(LKS.length, 'linked element')} ${scope}, in ${esc(who)}:</p><ul class="inf-links">${LKS.map(x => {
+        const nmx = `<b>${esc(x.label)}</b> (${x.sign > 0 ? 'co-occurrence: expected less likely without it' : 'avoidance: expected more likely without it'})`;
+        if (x.where === 'read') { const n = rowOf(x.id);
+          if (!n || n.delta === null || n.delta === undefined) return `<li>${nmx}: ${fmtInt(x.dist)} genes after it, not read out (its family is unseen by the decoder).</li>`;
+          const agree = x.sign > 0 ? n.delta < 0 : n.delta > 0;
+          return `<li>${nmx}: ${fmtInt(n.dist)} genes after it, ${way(n)}, change ${fx(n.delta)} in logit, <span class="${agree ? 'ok' : 'ko'}">${agree ? 'the way the genomes go' : 'against the way the genomes go'}</span>;
+            ${n.q_spec === null || n.q_spec === undefined ? 'specificity not scored (too few elements at its distance)' : n.q_spec < 0.05 ? `it moves differently from the other elements at its distance (q ${fq(n.q_spec)})` : `it moves like the other elements at its distance (specificity q ${fq(n.q_spec)})`}.</li>`; }
+        if (x.where === 'before') return `<li>${nmx}: it sits before it here (gene ${fmtInt(x.start)}), and the model reads from dnaA on: this deletion cannot change it.</li>`;
+        if (x.where === 'beyond') return `<li>${nmx}: ${fmtInt(x.dist)} genes after it, beyond the 1,500 genes read.</li>`;
+        if (x.where === 'unread') return `<li>${nmx}: ${fmtInt(x.dist)} genes after it, but its first gene was not read.</li>`;
+        if (x.where === 'unlocated') return `<li>${nmx}: carried, but not at its insertion spot${x.spot < 0 ? ' (it has no located spot)' : ''}, so not followed here.</li>`;
+        return `<li>${nmx}: not carried here (fewer than half of its coupled families)${x.sign < 0 ? ', as the avoidance predicts' : ''}.</li>`; }).join('')}</ul>`;
+    } else {
+      const lk = NB.filter(n => n.linked);
+      h += lk.length ? `<p>Its linked elements read here: ${lk.map(n => `${nm(n)} at ${fmtInt(n.dist)} genes, ${way(n)} (${fx(n.delta)}), specificity q ${fq(n.q_spec)}`).join('; ')}.</p>`
+        : '<p>This server does not say where its linked elements are in this genome; none is among the elements read.</p>';
+    }
+    h += `<p class="msg">Condition of validity: ${fmtInt(nAbove)} of the ${fmtInt(nB)} bins lie above all ${nctl} controls, where about ${fmtInt(Math.round(nB / (nctl + 1)))}
+      would if this deletion were one more control. Specificity compares each element with the others the same deletion moves at a comparable
+      distance (±35%), calibrated on the control deletions scored the same way.</p></div>`;
+    h += `<figure class="inf-fig" id="inf-fig"></figure><div class="inf-leg"><span><i class="vk" style="--c:var(--pred)"></i>this deletion</span>
+      <span><svg width="9" height="9" aria-hidden="true"><circle cx="4.5" cy="4.5" r="3.5" fill="var(--pred)"></circle></svg>above every control</span>
+      <span><i class="vk dash" style="--c:var(--obs)"></i>controls’ median</span><span><i class="sw"></i>controls’ range (${nctl} size-matched deletions)</span>
+      <span><i class="vk" style="--c:var(--ink);width:2px;height:10px;border:0;background:var(--ink)"></i>element downstream, taller if it stands out (q &lt; 0.05)</span>
+      <span><i class="vk" style="width:3px;height:12px;border:0;background:var(--core-line)"></i>linked to it</span></div>
+      <p class="inf-tip" id="inf-tip">&nbsp;</p>`;
+    const nParts = NB.reduce((s, n) => s + n.parts.length, 0);
+    h += `<div class="inf-nbh"><h3>The elements downstream (${fmtInt(NB.length)}${nParts > NB.length ? `; ${fmtInt(nParts - NB.length)} more share an entry gene with one of them` : ''})</h3>
+      <span class="seg sm" id="inf-sort" role="group" aria-label="Order the elements"><button type="button" data-o="d" aria-pressed="true">by distance</button><button type="button" data-o="q" aria-pressed="false">by q</button></span></div>
+      <div class="inf-nb" id="inf-nb"></div>
+      <p class="inf-foot">Change: logit P(the family really there) with the element deleted, minus without; P before: the model’s probability of the element’s first family,
+      intact genome. Raw z: the change against the other elements the same deletion reaches at a comparable distance, in units of their spread, which is often
+      near zero, so |z| can be huge (shown capped at 10): only q, calibrated on the control deletions scored the same way (Benjamini–Hochberg over the elements),
+      says whether an element stands out. –: fewer than 3 other elements at a comparable distance to compare with (often within 100 genes), or no readout.</p>
+      <p class="inf-src"><span style="color:var(--shell)">Computed live</span> on ${esc(J.device || 'the server')} in ${J.seconds ? J.seconds.total.toFixed(1) : '?'} s: a baseline and ${nctl + 1} deletions
+      in ${esc(J.acc)} (${fmtInt(J.n_genes)} genes${J.truncated_at < J.n_genes ? `, read up to gene ${fmtInt(J.truncated_at)}: the model reads forward, so the genes after the last one read out change nothing here, and a full read gives the same numbers` : ''}). Deleted:
+      ${J.element.size === 1 ? `1 gene (gene ${fmtInt(J.element.start)} from dnaA)` : `${fmtInt(J.element.size)} genes, ${fmtInt(J.element.start)}–${fmtInt(J.element.end)} from dnaA`}${
+      twin ? `, the genes of its long-range twin, ${esc(J._api.twinLabel || J.element.label)}, the element with the same families` : ''}.</p>`;
+    res.innerHTML = h;
+    const nbTable = o => {
+      const rows = [...NB].sort(o === 'q' ? (a, b) => (a.q_spec ?? 2) - (b.q_spec ?? 2) || a.dist - b.dist : (a, b) => a.dist - b.dist);
+      $('inf-nb').innerHTML = `<table><thead><tr><th title="genes after the deleted element">genes<span class="wide"> after</span></th><th>element</th><th class="wide">P before</th><th>change</th><th title="uncalibrated: read q">raw z</th><th>q</th></tr></thead><tbody>${
+        rows.map(n => { const lnk = linkedRow(n), sig = n.q_spec !== null && n.q_spec !== undefined && n.q_spec < 0.05;
+          return `<tr class="${lnk ? 'lnk' : ''}${sig ? ' sig' : ''}"><td>${fmtInt(n.dist)}</td><td>${esc(n.label)}${lnk ? ` <span class="tagl" title="linked to the deleted element in the ${esc(setName)}-range sets">linked</span>` : ''}<span class="fam">${esc(n.family)}${n.seen ? '' : ' · unseen by the decoder'}</span></td>
+            <td class="wide">${n.base_p === null ? '–' : fmtProb(n.base_p)}</td><td>${fx(n.delta)}</td><td>${fzc(n.z_spec)}</td><td>${fq(n.q_spec)}</td></tr>`; }).join('')}</tbody></table>`;
+      document.querySelectorAll('#inf-sort button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.o === o)));
+    };
+    nbTable('d');
+    $('inf-sort').addEventListener('click', ev => { const b = ev.target.closest('button[data-o]'); if (b) nbTable(b.dataset.o); });
+    infChart(J, linkedRow, NB);
+  }
+  function infChart(J, linkedRow, NB) {
+    const fig = $('inf-fig'); if (!fig) return;
+    linkedRow = linkedRow || (n => n.linked); NB = NB || mergeNb(J.neighbours || []);
+    const Bn = J.bins, P = J.profile.abs, Q = J.ctrl_abs_q, nb = Bn.length, WIN = Bn[nb - 1][1];
+    const W = Math.max(300, Math.round(fig.clientWidth || 600)), H = 220, ml = 58, mr = 22, mt = 8, mb = 46;
+    const vals = [...P, ...Q[0], ...Q[2]].filter(v => v !== null && v > 0);
+    if (!vals.length) { fig.innerHTML = '<p class="msg">Nothing to draw: every change is zero.</p>'; return; }
+    const l0 = Math.floor(Math.log10(Math.max(1e-5, Math.min(...vals)))), l1 = Math.max(l0 + 1, Math.ceil(Math.log10(Math.max(...vals))));
+    const xs = d => ml + (W - ml - mr) * d / WIN, y0 = H - mb;
+    const ys = v => mt + (y0 - mt) * (1 - (Math.log10(Math.max(v, 10 ** l0)) - l0) / (l1 - l0));
+    const xm = k => xs((Bn[k][0] - 1 + Bn[k][1]) / 2);
+    const segs = arr => { const out = []; let cur = [];
+      arr.forEach((v, k) => { if (v === null || v <= 0) { if (cur.length) out.push(cur); cur = []; } else cur.push(k); }); if (cur.length) out.push(cur); return out; };
+    let h = '';
+    for (let e = l0; e <= l1; e++) { const y = ys(10 ** e).toFixed(1);
+      h += `<line class="grid" x1="${ml}" x2="${W - mr}" y1="${y}" y2="${y}"></line><text class="tk" x="${ml - 6}" y="${+y + 3}" text-anchor="end">${pow10(e)}</text>`; }
+    for (let d = 0; d <= WIN; d += 250) h += `<line class="ax" x1="${xs(d)}" x2="${xs(d)}" y1="${y0}" y2="${y0 + 3}"></line><text class="tk" x="${xs(d)}" y="${y0 + 28}" text-anchor="middle">${fmtInt(d)}</text>`;
+    h += `<line class="ax" x1="${ml}" x2="${W - mr}" y1="${y0}" y2="${y0}"></line>`;
+    h += `<text class="axl" x="${ml + (W - ml - mr) / 2}" y="${H - 3}" text-anchor="middle">genes after the deleted element</text>`;
+    h += `<text class="axl" x="11" y="${mt + (y0 - mt) / 2}" text-anchor="middle" transform="rotate(-90 11 ${mt + (y0 - mt) / 2})">mean |change|, logit</text>`;
+    const band = Q[0].map((v, k) => v !== null && Q[2][k] !== null && Q[2][k] > 0 ? v : null);
+    for (const s of segs(band)) h += `<path class="band" d="M${s.map(k => `${xm(k).toFixed(1)},${ys(Q[2][k]).toFixed(1)}`).join('L')}L${[...s].reverse().map(k => `${xm(k).toFixed(1)},${ys(Math.max(Q[0][k], 10 ** l0)).toFixed(1)}`).join('L')}Z"></path>`;
+    for (const s of segs(Q[1])) h += `<path class="cmed" d="M${s.map(k => `${xm(k).toFixed(1)},${ys(Q[1][k]).toFixed(1)}`).join('L')}"></path>`;
+    for (const s of segs(P)) h += `<path class="elline" d="M${s.map(k => `${xm(k).toFixed(1)},${ys(P[k]).toFixed(1)}`).join('L')}"></path>`;
+    P.forEach((v, k) => { if (v !== null && Q[2][k] !== null && v > Q[2][k]) h += `<circle class="above" cx="${xm(k).toFixed(1)}" cy="${ys(v).toFixed(1)}" r="3"><title>above every control</title></circle>`; });
+    for (const n of NB) { if (n.dist < 1 || n.dist > WIN) continue;
+      const lnk = linkedRow(n), sig = n.q_spec !== null && n.q_spec !== undefined && n.q_spec < 0.05, x = xs(n.dist).toFixed(1);
+      h += `<line class="rug${sig ? ' sig' : ''}${lnk ? ' lnk' : ''}" x1="${x}" x2="${x}" y1="${y0 + 4}" y2="${y0 + (lnk ? 16 : sig ? 13 : 9)}"></line>`; }
+    h += `<line class="xh" id="inf-xh" x1="0" x2="0" y1="${mt}" y2="${y0}" visibility="hidden"></line><rect class="ov" x="${ml}" y="${mt}" width="${W - ml - mr}" height="${y0 - mt + 18}"></rect>`;
+    fig.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Mean absolute change of the model's expectation per 25-gene bin downstream, this deletion against its controls">${h}</svg>`;
+    const sv = fig.querySelector('svg'), xh = fig.querySelector('#inf-xh'), ov = fig.querySelector('.ov'), itip = $('inf-tip');
+    ov.addEventListener('pointermove', ev => {
+      const b = sv.getBoundingClientRect(), x = (ev.clientX - b.left) * W / b.width, d = (x - ml) / (W - ml - mr) * WIN;
+      const k = Math.max(0, Math.min(nb - 1, Math.floor(d / (WIN / nb)))), cx = xm(k).toFixed(1);
+      xh.setAttribute('x1', cx); xh.setAttribute('x2', cx); xh.setAttribute('visibility', 'visible');
+      const here = NB.filter(n => n.dist >= Bn[k][0] && n.dist <= Bn[k][1]);
+      itip.textContent = `genes ${Bn[k][0]}–${Bn[k][1]} after it: this deletion ${fx(P[k])} · controls ${fx(Q[1][k])} (${fx(Q[0][k])}–${fx(Q[2][k])})${
+        J.z_abs && J.z_abs[k] !== null ? ` · z ${fz(J.z_abs[k])}` : ''}${here.length ? ' · ' + here.map(n => `${n.label} ${fx(n.delta)}${linkedRow(n) ? ' (linked)' : ''}`).join(', ') : ''}`;
+    });
+    ov.addEventListener('pointerleave', () => { xh.setAttribute('visibility', 'hidden'); itip.innerHTML = '&nbsp;'; });
+  }
+
+  /* ---- state, events, the address */
+  function drawAll() { drawMap(); drawList(); drawDetail(); }
+  // the address names a selection by its elements' families (#rs=e.<key>, l.<key>.<key>, s.<key of one of its elements>),
+  // so that it still points at the same one when the sets are regenerated; older addresses (e5, l12, s3) are read too
+  function selKey(s) {
+    if (!s) return null;
+    if (s.t === 'el') return 'e.' + R[s.id].k;
+    if (s.t === 'link') { const l = LK[s.id]; return `l.${R[l.a].k}.${R[l.b].k}`; }
+    return 's.' + R[Math.min(...ST[s.id].regions)].k;
+  }
+  function selFrom(v) {
+    let m = v && /^([sel])\.([0-9a-f]+)(?:\.([0-9a-f]+))?$/.exec(v);
+    if (m) {
+      const byK = k => R.findIndex(r => r.k === k), a = byK(m[2]);
+      if (a < 0) return null;
+      if (m[1] === 'e') return { t: 'el', id: a };
+      if (m[1] === 'l') { const b = byK(m[3]), i = LK.findIndex(l => l.a === a && l.b === b); return i >= 0 ? { t: 'link', id: i } : null; }
+      const s = ST.findIndex(x => x.regions.includes(a)); return s >= 0 ? { t: 'set', id: ST[s].id } : null;
+    }
+    m = v && /^([sel])(\d+)$/.exec(v);
+    if (m) { const t = { s: 'set', e: 'el', l: 'link' }[m[1]], id = +m[2], n = t === 'set' ? ST.length : t === 'el' ? R.length : LK.length; return id < n ? { t, id } : null; }
+    return null;
+  }
+  function remember(push) { hashSet({ rl: K === KEYS[0] ? null : K, rs: selKey(sel) }, push); }
+  function showDetail(from) {                        // the detail in view when it is out of it (below the list or the map, or above)
+    const d = $('st-detail'), b = d.getBoundingClientRect();
+    if (b.top < 44 || b.top > innerHeight * (from === 'map' ? 0.9 : 0.6)) d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function pick(s, from) {
+    if (s && sel && s.t === sel.t && s.id === sel.id && s.t !== 'el') s = null;
+    sel = s; remember(true); drawAll();
+    if (s && from) showDetail(from);
+  }
+  const unrle = s => s.replace(/(\d)([A-Za-z])/g, (_, d, c) => d.repeat(c <= 'Z' ? c.charCodeAt(0) - 62 : c.charCodeAt(0) - 68));
+  function ready(L) {                               // presence strings expanded, empty verdict fields back as null, labels told apart
+    if (L._ready) return; L._ready = true;
+    for (const r of L.regions) r.presence = unrle(r.presence);
+    const n = new Map(); for (const r of L.regions) n.set(r.label, (n.get(r.label) || 0) + 1);
+    for (const r of L.regions) if (n.get(r.label) > 1) r.disp = `${r.label} (~${fmtInt(r.center)})`;
+    for (const l of L.links) { const m = l.m; if (!m) continue;
+      m.d = m.d || [null, null, null]; m.q = m.q || [null, null, null]; m.c = m.c || []; m.why = m.why || ''; m.wu = m.wu || 0;
+      for (const f of ['e', 'mde', 'w']) if (m[f] === undefined) m[f] = null; }
+  }
+  function setLayer(k, keepSel) {                   // the caller records it in the address
+    K = k; L = RSETS.layers[k]; ready(L); R = L.regions; LK = L.links; ST = L.sets;
+    CARR = L.carriers ? L.carriers.map(bitsOf) : [];
+    if (!keepSel) sel = null;
+    if (!colourSet || !L.model) colour = L.model ? 'model' : 'set';
+    else if (colourSet === 'model' && L.model) colour = 'model';
+    document.querySelectorAll('#st-layer button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.layer === k)));
+    document.querySelectorAll('#st-colour button').forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.c === colour));
+      if (b.dataset.c === 'model') { b.disabled = !L.model; b.title = L.model ? 'Colour the arcs by what the model says about each link' : 'The verdicts of this layer are being computed'; } });
+    const rep = $('st-rep'), allRep = L.meta.flags && L.meta.rep_lineage === LK.length;
+    rep.disabled = !L.meta.flags || allRep;
+    rep.closest('label').title = allRep ? 'every link of this layer replicates in lineage-disjoint halves: it was selected that way' : '';
+    $('st-rep-n').textContent = !L.meta.flags ? '(flags not computed)' : allRep ? `(all ${fmtInt(LK.length)}: selected that way)` : `(${fmtInt(L.meta.rep_lineage)} of ${fmtInt(LK.length)})`;
+    $('st-note').innerHTML = noteText();
+    drawAll();
+  }
+  const elAt = t => t.closest('.el,.elh');
+  svgm.addEventListener('mousemove', ev => {
+    const el = elAt(ev.target), ht = ev.target.closest('.hit');
+    const i = ht && !el ? +ht.dataset.l : null;
+    if (hov !== i) {
+      if (hov !== null) { const p = svgm.querySelector(`.arc[data-l="${hov}"]`); if (p) p.classList.remove('hov'); }
+      hov = i; if (i !== null) { const p = svgm.querySelector(`.arc[data-l="${i}"]`); if (p) p.classList.add('hov'); }
+    }
+    tip.textContent = el ? elTip(R[+el.dataset.r]) : ht ? arcTip(i) : ' ';
+  });
+  svgm.addEventListener('mouseleave', () => { tip.innerHTML = '&nbsp;'; if (hov !== null) { const p = svgm.querySelector(`.arc[data-l="${hov}"]`); if (p) p.classList.remove('hov'); hov = null; } });
+  svgm.addEventListener('click', ev => {
+    const el = elAt(ev.target), ht = ev.target.closest('.hit');
+    if (el) pick({ t: 'el', id: +el.dataset.r }, 'map');
+    else if (ht) pick({ t: 'link', id: +ht.dataset.l }, 'map');
+    else if (sel) pick(null);
+  });
+  $('st-layer').addEventListener('click', ev => { const b = ev.target.closest('button[data-layer]'); if (b && b.dataset.layer !== K) { setLayer(b.dataset.layer); remember(true); } });
+  $('st-colour').addEventListener('click', ev => { const b = ev.target.closest('button[data-c]'); if (!b || b.disabled) return;
+    colour = b.dataset.c; colourSet = colour; document.querySelectorAll('#st-colour button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); drawMap(); drawList(); });
+  $('st-leg').addEventListener('click', ev => { const b = ev.target.closest('button[data-v]'); if (!b) return;
+    const g = b.dataset.v; if (hide.has(g)) hide.delete(g); else hide.add(g); drawMap(); if (lview !== 'sets') drawList();
+    if (sel && sel.t === 'link') drawDetail();
+    const again = $('st-leg').querySelector(`button[data-v="${g}"]`); if (again) again.focus(); });
+  $('st-lview').addEventListener('click', ev => { const b = ev.target.closest('button[data-v]'); if (b) { lview = b.dataset.v; drawList(); } });
+  const rowSel = tr => tr.dataset.s !== undefined ? `tr[data-s="${tr.dataset.s}"]` : tr.dataset.e !== undefined ? `tr[data-e="${tr.dataset.e}"]` : `tr[data-l="${tr.dataset.l}"]`;
+  $('st-list').addEventListener('keydown', ev => {
+    const tr = ev.target.closest && ev.target.closest('tr[tabindex]'); if (!tr) return;
+    if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {           // move between rows; Enter or Space picks
+      ev.preventDefault(); const nx = ev.key === 'ArrowDown' ? tr.nextElementSibling : tr.previousElementSibling; if (nx) nx.focus(); return; }
+    if (!(ev.key === 'Enter' || ev.key === ' ')) return;
+    ev.preventDefault(); const q = rowSel(tr);
+    tr.click(); const again = $('st-list').querySelector(q); if (again) again.focus({ preventScroll: true }); });
+  $('st-list').addEventListener('click', ev => { const tr = ev.target.closest('tr[data-s],tr[data-l],tr[data-e]'); if (!tr) return;
+    if (tr.dataset.s !== undefined) pick({ t: 'set', id: +tr.dataset.s }, 'list');
+    else if (tr.dataset.e !== undefined) pick({ t: 'el', id: +tr.dataset.e }, 'list');
+    else pick({ t: 'link', id: +tr.dataset.l }, 'list'); });
+  $('st-detail').addEventListener('click', ev => {
+    const b = ev.target.closest('[data-go],[data-el],[data-link],[data-set],#inf-again'); if (!b) return;
+    if (b.id === 'inf-again') return runInfluence(sel.id);
+    if (b.dataset.go !== undefined) { showTab('graph'); goRegion(b.dataset.go, '', b.dataset.want || ''); $('graphcard').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    if (b.dataset.el !== undefined) pick({ t: 'el', id: +b.dataset.el });
+    else if (b.dataset.link !== undefined) pick({ t: 'link', id: +b.dataset.link });
+    else if (b.dataset.set !== undefined) pick({ t: 'set', id: +b.dataset.set });
+    showDetail();
+  });
+  ['st-min', 'st-avoid', 'st-rep'].forEach(id => $(id).addEventListener('change', () => { drawMap(); if (lview !== 'sets' || id === 'st-rep') drawList(); if (sel && sel.t === 'link') drawDetail(); }));
+  let rw = 0, rq = 0;                               // redraw on a new width, in the next frame (no resize-observer loop)
+  new ResizeObserver(() => { cancelAnimationFrame(rq); rq = requestAnimationFrame(() => { const w = svgm.clientWidth; if (!w || w === rw) return; rw = w; drawMap();
+    if ($('inf-fig') && sel && sel.t === 'el') { const J = INF.cache.get(shownKey()); if (J) renderInfluence(J, sel.id); } }); }).observe(svgm);
+  // Back, Forward, an address edited by hand
+  document.addEventListener('pgg-hash', e => {
+    const H = e.detail, k = KEYS.includes(H.get('rl')) ? H.get('rl') : KEYS[0];
+    if (k !== K) setLayer(k);
+    const ns = selFrom(H.get('rs'));
+    if (JSON.stringify(ns) !== JSON.stringify(sel)) { sel = ns; drawAll(); }
+    remember(false);                                 // an older address (e5, l12) written the lasting way
+  });
+  // the address: #tab=regions&rl=close&rs=l.<key>.<key> (a link), e.<key> (an element), s.<key> (a set)
+  const H0 = hashGet(), k0 = H0.get('rl');
+  setLayer(KEYS.includes(k0) ? k0 : KEYS[0]);
+  const s0 = selFrom(H0.get('rs'));
+  if (s0) { sel = s0; drawAll(); }
+  remember(false);
+  // the help: numbers from the data (data-rs="layer.field")
+  document.querySelectorAll('#help-regions [data-rs]').forEach(e => { const [k, f] = e.dataset.rs.split('.'), M = RSETS.layers[k] && RSETS.layers[k].meta;
+    if (M && M[f] !== undefined) e.textContent = fmtInt(M[f]); });
+})();
 draw();
 liveOK();
 </script>
