@@ -1368,9 +1368,15 @@ def rank_pct(delta, ctrl, e_sign):
     return float((np.sum(c < x) + 0.5 * np.sum(c == x)) / len(c)) if len(c) else np.nan
 
 
-def mde_wilcoxon(sd, n, alpha=0.05, power=0.8):
-    """smallest mean shift (same units as sd) a one-sided signed-rank test on n lineage means detects with
-    the given power (normal approximation, Wilcoxon ARE 3/pi)"""
+def mde_wilcoxon(x, alpha=0.05, power=0.8):
+    """smallest location shift (same units as x) a one-sided signed-rank test on the values x (one per lineage: the
+    lineage means) detects with the given power: normal approximation with the Wilcoxon ARE 3/pi, on a ROBUST scale,
+    1.4826 x MAD of x. A signed-rank test works on ranks, so a few extreme lineage means that inflate an SD do not blunt
+    it; an SD-based MDE overstated what the test cannot see. `alpha` is the per-link alpha: pg_knockout.py passes
+    0.05 / (number of TESTED links), Bonferroni. NaN with < 2 values or a zero MAD."""
     from scipy.stats import norm
-    if n < 2 or not np.isfinite(sd): return np.nan
-    return float((norm.ppf(1 - alpha) + norm.ppf(power)) * sd / np.sqrt(n) * np.sqrt(np.pi / 3))
+    x = np.asarray(x, float); x = x[np.isfinite(x)]; n = len(x)
+    if n < 2: return np.nan
+    s = 1.4826 * float(np.median(np.abs(x - np.median(x))))
+    if not s > 0: return np.nan
+    return float((norm.ppf(1 - alpha) + norm.ppf(power)) * s / np.sqrt(n) * np.sqrt(np.pi / 3))

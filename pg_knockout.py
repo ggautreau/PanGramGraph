@@ -558,6 +558,21 @@ def write_anchor_check(out, links):
 
 # ============================================================================ 6. aggregation
 def aggregate(tag, links, pilot, sel=None):
+    """Per-genome parts -> {tag}_units / _offtarget / _links parquet, _summary.json, _arcs.json. The per-link rules:
+    tests   one-sided Wilcoxon signed-rank on lineage means (units: readout seen, >= 3 matched controls, complete
+            knockout); each p calibrated on NDRAW draws of one pseudo-U per unit (one of the unit's matched controls in
+            U's place, every pseudo-U value centred within its unit on the median of its own matched controls)
+    spec    D moves more than the off-targets of the same U pass: in z units (spec, calibrated p) AND in raw readout
+            units, read DIRECTLY (spec_raw = D's raw shift minus the off-targets' mean raw shift), gated on
+            max(nominal p, calibrated p)
+    nt      < 5 lineages / no readout / only partial knockouts / no unit with 3 matched controls / every tested delta
+            below the fp32 floor / no calibration (< 5 lineages with a pseudo-U draw)
+    q       BH over the TESTED (not nt) links, m = their number
+    knows   q_cal_exp, p_sign < 0.05, both lineage halves > 0, q_cal_spec and q_gate_spec_raw < 0.05; own direction
+            without specificity: "not specific"
+    opposite  q_cal_opp < 0.05, both halves < 0, q_cal_spec_opp and q_gate_spec_raw_opp < 0.05; without the
+            specificity: "not specific (opposite)"; otherwise "none"
+    mde_z   80 % power, robust scale (1.4826 x MAD of the lineage means), alpha 0.05 / number of tested links"""
     import pandas as pd
     from scipy import stats
     out = f"{K.KDIR}/{tag}"
@@ -603,7 +618,11 @@ def aggregate(tag, links, pilot, sel=None):
             return o
 
         def stat(j, delta, size, dist, row, ok, e_sign, flo):
-            """robust z, rank percentile and the leave-one-out pseudo-U z values of the matched controls"""
+            """robust z, rank percentile and the leave-one-out pseudo-U values of the matched controls. Each control e
+            in turn stands in for U against ITS OWN matched controls (e and anything overlapping it excluded):
+            pseudo[e] = (z of e, expected sign; rank percentile - 0.5; e's raw delta minus the median raw delta of
+            its own matched controls, expected sign). The raw value is centred exactly as the z is, so that every
+            pseudo-U value is ~0 under the null within its unit (the raw specificity calibration needs that)."""
             idx, wid = K.match_controls(c_end, c_size, ok & np.isfinite(dV[pan, j]), size, dist, row)
             cv = dV[pan[idx], j]
             z, med, mad = K.robust_z(delta, cv, flo)
@@ -614,9 +633,9 @@ def aggregate(tag, links, pilot, sel=None):
                 ok2 &= ~((pst[pan] <= pen[pan][e]) & (pen[pan] >= pst[pan][e]))
                 i2, _w = K.match_controls(c_end, c_size, ok2 & np.isfinite(dV[pan, j]), c_size[e], row - c_end[e], row)
                 if len(i2) < 3: continue
-                z2, _m, _d = K.robust_z(dV[pan[e], j], dV[pan[i2], j], flo)
+                z2, m2, _d = K.robust_z(dV[pan[e], j], dV[pan[i2], j], flo)
                 r2 = K.rank_pct(dV[pan[e], j], dV[pan[i2], j], e_sign)
-                ps_[int(e)] = (float(z2 * e_sign), float(r2 - 0.5))
+                ps_[int(e)] = (float(z2 * e_sign), float(r2 - 0.5), float((dV[pan[e], j] - m2) * e_sign))
             return dict(z=z, n_ctrl=len(idx), widened=wid, ctrl_med=med, ctrl_mad=mad, rank_pct=rp,
                         ctrl=cv, pseudo=ps_)
         for u, ju in zip(by_g[g], J["units"]):
@@ -645,7 +664,10 @@ def aggregate(tag, links, pilot, sel=None):
                 zo.append(s2["z"] * e_sign); zo_ps.append(s2["pseudo"])
                 # the same comparison in the raw readout units: a z is scale-free, so a readout whose own null happens
                 # to be tight can look special without having moved much. Both are reported, and "knows" needs both.
+                # The observed raw comparison is DIRECT (D's raw shift minus the off-targets' in the same U pass).
                 do.append(float(dV[pi, jj]) * e_sign)
+                # uncentred control shifts at every off-target: only for the descriptive global-shift table below. The
+                # raw specificity CALIBRATION uses the centred pseudo-U values of stat() instead (pseudo_raw_c).
                 for e in st["pseudo"]: do_ps.setdefault(int(e), []).append(float(dV[pan[int(e)], jj]) * e_sign)
                 off_rows.append(dict(li=u["li"], g=g, lineage=D.LIN[g], ri=int(ri), row=int(P_row[jj]),
                                      dist=int(P_row[jj] - u["u_end"]), delta=float(dV[pi, jj]), z_exp=s2["z"] * e_sign,
@@ -656,11 +678,18 @@ def aggregate(tag, links, pilot, sel=None):
                 sec_mean = np.nan; sec_list = []
             # pseudo-U draws for the calibration: the same statistics with one control in U's place. Keyed by the
             # control, so the pseudo-U's z at D and at the off-targets come from the SAME deletion.
-            pz = []; prk = []; poff = []; poff_raw = []
-            for e, (z2, r2) in st["pseudo"].items():
+            # pseudo_raw_c: [e's centred raw shift at D, mean of e's centred raw shifts at the off-targets where e is
+            # itself a matched control with >= 3 of its own] -- the raw counterpart of pseudo_z / pseudo_off, centred
+            # within the unit the same way (leave-one-out median of e's own matched controls at each readout). The
+            # uncentred pseudo_off_raw put each unit's fixed D-vs-off-target offset of the control deletions into
+            # every draw, so the null hardly varied between draws and its calibrated p was anti-conservative.
+            pz = []; prk = []; poff = []; poff_raw = []; praw_c = []
+            for e, (z2, r2, x0c) in st["pseudo"].items():
                 pz.append(round(z2, 4)); prk.append(round(r2, 4))
                 oz = [zo_ps[k][e][0] for k in range(len(zo_ps)) if e in zo_ps[k]]
                 poff.append(round(float(np.mean(oz)), 4) if oz else None)
+                oc = [zo_ps[k][e][2] for k in range(len(zo_ps)) if e in zo_ps[k]]
+                praw_c.append([round(x0c, 9), round(float(np.mean(oc)), 9)] if oc else None)
                 dr = do_ps.get(int(e))
                 poff_raw.append([round(float(dV[pan[int(e)], j]) * e_sign, 9), round(float(np.mean(dr)), 9)] if dr else None)
             rr = dict(li=u["li"], g=g, acc=D.ACC[g], lineage=D.LIN[g], half=int(D.HALF[g]), rel_date=rel[g],
@@ -676,7 +705,7 @@ def aggregate(tag, links, pilot, sel=None):
                       n_off=len(zo), z_off=float(np.mean(zo)) if zo else np.nan,
                       d_off=float(np.mean(do)) if do else np.nan,
                       pseudo_z=json.dumps(pz), pseudo_rank=json.dumps(prk), pseudo_off=json.dumps(poff),
-                      pseudo_off_raw=json.dumps(poff_raw),
+                      pseudo_off_raw=json.dumps(poff_raw), pseudo_raw_c=json.dumps(praw_c),
                       sec_mean=sec_mean, sec=json.dumps(sec_list))
             rows.append(rr)
         for r in J["posctrl"]: pc_rows.append(r)
@@ -714,7 +743,7 @@ def aggregate(tag, links, pilot, sel=None):
         return lm, wil(lm.values, "greater"), wil(lm.values, "less")
     rng = np.random.default_rng(3)
     # ---- per link
-    lk = []
+    lk = []; lm_by_li = {}
     for li in links:
         l = D.LINKS[li]; u = U[U.li == li]
         ut = u[u.seen & np.isfinite(u.z_exp) & u.full_ko]          # units with a readout, a null, and a complete knockout
@@ -723,8 +752,9 @@ def aggregate(tag, links, pilot, sel=None):
         # the same test with the partial knockouts put back, so both readings are on the record
         uwp = u[u.seen & np.isfinite(u.z_exp)]
         lmw, p_exp_wp, _o = link_stats(uwp, "z_exp")
-        us = ut[np.isfinite(ut.spec)]; lms, p_spec, _ = link_stats(us, "spec")
+        us = ut[np.isfinite(ut.spec)]; lms, p_spec, p_spec_opp = link_stats(us, "spec")
         usr = ut[np.isfinite(ut.spec_raw)]; lmsr, p_spec_raw, p_spec_raw_opp = link_stats(usr, "spec_raw")
+        lm_by_li[li] = lm.values
         rec = dict(li=li, sign=l["sign"], link_z=l["z"], pairs=l["pairs"], why=(sel or {}).get(li, ""),
                    a=D.REG[l["a"]]["label"][:40], b=D.REG[l["b"]]["label"][:40],
                    n_units=len(u), n_unseen=int((~u.seen).sum()), n_partial=int((~u.full_ko).sum()),
@@ -734,6 +764,7 @@ def aggregate(tag, links, pilot, sel=None):
                    median_z_exp_lin=float(lm.median()) if len(lm) else np.nan,
                    median_z_exp_lin_withpartial=float(lmw.median()) if len(lmw) else np.nan, p_exp_withpartial=p_exp_wp,
                    share_resolved=float(u[u.seen].resolved.mean()) if u.seen.any() else np.nan,
+                   share_resolved_tested=float(ut.resolved.mean()) if len(ut) else np.nan,
                    share_beyond95=float((ut.rank_pct >= 0.95).mean()) if len(ut) else np.nan,
                    share_beyond95_null=K.rank_share_null(ut.n_ctrl.values) if len(ut) else np.nan,
                    median_base_p1=float(u.base_p1.median()) if len(u) else np.nan,
@@ -742,7 +773,9 @@ def aggregate(tag, links, pilot, sel=None):
                    if (len(u) and l["sign"] < 0) else 0.0,
                    n_off_units=len(us), median_spec_lin=float(lms.median()) if len(lms) else np.nan,
                    median_z_off_lin=float(us.groupby("lineage").z_off.mean().median()) if len(us) else np.nan,
-                   p_exp=p_exp, p_opp=p_opp, p_spec=p_spec, p_spec_raw=p_spec_raw, p_spec_raw_opp=p_spec_raw_opp,
+                   p_exp=p_exp, p_opp=p_opp, p_spec=p_spec, p_spec_opp=p_spec_opp,
+                   p_spec_raw=p_spec_raw, p_spec_raw_opp=p_spec_raw_opp,
+                   scale_lin=1.4826 * float(np.median(np.abs(lm - lm.median()))) if len(lm) else np.nan,
                    median_spec_raw_lin=float(lmsr.median()) if len(lmsr) else np.nan,
                    median_d_off_lin=float(usr.groupby("lineage").d_off.mean().median()) if len(usr) else np.nan)
         for h in (0, 1):
@@ -754,16 +787,19 @@ def aggregate(tag, links, pilot, sel=None):
         if len(lm) >= 5:
             npos = int((lm > 0).sum()); nnz = int((lm != 0).sum())
             rec["p_sign"] = float(stats.binomtest(npos, nnz, 0.5, alternative="greater").pvalue) if nnz else np.nan
-            rec["mde_z"] = K.mde_wilcoxon(float(lm.std(ddof=1)), len(lm), alpha=0.05 / max(1, len(links)))
+            # mde_z is set after the loop: its alpha is Bonferroni over the TESTED links, known only then
             # ---- empirical calibration: the same test with a control deletion in U's place. The tails of the
             # matched null are skewed, so the nominal p is not the real one (inference review finding 2).
             uu = ut[ut.pseudo_z != "[]"]
             PZ = [json.loads(s) for s in uu.pseudo_z]; PO = [json.loads(s) for s in uu.pseudo_off]
-            PR = [json.loads(s) for s in uu.pseudo_off_raw]
+            PR = [json.loads(s) for s in uu.pseudo_off_raw]; PC_ = [json.loads(s) for s in uu.pseudo_raw_c]
             LI = uu.lineage.values
             # the observed p on exactly the units that have pseudo-U draws, so that the null is the same test
             lmu, p_obs, p_obs_o = link_stats(uu, "z_exp")
-            _lms, p_obs_s, _x = link_stats(uu[np.isfinite(uu.spec)], "spec")
+            _lms, p_obs_s, p_obs_so = link_stats(uu[np.isfinite(uu.spec)], "spec")
+            # raw specificity: the observed statistic is the DIRECT reading (D's raw shift minus the off-targets' in
+            # the same U pass, not centred on the controls); its null is the centred pseudo-U contrast (pseudo_raw_c),
+            # i.e. what a deletion without a specific effect on D gives around zero, with the controls' real spread
             _lmr, p_obs_r, p_obs_ro = link_stats(uu[np.isfinite(uu.spec_raw)], "spec_raw")
             # how global is the deletion? the mean shift over the OTHER readouts of the same pass, for U and for its
             # matched controls. If U's global shift is much larger, its excess at D can be entirely that.
@@ -785,10 +821,10 @@ def aggregate(tag, links, pilot, sel=None):
             # fall below the BH threshold (its floor is 1 / (NDRAW + 1)).
             nu = len(PZ); kmax = max(len(z) for z in PZ)
             Zm = np.full((nu, kmax), np.nan); Sm = np.full((nu, kmax), np.nan); Rm = np.full((nu, kmax), np.nan)
-            for i_, (z, o, r) in enumerate(zip(PZ, PO, PR)):
+            for i_, (z, o, rc) in enumerate(zip(PZ, PO, PC_)):
                 Zm[i_, :len(z)] = z
                 Sm[i_, :len(z)] = [(zz - oo) if oo is not None else np.nan for zz, oo in zip(z, o)]
-                Rm[i_, :len(z)] = [(rr[0] - rr[1]) if rr is not None else np.nan for rr in r]
+                Rm[i_, :len(z)] = [(x_[0] - x_[1]) if x_ is not None else np.nan for x_ in rc]      # centred (stat())
             nk = np.array([len(z) for z in PZ])
             codes, luniq = pd.factorize(LI)
             ind = np.zeros((nu, len(luniq))); ind[np.arange(nu), codes] = 1.0
@@ -810,19 +846,34 @@ def aggregate(tag, links, pilot, sel=None):
                     with np.errstate(all="ignore"):
                         out[good] = stats.wilcoxon(M[good], alternative=alt, axis=1, nan_policy="omit").pvalue
                 return out
-            pe = wil_rows(mz, "greater"); po = wil_rows(mz, "less"); psp = wil_rows(ms, "greater")
+            pe = wil_rows(mz, "greater"); po = wil_rows(mz, "less"); psp = wil_rows(ms, "greater"); pspo = wil_rows(ms, "less")
             psr = wil_rows(mr, "greater"); pso = wil_rows(mr, "less")
-            rec["p_cal_exp"] = float((1 + np.sum(pe[np.isfinite(pe)] <= p_obs)) / (1 + np.isfinite(pe).sum())) if np.isfinite(p_obs) else np.nan
-            rec["p_cal_opp"] = float((1 + np.sum(po[np.isfinite(po)] <= p_obs_o)) / (1 + np.isfinite(po).sum())) if np.isfinite(p_obs_o) else np.nan
-            rec["p_cal_spec"] = float((1 + np.sum(psp[np.isfinite(psp)] <= p_obs_s)) / (1 + np.isfinite(psp).sum())) if np.isfinite(p_obs_s) else np.nan
-            rec["p_cal_spec_raw"] = float((1 + np.sum(psr[np.isfinite(psr)] <= p_obs_r)) / (1 + np.isfinite(psr).sum())) if np.isfinite(p_obs_r) else np.nan
-            rec["p_cal_spec_raw_opp"] = float((1 + np.sum(pso[np.isfinite(pso)] <= p_obs_ro)) / (1 + np.isfinite(pso).sum())) if np.isfinite(p_obs_ro) else np.nan
-            rec["cal_fp_exp"] = float(np.mean(pe[np.isfinite(pe)] < 0.05)); rec["cal_fp_opp"] = float(np.mean(po[np.isfinite(po)] < 0.05))
+
+            def cal(pn, pobs):
+                """calibrated p: the share of pseudo-U draws whose nominal p is at least as small as the observed one"""
+                f_ = np.isfinite(pn)
+                return float((1 + np.sum(pn[f_] <= pobs)) / (1 + f_.sum())) if np.isfinite(pobs) and f_.any() else np.nan
+            rec["p_cal_exp"] = cal(pe, p_obs); rec["p_cal_opp"] = cal(po, p_obs_o)
+            rec["p_cal_spec"] = cal(psp, p_obs_s); rec["p_cal_spec_opp"] = cal(pspo, p_obs_so)
+            rec["p_cal_spec_raw"] = cal(psr, p_obs_r); rec["p_cal_spec_raw_opp"] = cal(pso, p_obs_ro)
+            rec["p_spec_opp_cal_ref"] = p_obs_so; rec["p_spec_raw_opp_cal_ref"] = p_obs_ro
+            # is each pseudo-U null a proper null? Its nominal p should be ~uniform over the draws: rejection rate
+            # ~5 % and normal score isf(p) with mean ~0 and SD ~1. An SD << 1 (a near-degenerate null) turns any
+            # observed p a little below the null's centre into the floor p.
+            for nm_, pn in (("exp", pe), ("opp", po), ("spec", psp), ("spec_raw", psr)):
+                pf_ = pn[np.isfinite(pn)]
+                zz_ = stats.norm.isf(np.clip(pf_, 1e-300, 1 - 1e-16)) if len(pf_) else pf_
+                rec[f"cal_fp_{nm_}"] = float(np.mean(pf_ < 0.05)) if len(pf_) else np.nan
+                if nm_ != "opp":
+                    rec[f"cal_zmean_{nm_}"] = float(np.mean(zz_)) if len(pf_) else np.nan
+                    rec[f"cal_zsd_{nm_}"] = float(np.std(zz_)) if len(pf_) else np.nan
             rec["cal_draws"] = int(np.isfinite(pe).sum())
+            rec["cal_draws_spec_raw"] = int(np.isfinite(psr).sum())
         else:
-            for k_ in ("p_sign", "mde_z", "p_cal_exp", "p_cal_opp", "p_cal_spec", "p_cal_spec_raw", "cal_fp_exp", "cal_fp_opp",
-                       "p_global", "p_cal_spec_raw_opp"): rec[k_] = np.nan
-            rec["cal_draws"] = 0
+            for k_ in ("p_sign", "p_cal_exp", "p_cal_opp", "p_cal_spec", "p_cal_spec_opp", "p_cal_spec_raw", "cal_fp_exp",
+                       "cal_fp_opp", "cal_fp_spec", "cal_fp_spec_raw", "cal_zmean_exp", "cal_zsd_exp", "cal_zmean_spec",
+                       "cal_zsd_spec", "cal_zmean_spec_raw", "cal_zsd_spec_raw", "p_global", "p_cal_spec_raw_opp"): rec[k_] = np.nan
+            rec["cal_draws"] = 0; rec["cal_draws_spec_raw"] = 0
             rec["nt_why"] = ("no testable genome" if not len(u) else
                              "no readout (D's entry family unseen by the other half's decoder)" if not u.seen.any() else
                              "every unit is a partial knockout (U's families remain elsewhere)" if not u.full_ko.any() else
@@ -830,24 +881,55 @@ def aggregate(tag, links, pilot, sel=None):
                              f"{len(lm)} lineages < 5")
         lk.append(rec)
     Lk = pd.DataFrame(lk)
-    for c in ("p_exp", "p_opp", "p_cal_exp", "p_cal_opp", "p_cal_spec", "p_cal_spec_raw", "p_cal_spec_raw_opp"):
-        Lk["q" + c[1:]] = K.bh(Lk[c].values)
+
+    # ---- which links are tested. nt = no verdict: < 5 lineages / no readout / only partial knockouts / no unit with 3
+    # matched controls (set in the loop), EVERY tested delta below its genome's fp32 floor (nothing was measured), or
+    # no calibration (fewer than 5 lineages have a unit whose matched controls can stand in for U: the nominal p alone
+    # is not trusted, so such a link is not testable rather than 'none')
+    def nt_reason(r):
+        w_ = r.get("nt_why")
+        if not np.isfinite(r.p_exp): return w_ if isinstance(w_, str) and w_ else "not testable"
+        if not (r.share_resolved_tested > 0): return "every delta below the fp32 numerical floor"
+        if not np.isfinite(r.p_cal_exp):
+            return (f"no calibration: {int(r.n_lin_cal) if np.isfinite(r.get('n_lin_cal', np.nan)) else 0} lineages with a "
+                    f"unit whose matched controls can stand in for U (>= 3 matched controls of their own), < 5")
+        return ""
+    Lk["nt_why"] = Lk.apply(nt_reason, axis=1)
+    tested = (Lk.nt_why == "").values
+    n_tested = int(tested.sum())
+
+    def bh_tested(p):
+        """BH over the TESTED links: m = every tested link (an undefined p counts as a non-rejection); nt links get no q"""
+        p = np.asarray(p, float); q = np.full(len(p), np.nan)
+        if n_tested:
+            pt = p[tested]; qt = K.bh(np.where(np.isfinite(pt), pt, 1.0)); qt[~np.isfinite(pt)] = np.nan; q[tested] = qt
+        return q
+    # the raw specificity gate: the nominal p of the DIRECT reading and its calibrated p must both be small
+    # (the larger of the two); NaN if either is undefined
+    Lk["p_gate_spec_raw"] = np.maximum(Lk.p_spec_raw.values, Lk.p_cal_spec_raw.values)
+    Lk["p_gate_spec_raw_opp"] = np.maximum(Lk.p_spec_raw_opp.values, Lk.p_cal_spec_raw_opp.values)
+    for c in ("p_exp", "p_opp", "p_cal_exp", "p_cal_opp", "p_cal_spec", "p_cal_spec_opp", "p_cal_spec_raw", "p_cal_spec_raw_opp",
+              "p_gate_spec_raw", "p_gate_spec_raw_opp"):
+        Lk["q" + c[1:]] = bh_tested(Lk[c].values)
+    # smallest effect (z units) the per-link test detects at 80 % power: robust scale of the lineage means, alpha
+    # Bonferroni-adjusted over the tested links
+    Lk["mde_z"] = [K.mde_wilcoxon(lm_by_li[li], alpha=0.05 / max(1, n_tested)) if len(lm_by_li[li]) >= 5 else np.nan
+                   for li in Lk.li]
 
     def verdict(r):
-        if not np.isfinite(r.p_exp): return "nt"
-        if not (r.share_resolved > 0.5): return "nt"          # deltas below the fp32 floor: nothing was measured
+        if r.nt_why: return "nt"
         own = (r.q_cal_exp < 0.05 and r.p_sign < 0.05 and r.half0_median > 0 and r.half1_median > 0)
-        if own and r.q_cal_spec < 0.05 and r.q_cal_spec_raw < 0.05: return "knows"
+        # specificity: D moves more than the off-targets of the same U pass, in z units (calibrated q) AND in raw
+        # readout units (q of max(nominal p of the direct reading, its calibrated p))
+        if own and r.q_cal_spec < 0.05 and r.q_gate_spec_raw < 0.05: return "knows"
         # the deletion moves D more than other deletions move D, but not more than it moves the other elements it
         # hits: a genome-wide effect of removing U, which would earn "knows" on every link U belongs to
         if own: return "not specific"
         opp = (r.q_cal_opp < 0.05 and r.half0_median < 0 and r.half1_median < 0)
-        if opp and r.q_cal_spec_raw_opp < 0.05: return "opposite"
+        if opp and r.q_cal_spec_opp < 0.05 and r.q_gate_spec_raw_opp < 0.05: return "opposite"   # same rule, mirrored
         if opp: return "not specific (opposite)"
         return "none"
     Lk["verdict"] = Lk.apply(verdict, axis=1)
-    Lk["nt_why"] = Lk.apply(lambda r: (r.get("nt_why") if isinstance(r.get("nt_why"), str) else
-                                       ("deltas below the fp32 numerical floor" if r.verdict == "nt" else "")), axis=1)
     Lk.to_parquet(f"{K.KDIR}/{tag}_links.parquet", index=False)
     # ---- global over links
     tst = Lk[np.isfinite(Lk.p_exp) & (Lk.verdict != "nt")]
@@ -891,7 +973,15 @@ def aggregate(tag, links, pilot, sel=None):
                 partial_ko=dict(share_units=float((~U.full_ko).mean()), links_all_partial=int((Lk.n_partial == Lk.n_units).sum())),
                 offtarget=dict(units_with_off=int(U.n_off.gt(0).sum()), median_n_off=float(U.n_off.median())),
                 calibration=dict(median_fp_exp=float(np.nanmedian(Lk.cal_fp_exp)), median_fp_opp=float(np.nanmedian(Lk.cal_fp_opp)),
-                                 draws=int(NDRAW)),
+                                 draws=int(NDRAW),
+                                 # over the tested links: is each pseudo-U null a proper null (fp ~0.05, z mean ~0, SD ~1)?
+                                 tested=dict(**{f"median_{k}_{s}": (float(np.nanmedian(Lk.loc[tested, f"cal_{k}_{s}"]))
+                                                                    if n_tested else np.nan)
+                                                for s in ("exp", "spec", "spec_raw") for k in ("fp", "zmean", "zsd")},
+                                             median_fp_opp=float(np.nanmedian(Lk.loc[tested, "cal_fp_opp"])) if n_tested else np.nan,
+                                             share_zsd_spec_raw_below_05=float(np.nanmean(Lk.loc[tested, "cal_zsd_spec_raw"] < 0.5))
+                                             if n_tested else np.nan)),
+                tested_links=n_tested,
                 verdicts=Lk.verdict.value_counts().to_dict(), global_test=glob, checks=checks)
     json.dump(summ, open(f"{K.KDIR}/{tag}_summary.json", "w"), indent=1, default=float)
     summ["_arcs"] = write_arcs(tag, U, Lk, dict(arms))   # a separate file: the summary above is unchanged
@@ -905,7 +995,10 @@ MODEL_REACH = ("the model's content-specific use of the context decays with dist
 def write_arcs(tag, U, Lk, arms):
     """{tag}_arcs.json: one record per link for the page's arcs, the model's verdict with what it can and cannot mean:
     the U-D distances actually tested (units with a readout, a matched null and a complete knockout), the share within
-    500 genes (the model's range), the smallest effect the test detects (mde_z, z units), the calibrated q values, and
+    500 genes (the model's range), the smallest effect the test detects (mde_z, z units: robust scale of the lineage
+    means, alpha Bonferroni over the tested links), the q values the verdict used (BH over the tested links: q_cal_exp,
+    q_cal_spec, and q_gate_spec_raw = q of max(nominal p of the direct raw reading, its calibrated p); the opposite
+    direction's q_cal_opp, q_cal_spec_opp, q_gate_spec_raw_opp; q_cal_spec_raw alone for the record), and
     with --flags what the link is in the genomes (pg_link_flags.py): one_site (one element at different spots), tract
     (< 100 genes apart in co-carriers), site_competition (avoidance of two elements for one insertion site),
     rep_lineage (holds in lineage-disjoint halves). `caveats` spells them out."""
@@ -933,6 +1026,8 @@ def write_arcs(tag, U, Lk, arms):
                    q_cal_exp=float(r.q_cal_exp) if np.isfinite(r.get("q_cal_exp", np.nan)) else None,
                    q_cal_spec=float(r.q_cal_spec) if np.isfinite(r.get("q_cal_spec", np.nan)) else None,
                    q_cal_spec_raw=float(r.q_cal_spec_raw) if np.isfinite(r.get("q_cal_spec_raw", np.nan)) else None)
+        for k_ in ("q_gate_spec_raw", "q_cal_opp", "q_cal_spec_opp", "q_gate_spec_raw_opp"):
+            rec[k_] = float(r[k_]) if np.isfinite(r.get(k_, np.nan)) else None
         cav = []
         if rec["verdict"] in ("none", "nt") and rec["dist_median"] is not None and rec["dist_median"] > 500:
             cav.append(f"tested at a median {rec['dist_median']:.0f} genes, beyond the model's range: 'none' here means the "
@@ -1011,10 +1106,15 @@ def write_report(tag, U, Lk, PCd, summ, sel):
             L.append(f"- a third matching tier (--match_log {K.MATCH_LOG:g}): distance within x1/{K.MATCH_LOG:g}..x{K.MATCH_LOG:g} on a "
                      f"log scale, size x1/3-3, when the +-35 % / +-60 % windows give fewer than 3 controls")
     L.append("- **specificity**: the same U pass is also read at up to 12 other elements of the same kind at a comparable distance "
-             "(off-targets). spec = z_exp(D) - mean z_exp(off-targets). A deletion that moves everything downstream is not knowledge "
-             "of the link.")
-    L.append("- **calibration**: every per-link p is calibrated empirically by putting one of the unit's own matched controls in U's "
-             "place (200 draws), because the matched null has skewed tails.\n")
+             "(off-targets). spec = z_exp(D) - mean z_exp(off-targets), and spec_raw = the same DIRECT comparison in raw readout "
+             "units (D's shift minus the off-targets' mean shift in the same pass). A deletion that moves everything downstream "
+             "is not knowledge of the link.")
+    L.append(f"- **calibration**: every per-link p is calibrated empirically by putting one of the unit's own matched controls in U's "
+             f"place ({summ['calibration']['draws']} draws of one pseudo-U per unit), because the matched null has skewed tails. "
+             f"Each pseudo-U value is centred within its unit on the median of that control's own matched controls (leave-one-out): "
+             f"the z by construction, the raw specificity contrast explicitly (its uncentred version carried each unit's fixed "
+             f"offset into every draw, a near-degenerate null that made its calibrated p anti-conservative). The raw specificity "
+             f"gate is the larger of the nominal p of the direct reading and its calibrated p. BH is over the tested links.\n")
     L.append("## Runtime\n")
     L.append(f"- baselines: {len(bm['done'])} chromosomes, median {f(bm['seconds_per_pass_median'],3)} s per full pass incl. the "
              f"head on every row and top-64 (total {f(bm.get('total_seconds', 0),0)} s)")
@@ -1076,7 +1176,16 @@ def write_report(tag, U, Lk, PCd, summ, sel):
     L.append(f"- off-targets: {ot_['units_with_off']} units have at least one, median {f(ot_['median_n_off'],0)} per unit")
     cal = summ["calibration"]
     L.append(f"- calibration: under pseudo-U draws the nominal test rejects at p < 0.05 in {cal['median_fp_exp']:.1%} (expected "
-             f"direction) / {cal['median_fp_opp']:.1%} (opposite) of draws at the median link (nominal 5 %)\n")
+             f"direction) / {cal['median_fp_opp']:.1%} (opposite) of draws at the median link (nominal 5 %)")
+    ct = cal.get("tested") or {}
+    if ct:
+        L.append(f"- is each pseudo-U null a proper null? Over the {summ.get('tested_links', '')} tested links (median link), rejection "
+                 f"rate at p < 0.05 / normal score of the draws' p, mean and SD (a proper null: 5 %, 0, 1): effect "
+                 f"{ct['median_fp_exp']:.1%} / {f(ct['median_zmean_exp'])} / {f(ct['median_zsd_exp'])}; specificity in z "
+                 f"{ct['median_fp_spec']:.1%} / {f(ct['median_zmean_spec'])} / {f(ct['median_zsd_spec'])}; specificity in raw "
+                 f"units {ct['median_fp_spec_raw']:.1%} / {f(ct['median_zmean_spec_raw'])} / {f(ct['median_zsd_spec_raw'])} "
+                 f"(links with a raw-specificity null SD < 0.5: {ct['share_zsd_spec_raw_below_05']:.0%})\n")
+    else: L.append("")
     # distributions of raw deltas
     for s, nm in ((1, "co-occurrence"), (-1, "avoidance")):
         u = U[(U.sign == s) & U.seen]
@@ -1086,31 +1195,36 @@ def write_report(tag, U, Lk, PCd, summ, sel):
                  f"baseline P(D entry) median {f(float(u.base_p1.median()),4)}")
     L.append("")
     L.append("## Per link\n")
-    L.append("verdict: **knows** = calibrated BH q < 0.05 (one-sided Wilcoxon signed-rank on lineage-mean z_exp) AND the effect survives "
-             "the specificity test (D moves more than the off-targets of the same pass, calibrated BH q < 0.05) AND the sign test p < 0.05 "
-             "AND the same (expected) sign in both lineage halves, where the specificity test must hold BOTH in z units and in the "
-             "raw readout units; **not specific** = the deletion moves D more than other deletions of the same kind move D, "
-             "but not more than the same deletion moves the other elements it hits (a genome-wide effect of removing U, "
-             "which would earn \"knows\" on every link U belongs to); **opposite** = calibrated BH q < 0.05 the other way "
-             "with the same sign in both halves AND the same specificity requirement in that direction; **not specific (opposite)** "
-             "= the same, without specificity; **none** (with the smallest effect in z units the test detects at 80 % power, alpha Bonferroni-adjusted over the tested links); "
-             "**nt** = not testable (< 5 lineages, no readout, only partial knockouts, or every delta below the numerical floor).\n")
+    L.append("verdict (every q is BH over the tested links): **knows** = calibrated q < 0.05 (one-sided Wilcoxon signed-rank on "
+             "lineage-mean z_exp) AND the effect survives the specificity test (D moves more than the off-targets of the same pass) "
+             "AND the sign test p < 0.05 AND the same (expected) sign in both lineage halves, where the specificity test must hold "
+             "BOTH in z units (calibrated q < 0.05) and in the raw readout units (q < 0.05 on the larger of the nominal p of the "
+             "direct raw reading and its calibrated p); **not specific** = the deletion moves D more than other deletions of the "
+             "same kind move D, but not more than the same deletion moves the other elements it hits (a genome-wide effect of "
+             "removing U, which would earn \"knows\" on every link U belongs to); **opposite** = calibrated q < 0.05 the other way "
+             "with the same sign in both halves AND the same specificity requirement in that direction (z units and raw units); "
+             "**not specific (opposite)** = the same, without specificity; **none** (with the smallest effect in z units the test "
+             "detects at 80 % power: robust scale 1.4826 x MAD of the lineage means, alpha Bonferroni-adjusted over the tested "
+             "links); **nt** = not testable (< 5 lineages, no readout, only partial knockouts, no unit with 3 matched controls, "
+             "every tested delta below the numerical floor, or no calibration: fewer than 5 lineages with a pseudo-U draw).\n")
     L.append("| link | type | selected as | regions (a / b labels) | link z | units | partial | lineages | median delta | resolved | median z | "
-             "beyond 95th pct (null) | q_cal | spec z: median / q_cal | spec raw: median / q_cal | half 0 / half 1 | 2024+ new lin | verdict | MDE z |")
+             "beyond 95th pct (null) | q_cal | spec z: median / q_cal | spec raw: median / q (max nominal, cal) | half 0 / half 1 | 2024+ new lin | verdict | MDE z |")
     L.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for _, r in Lk.iterrows():
         L.append(f"| {r.li} | {'co' if r.sign > 0 else 'av'} | {r.why} | {r.a} / {r.b} | {f(r.link_z)} | {r.n_units} | {r.n_partial} | {r.n_lin} | "
                  f"{f(r.median_delta,4)} | {f(r.share_resolved)} | {f(r.median_z)} | "
                  f"{f(r.share_beyond95)} ({f(r.share_beyond95_null)}) | {f(r.q_cal_exp,3)} | "
-                 f"{f(r.median_spec_lin)} / {f(r.q_cal_spec,3)} | {f(r.median_spec_raw_lin,5)} / {f(r.q_cal_spec_raw,3)} | "
+                 f"{f(r.median_spec_lin)} / {f(r.q_cal_spec,3)} | {f(r.median_spec_raw_lin,5)} / {f(r.q_gate_spec_raw,3)} | "
                  f"{f(r.half0_median)} ({r.half0_n_lin}) / {f(r.half1_median)} ({r.half1_n_lin}) | {f(r.newlin_median)} ({r.newlin_n_lin}) | "
                  f"**{r.verdict}**{(' (' + r.nt_why + ')') if r.verdict == 'nt' and isinstance(r.get('nt_why'), str) and r.nt_why else ''} | "
                  f"{f(r.mde_z)} |")
     L.append("\nColumns: partial = units where a copy of U's families survives the deletion (excluded from the test); median delta over units "
              "(raw readout units: logit for co, log-odds for av); resolved = share of units whose |delta| exceeds their genome's fp32 floor; "
              "median z over units; share of units whose delta lies beyond the 95th percentile of their own matched controls in the expected "
-             "direction (expected share under the null in brackets); q_cal = BH over the empirically calibrated p; spec = median lineage-mean "
-             "(D minus the off-targets of the same pass), in z units and in raw readout units; half columns: median lineage-mean z_exp (lineages); 2024+ new lin: median "
+             "direction (expected share under the null in brackets); q_cal = BH over the tested links of the empirically calibrated p; spec = "
+             "median lineage-mean (D minus the off-targets of the same pass), in z units (q_cal) and in raw readout units (q of the "
+             "larger of the nominal and the calibrated p); MDE z = smallest effect detected at 80 % power (robust scale, alpha "
+             "Bonferroni over the tested links); half columns: median lineage-mean z_exp (lineages); 2024+ new lin: median "
              "lineage-mean z_exp over genomes released in 2024 or later whose LINEAGE has no older genome (the only ones the model may not "
              "have memorised through a relative).\n")
     dd_ = Lk[np.isfinite(Lk.p_exp)]

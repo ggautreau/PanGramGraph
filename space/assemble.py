@@ -20,7 +20,7 @@ import os, sys, shutil
 PROJ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(PROJ); sys.path.insert(0, PROJ)
 OUT = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else "space_build"
-CODE = ["serve_live.py", "pgb_region.py", "pg_knock.py", "fam_annot.json", "eco/manifest.json",
+CODE = ["serve_live.py", "pgb_region.py", "pg_knock.py", "pg_reading.py", "fam_annot.json", "eco/manifest.json",
         "standalone/pangramgraph.html", "standalone/index.html", "standalone/origin-fork.html"]
 DATA = ["pgb/window.json", "pgb/window_emb.npy", "pgb/model_calls.npz", "pgb/graph_pgb.json", "pgb/fam_info.json",
         "pgb/chrom.npz", "pgb/chrom_genomes.json", "pgb/calls_top15_f.i32", "pgb/calls_top15_p.f16",
@@ -39,6 +39,9 @@ if os.path.exists(dec) and all(map(os.path.exists, top)) and max(map(os.path.get
 files = [(f"space/{f}", f) for f in sorted(os.listdir("space"))
          if f != "assemble.py" and os.path.isfile(f"space/{f}") and not f.endswith(".pyc")] + [(f, f) for f in CODE]
 if "--no-data" not in sys.argv: files += [(f, f) for f in DATA + INFLUENCE]
+# the LLM readings already written here (pg_reading, the Findings tab): the Space serves them without a new call
+files += [(f"pgb/readings/{f}", f"pgb/readings/{f}") for f in sorted(os.listdir("pgb/readings"))
+          if f.endswith(".json") and not f.startswith("_")] if os.path.isdir("pgb/readings") else []
 miss = [s for s, _ in files if not os.path.exists(s)]
 if miss: sys.exit(f"missing: {', '.join(miss)}" + (" (python3 -c 'import pg_knock as K; K.export_decoder()')"
                                                      if "pgb/knock/decoder_halves.npz" in miss else ""))

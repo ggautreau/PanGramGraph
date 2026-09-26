@@ -56,6 +56,26 @@ starts and serves the rest as before, and /health says why influence is not avai
           500  the computation failed (also a failed numerical check)
           503  influence not available here (why in `error`; a failed load is retried after a minute), or too
                many requests waiting (`retry_s`)
+
+The reading of a window written by an LLM (the Findings tab): pg_reading, imported at the first /reading or /health.
+    GET /reading?window=dnaA | anchor=<the window's anchor family, meta.anchor of /region> [&peek=1] [&facts=1]
+        the page sends only the window's id: the server builds the facts from its own data, an LLM
+        (deepseek-ai/DeepSeek-V4.1-Flash, Hugging Face Inference Providers) writes the reading, and every number and
+        gene of it is checked against the facts (one retry naming what was wrong). Cached per window (memory,
+        READING_CACHE and pgb/readings/); peek=1 answers from the cache only, never generates; facts=1 adds the facts
+        given to the LLM. Not in the model's queue (it uses no model of this server): only the window's build is.
+          200  {window, label, status: llm | fallback | none, model, provider, cached, created, checked, usage, ms}
+               llm: + html (<p class="note">, <b>, <span class="gene">, <span class="interp">: interpretation from the
+               gene names and products) and text (its markup: **bold**, `gene`, [[interpretation]]);
+               fallback: + reason (the text failed the checker twice: the page keeps its rule-based reading);
+               none (peek=1): not written yet, + available (and code, reason when not)
+          errors: {error, code, retry_s?, available?}; code tells the page what to say
+          400  unknown window (not a backbone anchor);  403 cross_site: a new reading asked for by another site's page
+          429  limit | limit_day: this client's new readings (retry_s);  502  upstream: the LLM could not be reached (retry_s)
+          503  off | no_token | refused | credit | cap | spend: no new readings here (available=false; retry_s for the
+               day's caps); busy: other readings are being written (retry_s: the page asks again)
+        /health: reading = {available, model, providers, code and reason if not, cached, today: {new, cap, calls,
+               cost_usd, usd_cap}, per_client: {new, per_s, per_day, clients, proxy}}
     GPU_MEM_FRAC=<0-1> caps the GPU memory of the whole process (a second instance next to a running one);
     INFLUENCE_DECODER=compact | full forces the decoder (default: the compact one when it is there, identical);
     INFLUENCE_JOBS=1 makes every influence call a job on a GPU too; INFLUENCE_QUEUE caps the jobs waiting (2 on a
@@ -541,6 +561,36 @@ def emsg(e):
     """the message of a KeyError without its quotes, of anything else as is"""
     return str(e.args[0]) if isinstance(e,KeyError) and e.args else str(e)
 
+# ---------------------------------------------------------------- the reading of a window by an LLM (Findings tab)
+# pg_reading is imported at the first /reading or /health (it reads nothing at import but its day counter); the dnaA
+# window's data (pgb/graph_pgb.json) at its first reading. Without pg_reading.py the rest is served and /health says why.
+RDM=dict(mod=None,error=None)
+def rd_mod():
+    if RDM["mod"] is None and RDM["error"] is None:
+        try: import pg_reading; RDM["mod"]=pg_reading
+        except Exception as e: RDM["error"]=f"readings are not available on this server: pg_reading could not be loaded ({type(e).__name__}: {e})"
+    if RDM["mod"] is None: raise Unavailable(RDM["error"])
+    return RDM["mod"]
+def rd_region(fam):
+    """a region window's data, by its anchor family (the same window /region?anchor= builds); a build waits in the
+    model's queue like /region, a window built already does not"""
+    anc=RG.FIDX.get(fam)
+    if anc is None or anc not in RG.BB_RANK: raise KeyError(f"unknown window: {fam} is not the anchor of a window of the page")
+    with REG_LOCK:
+        if anc in REG: REG.move_to_end(anc); return REG[anc]
+    return queued(lambda _: region_of(anc),None)
+def rd_health():
+    try: return rd_mod().health()
+    except Exception as e: return dict(available=False,reason=str(e))
+def reading(h,a):
+    """-> (HTTP code, JSON) for /reading; h: the request handler (the client's address, X-Forwarded-For: all its lines,
+    Sec-Fetch-Site, Origin, Host). Not in queued(): a reading waits for the LLM, not for this server's model"""
+    R=rd_mod()
+    xff=",".join(h.headers.get_all("X-Forwarded-For") or [])
+    site=R.site_ok(h.headers.get("Sec-Fetch-Site"),h.headers.get("Origin"),h.headers.get("Host"))
+    try: return R.answer(a,h.client_address[0],xff,rd_region,site)
+    except R.ReadingError as e: return e.status,e.body()
+
 class H(SimpleHTTPRequestHandler):
     extensions_map={**SimpleHTTPRequestHandler.extensions_map,".html":"text/html; charset=utf-8",
                     ".js":"text/javascript; charset=utf-8"}
@@ -558,7 +608,13 @@ class H(SimpleHTTPRequestHandler):
         self.send_header("Cache-Control","no-store"); self.end_headers(); self.wfile.write(b)
     def do_GET(self):
         u=urllib.parse.urlparse(self.path); a=dict(urllib.parse.parse_qsl(u.query))
-        if u.path=="/health": return self.js(dict(ok=True,model=MODEL,device=dev,genomes=len(GEN),influence=inf_health()))
+        if u.path=="/health": return self.js(dict(ok=True,model=MODEL,device=dev,genomes=len(GEN),influence=inf_health(),reading=rd_health()))
+        if u.path=="/reading":
+            try: code,obj=reading(self,a); return self.js(obj,code)
+            except Busy as e: return self.js(dict(error=str(e),code="busy",retry_s=10 if dev=="cpu" else 3),503)
+            except Unavailable as e: return self.js(dict(error=str(e),code="off",available=False),503)
+            except (KeyError,ValueError) as e: return self.js(dict(error=emsg(e)),400)
+            except Exception as e: return self.js(dict(error=f"{type(e).__name__}: {e}"),500)
         if u.path in ("/influence","/elements"):
             try:
                 if u.path=="/elements": return self.js(elements(a))

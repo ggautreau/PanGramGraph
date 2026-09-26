@@ -73,15 +73,22 @@ def fin(x):
 def failed(r):
     """what the verdict of pg_knockout.py (verdict()) found missing, from the same numbers (a NaN fails every test):
     own direction  q_exp (calibrated q < 0.05), sign (sign test p < 0.05), halves (median > 0 in both lineage halves);
-    specificity    spec_z (q_cal_spec), spec_raw (q_cal_spec_raw); the opposite way: q_opp, halves_opp, spec_raw_opp.
+    specificity    spec_z (q_cal_spec), spec_raw (q_gate_spec_raw: q of max(nominal p of the direct raw reading, its
+                   calibrated p)); the opposite way: q_opp, halves_opp, spec_z_opp (q_cal_spec_opp), spec_raw_opp
+                   (q_gate_spec_raw_opp). Runs made before the raw-specificity fix have no q_gate_* / q_cal_spec_opp
+                   columns: their rule (q_cal_spec_raw, q_cal_spec_raw_opp, no z test the opposite way) is used for them.
     -> (verdict recomputed, codes of the conditions that failed on the way to it)"""
     lt = lambda k: fin(r.get(k)) and r[k] < 0.05
+    new = "q_gate_spec_raw" in r
     h0, h1 = r.get("half0_median"), r.get("half1_median")
     own_f = [c for c, ok in (("q_exp", lt("q_cal_exp")), ("sign", lt("p_sign")), ("halves", fin(h0) and fin(h1) and h0 > 0 and h1 > 0)) if not ok]
-    spec_f = [c for c, ok in (("spec_z", lt("q_cal_spec")), ("spec_raw", lt("q_cal_spec_raw"))) if not ok]
+    spec_f = [c for c, ok in (("spec_z", lt("q_cal_spec")), ("spec_raw", lt("q_gate_spec_raw" if new else "q_cal_spec_raw"))) if not ok]
     if not own_f: return ("knows", []) if not spec_f else ("not specific", spec_f)
     opp_f = [c for c, ok in (("q_opp", lt("q_cal_opp")), ("halves_opp", fin(h0) and fin(h1) and h0 < 0 and h1 < 0)) if not ok]
-    if not opp_f: return ("opposite", []) if lt("q_cal_spec_raw_opp") else ("not specific (opposite)", ["spec_raw_opp"])
+    if not opp_f:
+        so_f = [c for c, ok in ((("spec_z_opp", lt("q_cal_spec_opp")),) if new else ()) +
+                (("spec_raw_opp", lt("q_gate_spec_raw_opp" if new else "q_cal_spec_raw_opp")),) if not ok]
+        return ("opposite", []) if not so_f else ("not specific (opposite)", so_f)
     return "none", own_f + opp_f
 
 
@@ -109,6 +116,7 @@ def model_of(path, md5, tag, links, regs):
         T = pd.read_parquet(pq)
         cols = ["q_cal_exp", "q_cal_opp", "q_cal_spec", "q_cal_spec_raw", "q_cal_spec_raw_opp", "p_sign", "half0_median", "half1_median",
                 "half0_n_lin", "half1_n_lin", "verdict"]
+        cols += [c for c in ("q_gate_spec_raw", "q_gate_spec_raw_opp", "q_cal_spec_opp") if c in T.columns]   # after the fix
         for r in T[["li", "a", "b", "sign"] + cols].to_dict("records"):
             li = int(r["li"])
             l = links[li] if 0 <= li < len(links) else None      # the parquet names the ends by label (40 characters)
@@ -129,13 +137,15 @@ def model_of(path, md5, tag, links, regs):
                    d=[num(a.get("dist_q10")), num(a.get("dist_median")), num(a.get("dist_q90"))],
                    w=num(a.get("share_within_500"), 2), wu=a.get("units_within_500", 0),
                    e=num(a.get("effect_z"), 2), mde=num(a.get("mde_z"), 2),
-                   q=[num(a.get("q_cal_exp"), 2), num(a.get("q_cal_spec"), 2), num(a.get("q_cal_spec_raw"), 2)], c=ci)
+                   q=[num(a.get("q_cal_exp"), 2), num(a.get("q_cal_spec"), 2),
+                      num(a["q_gate_spec_raw"] if "q_gate_spec_raw" in a else a.get("q_cal_spec_raw"), 2)], c=ci)
         p = P.get(a["li"])
         if p:
             if v != "t":
                 vv, fl = failed(p)
                 if vv != a["verdict"]: mism.append(a["li"])
-                rec.update(qo=[num(p["q_cal_opp"], 2), num(p["q_cal_spec_raw_opp"], 2)], ps=num(p["p_sign"], 2),
+                rec.update(qo=[num(p["q_cal_opp"], 2), num(p["q_gate_spec_raw_opp"] if "q_gate_spec_raw_opp" in p else p["q_cal_spec_raw_opp"], 2)],
+                           ps=num(p["p_sign"], 2),
                            h=[num(p["half0_median"], 2), num(p["half1_median"], 2)], hn=[p["half0_n_lin"], p["half1_n_lin"]], f=fl)
         arcs[a["li"]] = lean(rec)
     if mism: print(f"  !! {path}: {len(mism)} verdicts differ from their conditions recomputed from {pq} (first: {mism[:5]})")

@@ -9,7 +9,7 @@ Model `macwiatrak/bacformer-causal-complete-genomes` (causal), fp32 weights and 
 - P(family | context) = sum over the full 50,001-way softmax of P(cluster | context) x P(family | cluster); the decoder P(family | cluster) comes from the fp32 baseline top-64 calls of the other lineage half.
 - delta = readout(knockout) - readout(baseline). z = (delta - median of matched controls) / (1.4826 x MAD), floored at the genome's numerical floor; z_exp = z x expected sign (> 0 = the expected direction). Matched controls: WHOLE accessory elements of the same genome (every coupled element present at its spot, plus every whole panRGP run at a spot with no coupled region), upstream of D, size x0.5-x2 of U's, distance to D within +-35 % of U's, not overlapping U or D and not belonging to a region linked to U or D; windows widened to x1/3-x3 and +-60 % when fewer than 3 match.
 - **specificity**: the same U pass is also read at up to 12 other elements of the same kind at a comparable distance (off-targets). spec = z_exp(D) - mean z_exp(off-targets). A deletion that moves everything downstream is not knowledge of the link.
-- **calibration**: every per-link p is calibrated empirically by putting one of the unit's own matched controls in U's place (200 draws), because the matched null has skewed tails.
+- **calibration**: every per-link p is calibrated empirically by putting one of the unit's own matched controls in U's place (2,000 draws), because the matched null has skewed tails.
 
 ## Runtime
 
@@ -169,7 +169,7 @@ For each unit of the probed links: the U deletion; a SHAM deletion of as many ac
 
 **The two runs agree where they should and differ where the fix bites.** For the 1563 co-occurrence units present in both runs the readout row and the deleted genes are identical and the delta reproduces to 1.2e-07 (median 3.1e-10), an end-to-end check of the engine between two independently configured runs. For the 1872 avoidance units in both, 1229 readout rows moved, the baseline P(D entry) at the readout rose from 8.7e-04 to 7.5e-02, and the old and new deltas correlate only 0.70: the first pilot's avoidance numbers were measuring the far tail of the softmax, not the element.
 
-**Resolution.** Repeating a baseline at a padded length 64 longer moves a readout by up to 1.1e-05 in the median genome (4.1e-05 in the worst). 90% of units have a |delta| above their own genome's floor. Links whose deltas mostly sit below it are reported as not testable, not as 'no effect': at fp32 the assay cannot see them.
+**Resolution.** Repeating a baseline at a padded length 64 longer moves a readout by up to 1.1e-05 in the median genome (4.1e-05 in the worst). 90% of units have a |delta| above their own genome's floor. A link all of whose tested deltas sit below it is reported as not testable, not as 'no effect': at fp32 the assay cannot see it. (Until 2026-09-26 the code applied this to links with more than half of their deltas below the floor, against this description; it now follows it.)
 
 **Link 35 (yidK, yidJ -> lptG, yghS, glcA) is the one link whose deletion effect survives its own null, and it is not specific to D.** Deleting U lowers logit P(D entry) in 87% of 346 units over 184 lineages (median -0.00053), more than any comparable whole-element deletion at the same distance (calibrated q = 0.0065, at the resolution of 2000 pseudo-U draws), with the same sign in both lineage halves (+2.21 / +3.55) and in genomes released in 2024 or later whose lineage has no older genome (+2.21, 31 lineages). But the same deletion shifts the OTHER present elements of that genome by +0.00237 against +0.00038 for its own matched controls (p = 6.1e-09), and D's shift relative to those other readouts is -0.00400, no better than a control deletion's (-0.00034); in raw units D moves significantly LESS than the elements around it (q = 0.0065). Removing U changes what the model expects of accessory content over a wide downstream region, and D travels with it. The z-based specificity test does pass (q = 0.0065), but a z rewards a readout whose own null is tight, which D's is, so it cannot carry the claim alone.
 
@@ -317,18 +317,34 @@ too noisy to decide, which is finding 3.
 - **Robust centring** (`robust_z`): median and 1.4826 x MAD of the control deltas instead of mean and sd of 3-5 skewed
   values, floored at the genome's own numerical floor instead of an absolute 1e-3.
 - **Empirical calibration**: for every unit each of its matched controls is also scored as a pseudo-U (leave-one-out
-  against its own matched controls), and the whole per-link test is recomputed over 200 draws of one pseudo-U per unit.
-  The reported p is the calibrated one, and the per-link false-positive rate of the nominal test is reported. 2,000 draws,
-  so a calibrated p can reach 5e-4 and survive BH over the tested links; the loop is vectorised over draws.
+  against its own matched controls), and the whole per-link test is recomputed over 2,000 draws of one pseudo-U per
+  unit, so a calibrated p can reach 5e-4 and survive BH over the tested links; the loop is vectorised over draws. The
+  reported p is the calibrated one, and the per-link false-positive rate of the nominal test is reported, with the
+  normal score of the draws' p (mean ~0 and SD ~1 for a proper null).
+- **Every pseudo-U value is centred within its unit** (revised 2026-09-26). The z is centred by construction (on the median
+  of the pseudo-U's own matched controls). The raw specificity contrast was not: each draw took the control's raw shift at
+  D minus its raw shift at the off-targets, which carries a fixed per-unit offset (the controls are matched on their
+  size and distance to D, not to the off-targets; in the seven long-range links first called "knows", 12 % of the
+  control / off-target pairs were not even matched controls at that off-target). That
+  offset is the same in every draw, so the null hardly varied between draws and the calibrated raw-specificity p was
+  anti-conservative: normal-score SD 0.59 (long range) / 0.58 (close range) at the median link instead
+  of 1, rejection rate 0.1 % / 0 % instead of 5 %. Now the pseudo-U's raw shift at D and at each
+  off-target is taken minus the median of its own matched controls at that readout, over the off-targets where it is
+  itself a matched control (as the z version): SD 0.95 / 0.89, rejection rate 3.8 % /
+  2.4 % at the median tested link.
 
 ## Specificity (the inference blocker)
 - Every U pass is now also read at up to 12 **off-target** readouts: the entry genes of other present coupled elements
   (co-occurrence) or the insertion points of other absent ones (avoidance), within +-35 % of D's distance from U,
   excluding regions linked to U or D. Each is scored with its own matched null.
 - `spec = z_exp(D) - mean z_exp(off-targets)`, tested on lineage means and calibrated the same way, AND the same
-  comparison in raw readout units (`spec_raw`), because a z rewards a readout whose own null is tight. A **"knows"
-  verdict now requires both**; a link that beats its own null but not the off-targets is labelled **"not specific"**, and
-  the same requirement applies symmetrically to "opposite".
+  comparison in raw readout units (`spec_raw`), because a z rewards a readout whose own null is tight. The raw
+  comparison is read DIRECTLY: D's raw shift minus the mean raw shift of the off-targets in the same U pass (not centred
+  on the controls); its gate is the larger of its nominal p and its calibrated p (the null being the centred pseudo-U
+  contrast above), BH over the tested links. A **"knows" verdict requires both** (z: calibrated q < 0.05; raw: that
+  gate's q < 0.05); a link that beats its own null but not the off-targets is labelled **"not specific"**, and the same
+  requirement, in z units and in raw units, applies symmetrically to "opposite" (until 2026-09-26 the code checked only
+  the raw one for "opposite").
 - A per-link **global-shift** table: the mean shift over the OTHER readouts of the same pass, for the U deletion and for
   its own matched controls, with a one-sided test. This is what distinguishes a link-specific effect from a deletion
   that moves every element downstream. Each off-target also carries `phi_U`, the plain across-genome correlation of its region with U's,
@@ -336,8 +352,8 @@ too noisy to decide, which is finding 3.
 
 ## Numerics
 - **Per-genome numerical floor**: one extra pass per genome repeats the baseline at a padded length 64 longer; the
-  largest readout change is the floor. Deltas below it are flagged `resolved = False`, and a link whose deltas are
-  mostly unresolved is "nt", not "none".
+  largest readout change is the floor. Deltas below it are flagged `resolved = False`, and a link whose tested deltas
+  are ALL unresolved is "nt", not "none" (the code used "more than half" until 2026-09-26).
 - **A row-convention check that can fail** (self-check (e)): decoded log P(the family that is at the row) must beat the
   same family read one row later, on the mean over the genome's readout rows. The pilot's check (c) was an identity.
 
@@ -347,12 +363,17 @@ too noisy to decide, which is finding 3.
   same protein count at the same point.
 
 ## Verdicts and statistics
-- "knows" = calibrated q < 0.05 AND specificity q < 0.05 AND sign test p < 0.05 AND same sign in both lineage halves
-  AND the deltas resolved; "opposite" = calibrated q < 0.05 the other way AND same sign in both halves;
-  "nt" now distinguishes no testable genome / no readout / only partial knockouts / no unit with 3 controls /
-  too few lineages / deltas below the numerical floor.
-- MDE uses a multiplicity-adjusted alpha; the global test is also run on a region-disjoint subset of links; the 2024+
-  column is restricted to genomes whose lineage contains no older genome.
+- Rules as revised on 2026-09-26 (after the long- and close-range runs; an `--aggregate` applies them; the per-link table
+  of the pilot report written on 2026-09-26 at 05:25 predates them). Every q is BH over the TESTED links (m = their number; nt links get none).
+  "knows" = calibrated q < 0.05 AND sign test p < 0.05 AND same sign in both lineage halves AND specificity in z units
+  (calibrated q < 0.05) AND in raw units (q of max(nominal p of the direct reading, calibrated p) < 0.05); "opposite" =
+  calibrated q < 0.05 the other way AND same sign in both halves AND the same two specificity tests in that direction;
+  "nt" distinguishes no testable genome / no readout / only partial knockouts / no unit with 3 controls / too few
+  lineages / every tested delta below the numerical floor / no calibration (fewer than 5 lineages with a pseudo-U draw:
+  the nominal p alone is not trusted, so such a link is "nt", not "none").
+- MDE: 80 % power, on a robust scale (1.4826 x MAD of the lineage means; an SD inflated by a few extreme lineages
+  overstated it), alpha Bonferroni-adjusted over the tested links; the global test is also run on a region-disjoint
+  subset of links; the 2024+ column is restricted to genomes whose lineage contains no older genome.
 - The per-genome regression arm was dropped: its purpose was to rescue the units the old null could not score, and the
   new null scores them directly.
 

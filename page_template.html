@@ -30,6 +30,25 @@ __STYLE__
 .checks{margin:11px 0 0;padding-left:18px;font-size:13px;color:var(--soft);max-width:70ch}
 .checks li{margin:4px 0}
 .checks b{color:var(--ink);font-weight:600}
+/* the reading of the window written by a language model on the server (Findings) */
+.rd-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 14px}
+.rd-bar .seg{flex:none;max-width:100%}
+.rd-bar .seg button{gap:6px;white-space:nowrap}
+.rd-bar .seg .spin{width:11px;height:11px;border-width:2px}
+.rd-state{flex:1 1 260px;min-width:0;font-size:11.5px;line-height:1.45;color:var(--faint)}
+.rd-state .ic{display:inline-block;width:13px;height:13px;vertical-align:-2px}
+.rd-state .ok{color:var(--shell);font-weight:500}
+.rd-state .warn{color:var(--soft)}
+.rd-state .linkbtn{margin-left:6px}
+#read-llm p+p{margin-top:11px}
+#read-llm .interp{background:var(--pred-bg);border-radius:3px;padding:0 3px;-webkit-box-decoration-break:clone;box-decoration-break:clone;cursor:help}
+#read-llm .interp::before{content:"interpretation: ";position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+#read-llm .rd-src .interp{cursor:auto}
+#read-llm .rd-src .interp::before{content:none}
+#read-auto.hold{visibility:hidden}
+.rd-src{font-size:11px;color:var(--faint);margin:13px 0 0;line-height:1.5;max-width:78ch}
+@media (max-width:520px){.rd-bar .seg{width:100%;display:flex}.rd-bar .seg button{flex:1 1 auto;justify-content:center;min-width:0;padding:5px 9px}
+  .rd-bar .seg button span{overflow:hidden;text-overflow:ellipsis}}
 /* drawing a path */
 .seg{display:inline-flex;border:1px solid var(--line-hard);border-radius:7px;overflow:hidden}
 .seg button{font:500 12px "IBM Plex Sans",system-ui,sans-serif;padding:5px 11px;border:0;background:var(--surface);color:var(--soft);cursor:pointer}
@@ -507,6 +526,7 @@ body.nobodyscroll{overflow:hidden}
   <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2.4"/><circle cx="19" cy="5.5" r="2.4"/><circle cx="19" cy="18.5" r="2.4"/><path d="M7.2 11 16.8 6.6M7.2 13l9.6 4.4"/></symbol>
   <symbol id="i-links" viewBox="0 0 24 24"><path d="M2.5 18h19"/><path d="M4.5 18C4.5 11 9 6.5 12 6.5S19.5 11 19.5 18"/><path d="M9 18c0-3.2 1.4-5.5 3-5.5s3 2.3 3 5.5"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20.5h18"/><path d="M6.5 17v-5M11.5 17V6M16.5 17V9.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.8l4.8 4.7L19.5 7"/></symbol>
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.6v.01"/></symbol>
   <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.8M12 16.8v.01"/></symbol>
   <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5.5 3.5 18 10l-5.6 1.9-2.3 5.6z"/></symbol>
@@ -721,6 +741,11 @@ body.nobodyscroll{overflow:hidden}
 <section class="card" style="margin-top:0">
   <div class="card-h"><h2>Reading the window</h2><span class="hint" id="f-read-hint">the dnaA window, column by column</span></div>
   <div class="pad">
+    <div class="rd-bar" id="rd-bar" hidden>
+      <span class="seg sm" id="rd-src" role="group" aria-label="Which reading of the window"></span>
+      <span class="rd-state" id="rd-state" role="status" aria-live="polite"></span>
+    </div>
+    <div id="read-llm" hidden></div>
     <div id="read-auto" hidden></div>
     <div id="read-dnaa">
     <p class="note"><b>The spine starts at the origin.</b> Columns 0 to 5,
@@ -958,7 +983,15 @@ body.nobodyscroll{overflow:hidden}
         <dt>Which genomes</dt><dd>beyond the dnaA window only the 540 complete genomes are in one piece and have the
           model’s call at every gene, so a window elsewhere is read in them. It starts at a backbone family, present once
           in at least 95% of the chromosomes, and walks 80 genes in dnaA’s direction. The local server builds it in about
-          two seconds. The text and tables of <b>Findings</b> describe the dnaA window.</dd>
+          two seconds. <b>Findings</b> follow the window shown: its tables, and its reading.</dd>
+        <dt>Reading a window</dt><dd>in <b>Findings</b>, a language model called by the server writes up the window shown, from
+          facts the server computes from its own data (columns, families, partitions, regions of plasticity, the model’s calls):
+          the page sends only which window. Every number and gene name of its text is checked against those facts (a number must
+          be one they show for the genes or columns its sentence names); the check does not verify the wording or the biology,
+          and what the model reads from gene names and products is shaded as interpretation. A reading written by rule is shown
+          at once and stays when the model’s text is late, fails the check or is not available; <b>automatic</b> switches back
+          to it. Readings written before come back at once. The dnaA window keeps its hand-written reading, and offers the
+          model’s on request. New readings are limited per visitor and per day.</dd>
       </dl></section>
       <section id="help-attention"><h3>Attention</h3><dl class="howto">
         <dt>What is read</dt><dd>the path drawn in the <b>Graph</b> tab, and, for a genome’s own path in a window beyond dnaA,
@@ -1043,8 +1076,8 @@ body.nobodyscroll{overflow:hidden}
         <dt>Start it</dt><dd><code>python3 serve_live.py</code> in <code>origin-walk/</code>, then open
           <code>http://localhost:8765/</code>. It listens on 127.0.0.1 only.</dd>
         <dt>What needs it</dt><dd>the model’s call in one genome, drawn paths, windows beyond dnaA, attention maps and what the
-          model does without a coupled element. The graph of the dnaA window, the coupled regions with their verdicts and the
-          findings work without it. A page opened from another local server (another port) reaches it too.</dd>
+          model does without a coupled element, and a window’s reading written by a language model. The graph of the dnaA window,
+          the coupled regions with their verdicts and the findings work without it. A page opened from another local server (another port) reaches it too.</dd>
       </dl></section>
     </div>
   </div>
@@ -1120,6 +1153,7 @@ const trow = (k, r) => r ? `<tr><td>${k}</td><td>${fmtInt(r.n)}</td><td>${pctR(r
 const nlab = n => n.named ? `<span class="gene">${esc(n.label)}</span>` : esc(n.label.length > 38 ? n.label.slice(0, 36) + '…' : n.label);
 function autoReading(D) {                                  // the window in three kinds of stretch, in its own numbers
   const W = D.meta.window, pl = new Map(D.per_locus.map(r => [r.locus, r])), cols = [];
+  const U = REG ? 'chromosomes' : 'genomes', U1 = REG ? 'chromosome' : 'genome', pl_ = (n, a, b) => n === 1 ? a : b;
   for (let k = 0; k < W; k++) {
     const here = D.nodes.filter(n => n.locus === k).sort((a, b) => b.n - a.n), top = here[0], r = pl.get(k);
     if (!top) continue;
@@ -1141,7 +1175,7 @@ function autoReading(D) {                                  // the window in thre
   const genes = cs => { const u = [...new Set(cs.map(c => c.top))]; const nm = u.slice(0, 5).map(nlab);
     return nm.join(', ') + (u.length > 5 ? ' …' : ''); };
   const model = cs => { const a = acc(cs), p = peak(cs); if (a == null) return '';
-    return ` The model names the next gene in ${Math.round(a * 100)}% of genomes${p && p.r.entropy > 0.5 ? `, and hesitates most at column ${p.k} (${p.r.entropy.toFixed(2)} bits, as unsure as a choice among ${p.r.ppl.toFixed(1)} families)` : ''}.`; };
+    return ` The model names the next gene in ${Math.round(a * 100)}% of ${U}${p && p.r.entropy > 0.5 ? `, and hesitates most at column ${p.k} (${p.r.entropy.toFixed(2)} bits)` : ''}.`; };
   const keep = new Set([
     ...runs.filter(r => r.kind === 'spine' && r.cols.length >= 3),
     ...runs.filter(r => r.kind === 'fork').sort((x, y) => y.cols.length - x.cols.length).slice(0, 4),
@@ -1151,22 +1185,24 @@ function autoReading(D) {                                  // the window in thre
     if (!keep.has(run)) continue;
     const cs = run.cols;
     if (run.kind === 'spine') out.push(`<b>${span(run)}, ${nlab(cs[0].top)} to ${nlab(cs[cs.length - 1].top)}, form a spine:</b> one family in at least
-      nine genomes out of ten at every column, ${100 - rg(cs)}% of the genes outside any region of plasticity.${model(cs)}`);
-    else if (run.kind === 'var') out.push(`<b>${span(run)}, ${genes(cs)}, ${cs.length > 1 ? 'are' : 'is'} carried by ${range(cs)} of the genomes</b>,
-      with no other family there in more than one genome in ten: the rest lack ${cs.length > 1 ? 'them' : 'it'}. ${rg(cs)}% of these genes are in a region of plasticity.${model(cs)}`);
+      90% of the ${U} at every column, ${100 - rg(cs)}% of the genes outside any region of plasticity.${model(cs)}`);
+    else if (run.kind === 'var') { const pers = cs.every(c => c.top.partition === 'persistent'), many = cs.length > 1;
+      out.push(`<b>${span(run)}, ${genes(cs)}, ${many ? 'are' : 'is'} carried by ${range(cs)} of the ${U} there</b>,
+      with no other family in more than one ${U1} in ten${pers ? `: ${many ? 'these families are' : 'this family is'} persistent, so in the other
+      ${U} ${many ? 'they lie' : 'it lies'} further along, beyond the window’s end` : ''}. ${rg(cs)}% of these genes are in a region of plasticity.${model(cs)}`); }
     else {
       const alt = new Map(), mains = new Set(cs.map(c => c.top.label));
       cs.forEach(c => c.here.slice(1).forEach(n => { if (n.n / NG >= 0.1 && !mains.has(n.label)) alt.set(n.label, Math.max(alt.get(n.label) || 0, n.n / NG)); }));
       const altTxt = [...alt].sort((x, y) => y[1] - x[1]).slice(0, 4).map(([l, v]) => `${nlab({ label: l, named: isGene(l) })} (${Math.round(v * 100)}%)`).join(', ');
-      out.push(`<b>${span(run)} fork:</b> the most carried branch, ${genes(cs)}, is in ${range(cs)} of the genomes${altTxt ? `; the others carry ${altTxt}` : ''}.
+      out.push(`<b>${span(run)} fork:</b> the most carried branch, ${genes(cs)}, is in ${range(cs)} of the ${U}${altTxt ? `; the others carry ${altTxt}` : ''}.
         ${rg(cs)}% of the genes there are in a region of plasticity.${model(cs)}`);
     }
   }
   const lastC = cols[cols.length - 1];
-  if (lastC) out.push(`<b>The window ends at ${nlab(lastC.top)}</b>, column ${lastC.k}, in ${Math.round(lastC.s1 * 100)}% of the genomes.`);
+  if (lastC) out.push(`<b>The window ends at ${nlab(lastC.top)}</b>, column ${lastC.k}, in ${Math.round(lastC.s1 * 100)}% of the ${U}.`);
   const n = kind => runs.filter(r => r.kind === kind).length, nc = kind => cols.filter(c => c.kind === kind).length;
-  const head = `<p class="note faint" style="margin-bottom:11px">Of ${W} columns, ${nc('spine')} form a spine, ${nc('fork')} fork
-    (${n('fork')} stretch${n('fork') === 1 ? '' : 'es'}) and ${nc('var')} are carried by fewer genomes with no alternative. Written from this window’s
+  const head = `<p class="note faint" style="margin-bottom:11px">Of ${W} columns, ${nc('spine')} ${pl_(nc('spine'), 'forms', 'form')} a spine, ${nc('fork')} ${pl_(nc('fork'), 'forks', 'fork')}
+    (${n('fork')} stretch${n('fork') === 1 ? '' : 'es'}) and ${nc('var')} ${pl_(nc('var'), 'is', 'are')} carried by fewer ${U} with no alternative. Written from this window’s
     data; the longest stretches are described. <button type="button" class="linkbtn" data-home>The hand-written reading of the dnaA window</button></p>`;
   return head + out.map((t, i) => `<p class="note"${i ? ' style="margin-top:11px"' : ''}>${t}</p>`).join('');
 }
@@ -1177,8 +1213,8 @@ function renderFindings() {
   document.getElementById('f-intro').innerHTML = `What the model gets right and where it doubts, in ${where}, ${fmtInt(m.calls)} calls, each on a genome’s real proteins.`;
   document.getElementById('f-read-hint').textContent = `the ${home ? 'dnaA' : REG.anchor_label} window, column by column`;
   document.getElementById('f-calls-hint').textContent = `${fmtInt(m.calls)} calls · ${fmtInt(NG)} ${home ? 'genomes' : 'complete chromosomes'}`;
-  document.getElementById('read-dnaa').hidden = !home;
-  const ra = document.getElementById('read-auto'); ra.hidden = home; if (!home) ra.innerHTML = autoReading(D);
+  if (!home) document.getElementById('read-auto').innerHTML = autoReading(D);
+  readingUpdate(true);                                     // which reading to show, and the model's, asked for when the tab is seen
   document.getElementById('tpart').innerHTML = ['persistent', 'shell', 'cloud'].map(k => trow(k, part[k])).join('');
   const RO = rgp['outside an RGP'], RI = rgp['inside an RGP'];
   document.getElementById('trgp').innerHTML = trow('outside a region', RO) + trow('inside a region', RI);
@@ -1397,6 +1433,7 @@ function showTab(t, focus, fromHistory) {
   document.querySelectorAll('.tabpanel').forEach(p => { p.hidden = p.id !== 'tab-' + t; });
   if (t !== 'graph') { try { closePop(); } catch (e) { /* not drawn yet */ } }
   if (t === 'attention') { try { loadAttn(); } catch (e) { /* its block runs later, and loads then */ } }
+  if (t === 'findings') setTimeout(() => readingUpdate(true), 0);     // the model's reading is asked for only when seen
   if (!fromHistory) hashSet({ tab: t === 'graph' ? null : t }, t !== was);
 }
 // Back, Forward and an address edited by hand: the tab, then whoever listens (the coupled regions, the graph's window)
@@ -1602,11 +1639,184 @@ async function liveOK() {
     try { const c = new AbortController(), tm = setTimeout(() => c.abort(), 2500);
       const r = await fetch(u + '/health', { signal: c.signal, cache: 'no-store' });
       clearTimeout(tm); const J = await r.json();
-      if (J.ok) { LIVE.ok = true; LIVE.url = u; LIVE.dev = J.device || ''; break; } }
+      if (J.ok) { LIVE.ok = true; LIVE.url = u; LIVE.dev = J.device || ''; LIVE.health = J; break; } }
     catch (e) { /* not there */ }
   }
   LIVE.t = Date.now(); return LIVE.ok;
 }
+/* ---------- the reading of the window written by a language model on the server (serve_live.py /reading, pg_reading.py) ----------
+   The page sends only the window's id (its anchor family, or dnaA): the server computes the window's facts from its own data,
+   has the model write them up, and checks every number and gene of the text against them. When the Findings tab shows a window,
+   the page first asks for a reading written before (peek=1, from the cache, at once); if there is none and the tab stays on
+   screen 0.7 s, for a new one. The automatic reading (autoReading) shows meanwhile and stays when the model's text is late,
+   fails its check, or cannot be written; the dnaA window keeps its hand-written text and offers the model's. Never without a
+   server. The server's answers carry a code (busy, limit, cap...), which the page words for the visitor: busy is asked again. */
+const RD = { got: new Map(), st: new Map(), want: { reg: 'llm', home: 'hand' }, tick: 0, ask: 0, hold: 0, probe: null, info: null };
+const rdKey = () => REG ? REG.anchor : 'dnaA';
+const rdSeen = () => !document.getElementById('tab-findings').hidden;
+const rdInfo = () => (LIVE.ok && LIVE.health && LIVE.health.reading) || null;          // /health's reading block: available, model, code
+const rdName = m => String(m || 'a language model').replace(/^[^/]*\//, '').replace(/:.*$/, '');
+const RD_INTERP = 'Interpretation from the gene names and products, not measured in this window';
+const RD_BUSY_TRIES = 4;                                   // a busy server is asked again this many times, then the visitor decides
+const RD_WHY = {                                           // the server's codes, in the visitor's words
+  off: 'this server does not write new readings', no_token: 'this server has no access to the language model',
+  refused: 'the language model does not accept this server’s key just now', credit: 'this server’s credit for the language model is used up',
+  cap: 'today’s new readings are all written', spend: 'today’s budget for new readings is spent',
+  limit: 'you have asked for several new readings in a few minutes', limit_day: 'you have asked for many new readings today',
+  busy: 'other readings are being written', upstream: 'the language model did not answer',
+  cross_site: 'new readings are written only for this page on its own server' };
+const rdWhy = (code, fb) => RD_WHY[code] || fb || 'no reading can be written here just now';
+function rdClean(html) {                                   // the model's HTML, with only paragraphs, emphasis, gene names and interpretations kept
+  const T = document.createElement('template'); T.innerHTML = String(html || '');
+  const KEEP = new Set(['P', 'B', 'STRONG', 'I', 'EM', 'SPAN', 'BR']), CLS = new Set(['gene', 'interp']);
+  const walk = el => { for (const n of [...el.childNodes]) {
+    if (n.nodeType === 3) continue;
+    if (n.nodeType !== 1 || /^(SCRIPT|STYLE|TEMPLATE|IFRAME|OBJECT|EMBED|SVG|MATH|NOSCRIPT)$/i.test(n.tagName)) { n.remove(); continue; }
+    walk(n);
+    if (!KEEP.has(n.tagName)) { n.replaceWith(...n.childNodes); continue; }
+    const cls = (n.getAttribute('class') || '').split(/\s+/).filter(c => CLS.has(c));
+    for (const at of [...n.attributes]) n.removeAttribute(at.name);
+    if (cls.length) n.setAttribute('class', cls.join(' '));
+    if (cls.includes('interp')) n.title = RD_INTERP;      // read out as "interpretation:" by CSS (.interp::before), never copied
+  } };
+  walk(T.content);
+  if (!T.content.querySelector('p')) { const p = document.createElement('p'); p.append(...T.content.childNodes); T.content.append(p); }
+  T.content.querySelectorAll('p').forEach(p => { p.className = 'note'; if (!p.textContent.trim()) p.remove(); });
+  return T.innerHTML;
+}
+const rdAgo = s => s < 90 ? `${Math.round(s)} s` : s < 5400 ? `${Math.round(s / 60)} min` : `${Math.round(s / 3600)} h`;
+const rdDate = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+function rdSrc(J, home) {                                  // the line under the model's reading: who wrote it, from what, what was checked
+  const c = J.checked || {}, u = J.usage || {}, n = (x, w) => `${fmtInt(x)} ${w}${x === 1 ? '' : 's'}`;
+  const chk = [c.numbers != null && n(c.numbers, 'number'), c.names != null && n(c.names, 'gene name')].filter(Boolean).join(' and ');
+  const cost = u.prompt_tokens ? `, ${fmtInt(u.prompt_tokens)} tokens in and ${fmtInt(u.completion_tokens || 0)} out${
+    u.cost_usd != null ? ` (about $${(+u.cost_usd).toPrecision(2)})` : ''}` : '';
+  const when = J.cached ? `Written ${J.created ? 'on ' + rdDate(J.created) : 'earlier'} and kept${cost}.`
+    : `Written in ${((u.ms != null ? u.ms : J.ms || 0) / 1000).toFixed(1)} s${cost}.`;
+  return `<p class="rd-src">Written by ${esc(rdName(J.model))}${J.provider ? ` via ${esc(J.provider)}` : ''} from facts the server computed for
+    this window (its stretches, genes and products, partitions, regions of plasticity and the model’s calls), never from text sent by the
+    page. ${chk ? `Its ${chk} were` : 'Its numbers were'} checked against those facts${c.attempts > 1 ? ', at the second attempt' : ''}: each
+    number is one they show, for the genes or columns its sentence names, and each gene is in the window. The check does not verify
+    the wording or the biology. <span class="interp">Shaded</span> passages are the model’s interpretation of gene names and products,
+    which this window does not measure.${home ? ` Its spines, forks and variable stretches follow the rules of the automatic readings
+    (a spine: one family in 90% of genomes or more), which the hand-written text does not always follow: the two may differ on
+    a stretch’s kind and its ranges.` : ''} ${when}</p>`;
+}
+// what the card shows for the window on screen: the choice (the model's reading, or the automatic / hand-written one), the state of
+// the request, and the text. fresh: the window or the tab just changed, so a reading written before is asked for if not there.
+function readingUpdate(fresh) {
+  if (fresh && rdSeen() && !LIVE.ok && !RD.probe)                     // the server not looked for yet (or gone): look, then again
+    RD.probe = liveOK().then(ok => { RD.probe = null; if (ok) readingUpdate(true); });
+  if (rdInfo()) RD.info = rdInfo();                                   // kept when the server stops answering: the toggle stays
+  const home = !REG, key = rdKey(), info = RD.info, on = !!(info && info.available), got = RD.got.get(key), st = RD.st.get(key);
+  const want = RD.want[home ? 'home' : 'reg'], showLLM = want === 'llm' && !!got;
+  const alt = home ? 'hand' : 'auto', altLab = home ? 'hand-written' : 'automatic';
+  const auto = document.getElementById('read-auto');
+  if (fresh && info && !got && (!st || st.s === 'none') && rdSeen()) {   // a reading written before? asked at once, it costs nothing
+    if (!home && want === 'llm') { auto.classList.add('hold'); clearTimeout(RD.hold); RD.hold = setTimeout(() => auto.classList.remove('hold'), 600); }
+    RD.st.delete(key); readingAsk(key, true); return;               // it draws the card
+  }
+  if (!(st && st.s === 'peek')) { clearTimeout(RD.hold); auto.classList.remove('hold'); }   // the automatic text, unless a kept one is on its way
+  if (st && st.s === 'busy' && st.n < RD_BUSY_TRIES && Date.now() >= st.until && rdSeen() && want === 'llm') { readingAsk(key, false); return; }  // asked again
+  document.getElementById('read-dnaa').hidden = !home || showLLM;
+  auto.hidden = home || showLLM;
+  const rl = document.getElementById('read-llm'); rl.hidden = !showLLM;
+  if (showLLM && rl._got !== got) { rl.innerHTML = rdClean(got.html) + rdSrc(got, home); rl._got = got; }
+  const bar = document.getElementById('rd-bar');
+  if (!info || (home && !on && !got)) { bar.hidden = true; clearInterval(RD.tick); RD.tick = 0; return; }   // no server, or nothing to offer
+  bar.hidden = false;
+  const seg = document.getElementById('rd-src'), sts = document.getElementById('rd-state');
+  const loading = st && st.s === 'loading', wait = st && st.until && Date.now() < st.until;
+  const stuck = st && (st.s === 'off' || st.s === 'fallback'), can = on || !!got;
+  const name = esc(rdName(got ? got.model : info.model));
+  const llmBtn = `<button type="button" data-v="llm" aria-pressed="${showLLM}"${!can || (wait && st.s === 'limit') || stuck ? ' disabled' : ''}${loading ? ' aria-busy="true"' : ''}
+      title="${can ? `The reading ${name} writes from this window’s data, every number checked` : esc(rdWhy(info.code, info.reason))}">${
+      loading ? '<span class="spin" aria-hidden="true"></span>' : '<svg class="ic" aria-hidden="true"><use href="#i-pencil"/></svg>'}<span>${name}</span></button>`;
+  const altBtn = `<button type="button" data-v="${alt}" aria-pressed="${!showLLM}"><span>${altLab}</span></button>`;
+  const html = home ? altBtn + llmBtn : llmBtn + altBtn;
+  if (seg.dataset.h !== html) {                                       // redrawn: the focus stays on the same choice
+    const fv = seg.contains(document.activeElement) ? document.activeElement.dataset.v : null;
+    seg.innerHTML = html; seg.dataset.h = html;
+    if (fv) { const b = seg.querySelector(`button[data-v="${fv}"]:not([disabled])`) || seg.querySelector('button:not([disabled])'); if (b) b.focus(); }
+  }
+  const again = '<button type="button" class="linkbtn" data-v="llm">Try again</button>', cap = t => t.charAt(0).toUpperCase() + t.slice(1);
+  let s = '', secs = '';                                  // secs: the clock, outside what the live region reads out
+  const t = '<span class="rd-t" aria-hidden="true"></span>';
+  if (loading) { secs = rdAgo((Date.now() - st.t0) / 1000);
+    s = want === 'llm' ? `${name} is writing a reading of this window from its data ${t}; the ${altLab} one meanwhile.`
+      : `${name} is still writing its reading ${t}.`; }
+  else if (showLLM) s = `<span class="ok"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> every number checked against this window’s data</span>`;
+  else if (st && st.s === 'busy') { secs = rdAgo(Math.max(0, st.until - Date.now()) / 1000);
+    s = st.n < RD_BUSY_TRIES ? `${cap(rdWhy('busy'))}: this one is asked for again ${t}. The ${altLab} reading meanwhile.`
+      : `<span class="warn">Other readings are still being written.</span> The ${altLab} reading stays. ${again}`; }
+  else if (st && st.s === 'limit') { if (wait) secs = rdAgo((st.until - Date.now()) / 1000);
+    s = wait ? `<span class="warn">${cap(rdWhy(st.code))}: ask again in ${t}.</span> Readings written before still show; the ${altLab} one stays.`
+      : `You can ask for a new reading again. ${again}`; }
+  else if (st && st.s === 'fallback') s = `<span class="warn" title="${esc(st.msg || '')}">The model’s text did not pass the check against this window’s data,</span> so the ${altLab} reading stays.`;
+  else if (st && st.s === 'off') s = `<span class="warn">No new reading of this window here: ${esc(rdWhy(st.code, st.msg))}${
+      st.code === 'cap' || st.code === 'spend' ? ', until 00:00 UTC' : ''}.</span> Readings written before still show; the ${altLab} one stays.`;
+  else if (st && st.s === 'fail') s = `<span class="warn">${esc(st.msg)}.</span> The ${altLab} reading stays. ${again}`;
+  else if (!can) s = `<span class="warn">No model’s reading on this server: ${esc(rdWhy(info.code, info.reason))}.</span> The automatic reading is written from the window’s data.`;
+  else if (got) s = `The reading by ${name} is ready.`;
+  else if (home) s = `${name} can also write this window up from its data, every number checked.`;
+  if (sts.dataset.h !== s) {
+    const fb = sts.contains(document.activeElement);                   // a Try again that disappears: the focus goes to the model's button
+    sts.innerHTML = s; sts.dataset.h = s;
+    if (fb && !sts.contains(document.activeElement)) { const b = seg.querySelector('button[data-v="llm"]:not([disabled])') || seg.querySelector('button'); if (b) b.focus(); }
+  }
+  const tEl = sts.querySelector('.rd-t');
+  if (tEl) tEl.textContent = !secs ? '' : st.s === 'loading' ? `(${secs})` : st.s === 'busy' ? `in ${secs}` : secs;
+  const live = rdSeen() && (loading || wait || (st && st.s === 'busy'));   // the seconds while it writes, the wait after a limit
+  if (live && !RD.tick) RD.tick = setInterval(() => readingUpdate(), 1000);
+  if (!live && RD.tick) { clearInterval(RD.tick); RD.tick = 0; }
+}
+// one request per window at a time; answers kept for the visit. peek: only a reading written before (none is generated)
+async function readingAsk(key, peek) {
+  const st0 = RD.st.get(key) || {};
+  if (st0.s === 'loading' || st0.s === 'peek') return;
+  RD.st.set(key, peek ? { s: 'peek' } : { s: 'loading', t0: Date.now(), n: st0.s === 'busy' ? st0.n : 0 }); readingUpdate();
+  if (!(await liveOK()) || !rdInfo()) { RD.st.delete(key); readingUpdate(); return; }
+  const c = new AbortController(), tm = setTimeout(() => c.abort(), peek ? 30000 : 120000);
+  let code = 0, J = null;
+  try { const r = await fetch(`${LIVE.url}/reading?anchor=${encodeURIComponent(key)}${peek ? '&peek=1' : ''}`, { signal: c.signal, cache: 'no-store' });
+    code = r.status; try { J = await r.json(); } catch (e) { /* not JSON */ } }
+  catch (e) { code = 0; }
+  clearTimeout(tm);
+  const home = key === 'dnaA', want = () => RD.want[home ? 'home' : 'reg'] === 'llm';
+  const until = (s, d) => Date.now() + 1000 * Math.max(3, +s || d), busyN = (RD.st.get(key) || {}).n || 0;
+  if (code === 200 && J && J.status === 'llm' && J.html) { RD.got.set(key, J); RD.st.delete(key); }
+  else if (code === 200 && J && J.status === 'fallback') RD.st.set(key, { s: 'fallback', msg: J.reason || '' });
+  else if (code === 200 && J && J.status === 'none') {                 // none written yet: a new one, if it may be written and is wanted
+    if (J.available === false) RD.st.set(key, { s: 'off', code: J.code, msg: J.reason });
+    else if (!want()) RD.st.delete(key);
+    else { RD.st.set(key, { s: 'none' });
+      clearTimeout(RD.ask); RD.ask = setTimeout(() => { if (rdKey() === key && rdSeen() && want() && (RD.st.get(key) || {}).s === 'none') readingAsk(key, false); }, 700); }
+  }
+  else if (J && J.code === 'busy' && code >= 500) RD.st.set(key, { s: 'busy', n: busyN + 1, until: until(J.retry_s, 5) });
+  else if (code === 429) RD.st.set(key, { s: 'limit', code: J && J.code, until: until(J && J.retry_s, 60) });
+  else if (code === 502) RD.st.set(key, { s: 'fail', msg: 'The language model did not answer' });
+  else if (code === 503 || code === 403) {
+    RD.st.set(key, { s: 'off', code: J && J.code, msg: J && J.error });
+    if (J && J.available === false && RD.info) {                      // no new ones here: only readings written before, from now on
+      RD.info = Object.assign({}, RD.info, { available: false, code: J.code });
+      if (LIVE.health && LIVE.health.reading) LIVE.health.reading = Object.assign({}, LIVE.health.reading, { available: false, code: J.code });
+    }
+  }
+  else if (code === 0) RD.st.set(key, { s: 'fail', msg: c.signal.aborted ? (peek ? 'The server did not answer' : 'No reading after two minutes') : 'The server stopped answering' });
+  else RD.st.set(key, { s: 'fail', msg: `The server answered ${code}` });
+  if (key === rdKey()) readingUpdate();
+}
+document.getElementById('rd-bar').addEventListener('click', ev => {
+  const b = ev.target.closest('button[data-v]'); if (!b || b.disabled) return;
+  const home = !REG, key = rdKey(), v = b.dataset.v, st = RD.st.get(key);
+  RD.want[home ? 'home' : 'reg'] = v === 'llm' ? 'llm' : home ? 'hand' : 'auto';
+  if (v === 'llm' && !RD.got.has(key) && !(st && (st.s === 'loading' || st.s === 'peek'))) {
+    RD.st.delete(key); readingAsk(key, !(RD.info && RD.info.available));
+    if (b.classList.contains('linkbtn')) { const m = document.querySelector('#rd-src button[data-v="llm"]'); if (m) m.focus(); }
+    return;
+  }
+  readingUpdate();
+});
 async function gcall(acc, pfam, q) {
   const r = await fetch(`${LIVE.url}/gcall?acc=${encodeURIComponent(acc)}&pfam=${encodeURIComponent(pfam)}&q=${encodeURIComponent(q || '')}${anchorArg()}`, { cache: 'no-store' });
   return r.json();
@@ -1667,12 +1877,19 @@ let pinned = false, anchor = null, hideT = null, showT = null, findT = null;
 const keyOf = el => el.dataset.ghost !== undefined ? 'g' + el.dataset.ghost : el.dataset.id;
 function position() {
   if (!anchor || pop.hidden || innerWidth <= 620) return;
-  const r = anchor.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, gap = 12;
+  const r = anchor.getBoundingClientRect(), w = pop.offsetWidth, gap = 12;
+  const h = Math.min(pop.scrollHeight, Math.min(innerHeight * 0.72, 620));   // its height when nothing caps it (CSS max-height)
   let x = r.right + gap;
   if (x + w > innerWidth - 16) x = r.left - w - gap;
   x = Math.max(16, Math.min(x, innerWidth - w - 16));        // stay on screen even if the box is scrolled out
-  const y = Math.max(16, Math.min(r.top + r.height / 2 - 60, innerHeight - h - 16));
+  let y = Math.max(16, Math.min(r.top + r.height / 2 - 60, innerHeight - h - 16)), room = innerHeight - 16 - y;
+  const T = document.querySelector('.tabs').getBoundingClientRect();         // never over the tab bar: a click there is for the tabs
+  if (T.bottom > 0 && T.top < innerHeight && y < T.bottom + 8 && y + h > T.top - 8) {
+    if (innerHeight - 16 - (T.bottom + 8) >= Math.min(h, 200)) { y = T.bottom + 8; room = innerHeight - 16 - y; }   // below it
+    else { y = Math.max(16, T.top - 8 - h); room = T.top - 8 - y; }                                                  // above it
+  }
   pop.style.left = x + 'px'; pop.style.top = y + 'px';
+  pop.style.maxHeight = h > room ? Math.max(120, room) + 'px' : '';
 }
 function openPop(el, pin) {
   clearTimeout(hideT); clearTimeout(showT);

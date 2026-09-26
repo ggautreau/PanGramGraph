@@ -4,6 +4,11 @@ The data (pgb/*, about 720 MB) either sit in the Space itself, or in a dataset r
 named by the variable PGG_DATA_REPO; a private one is read with HF_TOKEN, a Space secret.
 DATA are needed to start; INFLUENCE (the Coupled regions tab's knockout of one element,
 serve_live /influence) are not: without them the Space starts and /health says influence is off.
+HF_TOKEN also lets the Findings tab's reading of a window be written by an LLM (pg_reading, Hugging
+Face Inference Providers): the token must be allowed to "Make calls to Inference Providers"; without
+it the readings shipped in pgb/readings/ are still served and /health says new ones are off. With the
+Space's persistent storage, the variable READING_CACHE=/data/readings keeps new readings and the day's
+counter across restarts.
 """
 import os, sys
 DATA = ["pgb/window.json", "pgb/window_emb.npy", "pgb/model_calls.npz", "pgb/graph_pgb.json", "pgb/fam_info.json",
