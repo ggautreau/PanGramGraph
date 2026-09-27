@@ -6,7 +6,8 @@ disk used by what is kept, and a projection from the species done so far.
 import os, json, glob
 ROOT = os.environ.get("PGG_ROOT", "."); L = json.load(open(f"{ROOT}/state/species.json")); sp = L["species"]
 genes = {str(r["id"]): r["genes"] for r in sp}; tot = sum(genes.values())
-raw = glob.glob(f"{ROOT}/raw/*.h5"); ext = glob.glob(f"{ROOT}/out/*/extract.ok") + glob.glob(f"{ROOT}/out/*/gpu.claim.*")
+raw = glob.glob(f"{ROOT}/raw/*.h5"); ext = [p for p in glob.glob(f"{ROOT}/out/*/extract.ok") + glob.glob(f"{ROOT}/out/*/gpu.claim.*")
+                                             if not os.path.exists(os.path.join(os.path.dirname(p), "gpu.ok"))]
 done = glob.glob(f"{ROOT}/out/*/gpu.ok"); failed = glob.glob(f"{ROOT}/raw/*.failed") + glob.glob(f"{ROOT}/out/*/gpu.failed")
 size = lambda d: sum(e.stat().st_size for e in os.scandir(d) if e.is_file())
 kept = sum(size(os.path.dirname(p)) for p in done); gdone = sum(genes.get(os.path.basename(os.path.dirname(p)), 0) for p in done)

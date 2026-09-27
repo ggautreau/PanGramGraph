@@ -171,10 +171,15 @@ def process(d, check=0):
     return report
 
 
+def mtime(p):
+    try: return os.path.getmtime(p)
+    except OSError: return float("inf")
+
+
 def loop():
     out = os.path.join(ROOT, "out"); me = os.environ.get("SLURM_JOB_ID", str(os.getpid()))
     while True:
-        todo = sorted(glob.glob(os.path.join(out, "*", "extract.ok")), key=os.path.getmtime)
+        todo = sorted(glob.glob(os.path.join(out, "*", "extract.ok")), key=mtime)   # another worker may claim one meanwhile
         todo = [t for t in todo if not os.path.exists(os.path.join(os.path.dirname(t), "gpu.ok"))]
         if not todo:
             if os.path.exists(os.path.join(ROOT, "state", "download.finished")) and not glob.glob(os.path.join(ROOT, "raw", "*")): return
