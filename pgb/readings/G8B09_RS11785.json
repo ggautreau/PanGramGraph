@@ -2,50 +2,421 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447951.9852014,
+ "created": 1790479614.3271549,
  "usage": {
-  "prompt_tokens": 3480,
-  "completion_tokens": 543,
-  "cost_usd": 0.000559,
-  "ms": 6801
+  "prompt_tokens": 11669,
+  "completion_tokens": 871,
+  "cost_usd": 0.000853,
+  "ms": 8185
  },
  "attempts": [
   {
-   "text": "**The window starts in a long spine.** Columns 0 to 20 carry `ampG` through `nrdR`, 94 to 100% of chromosomes, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, hesitating most at column 6, `yajR`, 0.74 bits.\n\n**A second spine follows**, columns 22 to 39, `tsx` to `rdgC`, 92 to 95% of chromosomes, in a region of plasticity in 0.4 to 1% of calls. The model names 96 to 99%, hesitating most at column 30, `malZ`, 0.23 bits. Two variable columns break the spines: column 21, named 99%, and column 40, named 98% at 0.71 bits.\n\n**Then columns 41 to 57**, `ppnP` to `ampH`, 93 to 94% of chromosomes, in a region of plasticity in 0.4 to 2% of calls, named 95 to 99%. A fork opens at columns 58 and 59: `iprA` in 89% of chromosomes, with a transposase in 20%, then a hypothetical protein in 44%, `ehaB` in 28% and an integrase in 14%; the model names 71 to 88% there.\n\n**Columns 60 to 63**, `hemB` to `tauB`, 90 to 94% of chromosomes, in a region of plasticity in 3 to 20% of calls, named 87 to 92%. Then fork and variable columns 64 to 68, in a region of plasticity in 51 to 74% of calls: `tauA`, a hypothetical protein, `yaiP`, an acetyltransferase and `yaiO`, named 83 to 93%, most hesitant at column 66, 1.22 bits.\n\n**The window ends in fork and variable columns 73 to 79**, in a region of plasticity in 58 to 86% of calls, named 94 to 97%: `mhpT`, then `mhpE` to `mhpB`, [[2,3-dihydroxyphenylpropionate catabolism]], and `mhpA` in 46% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
+   "text": "**The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87%.\n\n**A single variable column follows**, column 21, `yajI`, carried by 88%. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, and columns 41 to 50, `ppnP` to `iraP`, both carried by 92 to 95%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits.\n\n**The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls. The last column is `mhpA`, in 46% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3480,
-    "completion_tokens": 543,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5451,
+    "completion_tokens": 455,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000559
+    "cost_usd": 0.000607
    },
    "provider": "deepinfra",
-   "ms": 6801,
-   "raw": "**The window starts in a long spine.** Columns 0 to 20 carry `ampG` through `nrdR`, 94 to 100% of chromosomes, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, hesitating most at column 6, `yajR`, 0.74 bits.\n\n**A second spine follows**, columns 22 to 39, `tsx` to `rdgC`, 92 to 95% of chromosomes, in a region of plasticity in 0.4 to 1% of calls. The model names 96 to 99%, hesitating most at column 30, `malZ`, 0.23 bits. Two variable columns break the spines: column 21, named 99%, and column 40, named 98% at 0.71 bits.\n\n**Then columns 41 to 57**, `ppnP` to `ampH`, 93 to 94% of chromosomes, in a region of plasticity in 0.4 to 2% of calls, named 95 to 99%. A fork opens at columns 58 and 59: `iprA` in 89% of chromosomes, with a transposase in 20%, then a hypothetical protein in 44%, `ehaB` in 28% and an integrase in 14%; the model names 71 to 88% there.\n\n**Columns 60 to 63**, `hemB` to `tauB`, 90 to 94% of chromosomes, in a region of plasticity in 3 to 20% of calls, named 87 to 92%. Then fork and variable columns 64 to 68, in a region of plasticity in 51 to 74% of calls: `tauA`, a hypothetical protein, `yaiP`, an acetyltransferase and `yaiO`, named 83 to 93%, most hesitant at column 66, 1.22 bits.\n\n**The window ends in fork and variable columns 73 to 79**, in a region of plasticity in 58 to 86% of calls, named 94 to 97%: `mhpT`, then `mhpE` to `mhpB`, [[2,3-dihydroxyphenylpropionate catabolism]], and `mhpA` in 46% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
+   "ms": 4379,
+   "raw": "@start **The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls {S1, P}. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87% {S1}.\n\n@variable **A single variable column follows**, column 21, `yajI`, carried by 88% {S2.c21}. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, and columns 41 to 50, `ppnP` to `iraP`, both carried by 92 to 95% {S3, S5}. At columns 58 to 59 a branch runs in 20 to 44%, and the `mhp` genes, columns 73 to 79, are [[hydroxy]] {S8.c58-59, S12.c73-79, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits {M}. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls {S12, P}. The last column is `mhpA`, in 46% of chromosomes {E}.\n\n@whole **Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97% {C}.",
+   "annotated": "@start **The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls {S1, P}. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87% {S1}.\n\n@variable **A single variable column follows**, column 21, `yajI`, carried by 88% {S2.c21}. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, and columns 41 to 50, `ppnP` to `iraP`, both carried by 92 to 95% {S3, S5}. At columns 58 to 59 a branch runs in 20 to 44%, and the `mhp` genes, columns 73 to 79, are [[hydroxy]] {S8.c58-59, S12.c73-79, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits {M}. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls {S12, P}. The last column is `mhpA`, in 46% of chromosomes {E}.\n\n@whole **Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97% {C}.",
+   "check": {
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "number",
+      "text": "20 to 44%",
+      "why": "a range the lines cited (S8.c58, S8.c59, S12.c73, S12.c74-78, S12.c79, Q) do not give: the range a line shows, or the lowest and highest of the lines cited, or the values at the first and last column named",
+      "context": "At columns 58 to 59 a branch runs in 20 to 44%, and the `mhp` genes, columns 73 to 79, are [[hydroxy]]"
+     },
+     {
+      "kind": "interpretation",
+      "text": "hydroxy",
+      "why": "an interpretation is one phrase of 2 to 6 words, not a word or a list",
+      "context": "[[hydroxy]]"
+     },
+     {
+      "kind": "claim",
+      "text": "branch",
+      "why": "no line cited (S8.c58, S8.c59, S12.c73, S12.c74-78, S12.c79, Q) has a branch here",
+      "context": "At columns 58 to 59 a branch runs in 20 to 44%, and the `mhp` genes, columns 73 to 79, are [[hydroxy]]"
+     }
+    ],
+    "numbers": 28,
+    "names": 13,
+    "words": 226,
+    "sentences": 11,
+    "cited": 16,
+    "structure": []
+   },
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 204,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 87 to 100% of them, fewest at column 6, `yajR`, 87%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A single variable column follows**, column 21, `yajI`, carried by 88%",
+      "cites": [
+       "S2.c21"
+      ],
+      "inherit": [
+       "S3",
+       "S5",
+       "S8.c58-59",
+       "S12.c73-79",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The spine resumes at columns 22 to 39, `tsx` to `rdgC`, and columns 41 to 50, `ppnP` to `iraP`, both carried by 92 to 95%",
+      "cites": [
+       "S3",
+       "S5"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls",
+      "cites": [
+       "S12",
+       "P"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `mhpA`, in 46% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 58
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "At columns 58 to 59 a branch runs in 20 to 44%, and the `mhp` genes, columns 73 to 79, are [[hydroxy]]",
+     "cites": [
+      "S8.c58-59",
+      "S12.c73-79",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "number",
+       "text": "20 to 44%",
+       "why": "a range the lines cited (S8.c58, S8.c59, S12.c73, S12.c74-78, S12.c79, Q) do not give: the range a line shows, or the lowest and highest of the lines cited, or the values at the first and last column named"
+      },
+      {
+       "kind": "interpretation",
+       "text": "hydroxy",
+       "why": "an interpretation is one phrase of 2 to 6 words, not a word or a list"
+      },
+      {
+       "kind": "claim",
+       "text": "branch",
+       "why": "no line cited (S8.c58, S8.c59, S12.c73, S12.c74-78, S12.c79, Q) has a branch here"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87%.\n\n**A single variable column follows**, column 21, `yajI`, carried by 88%. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, and columns 41 to 50, `ppnP` to `iraP`, both carried by 92 to 95%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits.\n\n**The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls. The last column is `mhpA`, in 46% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
+   "truncated": false,
+   "ok": false
+  },
+  {
+   "text": "**The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87%.\n\n**A single variable column follows**, column 21, `yajI`, carried by 88%. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, carried by 92 to 95%. At columns 61 to 64, `tauD` to `tauA`, the genes are [[taurine transporter]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits.\n\n**The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls. The last column is `mhpA`, in 46% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
+   "finish": "stop",
+   "usage": {
+    "prompt_tokens": 6218,
+    "completion_tokens": 416,
+    "cached_tokens": 5888,
+    "reasoning_tokens": 0,
+    "cost_usd": 0.000246
+   },
+   "provider": "deepinfra",
+   "ms": 3806,
+   "raw": "@start **The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls {S1, P}. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87% {S1}.\n\n@variable **A single variable column follows**, column 21, `yajI`, carried by 88% {S2.c21}. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, carried by 92 to 95% {S3}. At columns 61 to 64, `tauD` to `tauA`, the genes are [[taurine transporter]] {S9, S10.c64, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits {M}. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls {S12, P}. The last column is `mhpA`, in 46% of chromosomes {E}.\n\n@whole **Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97% {C}.",
+   "annotated": "@start **The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls {S1, P}. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87% {S1}.\n\n@variable **A single variable column follows**, column 21, `yajI`, carried by 88% {S2.c21}. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, carried by 92 to 95% {S3}. At columns 61 to 64, `tauD` to `tauA`, the genes are [[taurine transporter]] {S9, S10.c64, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits {M}. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls {S12, P}. The last column is `mhpA`, in 46% of chromosomes {E}.\n\n@whole **Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97% {C}.",
    "check": {
     "ok": true,
-    "numbers": 71,
-    "names": 19,
-    "words": 300,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 26,
+    "names": 12,
+    "words": 208,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 208,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 87 to 100% of them, fewest at column 6, `yajR`, 87%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A single variable column follows**, column 21, `yajI`, carried by 88%",
+      "cites": [
+       "S2.c21"
+      ],
+      "inherit": [
+       "S3",
+       "S9",
+       "S10.c64",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The spine resumes at columns 22 to 39, `tsx` to `rdgC`, carried by 92 to 95%",
+      "cites": [
+       "S3"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "At columns 61 to 64, `tauD` to `tauA`, the genes are [[taurine transporter]]",
+      "cites": [
+       "S9",
+       "S10.c64",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls",
+      "cites": [
+       "S12",
+       "P"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `mhpA`, in 46% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 53
+   },
+   "dropped": [],
+   "served": "**The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87%.\n\n**A single variable column follows**, column 21, `yajI`, carried by 88%. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, carried by 92 to 95%. At columns 61 to 64, `tauD` to `tauA`, the genes are [[taurine transporter]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits.\n\n**The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls. The last column is `mhpA`, in 46% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 71,
-  "names": 19,
-  "words": 300,
-  "attempts": 1
+  "numbers": 26,
+  "names": 12,
+  "words": 208,
+  "attempts": 2,
+  "sentences": 11,
+  "cited": 15,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 53
  },
- "text": "**The window starts in a long spine.** Columns 0 to 20 carry `ampG` through `nrdR`, 94 to 100% of chromosomes, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, hesitating most at column 6, `yajR`, 0.74 bits.\n\n**A second spine follows**, columns 22 to 39, `tsx` to `rdgC`, 92 to 95% of chromosomes, in a region of plasticity in 0.4 to 1% of calls. The model names 96 to 99%, hesitating most at column 30, `malZ`, 0.23 bits. Two variable columns break the spines: column 21, named 99%, and column 40, named 98% at 0.71 bits.\n\n**Then columns 41 to 57**, `ppnP` to `ampH`, 93 to 94% of chromosomes, in a region of plasticity in 0.4 to 2% of calls, named 95 to 99%. A fork opens at columns 58 and 59: `iprA` in 89% of chromosomes, with a transposase in 20%, then a hypothetical protein in 44%, `ehaB` in 28% and an integrase in 14%; the model names 71 to 88% there.\n\n**Columns 60 to 63**, `hemB` to `tauB`, 90 to 94% of chromosomes, in a region of plasticity in 3 to 20% of calls, named 87 to 92%. Then fork and variable columns 64 to 68, in a region of plasticity in 51 to 74% of calls: `tauA`, a hypothetical protein, `yaiP`, an acetyltransferase and `yaiO`, named 83 to 93%, most hesitant at column 66, 1.22 bits.\n\n**The window ends in fork and variable columns 73 to 79**, in a region of plasticity in 58 to 86% of calls, named 94 to 97%: `mhpT`, then `mhpE` to `mhpB`, [[2,3-dihydroxyphenylpropionate catabolism]], and `mhpA` in 46% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
- "html": "<p class=\"note\"><b>The window starts in a long spine.</b> Columns 0 to 20 carry <span class=\"gene\">ampG</span> through <span class=\"gene\">nrdR</span>, 94 to 100% of chromosomes, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, hesitating most at column 6, <span class=\"gene\">yajR</span>, 0.74 bits.</p><p class=\"note\"><b>A second spine follows</b>, columns 22 to 39, <span class=\"gene\">tsx</span> to <span class=\"gene\">rdgC</span>, 92 to 95% of chromosomes, in a region of plasticity in 0.4 to 1% of calls. The model names 96 to 99%, hesitating most at column 30, <span class=\"gene\">malZ</span>, 0.23 bits. Two variable columns break the spines: column 21, named 99%, and column 40, named 98% at 0.71 bits.</p><p class=\"note\"><b>Then columns 41 to 57</b>, <span class=\"gene\">ppnP</span> to <span class=\"gene\">ampH</span>, 93 to 94% of chromosomes, in a region of plasticity in 0.4 to 2% of calls, named 95 to 99%. A fork opens at columns 58 and 59: <span class=\"gene\">iprA</span> in 89% of chromosomes, with a transposase in 20%, then a hypothetical protein in 44%, <span class=\"gene\">ehaB</span> in 28% and an integrase in 14%; the model names 71 to 88% there.</p><p class=\"note\"><b>Columns 60 to 63</b>, <span class=\"gene\">hemB</span> to <span class=\"gene\">tauB</span>, 90 to 94% of chromosomes, in a region of plasticity in 3 to 20% of calls, named 87 to 92%. Then fork and variable columns 64 to 68, in a region of plasticity in 51 to 74% of calls: <span class=\"gene\">tauA</span>, a hypothetical protein, <span class=\"gene\">yaiP</span>, an acetyltransferase and <span class=\"gene\">yaiO</span>, named 83 to 93%, most hesitant at column 66, 1.22 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns 73 to 79</b>, in a region of plasticity in 58 to 86% of calls, named 94 to 97%: <span class=\"gene\">mhpT</span>, then <span class=\"gene\">mhpE</span> to <span class=\"gene\">mhpB</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">2,3-dihydroxyphenylpropionate catabolism</span>, and <span class=\"gene\">mhpA</span> in 46% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.</p>",
+ "text": "**The window opens on a long spine.** Columns 0 to 20, `ampG` to `nrdR`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, fewest at column 6, `yajR`, 87%.\n\n**A single variable column follows**, column 21, `yajI`, carried by 88%. The spine resumes at columns 22 to 39, `tsx` to `rdgC`, carried by 92 to 95%. At columns 61 to 64, `tauD` to `tauA`, the genes are [[taurine transporter]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits. Its most hesitant column, 66, `yaiP`, is a variable column, at 1.22 bits.\n\n**The window ends on fork and variable columns.** Columns 73 to 79, `mhpT` to `mhpA`, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls. The last column is `mhpA`, in 46% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.24 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.",
+ "html": "<p class=\"note\"><b>The window opens on a long spine.</b> Columns 0 to 20, <span class=\"gene\">ampG</span> to <span class=\"gene\">nrdR</span>, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 0.4% of calls. The model names 87 to 100% of them, fewest at column 6, <span class=\"gene\">yajR</span>, 87%.</p><p class=\"note\"><b>A single variable column follows</b>, column 21, <span class=\"gene\">yajI</span>, carried by 88%. The spine resumes at columns 22 to 39, <span class=\"gene\">tsx</span> to <span class=\"gene\">rdgC</span>, carried by 92 to 95%. At columns 61 to 64, <span class=\"gene\">tauD</span> to <span class=\"gene\">tauA</span>, the genes are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">taurine transporter</span>.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 97 against 92%, and hesitates less there, 0.17 against 0.53 bits. Its most hesitant column, 66, <span class=\"gene\">yaiP</span>, is a variable column, at 1.22 bits.</p><p class=\"note\"><b>The window ends on fork and variable columns.</b> Columns 73 to 79, <span class=\"gene\">mhpT</span> to <span class=\"gene\">mhpA</span>, are carried by 46 to 80% of chromosomes, in a region of plasticity in 58 to 86% of calls. The last column is <span class=\"gene\">mhpA</span>, in 46% of chromosomes.</p><p class=\"note\"><b>Across the window it names 96% of genes</b>, 0.24 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.70 against 0.18 bits, and names fewer genes, 90% against 97%.</p>",
  "window": "G8B09_RS11785",
  "label": "ampG",
- "facts_hash": "a0aaf747faf2",
- "prompt_version": "r7",
- "facts": "WINDOW: the ampG window: 80 columns, column 0 is the anchor ampG, then the next 79 genes in dnaA's direction; about genes 3,280 to 3,359 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying ampG once); 43,120 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 96% of genes, 0.24 bits on average (perplexity 1.3 families). By partition of the gene: persistent 35,130 calls, named 99%, 0.11 bits; shell 7,922 calls, named 84%, 0.79 bits; cloud 68 calls, named 0%, 4.02 bits. Outside an RGP 37,466 calls, named 97%, 0.18 bits; inside an RGP 5,654 calls, named 90%, 0.70 bits. Columns: 63 spine, 5 fork, 12 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.70 against 0.18 bits) and names fewer genes (90% against 97%); 5,654 of the 43,120 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 66 (yaiP) 1.22 bits, RGP 69%; column 65 (\"hypothetical protein\") 1.12 bits, RGP 64%; column 67 (\"acetyltransferase\") 1.06 bits, RGP 74%. The 12 columns where most calls are in an RGP: named 93%, 0.53 bits on average; the other 68 columns: named 96%, 0.19 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 73-79 (fork and variable columns), RGP 58-86%; the least: columns 0-20 (spine), RGP 0-0.4%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-20 (21 columns) spine: share 94-100%, all P, RGP 0-0.4%. Genes: ampG, cyoA, cyoB, cyoC, cyoD \"cytochrome o ubiquinol oxidase subu\u2026\", cyoE, yajR, yajQ \"nucleotide binding protein YajQ\", panE, yajL \"DJ-1/PfpI family protein\", thiI, xseB, ispA, dxs, yajO \"aldo/keto reductase\", pgpA, thiL, nusB, ribH, ribD \"bifunctional diaminohydroxyphosphor\u2026\", nrdR. named 87-100% (mean 98%), fewest named and most hesitant at column 6 (yajR), named 87%, 0.74 bits.\n2. column 21 variable: RGP 1%. named 99%; 0.17 bits.\n   21: yajI P 88% \"DUF3251 domain-containing protein\"\n3. columns 22-39 (18 columns) spine: share 92-95%, all P, RGP 0.4-1%. Genes: tsx, yajD \"HNH nuclease YajD\", secF \"protein translocase subunit SecF\", secD, yajC \"preprotein translocase subunit YajC\", tgt, queA, acpH, malZ, proY, brnQ, phoR \"phosphate regulon sensor histidine\u2026\", phoB, sbcD \"exonuclease SbcCD subunit D C-termi\u2026\", sbcC, araJ, mak, rdgC. named 96-99% (mean 97%), fewest named at column 22 (tsx), named 96%; most hesitant at column 30 (malZ), 0.23 bits.\n4. column 40 variable: RGP 0.4%. named 98%; 0.71 bits.\n   40: \"hypothetical protein\" S 82%\n5. columns 41-50 (10 columns) spine: share 93-94%, all P, RGP 0.4-1%. Genes: ppnP, aroM, yaiA \"protein YaiA\", aroL, yaiI \"YaiI/YqxD family protein\", proC, adrA, psiF, phoA, iraP. named 95-99% (mean 97%), fewest named at column 42 (aroM), named 95%; most hesitant at column 43 (yaiA), 0.27 bits.\n6. column 51 variable: RGP 1%. named 94%; 0.39 bits.\n   51: \"hypothetical protein\" S 75%\n7. columns 52-57 (6 columns) spine: share 93-94%, all P, RGP 1-2%. Genes: ddlA, yaiZ \"DUF2754 family protein\", yaiY \"YaiY family protein\", yaiW \"surface-exposed outer membrane lipo\u2026\", sbmA, ampH. named 96-98% (mean 97%), fewest named and most hesitant at column 57 (ampH), named 96%, 0.25 bits.\n8. columns 58-59 (2 columns) fork: RGP 2%. named 71-88% (mean 80%), fewest named and most hesitant at column 59, named 71%, 0.93 bits.\n   58: iprA P 89%; also \"IS1-like element transposase\" S 20%\n   59: \"hypothetical protein\" S 44%; also ehaB S 28%, \"DDE-type integrase/transposase/recombin\u2026\" S 14%\n9. columns 60-63 (4 columns) spine: share 90-94%, all P, RGP 3-20%. Genes: hemB, tauD, tauC, tauB. named 87-92% (mean 90%), fewest named and most hesitant at column 60 (hemB), named 87%, 0.38 bits.\n10. columns 64-68 (5 columns) fork and variable columns: RGP 51-74%. named 83-93% (mean 89%), fewest named at column 65, named 83%; most hesitant at column 66, 1.22 bits.\n   64 variable: tauA S 88% \"glycine betaine ABC transporter sub\u2026\"\n   65 fork: \"hypothetical protein\" S 60%; also \"PIG-L deacetylase family protein\" S 17%\n   66 variable: yaiP S 76% \"glycosyltransferase\"\n   67 variable: \"acetyltransferase\" S 78%\n   68 variable: yaiO S 78% \"YaiO family outer membrane beta-bar\u2026\"\n11. columns 69-72 (4 columns) spine: share 91-93%, all P, RGP 29-40%. Genes: frmR, frmA \"S-(hydroxymethyl)glutathione dehydr\u2026\", fghA, yaiL \"DUF2058 family protein\". named 94-96% (mean 95%), fewest named and most hesitant at column 69 (frmR), named 94%, 0.43 bits.\n12. columns 73-79 (7 columns) fork and variable columns: RGP 58-86%. named 94-97% (mean 96%), fewest named and most hesitant at column 73, named 94%, 0.29 bits.\n   73 fork: mhpT S 79%; also lacZ P 13%\n   columns 74-78 variable, share 60-80%, all S: mhpE 80%, mhpF 76%, mhpD 72%, mhpC \"2-hydroxy-6-oxonona-2,4-dienedioate\u2026\" 65%, mhpB 60%\n   79 fork: mhpA S 46%; also mhpR S 22%\nPRODUCTS of named genes (for [[ ]]): cyoA COX aromatic rich motif-containing prot\u2026; cyoC cytochrome o ubiquinol oxidase subunit\u2026; cyoE UbiA family prenyltransferase; ribH 6,7-dimethyl-8-ribityllumazine synthase; secD protein translocase subunit SecD; phoB phosphate response regulator transcript\u2026; sbcC exonuclease subunit SbcC; tauD TauD/TfdA family dioxygenase; tauC ABC transporter permease subunit; tauB taurine ABC transporter ATP-binding sub\u2026; tauA glycine betaine ABC transporter substra\u2026; frmR metal-sensing transcriptional repressor; mhpT MFS transporter; mhpF acetaldehyde dehydrogenase; mhpD fumarylacetoacetate hydrolase family pr\u2026; mhpB 2,3-dihydroxyphenylpropionate/2, 3-dihy\u2026; mhpA FAD-dependent monooxygenase; espY3 pentapeptide repeat-containing protein; ehaB autotransporter adhesin EhaB; mhpR helix-turn-helix domain-containing prot\u2026\nEND: the window ends at column 79, mhpA, in 46% of chromosomes."
+ "facts_hash": "18c31f903d98",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the ampG window: 80 columns, column 0 is the anchor ampG, then the next 79 genes in dnaA's direction; about genes 3,280 to 3,359 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying ampG once); 43,120 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 96% of genes, 0.24 bits on average (perplexity 1.3 families). By partition of the gene: persistent 35,130 calls, named 99%, 0.11 bits; shell 7,922 calls, named 84%, 0.79 bits; cloud 68 calls, named 0%, 4.02 bits. Outside an RGP 37,466 calls, named 97%, 0.18 bits; inside an RGP 5,654 calls, named 90%, 0.70 bits. Columns: 63 spine, 5 fork, 12 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.70 against 0.18 bits) and names fewer genes (90% against 97%); 5,654 of the 43,120 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 66 (yaiP, a variable column) 1.22 bits, RGP 69%; column 65 (\"protein YkiC\", a fork column) 1.12 bits, RGP 64%; column 67 (\"acetyltransferase\", a variable column) 1.06 bits, RGP 74%. The 12 columns (columns 64-68 and 73-79) where most calls are in an RGP: named 93%, 0.53 bits on average; the other 68 columns: named 96%, 0.19 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 63 spine columns: named 97%, 0.17 bits on average; the 17 fork and variable columns: named 92%, 0.53 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 66, is a variable column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 73-79 (fork and variable columns), RGP 58-86%; the least: columns 0-20 (spine), RGP 0-0.4%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-20 (21 columns) spine: share 94-100%, all P, RGP 0-0.4%. Genes: ampG, cyoA, cyoB \"cytochrome o ubiquinol oxidase subu\u2026\", cyoC, cyoD, cyoE, yajR \"MFS transporter\", yajQ \"nucleotide binding protein YajQ\", panE, yajL \"protein deglycase YajL\", thiI, xseB, ispA, dxs, yajO \"1-deoxyxylulose-5-phosphate synthas\u2026\", pgpA, thiL, nusB, ribH, ribD \"bifunctional diaminohydroxyphosphor\u2026\", nrdR. named 87-100% (mean 98%), fewest named and most hesitant at column 6 (yajR), named 87%, 0.74 bits.\n[S2] 2. column 21 variable: share 88%, all P, RGP 1%. named 99%; 0.17 bits.\n[S2.c21]    21: yajI P 88% \"DUF3251 domain-containing protein\"\n[S3] 3. columns 22-39 (18 columns) spine: share 92-95%, all P, RGP 0.4-1%. Genes: tsx, yajD \"HNH nuclease YajD\", secF \"protein translocase subunit SecF\", secD, yajC \"preprotein translocase subunit YajC\", tgt, queA, acpH, malZ, proY, brnQ, phoR \"phosphate regulon sensor histidine\u2026\", phoB, sbcD \"exonuclease subunit SbcD\", sbcC, araJ, mak, rdgC. named 96-99% (mean 97%), fewest named at column 22 (tsx), named 96%; most hesitant at column 30 (malZ), 0.23 bits.\n[S4] 4. column 40 variable: share 82%, all S, RGP 0.4%. named 98%; 0.71 bits.\n[S4.c40]    40: \"protein YkiD\" S 82%\n[S5] 5. columns 41-50 (10 columns) spine: share 93-94%, all P, RGP 0.4-1%. Genes: ppnP, aroM, yaiA \"protein YaiA\", aroL, yaiI \"YaiI/YqxD family protein\", proC, adrA, psiF, phoA, iraP. named 95-99% (mean 97%), fewest named at column 42 (aroM), named 95%; most hesitant at column 43 (yaiA), 0.27 bits.\n[S6] 6. column 51 variable: share 75%, all S, RGP 1%. named 94%; 0.39 bits.\n[S6.c51]    51: \"hypothetical protein\" S 75%\n[S7] 7. columns 52-57 (6 columns) spine: share 93-94%, all P, RGP 1-2%. Genes: ddlA, yaiZ \"DUF2754 domain-containing protein\", yaiY \"YaiY family protein\", yaiW \"surface-exposed outer membrane lipo\u2026\", sbmA, ampH. named 96-98% (mean 97%), fewest named and most hesitant at column 57 (ampH), named 96%, 0.25 bits.\n[S8] 8. columns 58-59 (2 columns) fork: share 44-89%, 1 P, 1 S, RGP 2%. named 71-88% (mean 80%), fewest named and most hesitant at column 59, named 71%, 0.93 bits.\n[S8.c58]    58: iprA P 89%; also \"IS1 family transposase\" S 20%\n[S8.c59]    59: \"autotransporter outer membrane beta-bar\u2026\" S 44%; also ehaB S 28%, \"IS3 family transposase\" S 14%\n[S9] 9. columns 60-63 (4 columns) spine: share 90-94%, all P, RGP 3-20%. Genes: hemB, tauD, tauC \"taurine ABC transporter permease Ta\u2026\", tauB. named 87-92% (mean 90%), fewest named and most hesitant at column 60 (hemB), named 87%, 0.38 bits.\n[S10] 10. columns 64-68 (5 columns) fork and variable columns: share 60-88%, all S, RGP 51-74%. named 83-93% (mean 89%), fewest named at column 65, named 83%; most hesitant at column 66, 1.22 bits.\n[S10.c64]    64 variable: tauA S 88%\n[S10.c65]    65 fork: \"protein YkiC\" S 60%; also \"PIG-L deacetylase family protein\" S 17%\n[S10.c66]    66 variable: yaiP S 76% \"glycosyltransferase\"\n[S10.c67]    67 variable: \"acetyltransferase\" S 78%\n[S10.c68]    68 variable: yaiO S 78% \"YaiO family outer membrane beta-bar\u2026\"\n[S11] 11. columns 69-72 (4 columns) spine: share 91-93%, all P, RGP 29-40%. Genes: frmR, frmA \"S-(hydroxymethyl)glutathione dehydr\u2026\", fghA, yaiL \"DUF2058 domain-containing protein\". named 94-96% (mean 95%), fewest named and most hesitant at column 69 (frmR), named 94%, 0.43 bits.\n[S12] 12. columns 73-79 (7 columns) fork and variable columns: share 46-80%, all S, RGP 58-86%. named 94-97% (mean 96%), fewest named and most hesitant at column 73, named 94%, 0.29 bits.\n[S12.c73]    73 fork: mhpT S 79%; also lacZ P 13%\n[S12.c74-78]    columns 74-78 variable, share 60-80%, all S: mhpE 80%, mhpF 76%, mhpD 72%, mhpC 65%, mhpB 60%\n[S12.c79]    79 fork: mhpA S 46% \"bifunctional 3-(3-hydroxy-phenyl)pr\u2026\"; also mhpR S 22%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 1-5 (cyoA to cyoE) [S1]: cytochrome, oxidase, ubiquinol; columns 13-16 (dxs to thiL) [S1]: phosphate, synthase; columns 61-64 (tauD to tauA) [S9, S10]: taurine, transporter; columns 73-79 (mhpT to mhpA) [S12]: hydroxy.\n[X] PRODUCTS of named genes (for [[ ]]): cyoA cytochrome o ubiquinol oxidase subunit\u2026; cyoC cytochrome o ubiquinol oxidase subunit\u2026; cyoD cytochrome o ubiquinol oxidase subunit\u2026; cyoE heme o synthase; ribH 6,7-dimethyl-8-ribityllumazine synthase; secD protein translocase subunit SecD; phoB phosphate response regulator transcript\u2026; sbcC exonuclease subunit SbcC; tauD taurine dioxygenase; tauB taurine ABC transporter ATP-binding sub\u2026; tauA taurine ABC transporter substrate-bindi\u2026; frmR formaldehyde-responsive transcriptional\u2026; mhpT 3-(3-hydroxy-phenyl)propionate transpor\u2026; mhpE 4-hydroxy-2-oxovalerate aldolase; mhpF acetaldehyde dehydrogenase; mhpD 2-keto-4-pentenoate hydratase; mhpC 2-hydroxy-6-oxonona-2,4-dienedioate hyd\u2026; mhpB 2,3-dihydroxyphenylpropionate/2, 3-dihy\u2026; mhpA bifunctional 3-(3-hydroxy-phenyl)propio\u2026; espY3 pentapeptide repeat-containing protein; ehaB autotransporter adhesin EhaB; lacI DNA-binding transcriptional repressor L\u2026; lacZ beta-galactosidase\n[E] END: the window ends at column 79, mhpA, in 46% of chromosomes."
 }

@@ -2,55 +2,214 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447838.9038048,
+ "created": 1790479536.579535,
  "usage": {
-  "prompt_tokens": 4596,
-  "completion_tokens": 503,
-  "cost_usd": 0.000698,
-  "ms": 6169
+  "prompt_tokens": 6747,
+  "completion_tokens": 385,
+  "cost_usd": 0.000759,
+  "ms": 4671
  },
  "attempts": [
   {
-   "text": "**The window starts on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 2% of calls; the model names it in 98% of calls with 0.11 bits. Then columns 1 to 79 are fork and variable columns, in a region of plasticity in 26 to 75% of calls.\n\n**The first fork is the most hesitant place in the window.** Column 1, a microcompartment family, is named in 54% of calls and costs 2.64 bits, in a region of plasticity in 72% of calls; column 2, `yeeW`, 2.19 bits and 71%. A second branch of 18 families runs through columns 1 to 18, carried by 16% of chromosomes, shell families such as `eutP`, `pduU` and `pduT` to `pduB`, [[propanediol utilization microcompartment]]. Further branches follow: 3 families at columns 20 to 22, 3 at 23 to 25, 3 at 27 to 29.\n\n**Persistent families return in the middle.** The `cob` genes `cobU`, `cobS` and `cobT` sit at columns 23 to 25, carried by 87 to 89% of chromosomes, [[cobinamide biosynthesis]]. Columns 47 to 51 are variable, carried by 65 to 67%, all persistent: `dcm`, `vsr`, `yedA`, `yedI`, `yodC`. A branch of 6 families at columns 40 to 45, carried by 18 to 22%, runs `ybtA` to an integrase, [[yersiniabactin biosynthesis]].\n\n**The window ends in the flagellar genes.** Columns 59 to 78 carry `fliP` to `fliD`, persistent, [[flagellar assembly]], with a branch of 15 persistent families at columns 64 to 78, carried by 10 to 34%. The model names 81% of genes over the window, 0.92 bits on average. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.",
+   "text": "**The window opens on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 2% of calls. The model names 98% of them, at 0.11 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 6 to 90%, in a region of plasticity in 26 to 75% of calls. A branch of 18 shell families runs through columns 1 to 18 in 16%, [[propanediol utilization microcompartments]]. The `cobU` to `cobT` genes, columns 23 to 25, are [[adenosylcobinamide biosynthesis]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 98% against 81%, and hesitates less there, 0.11 against 0.93 bits. Its most hesitant column, 1, is a fork column, at 2.64 bits.\n\n**The window ends on the `fli` genes**, columns 57 to 70, [[flagellar assembly]]. The last column is `ftnA`, in 9% of chromosomes.\n\n**Across the window it names 81% of genes**, 0.92 bits on average, perplexity 2.7 families. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4596,
-    "completion_tokens": 503,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6747,
+    "completion_tokens": 385,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000698
+    "cost_usd": 0.000759
    },
    "provider": "deepinfra",
-   "ms": 6169,
-   "raw": "**The window starts on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 2% of calls; the model names it in 98% of calls with 0.11 bits. Then columns 1 to 79 are fork and variable columns, in a region of plasticity in 26 to 75% of calls.\n\n**The first fork is the most hesitant place in the window.** Column 1, a microcompartment family, is named in 54% of calls and costs 2.64 bits, in a region of plasticity in 72% of calls; column 2, `yeeW`, 2.19 bits and 71%. A second branch of 18 families runs through columns 1 to 18, carried by 16% of chromosomes, shell families such as `eutP`, `pduU` and `pduT` to `pduB`, [[propanediol utilization microcompartment]]. Further branches follow: 3 families at columns 20 to 22, 3 at 23 to 25, 3 at 27 to 29.\n\n**Persistent families return in the middle.** The `cob` genes `cobU`, `cobS` and `cobT` sit at columns 23 to 25, carried by 87 to 89% of chromosomes, [[cobinamide biosynthesis]]. Columns 47 to 51 are variable, carried by 65 to 67%, all persistent: `dcm`, `vsr`, `yedA`, `yedI`, `yodC`. A branch of 6 families at columns 40 to 45, carried by 18 to 22%, runs `ybtA` to an integrase, [[yersiniabactin biosynthesis]].\n\n**The window ends in the flagellar genes.** Columns 59 to 78 carry `fliP` to `fliD`, persistent, [[flagellar assembly]], with a branch of 15 persistent families at columns 64 to 78, carried by 10 to 34%. The model names 81% of genes over the window, 0.92 bits on average. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.",
+   "ms": 4671,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 2% of calls {S1}. The model names 98% of them, at 0.11 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns**, 1 to 79, carried by 6 to 90%, in a region of plasticity in 26 to 75% of calls {S2}. A branch of 18 shell families runs through columns 1 to 18 in 16%, [[propanediol utilization microcompartments]] {S2.b1, Q}. The `cobU` to `cobT` genes, columns 23 to 25, are [[adenosylcobinamide biosynthesis]] {S2.c23-25, Q}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 98% against 81%, and hesitates less there, 0.11 against 0.93 bits {M}. Its most hesitant column, 1, is a fork column, at 2.64 bits {H}.\n\n@end **The window ends on the `fli` genes**, columns 57 to 70, [[flagellar assembly]] {S2.c57-70, Q}. The last column is `ftnA`, in 9% of chromosomes {E}.\n\n@whole **Across the window it names 81% of genes**, 0.92 bits on average, perplexity 2.7 families {G}. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 2% of calls {S1}. The model names 98% of them, at 0.11 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns**, 1 to 79, carried by 6 to 90%, in a region of plasticity in 26 to 75% of calls {S2}. A branch of 18 shell families runs through columns 1 to 18 in 16%, [[propanediol utilization microcompartments]] {S2.b1, Q}. The `cobU` to `cobT` genes, columns 23 to 25, are [[adenosylcobinamide biosynthesis]] {S2.c23-25, Q}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 98% against 81%, and hesitates less there, 0.11 against 0.93 bits {M}. Its most hesitant column, 1, is a fork column, at 2.64 bits {H}.\n\n@end **The window ends on the `fli` genes**, columns 57 to 70, [[flagellar assembly]] {S2.c57-70, Q}. The last column is `ftnA`, in 9% of chromosomes {E}.\n\n@whole **Across the window it names 81% of genes**, 0.92 bits on average, perplexity 2.7 families {G}. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92% {C}.",
    "check": {
     "ok": true,
-    "numbers": 55,
-    "names": 18,
-    "words": 288,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": [
-     {
-      "text": "cobinamide",
-      "where": "[[cobinamide biosynthesis]]"
-     }
-    ]
+    "numbers": 25,
+    "names": 5,
+    "words": 192,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 192,
+    "repeats": 0,
+    "interp": 3,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 2% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": [
+       "M"
+      ]
+     },
+     {
+      "tag": "start",
+      "text": "The model names 98% of them, at 0.11 bits",
+      "cites": [
+       "S1",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The rest of the window is fork and variable columns**, 1 to 79, carried by 6 to 90%, in a region of plasticity in 26 to 75% of calls",
+      "cites": [
+       "S2"
+      ],
+      "inherit": [
+       "S2.b1",
+       "Q",
+       "S2.c23-25"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "A branch of 18 shell families runs through columns 1 to 18 in 16%, [[propanediol utilization microcompartments]]",
+      "cites": [
+       "S2.b1",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The `cobU` to `cobT` genes, columns 23 to 25, are [[adenosylcobinamide biosynthesis]]",
+      "cites": [
+       "S2.c23-25",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine column than on the fork and variable ones**, 98% against 81%, and hesitates less there, 0.11 against 0.93 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 1, is a fork column, at 2.64 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on the `fli` genes**, columns 57 to 70, [[flagellar assembly]]",
+      "cites": [
+       "S2.c57-70",
+       "Q"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `ftnA`, in 9% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 81% of genes**, 0.92 bits on average, perplexity 2.7 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 80
+   },
+   "dropped": [],
+   "served": "**The window opens on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 2% of calls. The model names 98% of them, at 0.11 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 6 to 90%, in a region of plasticity in 26 to 75% of calls. A branch of 18 shell families runs through columns 1 to 18 in 16%, [[propanediol utilization microcompartments]]. The `cobU` to `cobT` genes, columns 23 to 25, are [[adenosylcobinamide biosynthesis]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 98% against 81%, and hesitates less there, 0.11 against 0.93 bits. Its most hesitant column, 1, is a fork column, at 2.64 bits.\n\n**The window ends on the `fli` genes**, columns 57 to 70, [[flagellar assembly]]. The last column is `ftnA`, in 9% of chromosomes.\n\n**Across the window it names 81% of genes**, 0.92 bits on average, perplexity 2.7 families. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 55,
-  "names": 18,
-  "words": 288,
-  "attempts": 1
+  "numbers": 25,
+  "names": 5,
+  "words": 192,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 15,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 3,
+  "covered": 80
  },
- "text": "**The window starts on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 2% of calls; the model names it in 98% of calls with 0.11 bits. Then columns 1 to 79 are fork and variable columns, in a region of plasticity in 26 to 75% of calls.\n\n**The first fork is the most hesitant place in the window.** Column 1, a microcompartment family, is named in 54% of calls and costs 2.64 bits, in a region of plasticity in 72% of calls; column 2, `yeeW`, 2.19 bits and 71%. A second branch of 18 families runs through columns 1 to 18, carried by 16% of chromosomes, shell families such as `eutP`, `pduU` and `pduT` to `pduB`, [[propanediol utilization microcompartment]]. Further branches follow: 3 families at columns 20 to 22, 3 at 23 to 25, 3 at 27 to 29.\n\n**Persistent families return in the middle.** The `cob` genes `cobU`, `cobS` and `cobT` sit at columns 23 to 25, carried by 87 to 89% of chromosomes, [[cobinamide biosynthesis]]. Columns 47 to 51 are variable, carried by 65 to 67%, all persistent: `dcm`, `vsr`, `yedA`, `yedI`, `yodC`. A branch of 6 families at columns 40 to 45, carried by 18 to 22%, runs `ybtA` to an integrase, [[yersiniabactin biosynthesis]].\n\n**The window ends in the flagellar genes.** Columns 59 to 78 carry `fliP` to `fliD`, persistent, [[flagellar assembly]], with a branch of 15 persistent families at columns 64 to 78, carried by 10 to 34%. The model names 81% of genes over the window, 0.92 bits on average. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.",
- "html": "<p class=\"note\"><b>The window starts on a single spine column.</b> Column 0, <span class=\"gene\">tmaR</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 2% of calls; the model names it in 98% of calls with 0.11 bits. Then columns 1 to 79 are fork and variable columns, in a region of plasticity in 26 to 75% of calls.</p><p class=\"note\"><b>The first fork is the most hesitant place in the window.</b> Column 1, a microcompartment family, is named in 54% of calls and costs 2.64 bits, in a region of plasticity in 72% of calls; column 2, <span class=\"gene\">yeeW</span>, 2.19 bits and 71%. A second branch of 18 families runs through columns 1 to 18, carried by 16% of chromosomes, shell families such as <span class=\"gene\">eutP</span>, <span class=\"gene\">pduU</span> and <span class=\"gene\">pduT</span> to <span class=\"gene\">pduB</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">propanediol utilization microcompartment</span>. Further branches follow: 3 families at columns 20 to 22, 3 at 23 to 25, 3 at 27 to 29.</p><p class=\"note\"><b>Persistent families return in the middle.</b> The <span class=\"gene\">cob</span> genes <span class=\"gene\">cobU</span>, <span class=\"gene\">cobS</span> and <span class=\"gene\">cobT</span> sit at columns 23 to 25, carried by 87 to 89% of chromosomes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">cobinamide biosynthesis</span>. Columns 47 to 51 are variable, carried by 65 to 67%, all persistent: <span class=\"gene\">dcm</span>, <span class=\"gene\">vsr</span>, <span class=\"gene\">yedA</span>, <span class=\"gene\">yedI</span>, <span class=\"gene\">yodC</span>. A branch of 6 families at columns 40 to 45, carried by 18 to 22%, runs <span class=\"gene\">ybtA</span> to an integrase, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">yersiniabactin biosynthesis</span>.</p><p class=\"note\"><b>The window ends in the flagellar genes.</b> Columns 59 to 78 carry <span class=\"gene\">fliP</span> to <span class=\"gene\">fliD</span>, persistent, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">flagellar assembly</span>, with a branch of 15 persistent families at columns 64 to 78, carried by 10 to 34%. The model names 81% of genes over the window, 0.92 bits on average. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.</p>",
+ "text": "**The window opens on a single spine column.** Column 0, `tmaR`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 2% of calls. The model names 98% of them, at 0.11 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 6 to 90%, in a region of plasticity in 26 to 75% of calls. A branch of 18 shell families runs through columns 1 to 18 in 16%, [[propanediol utilization microcompartments]]. The `cobU` to `cobT` genes, columns 23 to 25, are [[adenosylcobinamide biosynthesis]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 98% against 81%, and hesitates less there, 0.11 against 0.93 bits. Its most hesitant column, 1, is a fork column, at 2.64 bits.\n\n**The window ends on the `fli` genes**, columns 57 to 70, [[flagellar assembly]]. The last column is `ftnA`, in 9% of chromosomes.\n\n**Across the window it names 81% of genes**, 0.92 bits on average, perplexity 2.7 families. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.",
+ "html": "<p class=\"note\"><b>The window opens on a single spine column.</b> Column 0, <span class=\"gene\">tmaR</span>, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 2% of calls. The model names 98% of them, at 0.11 bits.</p><p class=\"note\"><b>The rest of the window is fork and variable columns</b>, 1 to 79, carried by 6 to 90%, in a region of plasticity in 26 to 75% of calls. A branch of 18 shell families runs through columns 1 to 18 in 16%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">propanediol utilization microcompartments</span>. The <span class=\"gene\">cobU</span> to <span class=\"gene\">cobT</span> genes, columns 23 to 25, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">adenosylcobinamide biosynthesis</span>.</p><p class=\"note\"><b>The model names more genes on the spine column than on the fork and variable ones</b>, 98% against 81%, and hesitates less there, 0.11 against 0.93 bits. Its most hesitant column, 1, is a fork column, at 2.64 bits.</p><p class=\"note\"><b>The window ends on the <span class=\"gene\">fli</span> genes</b>, columns 57 to 70, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">flagellar assembly</span>. The last column is <span class=\"gene\">ftnA</span>, in 9% of chromosomes.</p><p class=\"note\"><b>Across the window it names 81% of genes</b>, 0.92 bits on average, perplexity 2.7 families. Inside a region of plasticity it hesitates more than outside, 1.49 against 0.41 bits, and names fewer genes, 70% against 92%.</p>",
  "window": "G8B09_RS00145",
  "label": "tmaR",
- "facts_hash": "37766a807f65",
- "prompt_version": "r7",
- "facts": "WINDOW: the tmaR window: 80 columns, column 0 is the anchor tmaR, then the next 79 genes in dnaA's direction; about genes 1,713 to 1,792 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying tmaR once); 43,120 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 81% of genes, 0.92 bits on average (perplexity 2.7 families). By partition of the gene: persistent 20,437 calls, named 96%, 0.31 bits; shell 20,842 calls, named 73%, 1.32 bits; cloud 1,841 calls, named 18%, 3.10 bits. Outside an RGP 22,852 calls, named 92%, 0.41 bits; inside an RGP 20,268 calls, named 70%, 1.49 bits. Columns: 1 spine, 56 fork, 23 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.49 against 0.41 bits) and names fewer genes (70% against 92%); 20,268 of the 43,120 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 1 (\"EutP/PduV family microcompartment syste\u2026\") 2.64 bits, RGP 72%; column 2 (yeeW) 2.19 bits, RGP 71%; column 13 (yeeJ) 1.24 bits, RGP 67%. The 22 columns where most calls are in an RGP: named 82%, 1.17 bits on average; the other 58 columns: named 81%, 0.82 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 1-79 (fork and variable columns), RGP 26-75%; the least: column 0 (spine), RGP 2%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 2%. Genes: tmaR. named 98%; 0.11 bits.\n2. columns 1-79 (79 columns) fork and variable columns: RGP 26-75%. named 54-89% (mean 81%), fewest named and most hesitant at column 1, named 54%, 2.64 bits.\n   a second branch of 18 families through columns 1-18, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 16%, all S; the branch's families: eutP, pduU, pduT, \"4Fe-4S dicluster domain-containing prot\u2026\", \"1-propanol dehydrogenase PduQ\", pduP, pduO, pduN, pduM, \"PduL/EutD family phosphate acyltransfer\u2026\", \"BMC domain-containing protein\", pduA, \"glycerol dehydratase reactivase beta/sm\u2026\", \"diol dehydratase reactivase subunit alp\u2026\", pduE, \"propanediol/glycerol family dehydratase\u2026\", pduC, pduB\n   a second branch of 3 families through columns 20-22, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-24%, all S; the branch's families: pduF, pocR, \"hypothetical protein\"\n   a second branch of 3 families through columns 23-25, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 16-24%, all S; the branch's families: \"DMT family transporter\", \"glutamine amidotransferase\", \"PfkB family carbohydrate kinase\"\n   a second branch of 3 families through columns 27-29, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-12%, all S; the branch's families: \"sugar-binding transcriptional regulator\", \"PTS sugar transporter subunit IIA\", \"PTS sugar transporter subunit IIB\"\n   a second branch of 6 families through columns 40-45, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 18-22%, all S; the branch's families: ybtA, ybtP, ybtQ, ybtX, ybtS, \"tyrosine-type recombinase/integrase\"\n   a second branch of 3 families through columns 59-61, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11%, all S; the branch's families: \"hypothetical protein\", \"DUF968 domain-containing protein\", \"RusA family crossover junction endodeox\u2026\"\n   a second branch of 15 families through columns 64-78, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-34%, all P; the branch's families: fliA, fliZ, tcyJ, dcyD, tcyL, tcyN, sdiA, yecF, yecU, uvrY, uvrC, pgsA, yecA, tyrP, yecH\n   1 fork: \"EutP/PduV family microcompartment syste\u2026\" S 46%; also \"EutP/PduV family microcompartment syste\u2026\" S 11%\n   2 fork: yeeW S 46% \"DUF5983 family protein\"; also istB S 20%\n   3 fork: cbeA S 45%; also cbtA S 23%\n   4 fork: yeeT S 45% \"DUF987 family protein\"\n   5 fork: yeeS S 43% \"JAB domain-containing protein\"\n   6 fork: yfjX S 42% \"antirestriction protein\"\n   7 fork: yfjQ S 40% \"DUF932 domain-containing protein\"\n   8 fork: \"hypothetical protein\" S 27%\n   9 fork: \"hypothetical protein\" S 23%\n   10 fork: \"IS1-like element transposase\" S 38%; also \"ferredoxin reductase\" S 24%\n   11 fork: \"diguanylate cyclase regulator RdcB fami\u2026\" S 24%; also \"hypothetical protein\" S 19%\n   12 fork: \"hypothetical protein\" S 22%; also agn43 S 10%\n   13 fork: yeeJ S 32% \"Ig-like domain-containing protein\"; also \"GTPase\" S 24%\n   14 fork: \"hypothetical protein\" S 22%; also istA S 20%\n   15 fork: \"hypothetical protein\" S 35%\n   16 fork: tnpB S 17%\n   17 fork: \"helix-turn-helix transcriptional regula\u2026\" S 35%; also \"Hha/YmoA family nucleoid-associated reg\u2026\" S 11%\n   18 fork: \"hypothetical protein\" S 30%\n   19 variable: \"inovirus Gp2 family protein\" S 37%\n   20 fork: \"putative zinc ribbon protein\" S 39%\n   21 fork: \"putative zinc ribbon protein\" S 35%\n   22 fork: \"phosphotriesterase\" S 27%; also \"DDE-type integrase/transposase/recombin\u2026\" S 18%\n   23 fork: cobU P 87% \"bifunctional adenosylcobinamide kin\u2026\"; also \"porin\" S 14%\n   24 fork: cobS P 89%\n   25 fork: cobT P 89%\n   26 variable: ldtA P 90%\n   27 fork: nac P 90%\n   28 fork: cbl P 88%; also \"hypothetical protein\" S 13%\n   29 fork: yeeO S 82%\n   30 variable: yeeN P 89% \"YebC/PmpR family DNA-binding transc\u2026\"\n   31 variable: amn P 89%\n   32 variable: shiA P 86%\n   33 variable: \"hypothetical protein\" S 60%\n   34 fork: hchA S 57%; also fyuA S 24%\n   35 fork: mtfA P 85%; also ybtE S 23%\n   36 fork: ybtT S 24% \"yersiniabactin biosynthesis thioest\u2026\"; also \"DUF4224 domain-containing protein\" S 13%\n   37 variable: ybtU S 23% \"Gfo/Idh/MocA family oxidoreductase\"\n   38 variable: irp1 S 22%\n   39 variable: wcaM S 6%\n   40 fork: yodB S 48% \"cytochrome b\"\n   41 fork: zinT P 68%; also ydfA S 10%\n   42 fork: msrQ P 70% \"ferric reductase-like transmembrane\u2026\"\n   43 fork: msrP P 70%\n   44 fork: hiuH P 69%; also ompC S 21%\n   45 fork: hprR P 69% \"response regulator\"; also drpB S 55%, hokD P 11%\n   46 fork: hprS P 68%; also yedJ S 59%, \"inverse autotransporter beta domain-con\u2026\" S 20%\n   columns 47-51 variable, share 65-67%, all P: dcm 67%, vsr 67%, yedA \"drug/metabolite exporter YedA\" 66%, yedI \"DUF808 family protein\" 67%, yodC \"YodC family protein\" 65%\n   52 fork: dgcQ S 53%; also irp2 S 21%\n   columns 53-58 variable, share 60-64%, all P: yedP \"mannosyl-3-phosphoglycerate phospha\u2026\" 64%, yodD \"peroxide/acid resistance protein Yo\u2026\" 64%, dsrB 64%, rcsA 61%, fliR 60%, fliQ 60%\n   59 fork: fliP P 60%\n   60 fork: fliO P 59%\n   61 fork: fliN P 58% \"FliM/FliN family flagellar motor sw\u2026\"\n   62 variable: fliM P 58%\n   63 variable: fliL P 58%\n   64 fork: fliK P 57%; also insQ S 10%\n   65 fork: fliJ P 56%\n   66 fork: fliI P 55%; also ybcM S 14%\n   67 fork: fliH P 54%\n   68 fork: fliG P 53%\n   69 fork: fliF P 51%\n   70 fork: fliE P 51%\n   71 fork: yedK S 46% \"SOS response-associated peptidase f\u2026\"\n   72 fork: yedF P 50% \"sulfurtransferase-like selenium met\u2026\"\n   73 fork: yedE P 48% \"selenium metabolism membrane protei\u2026\"\n   74 fork: yedD P 46% \"lipoprotein YedD\"; also emrE S 17%\n   75 fork: amyA P 43%; also ybcL S 16%\n   76 fork: fliT P 42%\n   77 fork: fliS P 40% \"flagellar export chaperone FliS\"\n   78 fork: fliD S 23%\n   79 variable: ftnA P 9%\nPRODUCTS of named genes (for [[ ]]): cobU bifunctional adenosylcobinamide kinase/\u2026; cobS adenosylcobinamide-GDP ribazoletransfer\u2026; cobT nicotinate-nucleotide--dimethylbenzimid\u2026; msrQ ferric reductase-like transmembrane dom\u2026; msrP protein-methionine-sulfoxide reductase\u2026; hprR response regulator; hprS ATP-binding protein; fliR flagellar biosynthetic protein FliR; fliQ flagellar biosynthesis protein FliQ; fliP flagellar type III secretion system por\u2026; fliO flagellar biosynthesis, FliO family pro\u2026; fliN FliM/FliN family flagellar motor switch\u2026; fliM FliM/FliN family flagellar motor switch\u2026; fliL flagellar basal body-associated protein\u2026; fliK flagellar hook-length control protein F\u2026; fliJ flagellar FliJ family protein; fliH flagellar assembly protein FliH; fliG FliG C-terminal domain-containing prote\u2026; fliF flagellar basal-body MS-ring/collar pro\u2026; fliE flagellar hook-basal body complex prote\u2026; fliT flagellar protein FliT; fliS flagellar export chaperone FliS; eutP EutP/PduV family microcompartment syste\u2026; istB ATP-binding protein; pduU propanediol utilization microcompartmen\u2026; pduT propanediol utilization microcompartmen\u2026; pduP CoA-acylating propionaldehyde dehydroge\u2026; pduO two-domain cob(I)yrinic acid a,c-diamid\u2026; pduN propanediol utilization microcompartmen\u2026; pduM microcompartment protein PduM; pduA propanediol utilization microcompartmen\u2026; agn43 pertactin-like passenger domain-contain\u2026; istA IS21 family transposase; pduE diol dehydratase small subunit; pduC propanediol dehydratase large subunit P\u2026; pduB propanediol utilization microcompartmen\u2026; pduF propanediol diffusion facilitator PduF; fyuA TonB-dependent receptor plug domain-con\u2026; ybtE yersiniabactin biosynthesis salycil-AMP\u2026; ybtA yersiniabactin transcriptional regulato\u2026\nEND: the window ends at column 79, ftnA, in 9% of chromosomes."
+ "facts_hash": "2dbb7fd2092f",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the tmaR window: 80 columns, column 0 is the anchor tmaR, then the next 79 genes in dnaA's direction; about genes 1,713 to 1,792 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying tmaR once); 43,120 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 81% of genes, 0.92 bits on average (perplexity 2.7 families). By partition of the gene: persistent 20,437 calls, named 96%, 0.31 bits; shell 20,842 calls, named 73%, 1.32 bits; cloud 1,841 calls, named 18%, 3.10 bits. Outside an RGP 22,852 calls, named 92%, 0.41 bits; inside an RGP 20,268 calls, named 70%, 1.49 bits. Columns: 1 spine, 56 fork, 23 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.49 against 0.41 bits) and names fewer genes (70% against 92%); 20,268 of the 43,120 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 1 (\"EutP/PduV family microcompartment syste\u2026\", a fork column) 2.64 bits, RGP 72%; column 2 (yeeW, a fork column) 2.19 bits, RGP 71%; column 13 (yeeJ, a fork column) 1.24 bits, RGP 67%. The 22 columns (columns 1-22) where most calls are in an RGP: named 82%, 1.17 bits on average; the other 58 columns: named 81%, 0.82 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 1 spine column: named 98%, 0.11 bits on average; the 79 fork and variable columns: named 81%, 0.93 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 1, is a fork column.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 2%. Genes: tmaR. named 98%; 0.11 bits.\n[S2] 2. columns 1-79 (79 columns) fork and variable columns: share 6-90%, 46 P, 33 S, RGP 26-75%. named 54-89% (mean 81%), fewest named and most hesitant at column 1, named 54%, 2.64 bits.\n[S2.b1]    a second branch of 18 families through columns 1-18, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 16%, all S; the branch's families: eutP, pduU, pduT, \"4Fe-4S dicluster domain-containing prot\u2026\", \"1-propanol dehydrogenase PduQ\", pduP, pduO, pduN, pduM, \"phosphate propanoyltransferase\", \"BMC domain-containing protein\", pduA, \"glycerol dehydratase reactivase beta/sm\u2026\", \"diol dehydratase reactivase subunit alp\u2026\", pduE, \"propanediol/glycerol family dehydratase\u2026\", pduC, pduB\n[S2.b20]    a second branch of 3 families through columns 20-22, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-24%, all S; the branch's families: pduF, pocR, \"cobalamin biosynthesis protein\"\n[S2.b23]    a second branch of 3 families through columns 23-25, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 16-24%, all S; the branch's families: \"DMT family transporter\", \"glutamine amidotransferase\", \"PfkB family carbohydrate kinase\"\n[S2.b27]    a second branch of 3 families through columns 27-29, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-12%, all S; the branch's families: \"sugar-binding transcriptional regulator\", \"PTS sugar transporter subunit IIA\", \"PTS sugar transporter subunit IIB\"\n[S2.b40]    a second branch of 6 families through columns 40-45, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 18-22%, all S; the branch's families: ybtA, ybtP, ybtQ, ybtX, ybtS, \"tyrosine-type recombinase/integrase\"\n[S2.b59]    a second branch of 3 families through columns 59-61, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11%, all S; the branch's families: \"hypothetical protein\", \"DUF968 domain-containing protein\", \"RusA family crossover junction endodeox\u2026\"\n[S2.b64]    a second branch of 15 families through columns 64-78, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-34%, all P; the branch's families: fliA, fliZ, tcyJ, dcyD, tcyL, tcyN, sdiA, yecF, yecU, uvrY, uvrC, pgsA, yecA, tyrP, yecH\n[S2.c1]    1 fork: \"EutP/PduV family microcompartment syste\u2026\" S 46%; also \"EutP/PduV family microcompartment syste\u2026\" S 11%\n[S2.c2]    2 fork: yeeW S 46% \"DUF5983 family protein\"; also istB S 20%\n[S2.c3]    3 fork: cbeA S 45%; also cbtA S 23%\n[S2.c4]    4 fork: yeeT S 45% \"DUF987 domain-containing protein\"\n[S2.c5]    5 fork: yeeS S 43% \"JAB domain-containing protein\"\n[S2.c6]    6 fork: yfjX S 42% \"antirestriction protein\"\n[S2.c7]    7 fork: yfjQ S 40% \"DUF932 domain-containing protein\"\n[S2.c8]    8 fork: \"hypothetical protein\" S 27%\n[S2.c9]    9 fork: \"hypothetical protein\" S 23%\n[S2.c10]    10 fork: \"IS1 family transposase\" S 38%; also \"patatin-like phospholipase family prote\u2026\" S 24%\n[S2.c11]    11 fork: \"diguanylate cyclase regulator RdcB fami\u2026\" S 24%; also \"hypothetical protein\" S 19%\n[S2.c12]    12 fork: \"dynamin family protein\" S 22%; also agn43 S 10%\n[S2.c13]    13 fork: yeeJ S 32% \"Ig-like domain-containing protein\"; also \"GTPase family protein\" S 24%\n[S2.c14]    14 fork: \"hypothetical protein\" S 22%; also istA S 20%\n[S2.c15]    15 fork: \"malate transporter\" S 35%\n[S2.c16]    16 fork: tnpB S 17%\n[S2.c17]    17 fork: \"helix-turn-helix transcriptional regula\u2026\" S 35%; also \"Hha/YmoA family nucleoid-associated reg\u2026\" S 11%\n[S2.c18]    18 fork: \"zinc-ribbon domain-containing protein\" S 30%\n[S2.c19]    19 variable: \"inovirus Gp2 family protein\" S 37%\n[S2.c20]    20 fork: \"putative zinc ribbon protein\" S 39%\n[S2.c21]    21 fork: \"zinc-ribbon domain-containing protein\" S 35%\n[S2.c22]    22 fork: \"phosphotriesterase-related protein\" S 27%; also \"IS3 family transposase\" S 18%\n[S2.c23]    23 fork: cobU P 87% \"bifunctional adenosylcobinamide kin\u2026\"; also \"porin\" S 14%\n[S2.c24]    24 fork: cobS P 89%\n[S2.c25]    25 fork: cobT P 89%\n[S2.c26]    26 variable: ldtA P 90%\n[S2.c27]    27 fork: nac P 90%\n[S2.c28]    28 fork: cbl P 88%; also \"porin\" S 13%\n[S2.c29]    29 fork: yeeO S 82% \"toxic metabolite efflux MATE transp\u2026\"\n[S2.c30]    30 variable: yeeN P 89% \"YebC/PmpR family DNA-binding transc\u2026\"\n[S2.c31]    31 variable: amn P 89%\n[S2.c32]    32 variable: shiA P 86%\n[S2.c33]    33 variable: \"glycosyltransferase family 9 protein\" S 60%\n[S2.c34]    34 fork: hchA S 57%; also fyuA S 24%\n[S2.c35]    35 fork: mtfA P 85%; also ybtE S 23%\n[S2.c36]    36 fork: ybtT S 24% \"yersiniabactin biosynthesis thioest\u2026\"; also \"DUF4224 domain-containing protein\" S 13%\n[S2.c37]    37 variable: ybtU S 23% \"yersiniabactin biosynthesis oxidore\u2026\"\n[S2.c38]    38 variable: irp1 S 22%\n[S2.c39]    39 variable: wcaM S 6%\n[S2.c40]    40 fork: yodB S 48% \"cytochrome b\"\n[S2.c41]    41 fork: zinT P 68%; also ydfA S 10%\n[S2.c42]    42 fork: msrQ P 70%\n[S2.c43]    43 fork: msrP P 70% \"protein-methionine-sulfoxide reduct\u2026\"\n[S2.c44]    44 fork: hiuH P 69%; also ompC S 21%\n[S2.c45]    45 fork: hprR P 69%; also drpB S 55%, hokD P 11%\n[S2.c46]    46 fork: hprS P 68% \"two-component system sensor histidi\u2026\"; also yedJ S 59%, \"inverse autotransporter beta domain-con\u2026\" S 20%\n[S2.c47-51]    columns 47-51 variable, share 65-67%, all P: dcm 67%, vsr 67%, yedA \"drug/metabolite exporter YedA\" 66%, yedI \"DUF808 domain-containing protein\" 67%, yodC \"YodC family protein\" 65%\n[S2.c52]    52 fork: dgcQ S 53%; also irp2 S 21%\n[S2.c53-58]    columns 53-58 variable, share 60-64%, all P: yedP \"mannosyl-3-phosphoglycerate phospha\u2026\" 64%, yodD \"peroxide/acid resistance protein Yo\u2026\" 64%, dsrB 64%, rcsA 61%, fliR 60%, fliQ 60%\n[S2.c59]    59 fork: fliP P 60%\n[S2.c60]    60 fork: fliO P 59%\n[S2.c61]    61 fork: fliN P 58% \"flagellar motor switch protein FliN\"\n[S2.c62]    62 variable: fliM P 58%\n[S2.c63]    63 variable: fliL P 58%\n[S2.c64]    64 fork: fliK P 57%; also insQ S 10%\n[S2.c65]    65 fork: fliJ P 56%\n[S2.c66]    66 fork: fliI P 55%; also ybcM S 14%\n[S2.c67]    67 fork: fliH P 54%\n[S2.c68]    68 fork: fliG P 53%\n[S2.c69]    69 fork: fliF P 51%\n[S2.c70]    70 fork: fliE P 51%\n[S2.c71]    71 fork: yedK S 46% \"SOS response-associated peptidase\"\n[S2.c72]    72 fork: yedF P 50% \"sulfurtransferase-like selenium met\u2026\"\n[S2.c73]    73 fork: yedE P 48% \"selenium metabolism membrane protei\u2026\"\n[S2.c74]    74 fork: yedD P 46% \"lipoprotein YedD\"; also emrE S 17%\n[S2.c75]    75 fork: amyA P 43%; also ybcL S 16%\n[S2.c76]    76 fork: fliT P 42%\n[S2.c77]    77 fork: fliS P 40% \"flagellar export chaperone FliS\"\n[S2.c78]    78 fork: fliD S 23%\n[S2.c79]    79 variable: ftnA P 9%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 18-21 [S2]: ribbon, zinc, zinc-ribbon; columns 23-25 (cobU to cobT) [S2]: adenosylcobinamide; columns 36-39 (ybtT to wcaM) [S2]: biosynthesis, yersiniabactin; the branch [S2.b40] through columns 40-45: yersiniabactin, transporter; columns 57-70 (fliR to fliE) [S2]: flagellar.\n[X] PRODUCTS of named genes (for [[ ]]): cobU bifunctional adenosylcobinamide kinase/\u2026; cobS adenosylcobinamide-GDP ribazoletransfer\u2026; cobT nicotinate-nucleotide--dimethylbenzimid\u2026; msrQ protein-methionine-sulfoxide reductase\u2026; msrP protein-methionine-sulfoxide reductase\u2026; hprR response regulator transcription factor\u2026; hprS two-component system sensor histidine k\u2026; fliR flagellar biosynthetic protein FliR; fliQ flagellar biosynthesis protein FliQ; fliP flagellar type III secretion system por\u2026; fliO flagellar biosynthetic protein FliO; fliN flagellar motor switch protein FliN; fliM flagellar motor switch protein FliM; fliL flagellar basal body-associated protein\u2026; fliK flagellar hook-length control protein F\u2026; fliJ flagellar export protein FliJ; fliI flagellar protein export ATPase FliI; fliH flagellar assembly protein FliH; fliG flagellar motor switch protein FliG; fliF flagellar basal-body MS-ring/collar pro\u2026; fliE flagellar hook-basal body complex prote\u2026; fliT flagella biosynthesis regulatory protei\u2026; fliS flagellar export chaperone FliS; fliD flagellar filament capping protein FliD; eutP EutP/PduV family microcompartment syste\u2026; istB IS21-like element IS100kyp family helpe\u2026; pduU propanediol utilization microcompartmen\u2026; pduT propanediol utilization microcompartmen\u2026; pduP CoA-acylating propionaldehyde dehydroge\u2026; pduO two-domain cob(I)yrinic acid a,c-diamid\u2026; pduN propanediol utilization microcompartmen\u2026; pduM microcompartment protein PduM; pduA propanediol utilization microcompartmen\u2026; agn43 Ag43/Cah family autotransporter adhesin; istA IS21-like element IS100 family transpos\u2026; pduE propanediol dehydratase small subunit P\u2026; pduC propanediol dehydratase large subunit P\u2026; pduB propanediol utilization microcompartmen\u2026; pduF propanediol diffusion facilitator PduF; fyuA siderophore yersiniabactin receptor FyuA\n[E] END: the window ends at column 79, ftnA, in 9% of chromosomes."
 }

@@ -2,59 +2,412 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447933.1066976,
+ "created": 1790479602.7201197,
  "usage": {
-  "prompt_tokens": 4046,
-  "completion_tokens": 597,
-  "cost_usd": 0.000661,
-  "ms": 6962
+  "prompt_tokens": 13048,
+  "completion_tokens": 864,
+  "cost_usd": 0.000955,
+  "ms": 7252
  },
  "attempts": [
   {
-   "text": "**The window starts on a two-gene spine.** Columns 0 to 1, `lipA` and `tatE`, are carried by 94 to 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names them in 99 to 99.8%. Column 2 is variable: `ybeM`, a nitrilase-related carbon-nitrogen hydrolase, named in 85% of calls.\n\n**A long persistent run follows.** Columns 3 to 17, `crcB` to `rnk` through the `cit` genes, [[citrate lyase and its accessory proteins]], sit in 90 to 94% of chromosomes, in a region of plasticity in 0 to 4% of calls, named in 96 to 100%. Columns 20 to 23, `uspG` to `dsbG`, are named in 95 to 98%, and columns 25 to 39, `ybdM` to `fepC` through the `ent` and `fep` genes, [[enterobactin synthesis and iron chelate uptake]], in 91 to 99%.\n\n**The first fork is at column 18**, where the model names 66% and hesitates 0.71 bits. Column 47 is a fork: a transposase in 48% of chromosomes, named 57%, 0.91 bits. Columns 48 to 49, `hokE` and `ybdK`, are named 81 to 88%. Columns 52 to 60, `nfsB` to `cusS` through the `cus` genes, [[copper efflux across the membranes]], are named 90 to 98%, but in a region of plasticity in 9 to 88% of calls.\n\n**The window ends in its most hesitant stretch.** Columns 61 to 79 are fork and variable columns, in a region of plasticity in 44 to 93% of calls, named 72 to 93%. Column 63, `fimZ`, is the most hesitant, 1.85 bits, in a region of plasticity in 93% of calls; columns 62 and 64, `ybcH` and `sfmF`, follow at 1.66 and 1.55 bits. A branch of 3 families runs through columns 61 to 63, and a branch of 5 through columns 73 to 77. The window ends at column 79, `ylbE`, in 21% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%. Over the whole window it names 92% of genes at 0.40 bits.",
+   "text": "**The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99%.\n\n**A single variable column follows**, column 2, `ybeM`, carried by 78%. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits.\n\n**The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls. The last column is `ylbE`, in 21% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4046,
-    "completion_tokens": 597,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6204,
+    "completion_tokens": 432,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000661
+    "cost_usd": 0.000702
    },
    "provider": "deepinfra",
-   "ms": 6962,
-   "raw": "**The window starts on a two-gene spine.** Columns 0 to 1, `lipA` and `tatE`, are carried by 94 to 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names them in 99 to 99.8%. Column 2 is variable: `ybeM`, a nitrilase-related carbon-nitrogen hydrolase, named in 85% of calls.\n\n**A long persistent run follows.** Columns 3 to 17, `crcB` to `rnk` through the `cit` genes, [[citrate lyase and its accessory proteins]], sit in 90 to 94% of chromosomes, in a region of plasticity in 0 to 4% of calls, named in 96 to 100%. Columns 20 to 23, `uspG` to `dsbG`, are named in 95 to 98%, and columns 25 to 39, `ybdM` to `fepC` through the `ent` and `fep` genes, [[enterobactin synthesis and iron chelate uptake]], in 91 to 99%.\n\n**The first fork is at column 18**, where the model names 66% and hesitates 0.71 bits. Column 47 is a fork: a transposase in 48% of chromosomes, named 57%, 0.91 bits. Columns 48 to 49, `hokE` and `ybdK`, are named 81 to 88%. Columns 52 to 60, `nfsB` to `cusS` through the `cus` genes, [[copper efflux across the membranes]], are named 90 to 98%, but in a region of plasticity in 9 to 88% of calls.\n\n**The window ends in its most hesitant stretch.** Columns 61 to 79 are fork and variable columns, in a region of plasticity in 44 to 93% of calls, named 72 to 93%. Column 63, `fimZ`, is the most hesitant, 1.85 bits, in a region of plasticity in 93% of calls; columns 62 and 64, `ybcH` and `sfmF`, follow at 1.66 and 1.55 bits. A branch of 3 families runs through columns 61 to 63, and a branch of 5 through columns 73 to 77. The window ends at column 79, `ylbE`, in 21% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%. Over the whole window it names 92% of genes at 0.40 bits.",
+   "ms": 3898,
+   "raw": "@start **The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1, P}. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99% {S1}.\n\n@variable **A single variable column follows**, column 2, `ybeM`, carried by 78% {S2.c2}. Then columns 3 to 17, `crcB` to `rnk`, are [[citrate lyase]] at columns 9 to 15, carried by 90 to 94% {S3, Q}. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13% {S16.b61, S16.b73}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits {M}. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls {S16, P}. The last column is `ylbE`, in 21% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96% {C}.",
+   "annotated": "@start **The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1, P}. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99% {S1}.\n\n@variable **A single variable column follows**, column 2, `ybeM`, carried by 78% {S2.c2}. Then columns 3 to 17, `crcB` to `rnk`, are [[citrate lyase]] at columns 9 to 15, carried by 90 to 94% {S3, Q}. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13% {S16.b61, S16.b73}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits {M}. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls {S16, P}. The last column is `ylbE`, in 21% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 70,
-    "names": 21,
-    "words": 342,
-    "bad": [],
-    "hints": [
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
      {
-      "text": "accessory",
-      "where": "[[citrate lyase and its accessory proteins]]"
+      "kind": "interpretation",
+      "text": "citrate lyase",
+      "why": "this says what 6 of the 15 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[citrate lyase]]"
+     }
+    ],
+    "numbers": 31,
+    "names": 8,
+    "words": 227,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
+   },
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 206,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
      },
      {
-      "text": "across",
-      "where": "[[copper efflux across the membranes]]"
+      "tag": "start",
+      "text": "The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A single variable column follows**, column 2, `ybeM`, carried by 78%",
+      "cites": [
+       "S2.c2"
+      ],
+      "inherit": [
+       "S3",
+       "Q",
+       "S16.b61",
+       "S16.b73"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%",
+      "cites": [
+       "S16.b61",
+       "S16.b73"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls",
+      "cites": [
+       "S16",
+       "P"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `ylbE`, in 21% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
      }
-    ]
+    ],
+    "covered": 22
    },
-   "truncated": false
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "Then columns 3 to 17, `crcB` to `rnk`, are [[citrate lyase]] at columns 9 to 15, carried by 90 to 94%",
+     "cites": [
+      "S3",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "citrate lyase",
+       "why": "this says what 6 of the 15 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99%.\n\n**A single variable column follows**, column 2, `ybeM`, carried by 78%. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits.\n\n**The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls. The last column is `ylbE`, in 21% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%.",
+   "truncated": false,
+   "ok": false
+  },
+  {
+   "text": "**The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99%.\n\n**A single variable column follows**, column 2, `ybeM`, carried by 78%. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits.\n\n**The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls. The last column is `ylbE`, in 21% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%.",
+   "finish": "stop",
+   "usage": {
+    "prompt_tokens": 6844,
+    "completion_tokens": 432,
+    "cached_tokens": 6528,
+    "reasoning_tokens": 0,
+    "cost_usd": 0.000253
+   },
+   "provider": "deepinfra",
+   "ms": 3354,
+   "raw": "@start **The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1, P}. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99% {S1}.\n\n@variable **A single variable column follows**, column 2, `ybeM`, carried by 78% {S2.c2}. Then columns 3 to 17, `crcB` to `rnk`, are [[citrate lyase]] at columns 9 to 15, carried by 90 to 94% {S3, Q}. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13% {S16.b61, S16.b73}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits {M}. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls {S16, P}. The last column is `ylbE`, in 21% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96% {C}.",
+   "annotated": "@start **The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1, P}. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99% {S1}.\n\n@variable **A single variable column follows**, column 2, `ybeM`, carried by 78% {S2.c2}. Then columns 3 to 17, `crcB` to `rnk`, are [[citrate lyase]] at columns 9 to 15, carried by 90 to 94% {S3, Q}. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13% {S16.b61, S16.b73}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits {M}. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls {S16, P}. The last column is `ylbE`, in 21% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96% {C}.",
+   "check": {
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "interpretation",
+      "text": "citrate lyase",
+      "why": "this says what 6 of the 15 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[citrate lyase]]"
+     }
+    ],
+    "numbers": 31,
+    "names": 8,
+    "words": 227,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
+   },
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 206,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A single variable column follows**, column 2, `ybeM`, carried by 78%",
+      "cites": [
+       "S2.c2"
+      ],
+      "inherit": [
+       "S3",
+       "Q",
+       "S16.b61",
+       "S16.b73"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%",
+      "cites": [
+       "S16.b61",
+       "S16.b73"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls",
+      "cites": [
+       "S16",
+       "P"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `ylbE`, in 21% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 22
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "Then columns 3 to 17, `crcB` to `rnk`, are [[citrate lyase]] at columns 9 to 15, carried by 90 to 94%",
+     "cites": [
+      "S3",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "citrate lyase",
+       "why": "this says what 6 of the 15 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99%.\n\n**A single variable column follows**, column 2, `ybeM`, carried by 78%. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits.\n\n**The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls. The last column is `ylbE`, in 21% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%.",
+   "truncated": false,
+   "ok": false
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 70,
-  "names": 21,
-  "words": 342,
-  "attempts": 1
+  "numbers": 31,
+  "names": 8,
+  "words": 206,
+  "attempts": 2,
+  "sentences": 11,
+  "cited": 15,
+  "skill": "4a7fdc464826",
+  "dropped": 1,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 0,
+  "covered": 22
  },
- "text": "**The window starts on a two-gene spine.** Columns 0 to 1, `lipA` and `tatE`, are carried by 94 to 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names them in 99 to 99.8%. Column 2 is variable: `ybeM`, a nitrilase-related carbon-nitrogen hydrolase, named in 85% of calls.\n\n**A long persistent run follows.** Columns 3 to 17, `crcB` to `rnk` through the `cit` genes, [[citrate lyase and its accessory proteins]], sit in 90 to 94% of chromosomes, in a region of plasticity in 0 to 4% of calls, named in 96 to 100%. Columns 20 to 23, `uspG` to `dsbG`, are named in 95 to 98%, and columns 25 to 39, `ybdM` to `fepC` through the `ent` and `fep` genes, [[enterobactin synthesis and iron chelate uptake]], in 91 to 99%.\n\n**The first fork is at column 18**, where the model names 66% and hesitates 0.71 bits. Column 47 is a fork: a transposase in 48% of chromosomes, named 57%, 0.91 bits. Columns 48 to 49, `hokE` and `ybdK`, are named 81 to 88%. Columns 52 to 60, `nfsB` to `cusS` through the `cus` genes, [[copper efflux across the membranes]], are named 90 to 98%, but in a region of plasticity in 9 to 88% of calls.\n\n**The window ends in its most hesitant stretch.** Columns 61 to 79 are fork and variable columns, in a region of plasticity in 44 to 93% of calls, named 72 to 93%. Column 63, `fimZ`, is the most hesitant, 1.85 bits, in a region of plasticity in 93% of calls; columns 62 and 64, `ybcH` and `sfmF`, follow at 1.66 and 1.55 bits. A branch of 3 families runs through columns 61 to 63, and a branch of 5 through columns 73 to 77. The window ends at column 79, `ylbE`, in 21% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%. Over the whole window it names 92% of genes at 0.40 bits.",
- "html": "<p class=\"note\"><b>The window starts on a two-gene spine.</b> Columns 0 to 1, <span class=\"gene\">lipA</span> and <span class=\"gene\">tatE</span>, are carried by 94 to 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names them in 99 to 99.8%. Column 2 is variable: <span class=\"gene\">ybeM</span>, a nitrilase-related carbon-nitrogen hydrolase, named in 85% of calls.</p><p class=\"note\"><b>A long persistent run follows.</b> Columns 3 to 17, <span class=\"gene\">crcB</span> to <span class=\"gene\">rnk</span> through the <span class=\"gene\">cit</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">citrate lyase and its accessory proteins</span>, sit in 90 to 94% of chromosomes, in a region of plasticity in 0 to 4% of calls, named in 96 to 100%. Columns 20 to 23, <span class=\"gene\">uspG</span> to <span class=\"gene\">dsbG</span>, are named in 95 to 98%, and columns 25 to 39, <span class=\"gene\">ybdM</span> to <span class=\"gene\">fepC</span> through the <span class=\"gene\">ent</span> and <span class=\"gene\">fep</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">enterobactin synthesis and iron chelate uptake</span>, in 91 to 99%.</p><p class=\"note\"><b>The first fork is at column 18</b>, where the model names 66% and hesitates 0.71 bits. Column 47 is a fork: a transposase in 48% of chromosomes, named 57%, 0.91 bits. Columns 48 to 49, <span class=\"gene\">hokE</span> and <span class=\"gene\">ybdK</span>, are named 81 to 88%. Columns 52 to 60, <span class=\"gene\">nfsB</span> to <span class=\"gene\">cusS</span> through the <span class=\"gene\">cus</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">copper efflux across the membranes</span>, are named 90 to 98%, but in a region of plasticity in 9 to 88% of calls.</p><p class=\"note\"><b>The window ends in its most hesitant stretch.</b> Columns 61 to 79 are fork and variable columns, in a region of plasticity in 44 to 93% of calls, named 72 to 93%. Column 63, <span class=\"gene\">fimZ</span>, is the most hesitant, 1.85 bits, in a region of plasticity in 93% of calls; columns 62 and 64, <span class=\"gene\">ybcH</span> and <span class=\"gene\">sfmF</span>, follow at 1.66 and 1.55 bits. A branch of 3 families runs through columns 61 to 63, and a branch of 5 through columns 73 to 77. The window ends at column 79, <span class=\"gene\">ylbE</span>, in 21% of chromosomes.</p><p class=\"note\"><b>Inside a region of plasticity the model hesitates more than outside</b>, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%. Over the whole window it names 92% of genes at 0.40 bits.</p>",
+ "text": "**The window opens on a short spine.** Columns 0 to 1, `lipA` to `tatE`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.8% of them, fewest at column 0, `lipA`, 99%.\n\n**A single variable column follows**, column 2, `ybeM`, carried by 78%. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits. It hesitates most at column 63, `fimZ`, a fork column, 1.85 bits.\n\n**The window ends in fork and variable columns.** Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls. The last column is `ylbE`, in 21% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.40 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on a short spine.</b> Columns 0 to 1, <span class=\"gene\">lipA</span> to <span class=\"gene\">tatE</span>, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.8% of them, fewest at column 0, <span class=\"gene\">lipA</span>, 99%.</p><p class=\"note\"><b>A single variable column follows</b>, column 2, <span class=\"gene\">ybeM</span>, carried by 78%. Through columns 61 to 63 a branch of 3 shell families runs in 16 to 35%, and through columns 73 to 77 a branch of 5 shell families runs in 11 to 13%.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 97 against 84%, and hesitates less there, 0.19 against 0.80 bits. It hesitates most at column 63, <span class=\"gene\">fimZ</span>, a fork column, 1.85 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 61 to 79 are carried by 21 to 85% of chromosomes, in a region of plasticity in 44 to 93% of calls. The last column is <span class=\"gene\">ylbE</span>, in 21% of chromosomes.</p><p class=\"note\"><b>Across the window it names 92% of genes</b>, 0.40 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.20 bits, and names fewer genes, 78% against 96%.</p>",
  "window": "G8B09_RS16010",
  "label": "lipA",
- "facts_hash": "0e121b68a309",
- "prompt_version": "r7",
- "facts": "WINDOW: the lipA window: 80 columns, column 0 is the anchor lipA, then the next 79 genes in dnaA's direction; about genes 3,104 to 3,183 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying lipA once); 43,200 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 92% of genes, 0.40 bits on average (perplexity 1.4 families). By partition of the gene: persistent 33,280 calls, named 99%, 0.16 bits; shell 9,601 calls, named 73%, 1.19 bits; cloud 319 calls, named 38%, 2.40 bits. Outside an RGP 34,225 calls, named 96%, 0.20 bits; inside an RGP 8,975 calls, named 78%, 1.19 bits. Columns: 52 spine, 18 fork, 10 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.19 against 0.20 bits) and names fewer genes (78% against 96%); 8,975 of the 43,200 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 63 (fimZ) 1.85 bits, RGP 93%; column 62 (ybcH) 1.66 bits, RGP 92%; column 64 (sfmF) 1.55 bits, RGP 92%. The 16 columns where most calls are in an RGP: named 82%, 1.03 bits on average; the other 64 columns: named 95%, 0.25 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 61-79 (fork and variable columns), RGP 44-93%; the least: columns 0-1 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-1 (2 columns) spine: share 94-100%, all P, RGP 0%. Genes: lipA, tatE. named 99-99.8% (mean 99%), fewest named at column 0 (lipA), named 99%; no column of this stretch hesitates more than 0.16 bits (column 0 (lipA)).\n2. column 2 variable: RGP 0%. named 85%; 0.40 bits.\n   2: ybeM S 78% \"nitrilase-related carbon-nitrogen h\u2026\"\n3. columns 3-17 (15 columns) spine: share 90-94%, all P, RGP 0-4%. Genes: crcB, cspE, pagP, dcuC, dpiA \"two-component response regulator Dp\u2026\", dpiB, citC, citD, citE, citF, citX \"citrate lyase holo-[acyl-carrier pr\u2026\", citG, citT, rna, rnk. named 96-100% (mean 99%), fewest named and most hesitant at column 5 (pagP), named 96%, 0.41 bits.\n4. columns 18-19 (2 columns) fork and variable columns: RGP 5%. named 66-90% (mean 78%), fewest named and most hesitant at column 18, named 66%, 0.71 bits.\n   18 fork: yldA S 61% \"small membrane protein YldA\"; also yldA (another family) S 26%\n   19 variable: ybdR S 64% \"alcohol dehydrogenase catalytic dom\u2026\"\n5. columns 20-23 (4 columns) spine: share 93-94%, all P, RGP 0.4-4%. Genes: uspG, ahpF, ahpC \"alkyl hydroperoxide reductase subun\u2026\", dsbG. named 95-98% (mean 97%), fewest named at column 21 (ahpF), named 95%; most hesitant at column 23 (dsbG), 0.33 bits.\n6. column 24 variable: RGP 0.2%. named 91%; 0.51 bits.\n   24: ybdN P 87% \"DUF3440 domain-containing protein\"\n7. columns 25-39 (15 columns) spine: share 92-94%, all P, RGP 0.2-1%. Genes: ybdM \"ParB/RepB/Spo0J family partition pr\u2026\", ybdL \"methionine-oxo-acid transaminase\", hcxA, ybdD \"YbdD/YjiX family protein\", cstA, entH, entA, entB \"enterobactin biosynthesis bifunctio\u2026\", entE, entC, fepB, entS, fepD \"iron chelate uptake ABC transporter\u2026\", fepG, fepC. named 91-99% (mean 98%), fewest named and most hesitant at column 25 (ybdM), named 91%, 0.46 bits.\n8. column 40 variable: RGP 1%. named 97%; 0.25 bits.\n   40: wzz(fepE) P 87%\n9. columns 41-43 (3 columns) spine: share 93-94%, all P, RGP 0.4-1%. Genes: entF, ybdZ \"enterobactin biosynthesis protein Y\u2026\", fes. named 95-99% (mean 98%), fewest named and most hesitant at column 41 (entF), named 95%, 0.31 bits.\n10. column 44 variable: RGP 1%. named 94%; 0.16 bits.\n   44: fur P 6%\n11. columns 45-46 (2 columns) spine: share 91-93%, all P, RGP 2-4%. Genes: fepA, entD. named 83-95% (mean 89%), fewest named and most hesitant at column 46 (entD), named 83%, 0.40 bits.\n12. column 47 fork: RGP 9%. named 57%; 0.91 bits.\n   47: \"transposase\" S 48%; also \"hypothetical protein\" S 13%\n13. columns 48-49 (2 columns) spine: share 93%, all P, RGP 9%. Genes: hokE, ybdK \"YbdK family carboxylate-amine ligase\". named 81-88% (mean 84%), fewest named and most hesitant at column 48 (hokE), named 81%, 0.60 bits.\n14. columns 50-51 (2 columns) variable: RGP 11%. named 92-96% (mean 94%), fewest named at column 50, named 92%; most hesitant at column 51, 0.45 bits.\n   50: ybdJ P 90% \"DUF1158 domain-containing protein\"\n   51: ybdF P 89% \"MmcQ/YjbR family DNA-binding protein\"\n15. columns 52-60 (9 columns) spine: share 90-94%, all P, RGP 9-88%. Genes: nfsB, ybdG \"mechanosensitive ion channel YbdG\", pheP, cusA \"efflux RND transporter permease sub\u2026\", cusB, cusF, cusC, cusR, cusS. named 90-98% (mean 95%), fewest named and most hesitant at column 60 (cusS), named 90%, 0.80 bits.\n16. columns 61-79 (19 columns) fork and variable columns: RGP 44-93%. named 72-93% (mean 84%), fewest named and most hesitant at column 63, named 72%, 1.85 bits.\n   a second branch of 3 families through columns 61-63, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 16-35%, all S; the branch's families: tssI, \"DcrB-related protein\", \"RHS repeat domain-containing protein\"\n   a second branch of 5 families through columns 73-77, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-13%, all S; the branch's families: \"Ail/Lom family outer membrane beta-barr\u2026\", gpJ, \"tail assembly protein\", \"C40 family peptidase\", \"phage minor tail protein L\"\n   61 fork: nfrA S 72%; also \"IS1-like element transposase\" S 32%\n   62 fork: ybcH S 85% \"DUF4434 domain-containing protein\"\n   63 fork: fimZ S 54%; also ompT S 34%, \"hypothetical protein\" S 22%\n   64 fork: sfmF S 52%; also \"hypothetical protein\" S 22%, \"hypothetical protein\" S 21%\n   65 fork: fimH S 47%; also ydcC S 35%\n   66 variable: sfmD S 39%\n   67 fork: fimC S 45%; also \"hypothetical protein\" S 11%\n   68 fork: envY S 74%; also fimA S 47%\n   69 variable: folD P 61%\n   70 fork: ybcJ P 60% \"ribosome-associated protein YbcJ\"; also appY S 15%\n   71 variable: ybcI P 57% \"metal-dependent hydrolase\"\n   72 fork: cysS P 54%; also \"tail fiber assembly protein\" S 11%\n   73 fork: ppiB P 49%\n   74 fork: lpxH P 45%\n   75 fork: purE P 41% \"AIR carboxylase family protein\"\n   76 fork: purK P 36%\n   77 fork: ybcF P 31% \"amino acid kinase family protein\"\n   78 fork: ylbF P 26% \"DUF2877 domain-containing protein\"; also fdrA S 13%\n   79 fork: ylbE P 21% \"DUF1116 domain-containing protein\"; also allD S 11%\nPRODUCTS of named genes (for [[ ]]): dpiB ATP-binding protein; citC adenylyltransferase/cytidyltransferase\u2026; citE citrate (pro-3S)-lyase subunit beta; citG triphosphoribosyl-dephospho-CoA synthase; citT citrate/succinate antiporter CitT; ahpF FAD-dependent oxidoreductase; entH proofreading thioesterase EntH; entA SDR family NAD(P)-dependent oxidoreduct\u2026; entE (2,3-dihydroxybenzoyl)adenylate synthas\u2026; entC isochorismate synthase EntC; fepG iron chelate uptake ABC transporter fam\u2026; cusF Cu(+)/Ag(+) efflux RND transporter peri\u2026; cusC Cu(+)/Ag(+) efflux RND transporter oute\u2026; cusR copper response regulator transcription\u2026; cusS Cu(+)/Ag(+) sensor histidine kinase; purE AIR carboxylase family protein; purK ATP-grasp domain-containing protein; citR LysR substrate-binding domain-containin\u2026; tssI bacteriophage T4 gp5 trimerisation doma\u2026; ompT omptin family outer membrane protease O\u2026; ydcC ISAs1 family transposase; fimA type 1 fimbrial major subunit FimA; fdrA acyl-CoA synthetase FdrA; allD ureidoglycolate dehydrogenase\nEND: the window ends at column 79, ylbE, in 21% of chromosomes."
+ "facts_hash": "346a54bb6a56",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the lipA window: 80 columns, column 0 is the anchor lipA, then the next 79 genes in dnaA's direction; about genes 3,104 to 3,183 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying lipA once); 43,200 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 92% of genes, 0.40 bits on average (perplexity 1.4 families). By partition of the gene: persistent 33,280 calls, named 99%, 0.16 bits; shell 9,601 calls, named 73%, 1.19 bits; cloud 319 calls, named 38%, 2.40 bits. Outside an RGP 34,225 calls, named 96%, 0.20 bits; inside an RGP 8,975 calls, named 78%, 1.19 bits. Columns: 52 spine, 18 fork, 10 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.19 against 0.20 bits) and names fewer genes (78% against 96%); 8,975 of the 43,200 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 63 (fimZ, a fork column) 1.85 bits, RGP 93%; column 62 (ybcH, a fork column) 1.66 bits, RGP 92%; column 64 (sfmF, a fork column) 1.55 bits, RGP 92%. The 16 columns (columns 59-74) where most calls are in an RGP: named 82%, 1.03 bits on average; the other 64 columns: named 95%, 0.25 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 52 spine columns: named 97%, 0.19 bits on average; the 28 fork and variable columns: named 84%, 0.80 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 63, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 61-79 (fork and variable columns), RGP 44-93%; the least: columns 0-1 (spine), RGP 0%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-1 (2 columns) spine: share 94-100%, all P, RGP 0%. Genes: lipA, tatE. named 99-99.8% (mean 99%), fewest named at column 0 (lipA), named 99%; no column of this stretch hesitates more than 0.16 bits (column 0 (lipA)).\n[S2] 2. column 2 variable: share 78%, all S, RGP 0%. named 85%; 0.40 bits.\n[S2.c2]    2: ybeM S 78% \"deaminated glutathione amidase\"\n[S3] 3. columns 3-17 (15 columns) spine: share 90-94%, all P, RGP 0-4%. Genes: crcB, cspE, pagP, dcuC, dpiA, dpiB \"sensor histidine kinase DpiB\", citC, citD, citE, citF, citX \"citrate lyase holo-[acyl-carrier pr\u2026\", citG, citT, rna, rnk. named 96-100% (mean 99%), fewest named and most hesitant at column 5 (pagP), named 96%, 0.41 bits.\n[S4] 4. columns 18-19 (2 columns) fork and variable columns: share 61-64%, all S, RGP 5%. named 66-90% (mean 78%), fewest named and most hesitant at column 18, named 66%, 0.71 bits.\n[S4.c18]    18 fork: yldA S 61% \"small membrane protein YldA\"; also yldA (another family) S 26%\n[S4.c19]    19 variable: ybdR S 64% \"zinc-dependent alcohol dehydrogenase\"\n[S5] 5. columns 20-23 (4 columns) spine: share 93-94%, all P, RGP 0.4-4%. Genes: uspG, ahpF \"alkyl hydroperoxide reductase subun\u2026\", ahpC, dsbG. named 95-98% (mean 97%), fewest named at column 21 (ahpF), named 95%; most hesitant at column 23 (dsbG), 0.33 bits.\n[S6] 6. column 24 variable: share 87%, all P, RGP 0.2%. named 91%; 0.51 bits.\n[S6.c24]    24: ybdN P 87% \"phosphoadenosine phosphosulfate red\u2026\"\n[S7] 7. columns 25-39 (15 columns) spine: share 92-94%, all P, RGP 0.2-1%. Genes: ybdM \"IbrB-like domain-containing protein\", ybdL \"methionine-oxo-acid transaminase\", hcxA, ybdD \"YbdD/YjiX family protein\", cstA, entH, entA, entB \"enterobactin biosynthesis bifunctio\u2026\", entE, entC, fepB, entS, fepD, fepG \"iron-enterobactin ABC transporter p\u2026\", fepC. named 91-99% (mean 98%), fewest named and most hesitant at column 25 (ybdM), named 91%, 0.46 bits.\n[S8] 8. column 40 variable: share 87%, all P, RGP 1%. named 97%; 0.25 bits.\n[S8.c40]    40: wzz(fepE) P 87%\n[S9] 9. columns 41-43 (3 columns) spine: share 93-94%, all P, RGP 0.4-1%. Genes: entF, ybdZ \"enterobactin biosynthesis protein Y\u2026\", fes. named 95-99% (mean 98%), fewest named and most hesitant at column 41 (entF), named 95%, 0.31 bits.\n[S10] 10. column 44 variable: share 6%, all P, RGP 1%. named 94%; 0.16 bits.\n[S10.c44]    44: fur P 6%\n[S11] 11. columns 45-46 (2 columns) spine: share 91-93%, all P, RGP 2-4%. Genes: fepA, entD. named 83-95% (mean 89%), fewest named and most hesitant at column 46 (entD), named 83%, 0.40 bits.\n[S12] 12. column 47 fork: share 48%, all S, RGP 9%. named 57%; 0.91 bits.\n[S12.c47]    47: \"IS4-like element IS421 family transposa\u2026\" S 48%; also \"hypothetical protein\" S 13%\n[S13] 13. columns 48-49 (2 columns) spine: share 93%, all P, RGP 9%. Genes: hokE, ybdK \"YbdK family carboxylate-amine ligase\". named 81-88% (mean 84%), fewest named and most hesitant at column 48 (hokE), named 81%, 0.60 bits.\n[S14] 14. columns 50-51 (2 columns) variable: share 89-90%, all P, RGP 11%. named 92-96% (mean 94%), fewest named at column 50, named 92%; most hesitant at column 51, 0.45 bits.\n[S14.c50]    50: ybdJ P 90% \"DUF1158 domain-containing protein\"\n[S14.c51]    51: ybdF P 89% \"MmcQ/YjbR family DNA-binding protein\"\n[S15] 15. columns 52-60 (9 columns) spine: share 90-94%, all P, RGP 9-88%. Genes: nfsB, ybdG \"mechanosensitive ion channel YbdG\", pheP, cusA \"Cu(+)/Ag(+) efflux RND transporter\u2026\", cusB, cusF, cusC, cusR, cusS. named 90-98% (mean 95%), fewest named and most hesitant at column 60 (cusS), named 90%, 0.80 bits.\n[S16] 16. columns 61-79 (19 columns) fork and variable columns: share 21-85%, 11 P, 8 S, RGP 44-93%. named 72-93% (mean 84%), fewest named and most hesitant at column 63, named 72%, 1.85 bits.\n[S16.b61]    a second branch of 3 families through columns 61-63, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 16-35%, all S; the branch's families: tssI, \"DcrB-related protein\", \"RHS repeat-associated core domain-conta\u2026\"\n[S16.b73]    a second branch of 5 families through columns 73-77, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-13%, all S; the branch's families: \"Ail/Lom family outer membrane beta-barr\u2026\", gpJ, \"tail assembly protein\", \"C40 family peptidase\", \"phage minor tail protein L\"\n[S16.c61]    61 fork: nfrA S 72%; also \"IS1 family transposase\" S 32%\n[S16.c62]    62 fork: ybcH S 85% \"DUF4434 family protein\"\n[S16.c63]    63 fork: fimZ S 54%; also ompT S 34%, \"hypothetical protein\" S 22%\n[S16.c64]    64 fork: sfmF S 52%; also \"class I SAM-dependent methyltransferase\" S 22%, \"hypothetical protein\" S 21%\n[S16.c65]    65 fork: fimH S 47%; also ydcC S 35%\n[S16.c66]    66 variable: sfmD S 39%\n[S16.c67]    67 fork: fimC S 45%; also \"nucleocapsid protein\" S 11%\n[S16.c68]    68 fork: envY S 74%; also fimA S 47%\n[S16.c69]    69 variable: folD P 61%\n[S16.c70]    70 fork: ybcJ P 60% \"ribosome-associated protein YbcJ\"; also appY S 15%\n[S16.c71]    71 variable: ybcI P 57% \"metal-dependent hydrolase\"\n[S16.c72]    72 fork: cysS P 54%; also \"tail fiber assembly protein\" S 11%\n[S16.c73]    73 fork: ppiB P 49%\n[S16.c74]    74 fork: lpxH P 45%\n[S16.c75]    75 fork: purE P 41% \"5-(carboxyamino)imidazole ribonucle\u2026\"\n[S16.c76]    76 fork: purK P 36%\n[S16.c77]    77 fork: ybcF P 31% \"carbamate kinase\"\n[S16.c78]    78 fork: ylbF P 26% \"DUF2877 domain-containing protein\"; also fdrA S 13%\n[S16.c79]    79 fork: ylbE P 21% \"DUF1116 domain-containing protein\"; also allD S 11%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 9-15 (citC to citT) [S3]: citrate, lyase; columns 30-34 (entH to entC) [S7]: synthase; columns 35-42 (fepB to ybdZ) [S7, S8, S9]: enterobactin, transporter; columns 55-60 (cusA to cusS) [S15]: efflux, transporter; columns 63-67 (fimZ to fimC) [S16]: fimbria.\n[X] PRODUCTS of named genes (for [[ ]]): dpiA two-component response regulator DpiA; citC [citrate (pro-3S)-lyase] ligase; citE citrate (pro-3S)-lyase subunit beta; citG triphosphoribosyl-dephospho-CoA synthas\u2026; citT citrate/succinate antiporter CitT; ahpC alkyl hydroperoxide reductase subunit C; entH proofreading thioesterase EntH; entA 2,3-dihydro-2,3-dihydroxybenzoate dehyd\u2026; entE (2,3-dihydroxybenzoyl)adenylate synthas\u2026; entC isochorismate synthase EntC; fepD Fe(3+)-siderophore ABC transporter perm\u2026; fepC iron-enterobactin ABC transporter ATP-b\u2026; cusB Cu(+)/Ag(+) efflux RND transporter peri\u2026; cusF Cu(+)/Ag(+) efflux RND transporter peri\u2026; cusC Cu(+)/Ag(+) efflux RND transporter oute\u2026; cusR copper response regulator transcription\u2026; cusS Cu(+)/Ag(+) sensor histidine kinase CusS; purE 5-(carboxyamino)imidazole ribonucleotid\u2026; purK 5-(carboxyamino)imidazole ribonucleotid\u2026; citR DNA-binding transcriptional repressor C\u2026; nrfB cyclic di-3',5'-guanylate-activated gly\u2026; tssI type VI secretion system tip protein Vg\u2026; ompT omptin family outer membrane protease O\u2026; ydcC ISAs1 family transposase; fimA type 1 fimbrial major subunit FimA; appY DNA-binding transcriptional activator A\u2026; gpJ phage attachment tail tip protein J; fdrA acyl-CoA synthetase FdrA; allD ureidoglycolate dehydrogenase\n[E] END: the window ends at column 79, ylbE, in 21% of chromosomes."
 }

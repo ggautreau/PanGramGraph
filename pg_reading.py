@@ -1,23 +1,46 @@
 """The reading of a window written by an LLM, for the Findings tab of the PanGramGraph page (serve_live.py /reading).
 
 The page writes a rule-based reading of the window shown (autoReading in page_template.html). Here an LLM writes it
-in prose, in the style of the hand-written reading of the dnaA window, and every number and gene name of its text is
-checked against the window's own data before the page shows it.
+in prose, by a skill document (reading_skill.md: what the numbers mean, a procedure, the hand-written reading of the
+dnaA window as its reference), in the same five sections for every window, and every sentence names the facts lines it
+is written from: each one is checked against those lines before the page shows it, and dropped if it does not hold.
 
     the browser sends only the window's id: dnaA, or the anchor family of a region window (pgb_region.build; a backbone
     family). The server builds the facts itself from its own data (facts(D)): the columns, their stretches (spine,
     fork, variable, the same rules as the page's autoReading), the stretch most and least in regions of plasticity,
     the genes and their products, the model's accuracy and hesitation, all as display-ready numbers: 2,000-2,900
-    tokens, after ~1,000 of instructions and style example. No text of the client reaches the LLM.
+    tokens, after a system message of ~2,400 (the skill, ~1,800, included). No text of the client reaches the LLM.
+    skill: reading_skill.md beside this file (READING_SKILL for another path), read once and put in the system message:
+    what the pangenome words mean (persistent, shell, cloud, regions of plasticity, spots, spine, fork, branch), what
+    the model's three numbers mean and do not mean (named, bits, perplexity), what each section says, the procedure to
+    follow in order (the gene groups and the one or two interpretations included), and two reference readings in the
+    output form: the hand-written one of the dnaA window and one of a window nearly all spine. Its sha is part of the
+    cache key, so a changed skill makes new readings; without the file the prompt keeps the hand-written reading alone.
+    form: the same five paragraphs in the same order for every window, each opening with its tag and a short bold
+    sentence: @start @variable @model @end @whole (SECTIONS), 150 to 200 words asked (WORDS_TARGET), at most 220
+    served (WORDS_MAX), temperature 0.
+    citations: every facts line carries its id ([W], [G], [C], [M], [S3], [S3.c12], [S3.b40], [Q]) and every sentence
+    ends with the ids of the lines it is written from, in braces. The check is per sentence, against those lines only
+    (stricter than a check over the whole facts): every number must be one they display, in the right role (a share, a
+    share in a region of plasticity and a share named are not exchangeable), and bound to what it is said of: a gene's
+    share to that gene, a column's to that column, a range to the lowest and highest of the columns named (or a range a
+    line shows), "from A to B" to the first and last column, "most hesitant" / "fewest named" to the column and value
+    the cited line states, [G]'s and [C]'s numbers to their own places. Every gene name, identifier and column must stand
+    in them and sit where the sentence puts it; the kind of a column (spine, fork, variable) and the partition of a family
+    as the facts give them; a branch spoken of with its own families and share. Every word inside [[ ]] must come from
+    the products and gene names of the lines cited and the label must fit most of the families at the columns it names
+    (in one operon, two of them); outside [[ ]] no product word. [M] and [C] in their direction; no "readily", no
+    unstated trend ("fewer and fewer"), no "then" pointing back, no "lack", no unstated superlative. A sentence whose
+    facts are not in its citations is dropped, a sentence repeating an earlier one is left out, and the model is asked
+    once again for the whole reading with the offending sentences named (two dropped, a paragraph without its opening
+    sentence, or no interpretation where [Q] offers one); if too little is left (a missing @start or @whole, two missing
+    sections, under 110 words) the page keeps its rule-based reading (status "fallback").
+    [Q], the groups: the server finds where an interpretation may stand (genes sharing a prefix, a word shared along
+    a run of products, a branch whose families agree) and the words their products share; the model words the label.
     tidy(text) puts the model's slips of form right without a new call: "92-99%" -> "92 to 99%", "RGP 5%" -> "5% in a
     region of plasticity", "share 90%" -> "in 90% of chromosomes", a row of more than 6 genes -> `first` to `last`.
-    check(text, F): every number (and gene name, number word, identifier with a digit) must be one the facts display
-    (a number rounded further than the facts, 0.47 bits -> 0.5, is allowed, not 0.47 -> 0 or 99.8% -> 100%), and one
-    of the facts lines of the genes or columns its sentence names (or of a line about the whole window); a gene next to
-    a column must sit at that column; the inside/outside comparison must keep its direction; "most hesitant", "fewest
-    named", "most/least plastic" only where the facts say so; no "lack", "absent", unstated superlatives, "least
-    hesitation". On a failure the LLM is asked once again with the offending items named, then the page keeps its
-    rule-based reading (status "fallback"). The check verifies numbers and names, not the wording or the biology.
+    length: over 220 words, whole sentences are dropped from the least telling sections, then a whole section; never a
+    part of a sentence. The check verifies the numbers, the names and what the words inside [[ ]] rest on, not the prose.
     cache: per window, in memory and in <READING_CACHE>/<window>.json, also read from pgb/readings/ (the readings the
     Space carries), keyed by a hash of the facts, the prompt and the model: new data or a new prompt make a new
     reading. Limits on new generations: per client (X-Forwarded-For only behind a trusted proxy), per client per day,
@@ -25,12 +48,14 @@ checked against the window's own data before the page shows it.
     their turn in a short queue), only for requests from the page's own site (Sec-Fetch-Site / Origin).
 
 Model: deepseek-ai/DeepSeek-V4.1-Flash through Hugging Face Inference Providers (router.huggingface.co, OpenAI
-compatible), no reasoning (chat_template_kwargs thinking=false), at most 800 tokens out (median 540). Token: HF_TOKEN (the
+compatible), no reasoning (chat_template_kwargs thinking=false), at most 800 tokens out (median 410 per attempt over
+the 112 readings of prompt r9, 460 at most). Token: HF_TOKEN (the
 Space's secret), else the token of `huggingface-cli login`; used only in the request's header (never followed
 through a redirect), never logged, never written, never sent to the page; the router's error text is not passed on.
 
     READING=off                disables new readings (cached ones are still served; /health says so)
     READING_MODEL, READING_PROVIDERS=deepinfra,novita   the model, and the providers tried in that order
+    READING_SKILL=reading_skill.md  the skill document; READING_TEMPERATURE=0; READING_WORDS=220 the reading's length
     READING_PER_IP=6 READING_PER_IP_S=600 READING_PER_IP_DAY=30   new readings per client per 600 s, and per day
     READING_DAILY_CAP=150      new readings per UTC day, the whole server;  READING_DAILY_USD=0.30  and dollars per day
                                (every call counted, a call without usage or cut by a timeout at its worst case)
@@ -40,7 +65,9 @@ through a redirect), never logged, never written, never sent to the page; the ro
     TRUST_PROXY=1              read the client from X-Forwarded-For (always on a Space: SPACE_ID)
 
     python3 pg_reading.py facts dnaA | <window.json>          the facts of a window (a region: pgb_region.build output)
-    python3 pg_reading.py check dnaA | <window.json> <text.md>   the checker on a text, against that window's facts
+    python3 pg_reading.py check dnaA | <window.json> <text.md>   the checker on a text with its tags and citations,
+        sentence by sentence, against that window's facts, and the reading it leaves
+    python3 pg_reading.py skill                               the skill document read, its sha and its size
     python3 pg_reading.py pregen [--chain] [--dry] [dnaA] [anchor ...]   write readings ahead (--chain: the windows of
         the page's Next and Previous buttons from the dnaA window on), into READING_CACHE, without the server
 """
@@ -58,7 +85,7 @@ PROVIDERS = [p.strip() for p in os.environ.get("READING_PROVIDERS", "deepinfra,n
 PRICES = {"deepinfra": (0.2, 0.6), "novita": (0.3, 1.2), "baseten": (0.3, 1.2)}   # $ per million tokens in, out (router, 2026-09)
 URL = "https://router.huggingface.co/v1/chat/completions"
 MAX_TOKENS = 800                 # median 540 out; 700 cut 2 of 130 texts
-TEMPERATURE = 0.3
+TEMPERATURE = _env("READING_TEMPERATURE", "0")   # 0: the same facts and the same skill give the same reading
 TIMEOUT = _env("READING_TIMEOUT", "22")
 BUDGET = 70.0                    # seconds for a whole generation (two attempts, a provider fallback)
 PER_IP = _env("READING_PER_IP", "6", int)
@@ -74,7 +101,16 @@ MAX_PARALLEL = 2                 # LLM generations at once
 QUEUE_MAX = _env("READING_QUEUE", "6", int)     # new generations waiting for one of those slots
 SLOT_WAIT = 30.0                 # seconds a new generation waits for a slot
 WAITERS = 4                      # requests waiting for the generation of the same window
-PROMPT_VERSION = "r7"
+PROMPT_VERSION = "r9"            # r9: the skill v2, [M] by kind of column, [Q] the groups, numbers bound to their genes and columns
+WORDS_MAX = _env("READING_WORDS", "220", int)    # the length served: whole sentences are dropped to fit under it
+WORDS_TARGET = _env("READING_TARGET", "200", int)  # the length asked of the model: below the limit, so nothing has to be cut
+WORDS_MIN_ASK = 150             # the shortest reading asked for
+WORDS_MIN = 110                  # what must be left after the drops for the reading to be served
+SECTIONS = ("start", "variable", "model", "end", "whole")        # the sections, in this order, of every reading
+KEEP = ("start", "whole")        # the sections a reading cannot lose
+DROP_ORDER = ("variable", "model", "start", "end", "whole")      # whose last sentence goes first when the text is too long
+CITES_MAX = 8                    # facts lines one sentence may cite (a stretch and the columns it walks)
+SKILL_PATH = os.environ.get("READING_SKILL") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "reading_skill.md")
 DNAA = "dnaA"                    # the id of the page's home window (pgb/graph_pgb.json, all 2,002 genomes)
 SPACE = bool(os.environ.get("SPACE_ID"))
 TRUST_PROXY = SPACE or os.environ.get("TRUST_PROXY") == "1"
@@ -114,37 +150,61 @@ def fmt_int(v): return f"{int(v):,}"
 
 class Facts:
     """the facts text of a window, every number it displays by kind (pct, bits, fam, int), and for the checker: each
-    line's columns and stretch, the columns of each gene, the columns stated most hesitant and fewest named, the
-    stretches most and least in regions of plasticity, the inside/outside comparison"""
+    line's id and columns and stretch, the columns of each gene, the columns stated most hesitant and fewest named, the
+    stretches most and least in regions of plasticity, the inside/outside comparison. Each line is shown with its id
+    ([W], [S3], [S3.c12]): a sentence of the reading cites the ids of the lines it is written from."""
     def __init__(self):
+        self.ids = []
         self.lines = []; self.info = []; self.nums = collections.defaultdict(set); self.genes = set(); self.frags = set()
         self.at = collections.defaultdict(set); self.atp = collections.defaultdict(set); self.hes_cols = set(); self.low_cols = set(); self.plastic = {}
         self.comp = None; self.unit = "genomes"; self.label = ""
+        self.pend = []; self.pshow = set(); self.pwords = set(); self.pnames = set(); self.kind = None; self.hes_spine = None
+        self.gshare = collections.defaultdict(set); self.pshare = collections.defaultdict(set); self.gtop = None; self.gbits = None
     def reg(self, s, kind):
         v = Decimal(s.rstrip("%").replace(",", "")); self.nums[kind].add(v); return s
     def pct(self, v): return self.reg(fmt_pct(v), "pct")
     def bits(self, v): return self.reg(fmt_bits(v), "bits")
     def fam(self, v): return self.reg(fmt_fam(v), "fam")
     def int(self, v): return self.reg(fmt_int(v), "int")
-    def name(self, n, short=40, k=None):
+    def fmly(self, n, k=None, alt=False):
+        """a family of the line being built: its gene name and the words of its whole product, truncated or not shown
+        or not — the scope of an interpretation is judged over the families of a line, each with what it really is
+        (alt: a second family at that column, not what the stretch is made of)"""
+        self.pend.append(dict(label=n.get("label") or "", col=k, words=pwords(n), alt=alt, part=PART.get(n.get("partition"))))
+        self.pwords |= pwords(n, gene=False)
+        return n
+    def shown(self, s):
+        """a product string the facts show: its words in full, so a product cut short ("…methy…") still carries them"""
+        self.pshow |= {w for w in re.findall(r"[A-Za-z][A-Za-z'-]{2,}", s or "")}
+        return s
+    def name(self, n, short=40, k=None, alt=False):
         """a family as the facts name it: its gene name, else its product in quotes (k: its column, for the checker)"""
+        self.fmly(n, k, alt)
         if n.get("named"):
             self.genes.add(n["label"])
             if k is not None: self.at[n["label"]].add(k)
             return n["label"]
         lab = n.get("product") or n.get("label") or "unnamed family"
         if re.fullmatch(r"[A-Z0-9]+_RS\d+", lab): lab = "unnamed family"
+        self.pnames |= {w.lower() for w in re.findall(r"[A-Za-z][A-Za-z'-]{3,}", lab)}   # a family the facts name by its product:
+
         if k is not None: self.atp[lab.lower()].add(k); self.atp[self.text(lab, short).lower()].add(k)
         return '"' + self.text(lab, short) + '"'
     def text(self, s, short=48):
         """a product: shortened; its words followed by a number ("family 4") are names, not numbers, in a text"""
+        self.shown(s)                                                   # its words in full: the cut is only in the display
         s = s if len(s) <= short else s[:short - 1].rstrip() + "…"
         for m in re.finditer(r"([A-Za-z][\w'-]*)\s+(\d+)\b(?!\.\d)", s): self.frags.add(f"{m.group(1)} {m.group(2)}".lower())
         return s
-    def add(self, s, cols=(), head=None, glob=False):
-        """a line; cols: the columns it is about; head: the index of its stretch's line; glob: about the whole window"""
-        self.lines.append(s); self.info.append(dict(cols=set(cols), head=head, glob=glob)); return len(self.lines) - 1
-    def txt(self): return "\n".join(self.lines)
+    def add(self, s, cols=(), head=None, glob=False, id=None):
+        """a line; id: the id the reading cites it by; cols: the columns it is about; head: the index of its stretch's
+        line; glob: about the whole window"""
+        self.ids.append(id or f"F{len(self.lines)}")
+        fams, show = self.pend, self.pshow; self.pend = []; self.pshow = set()
+        self.lines.append(s); self.info.append(dict(cols=set(cols), head=head, glob=glob, fams=fams, show=show))
+        return len(self.lines) - 1
+    def txt(self): return "\n".join(f"[{i}] {s}" for i, s in zip(self.ids, self.lines))
+    def index(self): return {i: k for k, i in enumerate(self.ids)}
 
 
 def columns(D):
@@ -170,6 +230,15 @@ def columns(D):
     return cols, runs
 
 
+def pwords(n, gene=True):
+    """the words of a family: its whole product and its gene name, split on hyphens, slashes and apostrophes too
+    ("pseudouridine-5'-phosphate glycosidase" gives phosphate and glycosidase), lowercase, the generic ones dropped"""
+    out = {w.lower() for w in re.findall(r"[A-Za-z][A-Za-z]{2,}", n.get("product") or "")}
+    out |= {w.lower() for w in re.findall(r"\b[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+\b", n.get("product") or "") if re.search(r"[A-Za-z]", w)}
+    if gene and n.get("named") and n.get("label"): out.add(n["label"].lower())
+    return out - GENERIC
+
+
 PART = {"persistent": "P", "shell": "S", "cloud": "C"}
 GENERIC = set("""protein family domain domain-containing containing putative probable transcriptional regulator subunit hypothetical
 uncharacterized dna-binding system component type like bifunctional membrane inner outer protein-containing lipoprotein
@@ -184,16 +253,81 @@ def informative(p):
     return any((w not in GENERIC and not re.fullmatch(r"[a-z]{3}[a-z0-9]*", w)) or len(w) > 7 for w in ws if w not in GENERIC)
 
 
+QSTOP = GENERIC | set("""binding atp dna abc duf cassette domain-containing hypothetical family protein subunit class enzyme
+terminal substrate complex acid dependent dehydro deoxy phospho beta alpha gamma delta atp-binding substrate-binding
+nad-binding fad-binding dna-binding site""".split())
+def groups_line(F, cols, secs, BR):
+    """[Q]: the gene groups whose products agree, found by the server, where a [[ ]] may stand: a run of columns whose
+    most carried genes share a prefix (an operon: leu, cai, fli; waa and rfa are one), a run of columns whose products
+    share a word though their names differ (flagellar: fli, flh, mot), a branch whose families share one. Each with the
+    words most of its families' products carry (in an operon, a third of them and two at least): the words a label
+    may use and still fit the families at those columns."""
+    sid = {c["k"]: f"S{i}" for i, sec in enumerate(secs, 1) for c in sec["cols"]}
+    def agree(ns, frac):
+        cnt = collections.Counter(w for n in ns for w in sorted(pwords(n, gene=False) - QSTOP) if len(w) >= 4)
+        return [w for w, v in sorted(cnt.items(), key=lambda x: (-x[1], x[0])) if v >= 2 and v >= frac * len(ns)][:4]   # ties: a-z
+    lab = lambda n: n["label"] if n.get("named") else None
+    out = []
+    run = []                                                          # 1. operons: consecutive genes sharing a prefix
+    for c in cols + [None]:
+        n = c["top"] if c else None
+        g = lab(n) if n else None
+        pre = g[:3].lower() if g and re.fullmatch(r"[a-z]{3}[A-Z]\w*", g) and not g.startswith("y") else None
+        pre = {"rfa": "waa"}.get(pre, pre)
+        if run and pre and pre == run[-1][2] and c["k"] == run[-1][0] + 1: run.append((c["k"], n, pre)); continue
+        if len(run) >= 3:
+            ws = agree([x[1] for x in run], 1 / 3)
+            if ws: out.append(dict(a=run[0][0], b=run[-1][0], first=lab(run[0][1]), last=lab(run[-1][1]), words=ws,
+                                   ids=sorted({sid[x[0]] for x in run}, key=lambda x: int(x[1:]))))
+        run = [(c["k"], n, pre)] if pre else []
+    taken = set().union(set(), *(set(range(g["a"], g["b"] + 1)) for g in out))
+    cnt = collections.Counter(w for c in cols for w in sorted(pwords(c["top"], gene=False) - QSTOP) if len(w) >= 5)
+    for w, v in sorted(cnt.items(), key=lambda x: (-x[1], x[0]))[:8]:  # 2. a word shared along a run of columns (ties: a-z,
+                                                                      # never the set's order, which changes with the process)
+        if v < 3: break
+        hits = [c["k"] for c in cols if w in pwords(c["top"], gene=False)]
+        runs_ = [[hits[0]]]
+        for k in hits[1:]:
+            if k - runs_[-1][-1] <= 2: runs_[-1].append(k)
+            else: runs_.append([k])
+        for r in runs_:
+            a, b = r[0], r[-1]
+            if len(r) < 3 or len(r) < 0.6 * (b - a + 1) or len(set(range(a, b + 1)) & taken) * 2 > b - a + 1: continue
+            ns = [c["top"] for c in cols if a <= c["k"] <= b]
+            ws = [w] + [x for x in agree(ns, 0.5) if x != w][:3]
+            first, last = next(c["top"] for c in cols if c["k"] == a), next(c["top"] for c in cols if c["k"] == b)
+            out.append(dict(a=a, b=b, first=lab(first), last=lab(last), words=ws, ids=sorted({sid[k] for k in range(a, b + 1) if k in sid},
+                                                                                         key=lambda x: int(x[1:]))))
+            taken |= set(range(a, b + 1))
+    for bid, bb in BR:                                                # 3. a branch whose families agree
+        ws = agree([n for _, n in bb], 0.5)
+        if ws: out.append(dict(a=bb[0][0], b=bb[-1][0], branch=bid, words=ws, ids=[bid]))
+    out = [g for g in out if not any(h is not g and h["a"] <= g["a"] and g["b"] <= h["b"] and not g.get("branch")
+                                     and set(h["words"]) & set(g["words"]) for h in out)]   # a group inside a larger one: one
+    if not out: return
+    out = sorted(sorted(out, key=lambda g: -(g["b"] - g["a"]))[:5], key=lambda g: g["a"])
+    def say(g):
+        where = f"columns {F.int(g['a'])}-{F.int(g['b'])}"
+        if g.get("branch"): return f"the branch [{g['branch']}] through {where}: {', '.join(g['words'])}"
+        who = f" ({g['first']} to {g['last']})" if g.get("first") and g.get("last") else ""
+        return f"{where}{who} [{', '.join(g['ids'])}]: {', '.join(g['words'])}"
+    F.add("GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make "
+          "one phrase from its words): " + "; ".join(say(g) for g in out) + ".", glob=True, id="Q")
+
+
 def facts(D, wid):
     """the facts of one window (graph data: pgb/graph_pgb.json for dnaA, pgb_region.build for the others)"""
     F = Facts(); m = D["meta"]; W = m["window"]; NG = m["n_genomes"]; home = wid == DNAA
     cols, runs = columns(D); unit = "genomes" if home else "chromosomes"; F.unit = unit
+    F.kinds = {c["k"]: c["kind"] for c in cols}
+    for c in cols:                                                        # each gene's share at the columns it is most carried at
+        if c["top"].get("named"): F.gshare[c["top"]["label"]].add(Decimal(fmt_pct(c["s1"]).rstrip("%")))
     if home:
         full = m.get("full_windows")
         F.add(f"WINDOW: the dnaA window: {F.int(W)} columns from dnaA (column {F.int(0)}) in its direction, in all {F.int(NG)} genomes "
               f"of the PanGBank E. coli pangenome; {F.int(m['calls'])} calls of the model, each on a genome's real proteins."
               + (f" {F.int(full)} of the {F.int(NG)} genomes have all {F.int(W)} columns on one contig; in the others the window "
-                 f"stops earlier, at a contig end." if full else ""), glob=True)
+                 f"stops earlier, at a contig end." if full else ""), glob=True, id="W")
     else:
         a = m["anchor_label"]
         if re.fullmatch(r"[a-z]{3}[A-Z]?\w*", a or ""): F.genes.add(a); F.at[a].add(0)
@@ -201,7 +335,7 @@ def facts(D, wid):
         where = f"; about genes {F.int(pos)} to {F.int(pos + W - 1)} from dnaA" if pos is not None else ""
         F.add(f"WINDOW: the {a} window: {F.int(W)} columns, column {F.int(0)} is the anchor {a}, then the next {F.int(W - 1)} genes "
               f"in dnaA's direction{where}. Read in {F.int(NG)} of the {F.int(m['genomes_total'])} complete chromosomes (those "
-              f"carrying {a} once); {F.int(m['calls'])} calls of the model, each on a chromosome's real proteins.", glob=True)
+              f"carrying {a} once); {F.int(m['calls'])} calls of the model, each on a chromosome's real proteins.", glob=True, id="W")
     one = unit[:-1]
     F.add(f"TERMS: share: {unit} carrying the family in the window. named: calls where the model names the gene at that column "
           f"from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). "
@@ -210,17 +344,18 @@ def facts(D, wid):
           f"one family in {F.pct(0.9)} of {unit} or more; fork: a second family in {F.pct(0.1)} or more; variable: neither. A "
           f"persistent family is in nearly every {one}: in a fork or variable column its lower share means it lies beyond the "
           f"window's end in the other {unit} (genes inserted upstream push it out{', or a contig ends' if home else ''}); never "
-          f"call it rare or say they lack it.", glob=True)
+          f"call it rare or say they lack it.", glob=True, id="T")
     pl = D["per_locus"]; n_all = sum(r["n"] for r in pl) or 1
     ent = sum(r["entropy"] * r["n"] for r in pl) / n_all
     part, rg = D.get("by_partition") or {}, D.get("by_rgp") or {}
     t = lambda r: f"{F.int(r['n'])} calls, named {F.pct(r['top1_dec'])}, {F.bits(r['entropy'])} bits" if r else "no calls"
     nk = collections.Counter(c["kind"] for c in cols)
+    F.gtop = Decimal(fmt_pct(m["top1_dec"]).rstrip("%")); F.gbits = Decimal(fmt_bits(ent))
     F.add(f"WHOLE WINDOW: the model names {F.pct(m['top1_dec'])} of genes, {F.bits(ent)} bits on average (perplexity "
           f"{F.fam(m['ppl'])} families). By partition of the gene: persistent {t(part.get('persistent'))}; shell "
           f"{t(part.get('shell'))}; cloud {t(part.get('cloud'))}. Outside an RGP {t(rg.get('outside an RGP'))}; inside an "
           f"RGP {t(rg.get('inside an RGP'))}. Columns: {F.int(nk['spine'])} spine, {F.int(nk['fork'])} fork, "
-          f"{F.int(nk['variable'])} variable.", glob=True)
+          f"{F.int(nk['variable'])} variable.", glob=True, id="G")
     RI, RO = rg.get("inside an RGP"), rg.get("outside an RGP")
     if RI and RO and RI["n"] and RO["n"]:
         e_i, e_o, a_i, a_o = RI["entropy"], RO["entropy"], RI["top1_dec"], RO["top1_dec"]
@@ -228,7 +363,7 @@ def facts(D, wid):
         n_ = "names fewer genes" if a_i < a_o - 0.03 else "names more genes" if a_i > a_o + 0.03 else "names about as many genes"
         F.comp = dict(h=h, n=n_, ei=F.bits(e_i), eo=F.bits(e_o), ai=F.pct(a_i), ao=F.pct(a_o))
         F.add(f"COMPARISON (computed, over calls): inside an RGP the model {h} than outside ({F.comp['ei']} against {F.comp['eo']} bits) "
-              f"and {n_} ({F.comp['ai']} against {F.comp['ao']}); {F.int(RI['n'])} of the {F.int(RI['n'] + RO['n'])} calls are inside an RGP.", glob=True)
+              f"and {n_} ({F.comp['ai']} against {F.comp['ao']}); {F.int(RI['n'])} of the {F.int(RI['n'] + RO['n'])} calls are inside an RGP.", glob=True, id="C")
     by_k = {c["k"]: c for c in cols}
     def mean(rs, key):
         n = sum(r["n"] for r in rs); return sum(r[key] * r["n"] for r in rs) / n if n else None
@@ -237,13 +372,40 @@ def facts(D, wid):
     top = [r for r in sorted(pl, key=lambda r: -r["entropy"])[:3] if r["locus"] in by_k]
     if pl: F.low_cols.add(min(pl, key=lambda r: r["top1_dec"])["locus"])       # the window's fewest named: its value is in the facts
     F.hes_cols |= {r["locus"] for r in top}
-    hs = "; ".join(f"column {F.int(r['locus'])} ({F.name(by_k[r['locus']]['top'], k=r['locus'])}) {F.bits(r['entropy'])} bits, "
-                   f"RGP {F.pct(by_k[r['locus']]['rgp'])}" for r in top)
+    hs = "; ".join(f"column {F.int(r['locus'])} ({F.name(by_k[r['locus']]['top'], k=r['locus'])}, a {by_k[r['locus']]['kind']} column) "
+                   f"{F.bits(r['entropy'])} bits, RGP {F.pct(by_k[r['locus']]['rgp'])}" for r in top)
+    def where(rs):
+        """the columns of a short list, as the facts write columns ("columns 9, 36 and 40"; a run as "12-17")"""
+        ks = sorted(r["locus"] for r in rs); runs_ = []
+        for k in ks:
+            if runs_ and k == runs_[-1][1] + 1: runs_[-1][1] = k
+            else: runs_.append([k, k])
+        if len(runs_) > 6: return ""
+        it = [F.int(a) if a == b else f"{F.int(a)}-{F.int(b)}" for a, b in runs_]
+        return " (column " + it[0] + ")" if len(it) == 1 and "-" not in it[0] else \
+               " (columns " + (", ".join(it[:-1]) + " and " + it[-1] if len(it) > 1 else it[0]) + ")"
     F.add(f"HESITATION: the most hesitant columns of the window: {hs}. "
-          + (f"The {F.int(len(hot))} columns where most calls are in an RGP: named {F.pct(mean(hot, 'top1_dec'))}, {F.bits(mean(hot, 'entropy'))} "
-             f"bits on average; the other {F.int(len(cold))} columns: named {F.pct(mean(cold, 'top1_dec'))}, {F.bits(mean(cold, 'entropy'))} bits."
+          + (f"The {F.int(len(hot))} column{'' if len(hot) == 1 else 's'}{where(hot)} where most calls are in an RGP: named "
+             f"{F.pct(mean(hot, 'top1_dec'))}, {F.bits(mean(hot, 'entropy'))} bits on average; the other {F.int(len(cold))} columns: "
+             f"named {F.pct(mean(cold, 'top1_dec'))}, {F.bits(mean(cold, 'entropy'))} bits."
              if hot and cold else "No column has most of its calls in an RGP." if not hot else "Every column has most of its calls in an RGP."),
-          glob=True)
+          glob=True, id="H")
+    sp = [r for r in pl if r["locus"] in by_k and by_k[r["locus"]]["kind"] == "spine"]
+    ot = [r for r in pl if r["locus"] in by_k and by_k[r["locus"]]["kind"] != "spine"]
+    if top: F.hes_spine = by_k[top[0]["locus"]]["kind"] == "spine"
+    if sp and ot:                                # what the @model paragraph is about: the two kinds of column compared
+        a_s, e_s, a_o, e_o = mean(sp, "top1_dec"), mean(sp, "entropy"), mean(ot, "top1_dec"), mean(ot, "entropy")
+        F.kind = dict(named_spine=a_s, named_other=a_o, bits_spine=e_s, bits_other=e_o)
+        nm = ("more genes on the spine columns than on" if a_s > a_o + 0.02 else "fewer genes on the spine columns than on"
+              if a_s < a_o - 0.02 else "about as many genes on the spine columns as on")
+        hz = ("hesitates less there" if e_s < e_o - 0.02 else "hesitates more there" if e_s > e_o + 0.02 else "hesitates about as much there")
+        pl_ = lambda n, w: f"{F.int(n)} {w} column" + ("" if n == 1 else "s")
+        kt = by_k[top[0]["locus"]]["kind"] if top else None
+        F.add(f"BY KIND OF COLUMN (computed, over the columns with calls): the {pl_(len(sp), 'spine')}: named {F.pct(a_s)}, "
+              f"{F.bits(e_s)} bits on average; the {pl_(len(ot), 'fork and variable')}: named {F.pct(a_o)}, {F.bits(e_o)} bits. "
+              f"The model names {nm} the fork and variable ones, and {hz}."
+              + (f" Its most hesitant column, {F.int(top[0]['locus'])}, is a {kt} column"
+                 + (": the model can hesitate most inside a spine." if kt == "spine" else ".") if top else ""), glob=True, id="M")
 
     def span(r): return f"column {F.int(r['a'])}" if r["a"] == r["b"] else f"columns {F.int(r['a'])}-{F.int(r['b'])}"
     def spann(r): return span(r) + (f" ({F.int(r['b'] - r['a'] + 1)} columns)" if r["b"] > r["a"] else "")
@@ -291,9 +453,16 @@ def facts(D, wid):
         if not n.get("named") or not p or p.lower() == "hypothetical protein": return ""
         if n["label"].startswith("y") or id(n) in group_prod: return f' "{F.text(p, 36)}"'
         return ""
-    def fam_s(n, k, main=None):
+    def fam_s(n, k, main=None, alt=False):
         same = " (another family)" if main is not None and n.get("named") and main.get("named") and n["label"] == main["label"] else ""
-        return f"{F.name(n, k=k)}{same} {PART.get(n['partition'], '?')} {F.pct(n['n'] / NG)}"
+        sh = F.pct(n['n'] / NG); nm = F.name(n, k=k, alt=alt)
+        if n.get("named"): F.gshare[n["label"]].add(Decimal(sh.rstrip("%")))
+        else: F.pshare[nm.strip('"').rstrip("…").lower()].add(Decimal(sh.rstrip("%")))
+        return f"{nm}{same} {PART.get(n['partition'], '?')} {sh}"
+    def top_s(c):
+        sh = F.pct(c["s1"])
+        if c["top"].get("named"): F.gshare[c["top"]["label"]].add(Decimal(sh.rstrip("%")))
+        return f"{F.name(c['top'], k=c['k'])}{prod(c['top'])} {sh}"
 
     E = {(e["s"], e["t"]): e["n"] for e in D.get("edges", [])}
     def branches(cs):
@@ -308,7 +477,7 @@ def facts(D, wid):
         if len(cur) >= 3: out.append(cur)
         return out
     # sections: each spine run, and each run of fork and variable columns between two spines (one header for them all)
-    secs = []
+    secs = []; BR = []
     for r in runs:
         if r["kind"] != "spine" and secs and secs[-1]["kind"] == "open" and r["a"] == secs[-1]["b"] + 1:
             secs[-1]["b"] = r["b"]; secs[-1]["runs"].append(r)
@@ -318,40 +487,52 @@ def facts(D, wid):
         kinds = sorted({r["kind"] for r in sec["runs"]})
         sec["what"] = "spine" if sec["kind"] == "spine" else {("fork",): "fork", ("variable",): "variable"}.get(tuple(kinds), "fork and variable columns")
         sec["rgp_mean"] = sum(c["rgp"] for c in sec["cols"]) / len(sec["cols"])
-    if len(secs) >= 2:                  # the stretches most and least in regions of plasticity: the only ones to call so
-        hi = max(secs, key=lambda s: s["rgp_mean"]); lo = min(secs, key=lambda s: s["rgp_mean"])
-        if hi is not lo:
-            F.plastic = dict(most=(hi["a"], hi["b"]), least=(lo["a"], lo["b"]))
-            F.add(f"PLASTICITY: the stretch most in regions of plasticity: {span(hi)} ({hi['what']}), RGP {rng([c['rgp'] for c in hi['cols']], F.pct)}; "
-                  f"the least: {span(lo)} ({lo['what']}), RGP {rng([c['rgp'] for c in lo['cols']], F.pct)}.", glob=True)
+    # the stretches most and least in regions of plasticity: the only ones to call so. Among three stretches or more, and
+    # never one that covers most of the window ("the most plastic stretch" of 73 columns out of 80 says nothing)
+    cand = [s for s in secs if len(s["cols"]) * 2 <= len(cols)] if len(secs) >= 3 else []
+    if len(cand) >= 2:
+        hi = max(cand, key=lambda s: s["rgp_mean"]); lo = min(cand, key=lambda s: s["rgp_mean"])
+        if hi is not lo and hi["rgp_mean"] > lo["rgp_mean"] + 0.1:
+            allp = min(c["rgp"] for c in lo["cols"]) >= 0.5           # nothing in the window is really outside: "least" says nothing
+            F.plastic = dict(most=(hi["a"], hi["b"]), least=None if allp else (lo["a"], lo["b"]))
+            F.add(f"PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: {span(hi)} "
+                  f"({hi['what']}), RGP {rng([c['rgp'] for c in hi['cols']], F.pct)}; "
+                  + (f"every stretch of this window lies largely inside regions of plasticity (the lowest, {span(lo)}, RGP "
+                     f"{rng([c['rgp'] for c in lo['cols']], F.pct)}): never call a stretch of it the least plastic."
+                     if allp else f"the least: {span(lo)} ({lo['what']}), RGP {rng([c['rgp'] for c in lo['cols']], F.pct)}."), glob=True,
+                  cols=set(range(hi["a"], hi["b"] + 1)) | set(range(lo["a"], lo["b"] + 1)), id="P")
     F.add(f"STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the "
-          f"most carried at its column; share of {unit}; RGP: range over the columns):", glob=True)
+          f"most carried at its column; share of {unit}; RGP: range over the columns):", glob=True, id="L")
     for i, sec in enumerate(secs, 1):
         cs = sec["cols"]; rgp = rng([c["rgp"] for c in cs], F.pct); ks = [c["k"] for c in cs]
         if sec["kind"] == "spine":
             genes = ", ".join(F.name(c["top"], k=c["k"]) + prod(c["top"]) for c in cs)
-            F.add(f"{i}. {spann(sec)} spine: share {rng([c['s1'] for c in cs], F.pct)}, {parts(cs)}, RGP {rgp}. Genes: {genes}. {model(cs)}.", cols=ks)
+            F.add(f"{i}. {spann(sec)} spine: share {rng([c['s1'] for c in cs], F.pct)}, {parts(cs)}, RGP {rgp}. Genes: {genes}. {model(cs)}.",
+                  cols=ks, id=f"S{i}")
             continue
-        h = F.add(f"{i}. {spann(sec)} {sec['what']}: RGP {rgp}. {model(cs, listed=False)}.", cols=ks)
+        h = F.add(f"{i}. {spann(sec)} {sec['what']}: share {rng([c['s1'] for c in cs], F.pct)}, {parts(cs)}, RGP {rgp}. "
+                  f"{model(cs, listed=False)}.", cols=ks, id=f"S{i}")
         inb = set()
         for r in sec["runs"]:
             for bb in (branches(r["cols"]) if r["kind"] == "fork" else []):
-                ns = [n for _, n in bb]; inb |= {id(n) for n in ns}
+                ns = [n for _, n in bb]; inb |= {id(n) for n in ns}; BR.append((f"S{i}.b{bb[0][0]}", bb))
                 F.add(f"   a second branch of {F.int(len(ns))} families through columns {F.int(bb[0][0])}-{F.int(bb[-1][0])}, a parallel path "
                       f"that some {unit} carry instead of the most carried families there, each following the previous one in most of its "
                       f"{unit}, share {rng([n['n'] / NG for n in ns], F.pct)}, {parts([dict(top=n) for n in ns])}; the branch's families: "
-                      + ", ".join(F.name(n, k=k) for k, n in bb), cols=[k for k, _ in bb], head=h)
+                      + ", ".join(F.name(n, k=k, alt=True) for k, n in bb), cols=[k for k, _ in bb], head=h,
+                      id=f"S{i}.b{bb[0][0]}")
         mark = (lambda r: f" {r['kind']}") if sec["what"] == "fork and variable columns" else (lambda r: "")
         for r in sec["runs"]:
             if r["kind"] == "variable" and len(r["cols"]) > 4:                   # a long variable run: one line
                 F.add(f"   {span(r)}{mark(r)}, share {rng([c['s1'] for c in r['cols']], F.pct)}, {parts(r['cols'])}: "
-                      + ", ".join(f"{F.name(c['top'], k=c['k'])}{prod(c['top'])} {F.pct(c['s1'])}" for c in r["cols"]),
-                      cols=[c["k"] for c in r["cols"]], head=h)
+                      + ", ".join(top_s(c) for c in r["cols"]),
+                      cols=[c["k"] for c in r["cols"]], head=h, id=f"S{i}.c{r['cols'][0]['k']}-{r['cols'][-1]['k']}")
                 continue
             for c in r["cols"]:
                 al = [n for n in c["alts"][:3] if id(n) not in inb]
-                alts = "; also " + ", ".join(fam_s(n, c["k"], c["top"]) for n in al) if al else ""
-                F.add(f"   {F.int(c['k'])}{mark(r)}: {fam_s(c['top'], c['k'])}{prod(c['top'])}{alts}", cols=[c["k"]], head=h)
+                alts = "; also " + ", ".join(fam_s(n, c["k"], c["top"], alt=True) for n in al) if al else ""
+                F.add(f"   {F.int(c['k'])}{mark(r)}: {fam_s(c['top'], c['k'])}{prod(c['top'])}{alts}", cols=[c["k"]], head=h, id=f"S{i}.c{c['k']}")
+    groups_line(F, cols, secs, BR)
     # PRODUCTS: the informative products of named genes in groups sharing a prefix, and of the second families, not shown yet
     txt = F.txt(); cand = []; tops = [c["top"] for c in cols]
     for k, n in enumerate(tops):
@@ -363,10 +544,10 @@ def facts(D, wid):
         lab, p = n["label"], (n.get("product") or "").strip()
         if lab in seen or not informative(p) or f'{lab} "' in txt: continue
         seen.add(lab); items.append(f"{lab} {F.text(p, 40)}")
-    if items: F.add("PRODUCTS of named genes (for [[ ]]): " + "; ".join(items[:40]), glob=True)
+    if items: F.add("PRODUCTS of named genes (for [[ ]]): " + "; ".join(items[:40]), glob=True, id="X")
     last = cols[-1] if cols else None
     if last: F.add(f"END: the window ends at column {F.int(last['k'])}, {F.name(last['top'], k=last['k'])}, in {F.pct(last['s1'])} of {unit}.",
-                   cols=[last["k"]], glob=True)
+                   cols=[last["k"]], glob=True, id="E")
     return F
 
 
@@ -379,27 +560,42 @@ STYLE = """**The spine starts at the origin.** Columns 0 to 5, `dnaA`, `dnaN`, `
 
 **The window ends in the `waa` locus**, [[which builds the lipopolysaccharide core]]: `waaA` in most genomes, then a spread of glycosyltransferases."""
 
-SYSTEM = f"""You write the reading of one window of an E. coli pangenome graph for a scientific web page. The page shows Bacformer, a genomic language model, reading chromosomes gene by gene: at each gene it calls the next one. A window is 80 columns of genes; the facts you get describe its stretches, its genes and how well the model names them.
+TAGS = dict(start="the first stretch", variable="the middle: fork and variable stretches, branches, gene groups",
+            model="[M], then the most hesitant column of [H]", end="the last stretch and [E]", whole="[G], then [C]")
+CONTRACT = f"""You write the reading of one window of an E. coli pangenome graph for a scientific web page, from facts the server computes for it: Bacformer, a genomic language model, reads chromosomes gene by gene and at each gene calls the next one; a window is 80 columns of genes. Follow the skill below.
 
-Rules:
-1. Use only the facts. Every number you write must appear in the facts, written as there (you may round bits to 1 decimal), next to the genes or columns it belongs to: a range belongs to the stretch the facts give it for, never to a part of that stretch or to another one. Write numbers in digits, never in words: no "two", "four-gene", "half", "nine in ten", "a few hundred", "dozens". Write a range as "92 to 99%".
-2. Gene names only from the facts, each in backticks: `dnaA`. An operon may be named by the shared prefix of its genes in the facts: `dgo`. Name an unnamed family briefly by its product, without backticks. At most 6 genes in a row; for a longer run write `first` to `last`.
-3. Biology only inside double square brackets, [[galactonate catabolism]]: 2 to 6 words on what a group of genes does together, built from the words of its products or gene names in the facts (the PRODUCTS line gives more of them). Never copy a product into brackets, never bracket a single gene's product, and never name a substance, pathway or function the products and names do not state. Outside brackets no biology at all (no "nitrate", "energy", "respiration", "ribosomal", "envelope" in bold sentences) and no causes.
-4. Senses: bits measure hesitation, so the column with the most bits is the most hesitant, never "the lowest hesitation"; "named" is the share of calls where the model names the gene. RGP N% means N% of the calls there are inside a region of plasticity: write "in a region of plasticity in N% of calls", never "outside any region of plasticity in N%". Superlatives only as the facts state them (PLASTICITY, HESITATION, "most hesitant", "fewest named"), no others. A persistent family in a fork or variable column is carried by nearly every chromosome but sits beyond the window in some: never call it rare or say the others lack it.
-5. Spine, fork and variable exactly as the facts label each column; a stretch mixing them is "fork and variable columns". Never write "RGP", "share" or the letters P, S, C: write "in a region of plasticity", "carried by", "persistent", "shell", "cloud".
-6. 4 or 5 short paragraphs of 2 or 3 sentences, about 200 words in all (never more than 250: leave stretches out rather than list them all), separated by a blank line, each opening with a short bold sentence in **double asterisks**, in window order; open on what the window starts with, not on "The window opens". At most 3 numbers in a sentence: choose the telling ones.
-7. Cover the spines, the forks and what their branches carry (a branch carries only the families of its own line, not the ones listed at the same columns), the variable stretches, and where the model names genes readily and where it hesitates. State the COMPARISON as it is given (inside against outside), never its opposite.
-8. Plain, exact English, like the example. No headings, lists, other markup, or words about yourself or the facts.
+FORM. Exactly {len(SECTIONS)} paragraphs in this order, one blank line apart, each opening with its tag and a short bold sentence in **double asterisks**: """ + "; ".join(f"@{t} ({w})" for t, w in TAGS.items()) + f""". Two sentences each (@variable may take three): {WORDS_MIN_ASK} to {WORDS_TARGET} words in all, at most 3 numbers a sentence. Beyond {WORDS_MAX} words whole sentences are cut.
 
-Style example, the hand-written reading of the dnaA window (its numbers and its biology belong to that window, not to yours):
+CITATIONS. Each facts line begins with its id: [W], [G], [M], [S3], [S3.c12], [S4.b45]. Each sentence ends with the ids of the lines it is written from, in braces, before its full stop: "The model names 93% of them {{S1}}." Every number, gene name, product word and column of a sentence must stand in those lines, or the sentence is dropped. A stretch line [S4] gives its ranges and lets you name the genes, columns and shares of its sub-lines: for columns 15 to 20 of it, their lowest and highest share exactly, or "from A to B%", the first and the last. A branch: its own line and clause. Two or three ids a sentence, {CITES_MAX} at most.
 
-{STYLE}"""
+RULES. 1. Numbers as the facts write them, in digits (bits may be rounded to 1 decimal); a range as "92 to 99%"; a share, a share in regions of plasticity and a share named are three different numbers. 2. Gene names in backticks; an operon by its prefix (`dgo`); more than 6 in a row as `first` to `last`; an unnamed family by its product, without backticks. 3. Biology only inside [[ ]]: 2 to 6 words from the products of the lines cited, true of most families at the columns named; outside the brackets no product word, function, pathway or cause, not even in bold. 4. Superlatives only as [P], [H] and the stretch lines state them. Write "in a region of plasticity in N% of calls", never "RGP", "share" or the letters P, S, C; spine, fork and variable as the facts label them. Never call a persistent family rare, never say chromosomes lack a gene. 5. [C] and [M] in their direction; never "readily", never "where the graph opens" unless [M] and [H] say so. 6. Plain, exact English; no headings, lists or other markup; nothing about yourself or the facts; no sentence of the reference readings, their windows are not yours."""
+
+_SKILL = [None, None, None]
+def skill():
+    """the skill document (reading_skill.md beside this file, READING_SKILL for another path) and its sha, read once:
+    the domain notes, the procedure and the reference reading the model works by. The sha is part of the cache key, so
+    a changed skill makes new readings. Without the file the prompt keeps the reference reading alone."""
+    if _SKILL[2] is None:
+        try: t = open(SKILL_PATH, encoding="utf-8").read().strip()
+        except OSError: t = ""
+        _SKILL[2] = bool(t)
+        if not t: t = ("# Reading a window of the pangenome graph — the skill document is not on this server\n\nThe reference "
+                       "reading, the hand-written one of the dnaA window (its numbers and its biology belong to that window, "
+                       f"not to yours):\n\n{STYLE}")
+        _SKILL[0] = t; _SKILL[1] = hashlib.sha1(t.encode()).hexdigest()[:12]
+    return _SKILL[0], _SKILL[1]
+
+
+def system_msg():
+    t, sha = skill()
+    return f"{CONTRACT}\n\n{t}", sha
 
 
 def user_msg(F, wid):
-    extra = ("\n\nThis is the dnaA window, the one of the style example: write your own reading from these facts; any number "
-             "that is not in the facts is rejected.") if wid == DNAA else ""
-    return f"Facts:\n{F.txt()}{extra}\n\nWrite the reading."
+    extra = ("\n\nThis is the dnaA window, the one of the first reference reading: write your own reading from these facts; any "
+             "number that is not in the facts is rejected.") if wid == DNAA else ""
+    return (f"Facts, one line each with its id:\n{F.txt()}{extra}\n\nWrite the reading: "
+            + " ".join(f"@{t}" for t in SECTIONS) + ", each sentence ending with the ids of the facts lines it is written from.")
 
 
 # ---------------------------------------------------------------- slips of form, put right without a new call
@@ -449,7 +645,8 @@ NUMW_RE = re.compile(r"\b(" + "|".join(NUMW) + r")\b", re.I)
 VAGUE_RE = re.compile(r"\b(hundreds?|thousands?|dozens?|half|halves|quarters?|twice|thrice|tenths?|(?:a|one|two)\s+thirds?|"
                       r"(?:nine|eight|seven|six|five|four|three|two|one) (?:in|out of) (?:ten|five|four|three|two))\b", re.I)
 NUM_RE = re.compile(r"(?<![\w.,])(\d{1,3}(?:,\d{3})+|\d+)(\.\d+)?(?![\w]|\.\d|,\d{3})")
-META_RE = re.compile(r"\b(?:COMPARISON|HESITATION|STRETCHES|WHOLE WINDOW|TERMS|PLASTICITY|PRODUCTS)\b|\b(?i:the facts|as stated)\b")
+META_RE = re.compile(r"\b(?:COMPARISON|HESITATION|STRETCHES|WHOLE WINDOW|TERMS|PLASTICITY|PRODUCTS|GROUPS)\b|"
+                     r"\b(?i:the facts|as stated|products agree|whose products|the group of \[)")
 UNIT_RE = re.compile(r"\s*(%|percent\b|per cent\b|-?bits?\b|famil(?:y|ies)\b|(?:complete\s+)?(?:genomes?|chromosomes?)\b)", re.I)
 LOWER_RE = re.compile(r"\s*(?:to|-|–)\s*(\d[\d,]*(?:\.\d+)?)\s*(%|percent\b|per cent\b|bits?\b)", re.I)
 IDENT_RE = re.compile(r"[\w'\-/.]*\d[\w'\-/.]*")
@@ -457,7 +654,8 @@ GENE_RE = re.compile(r"(?<![\w`])([a-z]{3}[A-Z][A-Za-z0-9_]*)(?![\w])")
 PROT_RE = re.compile(r"(?<![\w`])([A-Z][a-z]{2}[A-Z][0-9]?)(?![\w])")
 OPERON_RE = re.compile(r"(?<![\w`])([a-z]{3}[A-Z]?)\s+(?:operon|genes|locus|loci|cluster)\b")
 WORDS3 = set("""the all its few new two six ten one any are old big odd set top end our key own net raw lac far low how who
-why but not nor yet per via has had was can may use may six ten""".split())
+why but not nor yet per via has had was can may use may six ten and for hold holds carry carries same both that this those
+these more less than into onto over such very each many most some only then when where which while with from run runs""".split())
 ALLOWED_WORDS = {"panRGP", "PanGBank", "PPanGGOLiN", "Bacformer"}
 NEG_RE = re.compile(r"\b(lacks?|lacking|absent|missing|do(?:es)? not carry|carry none)\b", re.I)
 LEAST_RE = re.compile(r"hesitat\w*\s+(?:is\s+)?(?:the\s+)?(?:least|lowest)|least hesitant|lowest hesitation|hesitation is lowest|lowest in hesitation", re.I)
@@ -469,8 +667,24 @@ BIO_RE = re.compile(r"\b(envelope|respirat\w*|ribosom\w*|nitrate|nitrite|energy|
                     r"biofilm|virulence|pathogen\w*|vitamins?|cofactors?|hydrogenase|chaperones?|efflux|resistance|antibiotics?|"
                     r"housekeeping|essential|enzym\w*|amino acids?|nucleotides?|carbon|nitrogen|phosphate|osmotic|adhesion|defen[cs]e)\b", re.I)
 PLASTIC_RE = re.compile(r"\b(most|least) (plastic|in regions? of plasticity)\b", re.I)
+ONLY_RE = re.compile(r"\bonly (?:in |about |around )?(\d+(?:\.\d+)?)\s?%", re.I)   # "only 89%": "only" before a majority share
+def _only_majority(text):
+    """"only NN%" with NN >= 50: a majority called small (the checker drops it)"""
+    return [dict(kind="claim", text=m.group(0), why="\u201conly\u201d before a majority share")
+            for m in ONLY_RE.finditer(text) if float(m.group(1)) >= 50]
 HES_RE = re.compile(r"most hesitant|hesitates? (?:the )?most|hesitation peaks|peak hesitation|hesitation is highest|highest hesitation", re.I)
 LOW_RE = re.compile(r"\bfewest\b|\blowest at\b|least often named|names? (?:the )?fewest|named (?:the )?least", re.I)
+
+
+READY_RE = re.compile(r"\breadily\b|\bwith ease\b|\beasily\b|\bwithout (?:trouble|difficulty|hesitation)\b|\bhas no trouble\b", re.I)
+OPENS_RE = re.compile(r"where the graph opens|where it opens|where the graph is open|where chromosomes differ|where the order varies|"
+                      r"\b(?:in|on|at|across) the (?:fork|variable|plastic|open)\w*|\b(?:in|on|at|across) the fork and variable\b", re.I)
+PROSE = set("""region regions plasticity model column columns share shares named naming names hesitates hesitation hesitant bits
+perplexity family families gene genes call calls chromosome chromosomes genome genomes persistent shell cloud spine spines fork
+forks variable branch branches path paths parallel stretch stretches window windows anchor direction carried carries second first
+most least other others unnamed average mean readily window's columns' opens""".split())
+ALIAS = dict(waa=("rfa",), rfa=("waa",))
+OPERON_RE2 = re.compile(r"`([a-z]{3})[A-Z]?[A-Za-z0-9]*`\s+(?:operon|genes|locus|loci|cluster|region)\b")
 
 
 def roundings(v, q0=0):
@@ -516,14 +730,18 @@ def cols_of(s, W=80):
     "the last 29 columns", "the first 6 columns" """
     cs = set()
     for m in re.finditer(r"\bcolumns?,\s+(\d+)\s+to\s+(\d+)(?![.,]\d|\s*%)", s, re.I): cs |= set(range(int(m.group(1)), int(m.group(2)) + 1))
+    for m in re.finditer(r"\bcolumn,\s+(\d+)\b(?![.,]\d|\s*(?:%|percent|bits?\b)|\s+to\b)", s, re.I): cs.add(int(m.group(1)))
     for m in re.finditer(r"\b(first|last) (\d+) columns\b", s, re.I):
         n = min(int(m.group(2)), W); cs |= set(range(0, n)) if m.group(1).lower() == "first" else set(range(W - n, W))
     for m in re.finditer(r"\bcolumns? ((?:\d+(?![.,]\d)(?:\s*(?:,|and|to|-|–)\s*(?=\d))?)+)", s, re.I):
         nums = [int(x) for x in re.findall(r"\d+", m.group(1))]
         seps = re.findall(r"\d+\s*(to|-|–|,|and)\s*(?=\d)", m.group(1))
-        cs |= set(nums)
+        val = {int(x.group(0)) for x in re.finditer(r"\d+", m.group(1))       # "fewest at column 6, 72%", "columns 61 to 79, 4 to 77%":
+               if re.match(r"\s*(?:(?:to|-|–)\s*\d[\d,]*(?:\.\d+)?\s*)?(?:%|percent|per cent|bits?\b|famil)",   # a value, not a column
+                           s[m.start(1) + x.end():])}
+        cs |= set(nums) - val
         for (a, b), sep in zip(zip(nums, nums[1:]), seps):
-            if sep in ("to", "-", "–") and b >= a: cs |= set(range(a, b + 1))
+            if sep in ("to", "-", "–") and b >= a and a not in val and b not in val: cs |= set(range(a, b + 1))
     return cs
 
 
@@ -557,8 +775,11 @@ def _scope(s, F, idx):
 
 
 def check(text, F):
-    """-> dict(ok, numbers, names, words, bad=[...], hints=[...]): every number, gene name, number word and identifier with a
-    digit of text, each number against its sentence's genes and columns, and the claims the facts make (see the docstring)"""
+    """the whole-text check (r7), kept for comparison with the per-sentence one (pg_reading.py check prints both, and it
+    reads a text that carries no citations) -> dict(ok, numbers, names, words, bad=[...], hints=[...]): every number, gene
+    name, number word and identifier with a digit of text, each number against the facts lines of its sentence's genes and
+    columns, and the claims the facts make. Nothing ties a number to the line the sentence is written from: that is what
+    check_cited does."""
     ftxt = F.txt(); flow = ftxt.lower(); idx = _line_index(F)
     allowed = _allowed(F.nums)
     anyv = set().union(*allowed.values()) if allowed else set()
@@ -683,6 +904,7 @@ def _claims(text, F, idx):
     for m in re.finditer(r"outside (?:any|a) regions? of plasticity,? in (?:only )?\d[\d.]*(?: to \d[\d.]*)?%", text, re.I):
         bad.append(dict(kind="claim", text=m.group(0), why="the facts give the share of calls inside a region of plasticity"))
     for m in SUP_RE.finditer(re.sub(r"\[\[.*?\]\]", " ", text)): bad.append(dict(kind="claim", text=m.group(0), why="a superlative the facts do not state"))
+    bad += _only_majority(re.sub(r"\[\[.*?\]\]", " ", text))
     for m in re.finditer(r"\*\*(.+?)\*\*", text, re.S):                 # the bold sentences: structure only
         b = next((x for x in BIO_RE.finditer(re.sub(r"\[\[.*?\]\]|`[^`]*`|\"[^\"]*\"", " ", m.group(1)))
                   if x.group(0).lower() not in flow), None)
@@ -709,17 +931,17 @@ def _claim_cols(s, m, F):
 def _colgene(text, F):
     """a gene named next to a column number must sit at that column in the facts (most carried, second family or branch)"""
     bad = []
-    C = r"columns? (\d+)(?:\s*(?:to|-|–)\s*(\d+))?"
+    C = r"columns?,? (\d+)(?:\s*(?:to|-|–)\s*(\d+))?"
     G = r"`([^`]+)`(?:\s+to\s+`([^`]+)`)?"
     pats = [(rf"\b{C},?\s+(?:\(|the\s+)?{G}", "cg"), (rf"{G},?\s+(?:\(|in |at ){C}", "gc")]
-    for para in sentences(text):
+    for para in sentences(text.replace("**", "")):
         for s in para:
             for pat, order in pats:
                 for m in re.finditer(pat, s, re.I):
                     if order == "cg":
                         a, b, g1, g2 = m.group(1), m.group(2), m.group(3), m.group(4)
                         if re.match(r"\s*,?\s*(?:at|in|through|across|over|column|columns)\s+(?:columns?\s+)?\d", s[m.end():]) or \
-                           re.search(r"\b(?:at|in|through|across|over|from|to|between|into|on|by)\s+$", s[max(0, m.start() - 20): m.start()]): continue
+                           re.search(r"\b(?:between|into|from)\s+$", s[max(0, m.start() - 20): m.start()]): continue
                     else:
                         g1, g2, a, b = m.group(1), m.group(2), m.group(3), m.group(4)
                         if re.match(r"\s*(?:,|and)\s*\d", s[m.end():]): continue          # a list of columns: one for each gene
@@ -796,37 +1018,824 @@ def interp_hints(text, F):
     return out
 
 
-def retry_msg(chk, truncated=False):
-    B = collections.defaultdict(list)
-    for b in chk["bad"]: B[b["kind"]].append(b)
-    say = []
-    if B["number"]: say.append("these numbers are not in the facts: " + ", ".join(b["text"] for b in B["number"][:12]))
-    if B["scope"]: say.append("these numbers belong to other genes or columns than the ones their sentence names: "
-                              + "; ".join(f"{b['text']} in \"{b['context'][:90]}\"" for b in B["scope"][:5]))
-    if B["column"]: say.append("these genes are not at the column given: " + "; ".join(f"{b['text']} ({b['why']})" for b in B["column"][:5]))
-    if B["direction"]: say.append("the comparison is inverted: " + "; ".join(sorted({b["why"] for b in B["direction"]})))
-    if B["claim"]: say.append("claims the facts do not make: " + "; ".join(f"\"{b['text']}\" ({b['why']})" for b in B["claim"][:6]))
-    if B["number word"]: say.append("these number words are not allowed (use digits from the facts, or no number): " + ", ".join(b["text"] for b in B["number word"][:8]))
-    if B["format"]: say.append("write numbers as the facts do: " + ", ".join(b["text"] for b in B["format"][:6]))
-    if B["gene"]: say.append("these gene names are not in the facts: " + ", ".join(b["text"] for b in B["gene"][:10]))
-    if B["identifier"]: say.append("these names are not in the facts: " + ", ".join(b["text"] for b in B["identifier"][:8]))
-    if B["wording"]: say.append("do not speak of the facts or their sections (" + ", ".join(b["text"] for b in B["wording"][:4]) + "): speak of the window")
-    if chk.get("hints"): say.append("inside [[ ]] use only words of the products and gene names: " + ", ".join(sorted({h["text"] for h in chk["hints"]}))[:200] + " are not there")
-    if truncated: say.append("the text was cut at its length limit: write at most 220 words")
-    return ("Your reading was rejected: " + "; ".join(say) + ". Rewrite the whole reading, following the rules: every number "
-            "exactly as written in the facts and next to the genes or columns it belongs to, genes only from the facts.")
+# ---------------------------------------------------------------- the sections and the citations (one per sentence)
+ROLE_KIND = dict(share="pct", rgp="pct", named="pct", definition="pct", bits="bits", ppl="fam", count="int")
+ROLE_SAY = dict(share="a share of {unit}", rgp="a share in a region of plasticity", named="a share of genes named",
+                bits="a hesitation in bits", ppl="a perplexity", count="a count", definition="a number of the TERMS line")
+_FNUM = re.compile(r"(?<![\w.,])(\d[\d,]*(?:\.\d+)?)(?:\s*(?:to|-|–)\s*(\d[\d,]*(?:\.\d+)?))?\s*(%|bits?\b|famil(?:y|ies)\b)?", re.I)
+_FROLE = ((re.compile(r"\bRGP\b"), "rgp"), (re.compile(r"\bnam(?:e|es|ed|ing)\b|\bmean\b", re.I), "named"),
+          (re.compile(r"\bshare\b", re.I), "share"))
+_SROLE = ((re.compile(r"regions?\s+of\s+plasticity|\bplastic\w*", re.I), "rgp"),
+          (re.compile(r"\bnam(?:e|es|ed|ing)\b", re.I), "named"),
+          (re.compile(r"\bcarr(?:y|ies|ied|ying)\b|\bshare\b", re.I), "share"),
+          (re.compile(r"\bperplexity\b", re.I), "ppl"))
+_FOLLOW = ((re.compile(r"\s*(?:of\s+(?:the\s+)?\w+\s+)?(?:are\s+|fall\s+|lie\s+|sit\s+|is\s+)?(?:in|inside|within)\s+"
+                       r"(?:a\s+|any\s+)?regions?\s+of\s+plasticity", re.I), "rgp"),
+           (re.compile(r"\s*of\s+(?:the\s+|all\s+)?(?:genomes|chromosomes|them)\b", re.I), "share"),
+           (re.compile(r"\s*of\s+(?:the\s+)?genes\b", re.I), "named"))
+_JOIN = re.compile(r"[\s(),]*(?:against|to|and|or|versus|vs\.?)?[\s(),]*")    # between two numbers of one pair
+TAG_RE = re.compile(r"(?:(?<=\n)|(?<=\s))[\[(]?@(" + "|".join(SECTIONS) + r")\b[\])]?[:.]?[ \t]*")   # a tag anywhere after a space
+CITE_RE = re.compile(r"\{([^{}\n]{0,160}?)\}[ \t]*([.;:!?]*)")
+CID_RE = re.compile(r"[A-Za-z][A-Za-z0-9]*(?:\.[A-Za-z]?\d+(?:-\d+)?)?")
 
 
-def reason(chk, truncated):
+def _stem(w): return w[:7] if len(w) >= 7 else w
+
+
+_SUF = sorted(("ases", "ase", "ysis", "oses", "osis", "ations", "ation", "isation", "ization", "ising", "izing", "ing",
+               "ers", "er", "ors", "or", "ions", "ion", "ive", "ic", "al", "ed", "es", "s"), key=len, reverse=True)
+def _norm(w):
+    """a product word cut back to its stem: hydrolysis and glycosylhydrolase both give hydrol, secretion and secreted
+    both secret, so a word of an interpretation is recognised in the product it comes from"""
+    w = w.lower().strip("'-")
+    for suf in _SUF:
+        if w.endswith(suf) and len(w) - len(suf) >= 5: return w[:len(w) - len(suf)]
+    return w
+
+
+def _same(a, b):
+    """two words of the same thing: equal, or one's stem inside the other (never two words that merely start alike,
+    so transport does not match transposase)"""
+    na, nb = _norm(a), _norm(b)
+    return na == nb or (len(na) >= 6 and na in nb) or (len(nb) >= 6 and nb in na)
+
+
+def _covers(w, pool): return any(_same(w, x) for x in pool)
+
+
+def _role_left(s, rules):
+    """the role the last keyword before a number gives it (None: no keyword)"""
+    best, role = -1, None
+    for rx, r in rules:
+        for m in rx.finditer(s):
+            if m.start() > best: best, role = m.start(), r
+    return role
+
+
+def _cite_index(F):
+    """per facts line, by its id: the words it shows, its numbers by role (share, rgp, named, bits, ppl, count), its
+    columns, and whether it speaks of the whole window. The role of a number is the last keyword before it (RGP, share,
+    named, mean), else its unit, else a share: what the facts lines are built to say."""
+    if getattr(F, "_cidx", None): return F._cidx
+    out = {}
+    for lid, ln, inf in zip(F.ids, F.lines, F.info):
+        roles = collections.defaultdict(set); prev = 0; terms = ln.startswith("TERMS"); got = []
+        for m in _FNUM.finditer(ln):
+            unit = (m.group(3) or "").lower(); left = ln[prev:m.start()]; prev = m.end()
+            soft = False
+            if unit.startswith("bit"): role = "bits"
+            elif unit.startswith("famil"): role = "ppl" if re.search(r"perplexity", left, re.I) else "count"
+            elif unit == "%":
+                role = "definition" if terms else _role_left(left, _FROLE)
+                soft = role is None; role = role or "share"
+            else: role = "count"; soft = True
+            got.append([role, [m.group(1), m.group(2)], _JOIN.fullmatch(left) is not None, "." in (m.group(1) or ""), soft])
+        for j, g in enumerate(got):                                       # "78% against 94%", "0.83 against 0.21 bits": one pair, one role
+            if g[4] and g[2] and j and got[j - 1][0] != "count": g[0] = got[j - 1][0]
+            elif g[4] and g[3] and j + 1 < len(got) and got[j + 1][2] and got[j + 1][0] != "count": g[0] = got[j + 1][0]
+        spans = collections.defaultdict(list); colline = bool(re.fullmatch(r"S\d+\.c\d+", lid))
+        for role, gs, _j, _d, _s in got:
+            for g in gs:
+                if not g: continue
+                try: roles[role].add(Decimal(g.replace(",", "")))
+                except InvalidOperation: pass
+            if role in ("share", "rgp", "named") and not (colline and spans["share"]):
+                try: spans[role].append(tuple(sorted(Decimal(g.replace(",", "")) for g in (gs[0], gs[1] or gs[0]))))
+                except InvalidOperation: pass
+        colvals = {}                                                      # the share at each column the line lists, in order
+        mr = re.fullmatch(r"S\d+\.c(\d+)-(\d+)", lid)
+        if colline and spans.get("share"): colvals[int(lid.split(".c")[1])] = spans["share"][0][0]
+        elif mr and ":" in ln:
+            vs = [Decimal(x) for x in re.findall(r"(?<![\w.])(\d+(?:\.\d+)?)%", ln.split(":", 1)[1])]
+            a_, b_ = int(mr.group(1)), int(mr.group(2))
+            if len(vs) == b_ - a_ + 1: colvals = {a_ + j: v for j, v in enumerate(vs)}
+        elif lid == "E" and inf["cols"] and spans.get("share"): colvals[min(inf["cols"])] = spans["share"][0][0]
+        hesv = [(int(a), Decimal(b)) for a, b in re.findall(r"most hesitant at column (\d+)(?: \([^)]*\))?,(?: named [\d.]+%,)? (\d+\.\d+) bits", ln)]
+        hesv += [(int(b), Decimal(a)) for a, b in re.findall(r"hesitates more than (\d+\.\d+) bits \(column (\d+)", ln)]
+        if lid == "H": hesv = [(int(a), Decimal(b)) for a, b in re.findall(r"column (\d+) \([^)]*\) (\d+\.\d+) bits", ln)[:1]]
+        lowv = [(int(a), Decimal(b)) for a, b in re.findall(r"fewest named(?: and most hesitant)? at column (\d+)(?: \([^)]*\))?, named (\d+(?:\.\d+)?)%", ln)]
+        out[lid] = dict(id=lid, words={w.lower() for w in re.findall(r"[\w'-]+", ln)}, low=ln.lower(), roles=roles, spans=spans, colvals=colvals,
+                        hesv=hesv, lowv=lowv,
+                        cols=set(inf["cols"]) | cols_of(ln), glob=inf["glob"], head=inf.get("head"), subs=[],
+                        fams=inf.get("fams") or [], show={w.lower() for w in (inf.get("show") or ())})
+    for lid in list(out):                       # a stretch's own sub-lines: [S4] -> [S4.c34], [S4.c53-79], [S4.b45]
+        p = lid.split(".")[0]
+        if p != lid and p in out: out[p]["subs"].append(lid)
+    F._cidx = out; return out
+
+
+def parse(text):
+    """the model's answer as its sections: [dict(tag, sents=[dict(text, punct, cites, bold)])], each sentence what ends
+    at a citation in braces -> (sections, dict(tail, untagged, dup, order)): what stands outside a section or after the
+    last citation of one is a fragment the reading cannot use"""
+    secs = []; notes = dict(tail=[], untagged="", dup=[], tags=[])
+    parts = TAG_RE.split("\n" + text.strip())
+    if parts[0].strip(): notes["untagged"] = " ".join(parts[0].split())[:200]
+    for tag, body in zip(parts[1::2], parts[2::2]):
+        body = " ".join(body.split())
+        notes["tags"].append(tag)
+        if any(s["tag"] == tag for s in secs): notes["dup"].append(tag); continue
+        sents = []; pos = 0
+        for m in CITE_RE.finditer(body):
+            t = body[pos: m.start()].strip(); pos = m.end()
+            ids = CID_RE.findall(m.group(1))
+            if not t: continue
+            p = m.group(2) or ""
+            if t[-1] in ".;:!?": p = ""
+            elif not p: p = "."
+            sents.append(dict(text=t, punct=p, cites=ids, bold=bool(re.search(r"\*\*.+?\*\*", t))))
+        rest = body[pos:].strip()
+        if len(rest) > 3: notes["tail"].append(rest[:160])
+        if sents: secs.append(dict(tag=tag, sents=sents))
+    notes["order"] = [s["tag"] for s in secs]
+    return secs, notes
+
+
+def _sent_bad(s, ids, F, X, extra=()):
+    """what a sentence says that the facts lines it cites do not carry -> (bad, numbers, names): its numbers by role,
+    its identifiers, its gene names, its columns, the words inside [[ ]], and the claims the facts make elsewhere.
+    A stretch line carries its own sub-lines for gene names, products and columns, never for a number: a number belongs
+    to the line that states it, and a stretch's own line states its ranges. extra: the other
+    sentences' ids, for the sentence that opens a paragraph — an opener may summarise what its paragraph states."""
+    bad = []; lines = []
+    for i in ids:
+        got = _resolve_id(i, X)
+        if not got: bad.append(dict(kind="citation", text=i, why="no facts line has this id", context=s[:120]))
+        lines += [L for L in got if L not in lines]
+    if len(ids) > CITES_MAX:                                              # a sentence citing everything is a sentence citing nothing
+        bad.append(dict(kind="citation", text=", ".join(ids), why=f"a sentence cites at most {CITES_MAX} lines", context=s[:120]))
+    if not lines:
+        return bad + [dict(kind="citation", text=s[:60], why="the sentence cites no facts line", context=s[:120])], 0, 0
+    inh = [L for i in dict.fromkeys(extra) for L in _resolve_id(i, X) if L not in lines]
+    main = lines + inh
+    subs = [X[j] for L in main for j in L["subs"] if X[j] not in main]
+    roles = collections.defaultdict(set); wlow = set(); cols = set(); low = []
+    for L in main:
+        for k, v in L["roles"].items(): roles[k] |= v
+        hd = X.get(L["id"].split(".")[0])                                 # a stretch of one column: its line and its column's
+        if hd is not None and hd is not L and hd["cols"] == L["cols"]:     # line speak of the same column
+            for k, v in hd["roles"].items(): roles[k] |= v
+    vis = set()
+    for L in main + subs:
+        wlow |= L["words"] | L["show"]; low.append(L["low"])
+        if L["id"] not in ("Q", "X"): cols |= L["cols"]
+        vis |= set().union(set(), *(f["words"] for f in L["fams"]))
+    byhead = collections.defaultdict(set)                                 # two column lines of one stretch cited: the columns
+    for L in main:                                                        # between them are that stretch's too
+        if "." in L["id"] and L["cols"]: byhead[L["id"].split(".")[0]] |= L["cols"]
+    for h, cs in byhead.items():
+        if h in X and len(cs) >= 1 and sum(1 for L in main if L["id"].startswith(h + ".")) >= 2:
+            cols |= {c for c in X[h]["cols"] if min(cs) <= c <= max(cs)}
+    heads = [X[h] for h in {L["id"].split(".")[0] for L in main} if h in X]
+    vis |= wlow
+    low = " ".join(low)
+    cited = ", ".join(L["id"] for L in lines)
+    pool = collections.defaultdict(set)
+    for r, vs in roles.items(): pool[ROLE_KIND[r]] |= vs
+    br = [L for L in lines if re.search(r"\.b\d+$", L["id"])]             # a branch spoken of: its own families, its own shares,
+    bm = re.search(r"\bbranch(?:es)?\b|\bparallel path\b", s, re.I)       # in the clause that speaks of it (from the clause
+    bmode = bool(br) and bool(bm) and len(lines) > len(br)                # before "branch" to the end of the sentence)
+    bstart = max(s.rfind(",", 0, bm.start()), s.rfind(";", 0, bm.start()), s.rfind(":", 0, bm.start())) + 1 if bmode else 0
+    if bmode and "[[" in s[bstart: bm.start()] or bmode and s[:bstart].count("[[") != s[:bstart].count("]]"): bstart = 0
+    inb = lambda i: bmode and i >= bstart
+    if bmode:
+        bwords = set().union(*(L["words"] | L["show"] for L in br))
+        broles = collections.defaultdict(set)
+        for L in br:
+            for k, v in L["roles"].items(): broles[k] |= v
+    nnum = nname = 0
+    body = s
+    for fr in sorted(F.frags, key=len, reverse=True):                     # "family 4" of a product: a name, not a number
+        body = re.sub(re.escape(fr), lambda mm: re.sub(r"\d", "#", mm.group(0)), body, flags=re.I)
+    spans = [mm.span() for mm in re.finditer(r"\[\[.*?\]\]", body, flags=re.S)]
+    inside = lambda i: any(a <= i < b for a, b in spans)
+    def ident(mm):
+        tok = mm.group(0).strip("'-/.")
+        if not re.search(r"[A-Za-z]", tok): return mm.group(0)
+        u = re.fullmatch(r"(\d[\d,]*(?:\.\d+)?)-(bits?|fold|columns?|genes?|famil(?:y|ies)|percent)", tok)
+        if u: return u.group(1) + " " + u.group(2)                        # 0.4-bit: a number and its unit
+        chem = re.fullmatch(r"\d+(?:,\d+)*-[A-Za-z]{4,}[\w,-]*", tok) and not re.match(r"\d+(?:,\d+)*-(?:genes?|columns?|famil|fold|bits?|stretch)", tok)
+        if tok.lower() not in low and not (inside(mm.start()) and chem):
+            bad.append(dict(kind="identifier", text=tok, why=f"not in the lines cited ({cited})", context=s[:120]))
+        return re.sub(r"\d", "#", mm.group(0))
+    body = IDENT_RE.sub(ident, body)
+    rsp = [(m.start(1), m.end(1), m.start(2), m.end(2)) for m in                       # the two ends of a range
+           re.finditer(r"(?<![\w.,])(\d[\d,]*(?:\.\d+)?)\s*(?:to|-|–)\s*(\d[\d,]*(?:\.\d+)?)(?=\s*(?:%|bits?\b|famil))", body)]
+    def inrange(i): return any(a <= i < b or c <= i < d for a, b, c, d in rsp)
+    prole = None; froms = []; skip_at = set(); hi_at = None
+    scols_all = cols_of(s)
+    cvals = {}
+    for L in main + subs:
+        for k2, x in L.get("colvals", {}).items(): cvals.setdefault(k2, x)
+    colset = cols_of(s) & cols                                            # a column the lines cited speak of ("columns 69 to 79" of
+    for mm in NUM_RE.finditer(body):                                      # [S4.c53-79]): a column, checked as one below
+        if not UNIT_RE.match(body, mm.end()) and not LOWER_RE.match(body, mm.end()) and "." not in mm.group(0) \
+           and mm.group(0).isdigit() and int(mm.group(0)) in colset and \
+           re.search(r"\bcolumns?\b[\w\s,–-]{0,40}$", body[max(0, mm.start() - 48): mm.start()], re.I):
+            continue
+        if mm.start() in skip_at: continue                                # the upper end of a range verified with its lower end
+        if inside(mm.start()):
+            if not re.match(r"\d+(?:,\d+)*-[A-Za-z]{4,}", body[mm.start():]):
+                bad.append(dict(kind="interpretation", text=mm.group(0), why="a number inside [[ ]]", context=s[:120]))
+            continue
+        raw = mm.group(0); nnum += 1
+        try: v = Decimal(raw.replace(",", ""))
+        except InvalidOperation: continue
+        u = UNIT_RE.match(body, mm.end()); unit = (u.group(1).lower() if u else ""); aend = u.end() if u else mm.end()
+        hi = None
+        if not unit:
+            lo = LOWER_RE.match(body, mm.end())
+            if lo: unit = lo.group(2).lower(); aend = lo.end(); hi = lo.group(1); hi_at = lo.start(1)   # a range's lower end: its unit
+        kind = "pct" if unit in ("%", "percent", "per cent") else "bits" if "bit" in unit else "fam" if unit.startswith("famil") and "." in raw else None
+        role = "bits" if kind == "bits" else "ppl" if kind == "fam" else None
+        if kind == "pct":
+            after = body[aend:][:44]
+            fol = next((r for rx, r in _FOLLOW if rx.match(after)), None)     # "N% in a region of plasticity" decides; "of chromosomes"
+            left = re.split(r"[.!?]\s|\*\*", body[:mm.start()])[-1][-90:]     # only over a keyword of another clause, or a distant one
+            role = fol if fol == "rgp" else (_role_left(left[-22:], _SROLE) or fol or _role_left(left, _SROLE) or prole)
+        prole = role or prole
+        if inb(mm.start()) and role == "share": vs = broles.get("share", set())   # a branch's share is the branch's, not its columns'
+        else: vs = roles.get(role, set()) if (role and ROLE_KIND.get(role) == kind) else (pool.get(kind, set()) if kind else set().union(*pool.values()) if pool else set())
+        ok = v in _allowed({kind or "int": vs})[kind or "int"]
+        rrole = role or ("share" if kind == "pct" else None)               # a bare percent: a share, as the facts write it
+        if kind == "pct" and rrole == "share" and not inb(mm.start()) and not re.search(r"\bfrom\s+$", body[max(0, mm.start() - 8): mm.start()], re.I):
+            ccs = _clause_cols(s, mm.start(), F)                          # the shares at the columns named, from the column lines of
+            if ccs and all(k2 in cvals for k2 in ccs):                    # the lines cited: "columns 15 to 20 ... 73 to 79%" is exactly
+                vals = [cvals[k2] for k2 in sorted(ccs)]                  # their lowest and highest, "column 14 ... 68%" its value
+                al_ = lambda x: _allowed({"pct": {x}})["pct"]
+                if hi is not None:
+                    try: vh_ = Decimal(hi.replace(",", ""))
+                    except InvalidOperation: vh_ = None
+                    if vh_ is not None and {min(v, vh_), max(v, vh_)} and min(v, vh_) in al_(min(vals)) and max(v, vh_) in al_(max(vals)):
+                        skip_at.add(hi_at); continue
+                elif len(ccs) == 1 and v in al_(vals[0]): continue
+        if ok and hi is not None and kind == "pct" and rrole in ("share", "rgp", "named"):
+            try: vh = Decimal(hi.replace(",", ""))
+            except InvalidOperation: vh = None
+            src = br if inb(mm.start()) and rrole == "share" else main
+            if vh is not None and re.search(r"\bfrom\s+$", body[max(0, mm.start() - 8): mm.start()], re.I):
+                ends = _ends(_clause_cols(s, mm.start(), F), main + subs)          # "from 90 to 48%": a direction along the columns
+                if ends and v in _allowed({"pct": {ends[0]}})["pct"] and vh in _allowed({"pct": {ends[1]}})["pct"]:
+                    froms.append((v, vh)); continue
+                bad.append(dict(kind="number", text=f"from {raw} to {hi}%", why=f"\"from A to B\" is the share at the first and at the last "
+                                f"column named, and the lines cited ({cited}) do not show both: cite those columns' lines, or give "
+                                f"the range as a line shows it", context=s[:120]))
+                continue
+            if vh is not None and not _range_ok(v, vh, rrole, src, scols_all, X):
+                bad.append(dict(kind="number", text=f"{raw} to {hi}%", why=f"a range the lines cited ({cited}) do not give: the range a line "
+                                f"shows, or the lowest and highest of the lines cited, or the values at the first and last column named",
+                                context=s[:120]))
+                continue
+        if ok and kind == "pct" and rrole == "share" and hi is None and not inb(mm.start()):
+            pre_ = body[max(0, mm.start() - 44): mm.start()]              # "`xylE`, carried by 69%": that gene's share
+            gm = list(re.finditer(r"`([^`\n]+)`", pre_))
+            g_ = gm[-1].group(1) if gm and not re.search(r"\d", pre_[gm[-1].end():]) else None
+            if g_ and F.gshare.get(g_):
+                if v not in set().union(*(_allowed({"pct": {x}})["pct"] for x in F.gshare[g_])):
+                    bad.append(dict(kind="number", text=f"{raw}%", why=f"`{g_}` is carried by {', '.join(str(x) + '%' for x in sorted(F.gshare[g_]))} "
+                                    f"in the facts", context=s[:120])); continue
+            pre_s = s[max(0, mm.start() - 44): mm.start()]
+            pk = pre_s[max((x.end() for x in re.finditer(r"%|\bbits?\b|`", pre_s)), default=0):].lower()
+            pf = [x for p_, x in F.pshare.items() if len(p_) >= 6 and p_[:14] in pk]
+            if not g_ and pf:                                             # "an IS1-like element transposase in 29%": that family's
+                if v not in set().union(*(_allowed({"pct": {y}})["pct"] for x in pf for y in x)):
+                    bad.append(dict(kind="number", text=f"{raw}%", why="not the share of the family it follows in the facts", context=s[:120])); continue
+            elif not g_:
+                ccs = _clause_cols(s, mm.start(), F)                      # "column 10 ... carried by 64%": that column's share
+                if len(ccs) == 1 and min(ccs) in cvals and not re.search(r"\bgenomes\b|\bchromosomes\b\s*$", pre_[-3:]) \
+                   and v not in _allowed({"pct": {cvals[min(ccs)]}})["pct"] and re.search(r"carri|share|\bin\s*$|\bat\s*$", pre_[-24:]):
+                    bad.append(dict(kind="number", text=f"{raw}%", why=f"column {min(ccs)} is carried by {cvals[min(ccs)]}% in the lines cited "
+                                    f"({cited})", context=s[:120])); continue
+        if ok and kind == "pct" and role == "named" and F.gtop is not None and any(L["id"] == "G" for L in lines) \
+           and re.search(r"names?\s+$", body[max(0, mm.start() - 12): mm.start()]) and re.match(r"%\s+of\s+(?:the\s+)?genes\b", body[mm.end():]) \
+           and not re.search(r"persistent|shell|cloud|inside|outside|spine|fork|variable", re.split(r"[.;]", s[:mm.start()])[-1], re.I):
+            if v not in _allowed({"pct": {F.gtop}})["pct"]:               # "across the window it names 89% of genes": [G]'s own
+                bad.append(dict(kind="number", text=f"{raw}%", why=f"across the window the model names {F.gtop}% of genes [G]", context=s[:120])); continue
+        if ok and kind == "bits" and F.gbits is not None and any(L["id"] == "G" for L in lines) and not any(L["id"] in ("H", "M") for L in lines) \
+           and re.match(r"\s*bits?\s+on\s+average", body[mm.end():]) and v not in _allowed({"bits": {F.gbits}})["bits"]:
+            bad.append(dict(kind="number", text=f"{raw} bits", why=f"across the window it hesitates {F.gbits} bits on average [G]", context=s[:120])); continue
+        if ok and kind == "bits" and "." not in raw and v not in roles.get("bits", set()):
+            bad.append(dict(kind="format", text=f"{raw} bits", why="bits rounded to a whole number: write them as the facts do", context=s[:120])); continue
+        if not ok:
+            say = ROLE_SAY.get(role, "a number").format(unit=F.unit) if role else "a number"
+            bad.append(dict(kind="number", text=raw + ("%" if kind == "pct" else f" {unit}" if unit else ""),
+                            why=f"not {say} of the lines cited ({cited})", context=s[:120]))
+    for mm in re.finditer(r"(?<![\w.-])\.\d+\b|(?<![\w,-])\d+,\d{1,2}\b(?!,?\d)", re.sub(r"\[\[.*?\]\]", " ", s)):
+        bad.append(dict(kind="format", text=mm.group(0), why="write numbers as the facts do (0.97, not .97 or 0,97)"))
+    for rx, down in ((TREND_DOWN, True), (TREND_UP, False)):              # "fewer and fewer": shown by a "from A to B" that falls
+        mt = rx.search(re.sub(r"\[\[.*?\]\]", " ", s))
+        if mt and not any((a_ > b_) if down else (a_ < b_) for a_, b_ in froms):
+            bad.append(dict(kind="claim", text=mt.group(0), why="a trend along the columns needs its values: \"from A to B%\" at the first "
+                            "and last column named, from the lines cited", context=s[:120]))
+    allv = set().union(*pool.values()) if pool else set()
+    for mm in NUMW_RE.finditer(s):
+        nnum += 1
+        if Decimal(NUMW[mm.group(1).lower()]) not in allv:
+            bad.append(dict(kind="number word", text=mm.group(0), why="write numbers in digits, from the lines cited"))
+    for mm in VAGUE_RE.finditer(s): bad.append(dict(kind="number word", text=mm.group(0), why="write numbers in digits, from the lines cited"))
+    for mm in META_RE.finditer(s): bad.append(dict(kind="wording", text=mm.group(0), why="the reading speaks of the window, not of the facts"))
+    whyg = (f"a branch is spoken of with its own families only ({', '.join(L['id'] for L in br)})" if bmode
+            else f"not in the lines cited ({cited})")
+    def known(g, at=0):
+        gl = g.lower(); b = inb(at)
+        pool_ = bwords if b else wlow
+        if gl in pool_: return True
+        if len(gl) == 3 and any(w.startswith(gl) for w in pool_ if w in {x.lower() for x in F.genes}): return True
+        if b: return False
+        return gl in low or any(k.endswith("…") and gl.startswith(k[:-1]) for k in F.atp)
+    whyn = f"not in the lines cited ({cited})"
+    for mm in re.finditer(r"`([^`\n]+)`", s):
+        g = mm.group(1).strip(); nname += 1
+        if not known(g, mm.start()): bad.append(dict(kind="gene", text=g, why=whyg if inb(mm.start()) else whyn, context=s[:120]))
+    nog = re.sub(r"`[^`\n]*`", " ", s)
+    for mm in GENE_RE.finditer(nog):
+        g = mm.group(1); nname += 1
+        if not known(g, mm.start()) and g not in ALLOWED_WORDS: bad.append(dict(kind="gene", text=g, why=whyg if inb(mm.start()) else whyn, context=s[:120]))
+    for mm in PROT_RE.finditer(nog):
+        g = mm.group(1)
+        if not known(g, mm.start()) and not known(g[0].lower() + g[1:], mm.start()) and g not in ALLOWED_WORDS:
+            nname += 1; bad.append(dict(kind="gene", text=g, why=whyg if inb(mm.start()) else whyn, context=s[:120]))
+    for mm in OPERON_RE.finditer(re.sub(r"\[\[.*?\]\]", " ", nog)):
+        g = mm.group(1)
+        if not known(g, mm.start()) and g.lower() not in WORDS3:
+            bad.append(dict(kind="gene", text=g, why=f"not an operon of the lines cited ({cited})", context=s[:120]))
+    for mm in OPERON_RE2.finditer(s):                                     # "the `waa` locus" over a stretch: most of its families
+        pre = mm.group(1).lower()                                         # must carry that name, or the label covers what it is not
+        oc = _clause_cols(s[:mm.start()] + s[mm.end():], mm.start(), None) # the columns named nearest, not the operon's own genes
+        fs = [f for L in main + subs if not L["glob"] for f in L["fams"]
+              if not f["alt"] and (not oc or f["col"] is None or f["col"] in oc)]
+        pres = {pre} | set(ALIAS.get(pre, ()))                            # rfa is the old name of waa
+        nin = sum(f["label"].lower().startswith(tuple(pres)) for f in fs)
+        if len(fs) >= 4 and nin * 2 < len(fs):
+            bad.append(dict(kind="claim", text=mm.group(0), why=f"only {nin} of the {len(fs)} families there carry that name: name "
+                            f"the columns it is true of", context=s[:120]))
+    miss = sorted(cols_of(s) - cols)
+    if miss: bad.append(dict(kind="column", text="column " + ", ".join(map(str, miss[:6])),
+                             why=f"the lines cited ({cited}) do not speak of that column", context=s[:120]))
+    scols = cols_of(s)
+    for mm in re.finditer(r"\[\[(.+?)\]\]", s):
+        nw = len(re.findall(r"[A-Za-z0-9][\w'-]*", mm.group(1)))
+        if nw < 2 or nw > 6 or re.search(r"[,;]", mm.group(1)):
+            bad.append(dict(kind="interpretation", text=mm.group(1)[:40], why="an interpretation is one phrase of 2 to 6 words, not a word "
+                            "or a list", context=mm.group(0)[:80]))
+        cw = [w for w in re.findall(r"[A-Za-z][\w'-]{3,}|\b[A-Z][A-Za-z0-9]{1,2}\b", mm.group(1))    # GMP, DNA, Fe: words too
+              if w.lower() not in STOP and w.lower() not in ("the", "and", "for", "its")]
+        for w in cw:                                                      # every word of the label: in the lines cited
+            if _covers(w.lower(), vis): continue
+            bad.append(dict(kind="interpretation", text=w, why=f"not a word of the products or gene names of the lines cited ({cited})",
+                            context=mm.group(0)[:80]))
+        if not cw:                                                        # "[[sugar transport]]": nothing the products must say
+            bad.append(dict(kind="interpretation", text=mm.group(1)[:40], why="it names nothing the products of the lines cited say: build "
+                            "it from their words", context=mm.group(0)[:80])); continue
+        fams, seen_f = [], set(); scols = _clause_cols(s, mm.start(), F) # the families the label is about: those of the
+        b_ = (inb(mm.start()) or bstart == 0) if bmode else bool(br) and len(br) == len(lines)   # stretch, column or branch
+        nb_ = [x for x in main + subs if not x["glob"] and not (bmode and x in br)]    # lines cited, narrowed to the columns named
+        for L in (br if b_ else nb_):
+            for f in L["fams"]:
+                k = (f["label"], f["col"])
+                if k in seen_f or (f["alt"] and not b_) or (scols and f["col"] is not None and f["col"] not in scols and not b_): continue
+                seen_f.add(k); fams.append(f)
+        if not fams:
+            for g in genes_of(s, F):
+                for L in X.values():
+                    for f in L["fams"]:
+                        if f["label"] == g and (f["label"], f["col"]) not in seen_f:
+                            seen_f.add((f["label"], f["col"])); fams.append(f)
+        if not fams:
+            bad.append(dict(kind="interpretation", text=mm.group(1)[:40], why=f"the lines cited ({cited}) name no family this could be about",
+                            context=mm.group(0)[:80])); continue
+        hit = [f for f in fams if any(_covers(w.lower(), f["words"]) for w in cw)]
+        pre = {f["label"][:3].lower() for f in fams if re.fullmatch(r"[a-z]{3}[A-Z]\w*", f["label"] or "")}
+        operon = len(pre) == 1 and all(re.fullmatch(r"[a-z]{3}[A-Z]\w*", f["label"] or "") for f in fams)
+        fits = len(hit) >= 2 and len(hit) * 3 >= len(fams) if operon else len(hit) * 2 >= len(fams)
+        if len(fams) >= 3 and not fits:                                   # a label must fit most of the families it covers; in one
+            bad.append(dict(kind="interpretation", text=mm.group(1)[:40],
+                            why=f"this says what {len(hit)} of the {len(fams)} families of the lines cited ({cited}) do: name the columns "
+                                f"it is true of, or leave the stretch unnamed", context=mm.group(0)[:80]))
+        else:
+            parts_ = [[w for w in re.findall(r"[A-Za-z][\w'-]{3,}", x) if w.lower() not in STOP and w.lower() not in GENERIC
+                       and w.lower()[:-1] not in GENERIC]
+                      for x in re.split(r"\s+and\s+|,\s*|\s*/\s*", mm.group(1))]
+            for cp in [x for x in parts_ if len(x) >= 2] if len(fams) >= 3 else []:
+                if not any(sum(_covers(w.lower(), f["words"]) for w in cp) >= 2 for f in hit):
+                    bad.append(dict(kind="interpretation", text=" ".join(cp)[:40],
+                                    why="its words come one from each family: no family of the lines cited does all of it",
+                                    context=mm.group(0)[:80])); break
+    for rx, what, key, unit_ in ((HES_RE, "most hesitant", "hesv", r"(\d+(?:\.\d+)?)\s*bits?\b"), (LOW_RE, "fewest named", "lowv", r"(\d+(?:\.\d+)?)\s*%")):
+        for mm in rx.finditer(s):
+            if what == "most hesitant" and re.search(r"\bno column\b|hardly|barely|seldom", s, re.I): continue
+            st_ = [t for L in main for t in L[key]]                        # what the lines cited state, column and value
+            if not st_:
+                bad.append(dict(kind="claim", text=mm.group(0), why=f"the lines cited ({cited}) do not state a column as the {what}", context=s[:120])); continue
+            cc = _claim_cols(s, mm, F) or cols_of(s)
+            if cc and not (cc & {k2 for k2, _ in st_}):
+                bad.append(dict(kind="claim", text=mm.group(0), why=f"the lines cited ({cited}) state column {', '.join(str(k2) for k2, _ in st_[:3])} "
+                                f"as the {what}", context=s[:120])); continue
+            seg = re.split(r"[;]|\.\s", s[mm.end():])[0]
+            vm = re.search(unit_, seg)
+            if not vm:
+                bef = list(re.finditer(unit_, s[:mm.start()])); vm = bef[-1] if bef else None
+            if vm:                                                        # its value: the one stated with that column
+                vv = Decimal(vm.group(1)); okv = [x for k2, x in st_ if (not cc or k2 in cc)]
+                if okv and not any(vv in _allowed({"bits" if key == "hesv" else "pct": {x}})["bits" if key == "hesv" else "pct"] for x in okv):
+                    bad.append(dict(kind="number", text=vm.group(0), why=f"the {what} there is {okv[0]}{' bits' if key == 'hesv' else '%'} in the lines "
+                                    f"cited ({cited})", context=s[:120]))
+    for mm in PLASTIC_RE.finditer(s):
+        ab = F.plastic.get("most" if mm.group(1).lower() == "most" else "least")
+        if not ab or not any(L["id"] == "P" for L in lines):
+            bad.append(dict(kind="claim", text=mm.group(0), why="only the PLASTICITY line [P] names a stretch so", context=s[:120])); continue
+        cc = cols_of(s)
+        if cc and not (cc & set(range(ab[0], ab[1] + 1))):
+            bad.append(dict(kind="claim", text=mm.group(0), why=f"the facts say so of columns {ab[0]} to {ab[1]} only", context=s[:120]))
+    plain = re.sub(r"\[\[.*?\]\]", " ", s)
+    K, ready, opens = F.kind, READY_RE.search(plain), OPENS_RE.search(plain)
+    hesit = re.search(r"\bhesitat", plain, re.I)
+    mcited = any(L["id"] == "M" for L in main)
+    if mcited and K: bad += _m_direction(plain, K, s)                     # the two kinds of column compared, as [M] states it
+    nbh = [X[f"S{int(h['id'][1:]) + d}"] for h in heads if re.fullmatch(r"S\d+", h["id"]) for d in (-1, 1)
+           if f"S{int(h['id'][1:]) + d}" in X]                          # "breaks the spine": the stretches on either side
+    for kw in ("spine", "fork", "variable", "branch"):                    # a kind of column the sentence speaks of: in its lines
+        if re.search(rf"\b{kw}(?:e?s)?\b", plain, re.I) and not any(kw in L["low"] for L in main + subs + heads
+                                                                        + (nbh if kw != "branch" else [])):
+            bad.append(dict(kind="claim", text=kw, why=f"no line cited ({cited}) has a {kw} here", context=s[:120]))
+    for mm in re.finditer(r"(?<!\d )\b(?:all (persistent|shell|cloud)|(persistent|shell|cloud) famil\w+)\b", plain, re.I):
+        pw = PART[(mm.group(1) or mm.group(2)).lower()]                   # "all persistent", "persistent families": every family
+        cc = _clause_cols(s, mm.start(), F)                               # of the columns named (a branch: of the branch)
+        src_ = br if inb(mm.start()) or (br and len(br) == len(lines)) else [L for L in main + subs if not L["glob"] and L not in br]
+        fam_ = [f for L in src_ for f in L["fams"] if f.get("part") and (L in br or not f["alt"])
+                and (L in br or not cc or f["col"] is None or f["col"] in cc)]
+        other = [f for f in fam_ if f["part"] != pw]
+        if fam_ and other:
+            bad.append(dict(kind="claim", text=mm.group(0), why=f"{len(other)} of the {len(fam_)} families of the lines cited there are "
+                            f"not {mm.group(1) or mm.group(2)}", context=s[:120]))
+    for mm in re.finditer(r"(?<!\d )(?<!all )\b(persistent|shell|cloud)\b(?! famil)(?! and)", plain, re.I):  # "`selB`, persistent"
+        cc = _clause_cols(s, mm.start(), F)                               # of one column: that column's family
+        if len(cc) != 1 or inb(mm.start()): continue
+        fam_ = [f for L in main + subs if not L["glob"] and L not in br for f in L["fams"] if not f["alt"] and f.get("part") and f["col"] in cc]
+        if fam_ and fam_[0]["part"] != PART[mm.group(1).lower()]:
+            bad.append(dict(kind="claim", text=mm.group(0), why=f"the family at column {min(cc)} is {PARTN[fam_[0]['part']]}", context=s[:120]))
+    kinds = getattr(F, "kinds", {})                                       # "variable columns 63 to 65", "column 2 is a spine"
+    for mm in list(re.finditer(r"\b(spine|fork|variable) columns? (\d+)(?:\s*(?:to|-)\s*(\d+))?(?!\s*%)", plain, re.I)) + \
+              list(re.finditer(r"\bcolumns? (\d+)(?:\s*(?:to|-)\s*(\d+))?,? (?:is|are) (?:a |an |all )?(spine|fork|variable)\b(?! and)", plain, re.I)):
+        g = mm.groups()
+        kw, a_, b_ = (g[0], g[1], g[2]) if not g[0].isdigit() else (g[2], g[0], g[1])
+        ks = range(int(a_), int(b_ or a_) + 1)
+        wrong = [k for k in ks if k in kinds and kinds[k] != kw.lower()]
+        if wrong: bad.append(dict(kind="claim", text=mm.group(0), why=f"column {wrong[0]} is a {kinds[wrong[0]]} column", context=s[:120]))
+    for mm in re.finditer(r"\b(\d+) (persistent|shell|cloud) famil\w+", plain, re.I):   # "a branch of 9 shell families": 9 of them
+        pw = PART[mm.group(2).lower()]; cc = _clause_cols(s, mm.start(), F)
+        src_ = br if inb(mm.start()) or (br and len(br) == len(lines)) else [L for L in main + subs if not L["glob"] and L not in br]
+        fam_ = [f for L in src_ for f in L["fams"] if f.get("part") and (L in br or not f["alt"])
+                and (L in br or not cc or f["col"] is None or f["col"] in cc)]
+        if fam_ and sum(f["part"] == pw for f in fam_) < int(mm.group(1)):
+            bad.append(dict(kind="claim", text=mm.group(0), why=f"{sum(f['part'] == pw for f in fam_)} of the {len(fam_)} families of the "
+                            f"lines cited there are {mm.group(2).lower()}", context=s[:120]))
+    if ready or (hesit and opens and not mcited):                         # "reads the spines readily, hesitates where it opens"
+        if not any(L["id"] in ("M", "H", "C", "G") for L in main):
+            bad.append(dict(kind="claim", text=(ready or opens).group(0), why="where the model reads well and where it hesitates is "
+                            "stated by [M] (by kind of column), [H], [C] or [G]: cite the line", context=s[:120]))
+        if ready and re.search(r"\bspines?\b", plain, re.I) and K and K["named_spine"] < K["named_other"] - 0.005:
+            bad.append(dict(kind="claim", text=ready.group(0), why="the model names fewer genes on the spine columns of this window "
+                            "than on the fork and variable ones [M]", context=s[:120]))
+        if ready and re.search(r"\b(?:fork|variable)\b", plain, re.I) and not re.search(r"\bspines?\b", plain, re.I) \
+           and K and K["named_other"] < K["named_spine"] - 0.005:
+            bad.append(dict(kind="claim", text=ready.group(0), why="the model names fewer genes on the fork and variable columns of this "
+                            "window than on the spine ones [M]", context=s[:120]))
+        if hesit and opens and not _claim_cols(s, opens, F) and not scols:
+            if K and K["bits_other"] <= K["bits_spine"] + 0.02:
+                bad.append(dict(kind="claim", text=opens.group(0), why="the fork and variable columns of this window hesitate no more "
+                                "than the spine columns [M]", context=s[:120]))
+            elif F.hes_spine:
+                bad.append(dict(kind="claim", text=opens.group(0), why="the most hesitant column of this window is a spine column [M], "
+                                "[H]: say where it hesitates most, or name the columns", context=s[:120]))
+    for mm in re.finditer(r"[A-Za-z][A-Za-z']{4,}", re.sub(r"\[\[.*?\]\]|`[^`]*`|\"[^\"]*\"", " ", s)):
+        w = mm.group(0).lower()                                           # biology belongs inside [[ ]]: a product's word outside it
+        if w in PROSE or w in STOP or w in F.pnames or w not in F.pwords: continue
+        bad.append(dict(kind="interpretation", text=mm.group(0), why="a word of the products outside [[ ]]: what genes do is written "
+                        "inside the brackets", context=s[:120]))
+    for mm in NEG_RE.finditer(plain): bad.append(dict(kind="claim", text=mm.group(0), why="the facts never say chromosomes lack a gene"))
+    for mm in SUP_RE.finditer(plain): bad.append(dict(kind="claim", text=mm.group(0), why="a superlative the facts do not state"))
+    bad += _only_majority(plain)
+    for mm in LEAST_RE.finditer(s): bad.append(dict(kind="claim", text=mm.group(0), why="the facts give the most hesitant columns, not the least"))
+    for mm in re.finditer(r"outside (?:any|a) regions? of plasticity,? in (?:only )?\d[\d.]*(?: to \d[\d.]*)?%", s, re.I):
+        bad.append(dict(kind="claim", text=mm.group(0), why="the facts give the share of calls inside a region of plasticity"))
+    for mm in re.finditer(r"\b\d+\s+(?:in|out of|of every)\s+\d+\b(?!\s*%|\.\d|\s+to\s+\d)", plain):
+        bad.append(dict(kind="claim", text=mm.group(0), why="a fraction the facts do not give"))
+    for mm in re.finditer(r"\*\*(.+?)\*\*", s, re.S):                     # the bold opening: structure, no biology
+        b = next((x for x in BIO_RE.finditer(re.sub(r"\[\[.*?\]\]|`[^`]*`|\"[^\"]*\"", " ", mm.group(1))) if x.group(0).lower() not in low), None)
+        if b: bad.append(dict(kind="claim", text=b.group(0), why="biology outside [[ ]], in a bold sentence", context=mm.group(1)[:120]))
+    if F.comp and any(L["id"] == "C" for L in lines) and not re.search(r"\bspines?\b", plain, re.I):
+        c = F.comp; low_ = plain.lower()                                  # "0.83 against 0.21 bits", "78% against 94%": [C]'s pairs,
+        inside_first = low_.find("inside") < low_.find("outside") if "outside" in low_ else True   # the side named first first
+        for mm in re.finditer(r"(\d+(?:\.\d+)?)(%|\s*bits)?\s+against\s+(\d+(?:\.\d+)?)\s*(%|bits?)", plain):
+            pc = mm.group(4).startswith("%") or (mm.group(2) or "").strip() == "%"
+            want = (c["ai"], c["ao"]) if pc else (c["ei"], c["eo"])
+            if not inside_first: want = want[::-1]
+            A, B = Decimal(mm.group(1)), Decimal(mm.group(3))
+            k_ = "pct" if pc else "bits"
+            if A not in _allowed({k_: {Decimal(want[0].rstrip("%"))}})[k_] or B not in _allowed({k_: {Decimal(want[1].rstrip("%"))}})[k_]:
+                bad.append(dict(kind="number", text=mm.group(0), why=f"[C] gives {want[0]} against {want[1]}{'' if pc else ' bits'}", context=s[:120]))
+    if F.kind and any(L["id"] == "M" for L in lines) and re.search(r"\bspines?\b", plain, re.I):
+        K = F.kind; low_ = plain.lower()                                  # [M]'s pairs, the kind named first first
+        ks = [(low_.find(w), w) for w in ("spine", "fork", "variable", "other") if w in low_]
+        sp_first = min(ks)[1] == "spine" if ks else True
+        for mm in re.finditer(r"(\d+(?:\.\d+)?)(%|\s*bits)?\s+against\s+(\d+(?:\.\d+)?)\s*(%|bits?)", plain):
+            pc = mm.group(4).startswith("%") or (mm.group(2) or "").strip() == "%"
+            want = (fmt_pct(K["named_spine"]), fmt_pct(K["named_other"])) if pc else (fmt_bits(K["bits_spine"]), fmt_bits(K["bits_other"]))
+            if not sp_first: want = want[::-1]
+            k_ = "pct" if pc else "bits"
+            if Decimal(mm.group(1)) not in _allowed({k_: {Decimal(want[0].rstrip("%"))}})[k_] or \
+               Decimal(mm.group(3)) not in _allowed({k_: {Decimal(want[1].rstrip("%"))}})[k_]:
+                bad.append(dict(kind="number", text=mm.group(0), why=f"[M] gives {want[0]} against {want[1]}{'' if pc else ' bits'}, the kind "
+                                f"named first first", context=s[:120]))
+    bad += _direction(s, F) + _colgene(s, F)
+    return bad, nnum, nname
+
+
+_MENTION = re.compile(r"\b(?:variable |fork |spine )?columns?,?\s+\d+(?:\s*(?:to|-|–|,|and)\s*\d+)*(?![.,]?\d|\s*%)|"
+                      r"`[^`\n]+`(?:\s+(?:to|through)\s+`[^`\n]+`)?", re.I)
+def _clause_cols(s, i, F=None):
+    """the columns a label or an operon at position i of a sentence is about: in its clause ("columns 12 to 14 ... [[x]],
+    and columns 29 to 32 ... [[y]]": each label its own), the mention nearest to it, columns ("columns 30 to 43") or genes
+    ("`thiB` to `thiQ`", "the `cai` genes"); the whole sentence's columns when the clause names none"""
+    m = re.sub(r"\[\[.*?\]\]", lambda x: "#" * len(x.group(0)), s)
+    cuts = [0] + [x.end() for x in re.finditer(r",\s+and\s+|;\s+|,\s+while\s+|,\s+then\s+", m)] + [len(s) + 1]
+    a, b = next(((a, b) for a, b in zip(cuts, cuts[1:]) if a <= i < b), (0, len(s)))
+    best = None
+    for mm in _MENTION.finditer(m, a, min(b, len(m))):
+        t = s[mm.start(): mm.end()]
+        if t.startswith("`"):
+            if F is None: continue
+            gs = re.findall(r"`([^`\n]+)`", t)
+            ks = [F.at.get(g) or set().union(set(), *(F.at[x] for x in F.genes if len(g) == 3 and x.startswith(g))) for g in gs]
+            if not all(ks): continue
+            c = set(range(min(ks[0]), max(ks[-1]) + 1)) if len(ks) == 2 and min(ks[0]) <= max(ks[-1]) else set().union(*ks)
+            ex = cols_of(s[a:b])
+            if ex and c & ex: c = c & ex
+        else:
+            c = cols_of(t)
+        if not c: continue
+        d = mm.start() - i if mm.start() >= i else i - mm.end()
+        if best is None or d < best[0]: best = (d, c)
+    return best[1] if best else cols_of(s[a:b]) or cols_of(s)
+
+
+TREND_DOWN = re.compile(r"\bfewer and fewer\b|\b(?:falling|decreasing|declining|dwindling|dropping|thinning)\b", re.I)
+TREND_UP = re.compile(r"\bmore and more\b|\b(?:rising|increasing|growing)\b", re.I)
+def _ends(cs, lines):
+    """the shares the lines show at the first and last of the columns cs (None when one of them is not shown)"""
+    if not cs: return None
+    cv = {}
+    for L in lines:
+        for k, v in L.get("colvals", {}).items(): cv.setdefault(k, v)
+    a, b = min(cs), max(cs)
+    return (cv[a], cv[b]) if a in cv and b in cv and a != b else None
+
+
+def _range_ok(a, b, role, lines, scols, X):
+    """a range of a sentence ("84 to 88%"): one a line cited shows; or the lowest and highest the lines cited show, in
+    that role (several column lines); or, for a share, the values at the first and last column the sentence names"""
+    al = lambda x: _allowed({"pct": {x}})["pct"]
+    lo_, hi_ = min(a, b), max(a, b)
+    sp = [t for L in lines for t in L.get("spans", {}).get(role, [])]
+    if not sp: return True                                                # nothing to hold it against: the value check decides
+    if any(lo_ in al(x) and hi_ in al(y) for x, y in sp): return True
+    covered = set().union(set(), *(L["cols"] for L in lines if L.get("spans", {}).get(role)))
+    if lo_ in al(min(x for x, _ in sp)) and hi_ in al(max(y for _, y in sp)) and (not scols or scols <= covered): return True
+    if role == "share" and scols:
+        ends = []
+        for k in (min(scols), max(scols)):
+            L = next((L for L in lines if re.fullmatch(r"S\d+\.c\d+", L["id"]) and L["cols"] == {k}), None)
+            if L is None or not L["spans"].get("share"): return False
+            ends.append(L["spans"]["share"][0][0])
+        if {x for e in ends for x in al(e)} >= {a, b} and a in al(ends[0]) and b in al(ends[1]): return True
+    return False
+
+
+def _resolve_id(i, X):
+    """the lines an id stands for: itself; a range the model made up ("S2.c77-79") or one column of a range line
+    ("S2.c20" for [S2.c20-24]): the column lines of that stretch within it"""
+    if i in X: return [X[i]]
+    m = re.fullmatch(r"(S\d+)\.c(\d+)(?:-(\d+))?", i)
+    if not m or m.group(1) not in X: return []
+    a = int(m.group(2)); b = int(m.group(3) or a)
+    out = [X[j] for j in X[m.group(1)]["subs"] if re.match(r"S\d+\.c", j) and X[j]["cols"] and
+           (min(X[j]["cols"]) <= b and max(X[j]["cols"]) >= a)]
+    return out if out and set().union(*(L["cols"] for L in out)) >= set(range(a, b + 1)) & X[m.group(1)]["cols"] else []
+
+
+_KIND_W = r"(spines?|spine columns?|fork|variable|others?|other ones)"
+def _m_direction(p, K, s):
+    """"names more genes on the spine columns", "hesitates less there": in the direction [M] gives, for the kind of
+    column the clause is about (said, or the first one the sentence names)"""
+    bad = []; low = p.lower()
+    kinds = [(low.find(w), w) for w in ("spine", "fork", "variable") if w in low]
+    first = min(kinds)[1] if kinds else None
+    side = lambda w: "spine" if w and w.startswith("spine") else "other" if w else None
+    for m in re.finditer(r"\bnames?\s+(?:about\s+|nearly\s+|roughly\s+)?(more|fewer|as many)\s+(?:genes\s+)?(?:(?:on|in|at|over)\s+the\s+"
+                         + _KIND_W + r"|there)?", low):
+        sd = side(m.group(2)) or side(first)
+        if not sd: continue
+        d = K["named_spine"] - K["named_other"]; d = d if sd == "spine" else -d
+        want = "more" if d > 0.02 else "fewer" if d < -0.02 else "as many"
+        if m.group(1) != want:
+            bad.append(dict(kind="claim", text=m.group(0), why=f"[M]: the model names {'about as many' if want == 'as many' else want} genes "
+                            f"on the {'spine' if sd == 'spine' else 'fork and variable'} columns", context=s[:120]))
+    for m in re.finditer(r"\bhesitat\w*\s+(?:about\s+|nearly\s+)?(more|less|as much)\b(?:\s+(?:(?:on|in|at|over)\s+the\s+" + _KIND_W
+                         + r"))?", low):
+        sd = side(m.group(2)) or ("other" if OPENS_RE.search(low[m.end():]) else side(first))
+        if not sd: continue
+        d = K["bits_spine"] - K["bits_other"]; d = d if sd == "spine" else -d
+        want = "more" if d > 0.02 else "less" if d < -0.02 else "as much"
+        if m.group(1) != want:
+            bad.append(dict(kind="claim", text=m.group(0), why=f"[M]: the model hesitates {'about as much' if want == 'as much' else want} "
+                            f"on the {'spine' if sd == 'spine' else 'fork and variable'} columns", context=s[:120]))
+    return bad
+
+
+def check_cited(text, F):
+    """the model's answer against the facts, sentence by sentence, each against the lines it cites (stricter than the
+    whole-text check: nothing may come from another line) -> dict(ok, sections, notes, bad, numbers, names, words,
+    sentences, cited, structure)"""
+    X = _cite_index(F)
+    secs, notes = parse(text)
+    nnum = nname = 0; bad = []; ns = 0
+    for sec in secs:
+        rest = [i for st in sec["sents"][1:] for i in st["cites"]]        # an opener may summarise its own paragraph
+        for i, st in enumerate(sec["sents"]):
+            st["inherit"] = [x for x in dict.fromkeys(rest) if x not in st["cites"]] if i == 0 else []
+            b, n1, n2 = _sent_bad(st["text"], st["cites"], F, X, st["inherit"])
+            st["bad"] = b; st["ok"] = not b; st["opens"] = i == 0
+            nnum += n1; nname += n2; ns += 1; bad += b
+    for sec in secs:                                                      # "the spine after it", "then": further along the window
+        prev = None
+        for i, st in enumerate(sec["sents"]):
+            cs = cols_of(st["text"]) or set().union(set(), *[L["cols"] for c in st["cites"] for L in _resolve_id(c, X) if not L["glob"]])
+            if prev and cs and i and re.search(r"\b(?:after (?:it|them|this|that)|then|next|further on|beyond (?:it|them))\b",
+                                               re.sub(r"\[\[.*?\]\]", " ", st["text"]), re.I) and min(cs) < min(prev):
+                b = dict(kind="claim", text="after it", why=f"columns {min(cs)} to {max(cs)} come before the columns of the sentence "
+                         f"before (from {min(prev)}): the window is read in its order", context=st["text"][:120])
+                st["bad"].append(b); st["ok"] = False; bad.append(b)
+            prev = cs or prev
+    order = [s["tag"] for s in secs]
+    want = [t for t in SECTIONS if t in order]
+    struct = []
+    if order != want: struct.append(f"the paragraphs are {' '.join('@' + t for t in order) or 'not tagged'}: write "
+                                    + " ".join("@" + t for t in SECTIONS) + " in that order")
+    for t in SECTIONS:
+        if t not in order: struct.append(f"the @{t} paragraph is missing")
+    if notes["dup"]: struct.append("these paragraphs are written twice: " + ", ".join("@" + t for t in notes["dup"]))
+    if notes["untagged"]: struct.append(f'this stands before the first paragraph, with no tag: "{notes["untagged"][:80]}"')
+    for t in notes["tail"]: struct.append(f'this sentence cites no facts line: "{t[:80]}"')
+    return dict(ok=not bad and not struct, sections=secs, notes=notes, bad=bad, numbers=nnum, names=nname,
+                words=_words(render(secs)), sentences=ns, cited=sum(len(st["cites"]) for sec in secs for st in sec["sents"]),
+                structure=struct, _F=F, _X=X)
+
+
+def _lead(t):
+    """a paragraph whose opening sentence was dropped: its first clause takes the bold, so every paragraph still opens
+    on one (the bold is the page's form, not a claim)"""
+    if "**" in t: return t
+    m = re.match(r"([^,;:*]{10,70})(?=[,;:]\s)", t)
+    if m and 3 <= len(m.group(1).split()) <= 10 and m.group(1).count("`") % 2 == 0 and "[[" not in m.group(1):
+        return f"**{m.group(1)}**" + t[m.end():]
+    return t
+
+
+def render(secs):
+    """the sections as the reading the page shows: no tags, no citations, one paragraph each"""
+    return "\n\n".join(_lead(" ".join(st["text"] + st["punct"] for st in sec["sents"])) for sec in secs if sec["sents"])
+
+
+def _words(t): return len(re.findall(r"[A-Za-z0-9][\w'.,%-]*", t.replace("**", "")))
+
+
+def _carries(t):
+    """what a sentence tells the reader: its numbers with their unit, its gene names, the columns it names — what is
+    lost if it goes, and what another sentence already says if it stays"""
+    out = ({" ".join(m.group(0).split()) for m in re.finditer(r"\d[\d,]*(?:\.\d+)?\s*(?:%|bits?|famil\w+)", t)}
+           | {g.strip() for g in re.findall(r"`([^`\n]+)`", t)} | {f"c{c}" for c in cols_of(t)})
+    for m in re.finditer(r"\[\[(.+?)\]\]", t): out.add("[[" + m.group(1).lower() + "]]")
+    return out
+
+
+def resolve(chk, limit=WORDS_MAX):
+    """the reading to serve: the sentences whose facts hold, then sentences dropped until the text fits the word limit
+    — the ones that add least (no id of their own, nothing of a sub-line or a branch, no interpretation) first, and never
+    an opening sentence whose paragraph would be left with its promise alone. An opener that leant on its paragraph's
+    other sentences is checked again against what is left of them: the citation holds for the text served, not only for
+    the text written -> (text or None, dict(dropped, dropped_len, unled, sections, words, why))"""
+    F, X = chk.get("_F"), chk.get("_X")
+    secs = []; nbad = 0
+    for sec in chk["sections"]:
+        keep = [st for st in sec["sents"] if st["ok"]]
+        nbad += len(sec["sents"]) - len(keep)
+        if keep: secs.append(dict(sec, sents=keep, n0=len(sec["sents"])))  # nothing of the section holds: the section goes
+    rep = dict(dropped=nbad, dropped_len=0, unled=0, sections=[], words=0, repeats=0)
+    seen_c = set()                                                        # a sentence whose numbers, genes and columns were
+    for sec in secs:                                                      # all said before: a repeat, left out
+        keep = []
+        for st in sec["sents"]:
+            c = _carries(st["text"])
+            if c and c <= seen_c and len(sec["sents"]) > 1 and not (st is sec["sents"][0] and sec["tag"] in KEEP):
+                rep["repeats"] += 1; continue
+            seen_c |= c; keep.append(st)
+        sec["sents"] = keep
+    secs = [x for x in secs if x["sents"]]
+
+    def prune():
+        """after every drop: an opener no longer carried by its own paragraph, and a paragraph left with nothing but the
+        promise its opener made"""
+        nonlocal secs
+        for sec in secs:
+            st = sec["sents"][0] if sec["sents"] else None
+            if not (st and st["opens"] and st.get("inherit") and F is not None and X is not None): continue
+            left = [i for s2 in sec["sents"][1:] for i in s2["cites"]]
+            if all(i in left for i in st["inherit"]): continue
+            b, _n1, _n2 = _sent_bad(st["text"], st["cites"], F, X, [i for i in st["inherit"] if i in left])
+            if b: sec["sents"] = sec["sents"][1:]; rep["dropped"] += 1
+        secs = [s for s in secs if s["sents"]
+                and not (len(s["sents"]) == 1 and s["sents"][0]["opens"] and s["n0"] > 1
+                         and not re.search(r"\d", s["sents"][0]["text"]) and s["tag"] not in KEEP)]
+    prune()
+    tags = [s["tag"] for s in secs]
+    rep.update(sections=tags, words=_words(render(secs)))
+    if any(t not in tags for t in KEEP) or len(secs) < len(SECTIONS) - 1:
+        rep["why"] = "too little of the reading is supported by the facts it cites"; return None, rep
+    for _ in range(40):                                                   # the word limit: whole sentences at a time
+        if _words(render(secs)) <= limit: break
+        all_ = [(s, j, st) for s in secs for j, st in enumerate(s["sents"])]
+        carries = {(id(s), j): _carries(st["text"]) for s, j, st in all_}
+        cand = []
+        for s, j, st in all_:
+            if len(s["sents"]) == 1 and s["tag"] in KEEP: continue         # @start and @whole stay
+            others = set().union(set(), *(v for k, v in carries.items() if k != (id(s), j)))
+            uniq = len(carries[(id(s), j)] - others)                       # the numbers, genes and columns it alone carries
+            sub = any("." in i for i in st["cites"]); interp = "[[" in st["text"]
+            if j != len(s["sents"]) - 1 and (uniq or sub or interp): continue   # the tail of a paragraph, or a sentence
+            if st["opens"] and len(s["sents"]) > 1: continue                     # that repeats what another one carries
+            cand.append((uniq + 2 * sub + 2 * interp, DROP_ORDER.index(s["tag"]) if s["tag"] in DROP_ORDER else 9,
+                         -_words(st["text"]), id(s), s, j))
+        if not cand: break
+        *_k, s, j = min(cand, key=lambda c: c[:4])
+        del s["sents"][j]; rep["dropped_len"] += 1
+        prune()
+    text = render(secs)
+    rep.update(words=_words(text), sections=[s["tag"] for s in secs], unled=sum(not s["sents"][0]["opens"] for s in secs),
+               interp=len(re.findall(r"\[\[", text)),
+               kept=[dict(tag=s["tag"], text=st["text"], cites=st["cites"], inherit=st.get("inherit") or [])
+                     for s in secs for st in s["sents"]])
+    cov = set()                                                           # the columns the reading served speaks of
+    for s in secs:
+        for st in s["sents"]:
+            cov |= cols_of(st["text"]) | set().union(set(), *[X[i]["cols"] for i in st["cites"] if X and i in X and not X[i]["glob"]])
+    rep["covered"] = len(cov)
+    if any(t not in rep["sections"] for t in KEEP) or len(secs) < len(SECTIONS) - 1:
+        rep["why"] = "too little of the reading is supported by the facts it cites"; return None, rep
+    if rep["words"] < WORDS_MIN: rep["why"] = f"only {rep['words']} words of the reading are supported by the facts"; return None, rep
+    if rep["words"] > limit: rep["why"] = f"{rep['words']} words after the sections were trimmed"; return None, rep
+    return text, rep
+
+
+def retry_cited(chk, rep, truncated=False):
+    """what to tell the model about its rejected reading: the sentences whose facts are not in their citations, what
+    the structure asks, and the length"""
+    say = list(chk["structure"][:4])
+    n = 0
+    for sec in chk["sections"]:
+        for st in sec["sents"]:
+            if st["ok"] or n >= 6: continue
+            n += 1
+            why = "; ".join(dict.fromkeys(f"{b['text']}: {b['why']}" for b in st["bad"][:3]))
+            say.append(f'in @{sec["tag"]}, "{st["text"][:90]}" {{{", ".join(st["cites"]) or "no id"}}} — {why}')
+    if truncated: say.append(f"the text was cut at its length limit: write at most {WORDS_MAX} words")
+    elif chk["words"] > WORDS_TARGET: say.append(f"the reading is {chk['words']} words: write {WORDS_MIN_ASK} to {WORDS_TARGET}, "
+                                                "so that nothing has to be cut")
+    if rep and rep.get("unled"): say.append("a paragraph is left without its opening sentence: write an opener that stands on the "
+                                            "lines its own paragraph cites")
+    if rep and rep.get("interp", 1) == 0 and chk.get("_F") is not None and "Q" in chk["_F"].ids:
+        say.append("the reading names no biology: put one [[interpretation]] of 2 to 6 words on a group of [Q], from the words [Q] "
+                   "gives it, naming that group's columns and citing its stretch line and [Q]")
+    if rep and rep.get("why"): say.append(rep["why"])
+    return ("Your reading was rejected: " + "; ".join(say) + ". Rewrite the whole reading, following the form, the citations "
+            "and the rules: every number, gene name and column of a sentence standing in the facts lines that sentence cites, "
+            "nothing from any other line.")
+
+
+def reason(chk, truncated, rep=None):
     """a short account of a failed check, for the page (its details in `bad`)"""
     b = chk["bad"]
     if truncated and not b: return "the model's text was cut at its length limit"
     kinds = collections.Counter(x["kind"] for x in b)
-    what = dict(number="a number not in this window's data", scope="a number given to the wrong genes or columns",
-                column="a gene put at the wrong column", direction="the comparison inside and outside regions of plasticity inverted",
-                claim="a claim this window's data do not make", gene="a gene not in this window", identifier="a name not in this window",
-                wording="words about the facts rather than the window", format="a number badly written")
+    what = dict(number="a number the facts lines its sentence cites do not carry", scope="a number given to the wrong genes or columns",
+                column="a gene or a column its sentence does not cite", direction="the comparison inside and outside regions of plasticity inverted",
+                claim="a claim this window's data do not make", gene="a gene not in the lines its sentence cites",
+                identifier="a name not in this window", interpretation="an interpretation the products and gene names do not carry",
+                citation="a sentence written from facts it does not cite", wording="words about the facts rather than the window",
+                format="a number badly written")
     what["number word"] = "a number in words"
+    if not kinds and chk.get("structure"): return "the model's text did not keep the reading's sections after a second attempt"
+    if not kinds and rep and rep.get("why"): return rep["why"]
     return "the model's text still had " + ", ".join(what.get(k, k) for k, _ in kinds.most_common(3)) + " after a second attempt"
 
 
@@ -937,34 +1946,63 @@ def llm(messages, deadline):
     raise Upstream("the reading model could not be reached (" + "; ".join(errs) + ")", 30)
 
 
+def _attempt(r, F):
+    """one answer of the model: tidied, parsed into its sections, every sentence checked against the lines it cites,
+    then the reading that would be served (its unsupported sentences dropped, trimmed to the word limit)"""
+    text = tidy(r["text"], F)
+    chk = check_cited(text, F)
+    out, rep = resolve(chk)
+    cut = r["finish"] == "length"
+    drops = [dict(tag=sec["tag"], text=st["text"][:200], cites=st["cites"], opens=st["opens"],
+                  bad=[{k: v for k, v in b.items() if k != "context"} for b in st["bad"][:4]])
+             for sec in chk["sections"] for st in sec["sents"] if not st["ok"]]
+    return dict(r, raw=r["text"], text=out or text, annotated=text,
+                check={k: v for k, v in chk.items() if k not in ("sections", "_F", "_X")},
+                report=rep, dropped=drops, served=out, truncated=cut, _chk=chk,
+                ok=bool(out) and not cut and not chk["structure"] and rep["dropped"] <= 1     # one sentence dropped, five
+                and len(rep["sections"]) == len(SECTIONS) and not rep["unled"]                # sections left, every paragraph
+                and (rep.get("interp", 0) >= 1 or "Q" not in F.ids))                              # led, one interpretation: no 2nd call
+
+
 def generate(F, wid):
-    """-> the cache entry: status llm (a checked text) or fallback (it failed the checker twice)"""
+    """-> the cache entry: status llm (the sections that hold against their citations) or fallback (too little of the
+    text was supported, twice)"""
     deadline = time.time() + BUDGET
-    msgs = [dict(role="system", content=SYSTEM), dict(role="user", content=user_msg(F, wid))]
+    sysmsg, sha = system_msg()
+    msgs = [dict(role="system", content=sysmsg), dict(role="user", content=user_msg(F, wid))]
     attempts = []
     for i in range(2):
         try: r = llm(msgs, deadline)
         except Upstream:
             if not attempts: raise
             break                                                            # the retry could not be made: fallback
-        text = tidy(r["text"], F)
-        chk = check(text, F); cut = r["finish"] == "length"
-        attempts.append(dict(r, raw=r["text"], text=text, check=chk, truncated=cut))
-        if chk["ok"] and not cut: break
+        a = _attempt(r, F); attempts.append(a)
+        if a["ok"]: break                                                    # only its length was over: the trimming fits it
         if i == 0:
             if deadline - time.time() < 12: break
-            msgs += [dict(role="assistant", content=r["text"]), dict(role="user", content=retry_msg(chk, cut))]
-    last = attempts[-1]; ok = last["check"]["ok"] and not last["truncated"]
+            msgs += [dict(role="assistant", content=r["text"]),
+                     dict(role="user", content=retry_cited(a["_chk"], a["report"], a["truncated"]))]
+    clean = [a for a in attempts if a["ok"]]
+    served = [a for a in attempts if a["served"] and not a["truncated"]]
+    best = (clean[0] if clean else min(served, key=lambda a: (a["report"]["dropped"] + a["report"]["unled"],
+            -a["report"].get("interp", 0), -a["report"].get("covered", 0))) if served else attempts[-1])
+    ok = bool(best["served"]) and not best["truncated"]
     usage = dict(prompt_tokens=sum(a["usage"]["prompt_tokens"] or 0 for a in attempts),
                  completion_tokens=sum(a["usage"]["completion_tokens"] or 0 for a in attempts),
                  cost_usd=round(sum(a["usage"]["cost_usd"] for a in attempts), 6), ms=sum(a["ms"] for a in attempts))
-    c = last["check"]
-    e = dict(status="llm" if ok else "fallback", model=MODEL, provider=last["provider"], created=time.time(), usage=usage,
-             attempts=attempts, checked=dict(ok=ok, numbers=c["numbers"], names=c["names"], words=c["words"], attempts=len(attempts)))
-    if ok: e.update(text=last["text"], html=to_html(last["text"], F))
+    c = best["check"]; rep = best["report"]
+    e = dict(status="llm" if ok else "fallback", model=MODEL, provider=best["provider"], created=time.time(), usage=usage,
+             attempts=[{k: v for k, v in a.items() if k != "_chk"} for a in attempts],
+             checked=dict(ok=ok, numbers=c["numbers"], names=c["names"], words=rep["words"] if ok else c["words"],
+                          attempts=len(attempts), sentences=c["sentences"], cited=c["cited"], skill=sha,
+                          dropped=rep["dropped"], trimmed=rep["dropped_len"], repeats=rep.get("repeats", 0), unled=rep["unled"],
+                          sections=rep["sections"],
+                          interp=rep.get("interp", 0), covered=rep.get("covered", 0)))
+    if ok: e.update(text=best["served"], html=to_html(best["served"], F))
     else:
-        e["reason"] = reason(c, last["truncated"])
+        e["reason"] = reason(c, best["truncated"], rep)
         e["checked"]["bad"] = [{k: v for k, v in b.items() if k != "context"} for b in c["bad"][:12]]
+        e["checked"]["structure"] = c["structure"][:4]
     return e
 
 
@@ -1029,7 +2067,8 @@ def facts_of(wid, region):
     with LOCK:
         if wid in FACTS: FACTS.move_to_end(wid); return FACTS[wid]
     D = home_data() if wid == DNAA else region(wid)
-    F = facts(D, wid); h = hashlib.sha1((PROMPT_VERSION + MODEL + SYSTEM + user_msg(F, wid)).encode()).hexdigest()[:12]
+    F = facts(D, wid); sysmsg, sha = system_msg()                         # the skill's sha is part of the key: a new skill, a new reading
+    h = hashlib.sha1((PROMPT_VERSION + MODEL + sha + sysmsg + user_msg(F, wid)).encode()).hexdigest()[:12]
     F.label = DNAA if wid == DNAA else D["meta"].get("anchor_label") or wid
     with LOCK:
         FACTS[wid] = (F, h)
@@ -1205,7 +2244,7 @@ def answer(a, peer="", xff="", region=None, site=True):
             try: e = generate(F, wid)
             except (Upstream, Unavailable): _refund(ip); raise
         finally: SLOTS.release()
-        e.update(window=wid, label=F.label, facts_hash=h, prompt_version=PROMPT_VERSION, facts=F.txt())
+        e.update(window=wid, label=F.label, facts_hash=h, prompt_version=PROMPT_VERSION, skill_sha=skill()[1], facts=F.txt())
         with LOCK:
             MEM[wid] = e
             while len(MEM) > 256: MEM.popitem(last=False)
@@ -1228,6 +2267,7 @@ def health():
         try: nf |= {f for f in os.listdir(d) if f.endswith(".json") and not f.startswith("_")}
         except OSError: pass
     out = dict(available=why is None, model=MODEL, providers=PROVIDERS, max_tokens=MAX_TOKENS, cached=max(n, len(nf)),
+               prompt=dict(version=PROMPT_VERSION, skill=skill()[1], skill_file=_SKILL[2], temperature=TEMPERATURE, words=WORDS_MAX),
                today=dict(new=u["n"], cap=DAILY_CAP, calls=u["calls"], cost_usd=round(u["cost"], 4), usd_cap=DAILY_USD),
                per_client=dict(new=PER_IP, per_s=int(PER_IP_S), per_day=PER_IP_DAY, clients=clients, proxy=TRUST_PROXY))
     if why: out.update(reason=why[1], code=why[0])
@@ -1264,7 +2304,7 @@ def pregen(args):
         wid, F, h = x; t = time.time()
         try: e = generate(F, wid)
         except ReadingError as err: return wid, f"error {err.code}: {err}", None
-        e.update(window=wid, label=F.label, facts_hash=h, prompt_version=PROMPT_VERSION, facts=F.txt())
+        e.update(window=wid, label=F.label, facts_hash=h, prompt_version=PROMPT_VERSION, skill_sha=skill()[1], facts=F.txt())
         _write(_paths(wid)[0], e)
         return wid, f"{e['status']} {e['checked']['attempts']} attempt(s) ${e['usage']['cost_usd']:.5f} {time.time() - t:.1f}s", e
     with cf.ThreadPoolExecutor(MAX_PARALLEL) as ex:
@@ -1283,6 +2323,18 @@ if __name__ == "__main__":
     elif len(sys.argv) >= 4 and sys.argv[1] == "check":
         w = sys.argv[2]; D = home_data() if w == DNAA else json.load(open(w))
         F = facts(D, DNAA if w == DNAA else D["meta"]["anchor"])
-        print(json.dumps(check(tidy(open(sys.argv[3]).read(), F), F), indent=1))
+        chk = check_cited(tidy(open(sys.argv[3]).read(), F), F); out, rep = resolve(chk)
+        for sec in chk["sections"]:
+            for st in sec["sents"]:
+                print(f"{'ok  ' if st['ok'] else 'DROP'} @{sec['tag']:8s} {{{', '.join(st['cites'])}}} {st['text'][:110]}")
+                for b in st["bad"]: print(f"       - {b['kind']}: {b['text']} — {b['why']}")
+        print(json.dumps(dict({k: v for k, v in chk.items() if k not in ("sections", "bad", "notes")}, report=rep), indent=1))
+        old = check(render(chk["sections"]), F)                           # the whole-text check of r7, for comparison
+        print(f"the whole-text check: {'ok' if old['ok'] else 'not ok'}, {len(old['bad'])} item(s) "
+              + ", ".join(sorted({b['kind'] for b in old['bad']})))
+        print("\n" + (out or "(nothing servable)"))
+    elif len(sys.argv) >= 2 and sys.argv[1] == "skill":
+        t, sha = skill(); print(f"[{SKILL_PATH} {'read' if _SKILL[2] else 'MISSING'}, sha {sha}, {len(t)} characters, ~{len(t) // 4} tokens]")
+        sysmsg, _ = system_msg(); print(f"[system message {len(sysmsg)} characters, ~{len(sysmsg) // 4} tokens]")
     elif len(sys.argv) >= 2 and sys.argv[1] == "pregen": pregen(sys.argv[2:])
     else: print(__doc__)

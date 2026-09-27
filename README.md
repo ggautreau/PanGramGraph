@@ -1,48 +1,208 @@
-# PanGramGraph (origin-walk)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/mark-dark.svg">
+  <img src="assets/mark.svg" width="72" alt="PanGramGraph logo: a fork of the gene graph in a speech bubble">
+</picture>
+
+# PanGramGraph
 
 Can a genomic language model tell you where a bacterial chromosome is constrained?
 Every *E. coli* genome of PanGBank pangenome 11587 (2,002 genomes) is walked gene by
 gene from `dnaA`, the pangenome graph of that window is drawn from PanGBank's own
 families and partitions, and Bacformer's prediction at every position (130,837 calls)
 is laid on top. The answer, in one line: **it knows where the chromosome is
-constrained, and its hesitation rises where the pangenome is plastic** — but asked, by
-in-silico knockout, whether it knows any *pairwise* coupling between distant accessory
-regions, it does not: of 298 testable long-range links none survives, and the single
-close-range one that does turns out to be a genomic-background marker
+constrained, and its hesitation rises where the pangenome is plastic.** Read in its own
+vocabulary it names the next gene 88.8 % of the time, about as often as the graph's most
+frequent successor (90.0 %) and more often than the graph after a fork (79.6 % against
+72.0 %), with 0.83 bits of doubt inside regions of plasticity against 0.21 outside.
+Asked by in-silico knockout whether it knows any *pairwise* coupling between distant
+accessory regions, it does not: of 298 testable long-range links none survives, and the
+single close-range one that does is a genomic-background marker. What deleting an element
+does move is the model's expectation of all the accessory content downstream, broadly
 ([Coupled regions](#coupled-regions-and-what-the-model-knows-of-them)).
 
-**Online:** https://huggingface.co/spaces/ggautreau/PanGramGraph (the page and its model's
-server, on a CPU). Locally:
+**Online:** https://huggingface.co/spaces/ggautreau/PanGramGraph, the page and its model's
+server on a CPU ([Hugging Face Space](#hugging-face-space)).
+
+**Locally**, from a clone of this repository (Python 3.11 with the packages of
+`space/requirements.txt`; a CUDA build of PyTorch to use a GPU):
 
 ```bash
-python3 serve_live.py        # then open http://localhost:8765/
+git clone https://github.com/ggautreau/PanGramGraph && cd PanGramGraph
+# the server's data (~750 MB) are not in git: rebuild them (Pipeline, below) or take the Space's copy
+huggingface-cli download ggautreau/PanGramGraph --repo-type space --include "pgb/*" --exclude "pgb/readings/*" --local-dir .
+python3 serve_live.py        # then open http://localhost:8765/ (it listens on 127.0.0.1 only)
 ```
 
-The page, **PanGramGraph** (first called Origin Fork; `origin-fork.html` now leads to it),
-has five tabs: **Graph** (the pangenome graph with the model's calls, drawn paths, windows
-anywhere on the chromosome), **Attention** (the model's attention maps while it reads a
-path: its 96 heads, the full matrix, the start token left out on demand), **Coupled
-regions**, **Findings** and **About**, with a help behind every "?". The header gives the
-pangenome as PanGBank built it (59,165 families: 3,188 persistent, 7,524 shell, 48,453 cloud),
-and under the graph each window gives its own families. A map of the complete chromosomes
-sits above the graph: click anywhere to open the window there, or search a gene name among all
-those of the chromosomes. Genomes are picked by strain, serotype, host, isolation source,
-country, year or accession (`pgb_page_meta.py` reads them from PanGBank's metadata). **Coupled regions** carries the
-model's verdict on every arc and, on click, what the model expects downstream when an element
-is deleted; **Findings** describes the window shown, written for it by
-DeepSeek-V4.1-Flash from facts the server computes, every number and gene name checked
-against them. It also opens directly
-(`standalone/pangramgraph.html`): the dnaA window, the coupled regions and the findings
-need nothing else; the live features (a genome's call in the family cards, drawn paths,
-windows beyond dnaA, attention) need the server. The first pass on eleven strains is
-kept in `pgb/origin-fork-11strains.html`.
+The page alone, `standalone/pangramgraph.html`, also opens as a file, with no server: the
+dnaA window, the coupled regions with the model's verdicts, and the findings of the dnaA
+window are in it. The live features (a genome's call in the family cards, drawn paths,
+windows elsewhere on the chromosome, attention, what the model does without an element,
+and a reading written by a language model) need the server. The first pass on eleven
+strains is kept in `pgb/origin-fork-11strains.html`.
+
+---
+
+## The page
+
+**PanGramGraph** (first called Origin Fork; `origin-fork.html` and `index.html` lead to it)
+has five tabs, **Graph**, **Attention**, **Coupled regions**, **Findings** and **About**,
+and a help behind every "?" (the key `?` opens it too).
+
+### The header
+
+The logo is a fork of the gene graph in a speech bubble: a persistent family (orange)
+followed either by a shell family (green) or by the family the model expects (purple).
+Beside it, a link to this repository. Under it, the pangenome as PanGBank built it, read
+from its file by `pgb_page_meta.py`: 2,002 genomes, 9.33 M genes, 59,165 gene families
+(3,188 persistent, 7,524 shell, 48,453 cloud), 153,366 edges, 165,128 regions of plasticity
+in 1,864 spots and 2,114 modules, with a link to pangenome 11587 on PanGBank and
+PPanGGOLiN's version (2.3.0). Then Bacformer on the dnaA window: 130,837 calls, 88.8 % of
+next genes named right in its own vocabulary, 0.83 / 0.21 bits of doubt inside / outside a
+region of plasticity.
+
+### Graph
+
+- **The graph.** Left to right, genes from `dnaA` (column 0), or from the window's first
+  gene elsewhere. A box is a PanGBank family at the column where it most often sits,
+  coloured by its PPanGGOLiN partition (orange persistent, green shell, blue cloud); boxes
+  stacked in a column are a fork, the most carried on top. Lines are adjacencies, wider
+  when more genomes carry them (log scale). A dashed box, up to two per column, is a family
+  the model expects right after the column's best-carried family and that follows it in no
+  genome. Bars on top give the model's perplexity at each column. A slider hides the
+  families carried by few genomes; zoom, **Overview**, **Fill height** and **Full screen**
+  size it.
+- **Family cards.** Hover a box: a card gives the family across the genomes, what follows
+  it and the model's call after it, averaged over every genome that carries it. Click to
+  pin it: the server computes the model's exact call in one genome, with a search box for
+  the exact rank and softmax probability of any of its 50,000 families at that position.
+  Under **In PanGBank**, up to four genomes carrying the family link to their own page on
+  PanGBank (`/pangenome/11587/genome/<id>`, the ids fetched by `pgb_pangbank_ids.py`), then
+  the whole pangenome; PanGBank has no page per family, so **copy the family name** puts it
+  on the clipboard. The live call links the chosen genome's page (*&lt;strain&gt; in
+  PanGBank*) and offers **Draw from this path**. On a phone a tap pins, and the card opens
+  as a sheet at the bottom of the screen.
+- **The genome picker.** Before you type, it lists genomes that carry the family and
+  well-known strains. Type any mix of strain, serotype, sequence type, host, isolation
+  source, country, year or accession; every word must match (*human urine*, *O157*,
+  *cattle 2012*). The metadata are PanGBank's (`pgb_page_meta.py`): a serotype is given for
+  about 1 genome in 10 and a sequence type for about 1 in 40. Beyond the dnaA window the
+  drafts are greyed out, since only the complete chromosomes are read there. K-12 MG1655 is
+  not among the 2,002 ([Two identity surprises](#two-identity-surprises)).
+- **Drawing a path.** Switch to **Draw a path** and click boxes in order, or press on one and
+  slide across the next ones, like glide typing; on a phone, tap them in turn. The model's
+  call after exactly that sequence of proteins comes back live (`/path`), every box glows by
+  the probability that its family comes next (the 12 likeliest labelled), and `+ add`
+  extends the path with one. Drag a box of the path onto another to change that step, or
+  off the graph to remove it; **Undo** reverts the last change. **Take a genome's path up
+  to the box** uses a genome's own proteins, and in a window beyond dnaA the model then
+  also reads the 400 proteins before the window. **Attention** opens the path in the
+  Attention tab.
+- **Along the chromosome.** A map of the 540 complete chromosomes from dnaA, in genes,
+  shaded by the share of genes in a region of plasticity, sits above the graph. Its frame
+  is the window shown: drag it, swipe it sideways (one finger, or two on a trackpad), or
+  click anywhere, and the window opens where the frame is left. With the map selected,
+  <kbd>→</kbd>/<kbd>↑</kbd> and <kbd>←</kbd>/<kbd>↓</kbd> move one window, <kbd>PgUp</kbd>
+  and <kbd>PgDn</kbd> 500 genes, <kbd>Home</kbd> goes back to dnaA and <kbd>End</kbd> to the
+  end. **Previous** and **Next** (keys <kbd>P</kbd>, <kbd>N</kbd>) move 60 genes, so a window
+  shares 20 columns with the next. The search box suggests every gene name of the complete
+  chromosomes with its place, and also takes a PanGBank family or a position from dnaA
+  (*1500*). A window beyond dnaA starts at a backbone family (present once in at least 95 %
+  of the chromosomes), walks 80 genes in dnaA's direction and is read in the 540 complete
+  chromosomes; the server builds it in 1 to 3 s (`pgb_region.py`). A link to a place:
+  `pangramgraph.html#at=lacZ`.
+- **Greyed loading screens.** While the server computes, only the part being computed is
+  greyed, under a card that says what is being done: building a window (the graph greyed,
+  the seconds counted), or deleting an element and reading the model (the influence panel
+  greyed, with the stage, a bar of the passes done, the time left and the place in the
+  queue; the first request after a start also loads the model's decoder). The rest of the
+  page stays usable, and an influence computation keeps running while you look elsewhere.
+
+### Attention
+
+The model's attention while it reads the drawn path (`/attn`): Bacformer's 96 heads
+(12 layers of 8) as a map, coloured by how far back each looks on average or by its share
+on the previous protein, the start token or the protein itself; click one to show its
+matrix (rows: the path's proteins; columns: what each attends to), and the last protein's
+row in every layer and head, where the model looks when it calls the next family. For a
+genome's own path beyond dnaA, the 400 proteins before it form one summed column. **Leave
+the start token out** hides the attention sink and renormalises each row. Attention shows
+where the model looks, not why it calls what it calls.
+
+### Coupled regions
+
+Two layers, long range (533 links between 290 elements) and close range (113 links between
+143 elements), drawn as arcs over the chromosome (co-occurrence above, avoidance dashed
+below). An arc is coloured by the model's verdict on the link (or by its set), and its line
+says what the link is in the genomes (dotted: one element at several spots). Filters: only
+links replicated in lineage-disjoint halves (on by default), links behind at least N family
+pairs, avoidance; a click on a legend entry hides its arcs. Three lists, sets, links and
+elements, are also the way in on a phone and from the keyboard. A set's detail gives its
+elements, its strongest links and their presence across the genomes; an element's, its
+links, and **graph** opens the Graph tab at its window.
+
+- **A link's detail**: the verdict of the in-silico knockout with every number it was
+  decided on (genomes tested, lineages, the median effect overall and in each lineage half,
+  the share tested within the model's range, the smallest effect the test detects at 80 %
+  power on a robust scale, 1.4826 × MAD of the lineage means, with alpha Bonferroni-adjusted
+  over the tested links of the layer, and the q values, Benjamini–Hochberg over the tested
+  links), its flags (one element at several spots, one transfer tract, separate insertions,
+  one insertion site), and the presence of its two elements across the genomes in cgMLST
+  order, lineage clusters marked. The one *knows* link, `espX1` → `chpB`, is explained by
+  genomic background ([below](#coupled-regions-and-what-the-model-knows-of-them)).
+- **An element, on click: what the model does without it.** Pick a genome carrying it at its
+  spot (`pg_region_carriers.py`) and **Delete it and read the model**: the server deletes it,
+  then 8 whole accessory elements of about its size in turn (`/influence`,
+  `pg_knock.influence`), and draws the mean change of the model's expectation per 25 genes
+  out to 1,500 genes downstream against the controls' range. *specific*: some elements
+  downstream move differently from the others at their distance (q < 0.05); *broad*: none
+  does, while the deletion moves the model more than a typical one; *like a control
+  deletion*: none does, and it moves the model no more than a random element of its size.
+  Each linked element is then placed: read, with its change and whether it goes the way the
+  genomes go, or before the element, beyond 1,500 genes, not at its spot, or absent; the
+  elements downstream are listed by distance or by q. A few seconds on a GPU, under a minute
+  on the Space's CPU.
+- The address keeps the layer and the selection (a set, a link or an element), so it can be
+  shared: `pangramgraph.html#tab=regions&rl=close&rs=…`.
+
+### Findings
+
+The tab follows the window shown.
+
+- **Reading the window**, in up to three versions: in the dnaA window a hand-written reading
+  (the default); in every window an automatic one, written by rule in the page from the
+  window's own numbers (its spine, fork and variable stretches); and one written by
+  **DeepSeek-V4.1-Flash** from facts the server computes, every sentence checked against the
+  facts it cites ([below](#the-reading-of-a-window-written-by-a-language-model)). A reading
+  written before comes back at once; the automatic one shows meanwhile, and stays when the
+  model's text is late, fails its check or cannot be written. In the dnaA window the model's
+  reading is offered on request.
+- **Where the model is sure, and where it hesitates**: the calls by the partition of the gene
+  actually there and by region of plasticity: top-1 in the model's own vocabulary (and, in
+  the dnaA window, via the exemplar bank, which underestimates it) and entropy; in the dnaA
+  window, the three robustness checks and the comparison with the graph.
+- **How often the model named the next gene**, by range of columns.
+
+### About
+
+The data, the model and their credit, and how each part was computed (the scripts and
+their outputs).
+
+### Mouse and keys
+
+In the Graph tab: drag the background (or with the wheel pressed) to move, Shift + wheel to
+scroll along (the wheel alone in full screen), Ctrl + wheel to zoom; <kbd>+</kbd>
+<kbd>−</kbd> zoom, <kbd>0</kbd> back to 100 %, <kbd>F</kbd> overview, <kbd>H</kbd> fill
+height, <kbd>N</kbd> <kbd>P</kbd> next and previous window. <kbd>Esc</kbd> closes a card,
+cancels a drag or a stroke, closes a list or leaves full screen; <kbd>?</kbd> opens the help.
+In the tab bar <kbd>←</kbd> <kbd>→</kbd> move between tabs; in the lists of Coupled regions
+<kbd>↑</kbd> <kbd>↓</kbd> move and <kbd>Enter</kbd> picks.
 
 ---
 
 ## The discovery: allelic contingency
 
-**[DISCOVERY.md](DISCOVERY.md)** — at the variable loci of the pangenome, which family
-comes next is partly written in the *alleles* of the upstream genes: information a
+**[DISCOVERY.md](DISCOVERY.md)**: at the variable loci of the pangenome, which family
+comes next is partly written in the *alleles* of the upstream genes, information a
 pangenome graph cannot hold, since it collapses every variant of a family into one node.
 540 complete chromosomes, 1,652 forks, 619,112 sites. Same model, only the input alleles
 differ: 0.080 bits/site, 91 % of forks, p = 6e-184; 0.070 under a clade split. Causal:
@@ -59,26 +219,40 @@ within-stratum permutation). Chain: `pg_chrom.py`, `pg_embed.py`, `pg_calls.py`,
 ## Coupled regions, and what the model knows of them
 
 Accessory families whose presence goes together (or apart) **within** lineages and within
-tertiles of accessory content, beyond a permutation null and replicated in two
-lineage-disjoint halves: 2,290 family pairs more than 500 genes apart in different insertion
-spots, grouped into 290 elements and 533 links (`pg_epistasis.py --ctrl_content`,
-`pg_region_sets.py`), and a close-range set of 362 pairs at 50-500 genes, separate
-insertions only, giving 143 elements and 113 links. These tests read presence in the
-genomes; the model is not in them.
+tertiles of accessory content, beyond a permutation null, in the 281 complete genomes that
+belong to a lineage cluster of at least 4 (of 540). Long range: 2,290 family pairs more than
+500 genes apart in different insertion spots, replicated in two halves of the lineage ×
+content strata (halves that share lineages: 267 of the 533 links also replicate in
+lineage-disjoint halves, `pg_link_flags.py`), grouped into 290 elements and 533 links
+(`pg_epistasis.py --ctrl_content`, `pg_region_sets.py`). Close range: 362 pairs at 50-500
+genes in the genomes carrying both (about 20 expected by chance), separate insertions
+only, replicated in lineage-disjoint halves (`--halves lineage`), giving 143 elements and
+113 links. These tests read presence in the genomes; the model is not in them.
 
 **Does Bacformer know these couplings?** In-silico knockout on the 540 complete
-chromosomes (`pg_knock.py`, `pg_knockout.py`): in each genome carrying both, the upstream
-element is deleted from the chromosome and the model's decoded probability of the
-downstream one is read, in fp32, one causal pass over the whole chromosome, against
-deletions of *whole* accessory elements matched on size and distance, with off-target
-elements at comparable distance scored the same way, lineage-mean aggregation in two
-disjoint halves, and an empirical calibration by pseudo-knockout draws. 105,276 passes,
-5.0 h of GPU.
+chromosomes (`pg_knock.py`, `pg_knockout.py`): in each genome carrying both (or the
+upstream one only, for avoidance), the upstream element is deleted from the chromosome and
+the model's decoded probability of the downstream one is read, in fp32, one causal pass
+over the whole chromosome, against deletions of *whole* accessory elements matched on size
+and distance, with off-target elements at comparable distance scored the same way,
+lineage-mean aggregation in two lineage-disjoint halves, and an empirical calibration by
+pseudo-knockout draws. *knows*: the downstream element moves the way the genomes go, beyond
+the control deletions (calibrated q < 0.05), in both halves, and more than the off-targets
+the same deletion moves, in z and in raw units. q values are Benjamini–Hochberg over the
+tested links; the smallest detectable effect is taken at 80 % power on a robust scale
+(1.4826 × MAD of the lineage means), alpha Bonferroni-adjusted over the tested links.
+105,276 passes, 5.0 h of GPU; every pass is checked bit for bit (deleting nothing changes
+nothing, and nothing before a deletion moves). Reports: `pgb/knock/all/all_report.md`,
+`pgb/knock/close/close_report.md`.
 
 | | tested links | knows | not specific | opposite | none | not testable |
 |---|---|---|---|---|---|---|
 | long range, > 500 genes | 298 | **0** | 20 (+21 opposite) | 1 | 256 | 235 |
 | close range, 50-500 genes | 47 | **1** | 3 (+11 opposite) | 1 | 31 | 66 |
+
+*Not specific*: the element moves the way the genomes go (or the opposite way), but no more
+than everything else downstream. *Not testable*: fewer than 5 lineages, no readout, only
+partial deletions, too few matched control deletions, or no calibration.
 
 The first run gave 7 long-range "knows"; all seven fell when the raw-specificity
 calibration was fixed. Its pseudo-knockout values were not centred within each unit, so its
@@ -87,54 +261,72 @@ non-effects into the very gate that was meant to catch them. Centred, and gated 
 max(nominal, calibrated), the long-range result is empty. An independent re-derivation
 matches every verdict of both runs.
 
-The one surviving link, espX1 to chpB at 184 genes, is **not** a functional coupling: the
-two sit 200 kb apart with no shared family or protein, 75-85 % of their association is
+The one surviving link, `espX1` to `chpB` at 184 genes, is **not** a functional coupling: the
+two sit about 200 kb apart with no shared family or protein, 75-85 % of their association is
 absorbed by the rest of the accessory genome, both track the core phylogeny, and the effect
-concentrates in the 30 genomes where espX1 is the only remaining clue of its insertion
-site — remove it where the rest of its operon stays, and the model barely moves. What
+concentrates in the 30 genomes where `espX1` is the only remaining clue of its insertion
+site; remove it where the rest of its operon stays, and the model barely moves. What
 Bacformer reads is *which kind of genome* it is looking at, then what such a genome
 usually carries. A real statistical skill, not knowledge of the pair.
 
 What the knockouts do show is that deleting an element shifts the model's expectation of
 **all** accessory content downstream, over a few hundred genes: broad, position-dependent,
-not pairwise. The page turns that into an on-demand measurement — pick an element and a
+not pairwise. The page turns that into an on-demand measurement: pick an element and a
 genome, and the server deletes it live and draws how far the model's expectations move
-(`serve_live.py /influence`, a few seconds on a GPU, one to three minutes on the Space's
-CPU).
+(`serve_live.py /influence`: a few seconds on a GPU, under a minute on the Space's CPU,
+23 to 47 s measured).
 
 ## Results on all 2,002 PanGBank genomes
 
 130,837 calls, each joined to the gene actually there: its PPanGGOLiN partition and
-whether panRGP places it in a region of genomic plasticity (RGP).
+whether panRGP places it in a region of genomic plasticity (RGP). Top-1 is read two ways.
+The model predicts its own 50,000 clusters: *own vocabulary* reads a cluster as the
+families actually present when the model predicts it, P(family | cluster), learned on one
+half of the genomes and applied to the other (`pgb_graph.py`). *Via the exemplar bank*
+maps each real gene to its nearest cluster among the 9,814 of a 37-genome bank, which
+misses many of the model's clusters and so scores it wrong when it is right: an
+underestimate (at `yidB` 0.2 % by the bank, 92.6 % in its own vocabulary). The median
+rank is on the bank's basis.
 
-| gene being predicted | calls | top-1 | median rank | entropy |
-|---|---|---|---|---|
-| persistent | 82,603 | 24.4 % | 2,222 | 0.16 bits |
-| shell | 46,278 | 13.9 % | 828 | 0.73 bits |
-| cloud | 1,956 | 5.0 % | 1,344 | 3.33 bits |
-| outside an RGP | 89,567 | 22.6 % | 2,139 | 0.21 bits |
-| inside an RGP | 41,270 | 15.7 % | 757 | **0.83 bits** |
+| gene being predicted | calls | top-1, own vocabulary | top-1 via the exemplar bank (underestimates) | median rank (bank) | entropy |
+|---|---|---|---|---|---|
+| persistent | 82,603 | **95.1 %** | 24.4 % | 2,222 | 0.16 bits |
+| shell | 46,278 | **80.2 %** | 13.9 % | 828 | 0.73 bits |
+| cloud | 1,956 | **28.6 %** | 5.0 % | 1,344 | 3.33 bits |
+| outside an RGP | 89,567 | **93.6 %** | 22.6 % | 2,139 | 0.21 bits |
+| inside an RGP | 41,270 | **78.4 %** | 15.7 % | 757 | **0.83 bits** |
+| all | 130,837 | **88.8 %** | 20.4 % | 1,604 | 0.41 bits |
 
 **Confidence tracks plasticity after all.** Controls: at 91 % of the 65 columns where
 both occur, calls inside an RGP are more hesitant (median +0.84 bits); in 84 % of 1,942
 genomes likewise; entropy alone separates RGP from non-RGP calls with AUC 0.755, and
 flags errors (0.45 bits wrong vs 0.23 right). **This reverses the one-chromosome
 reading below**: on Sakai's 79 loci entropy was 0.44 bits inside RGPs vs 0.55 outside,
-too small a sample. Not uniform: the `dgo` operon (columns 6-11) is in an RGP in 90 %
-of genomes, yet the model is calm there and names `dgoA` in 97 %.
+too small a sample. Not uniform: the `dgo` operon (columns 7-11, after `yidX` at column 6)
+is carried by 84 to 88 % of genomes and lies in an RGP in almost all of them, yet the model
+is calm there and names the genes at those columns in 87 to 99 % of calls.
 
-| columns | calls | entropy | top-1 |
-|---|---|---|---|
-| 1-3 (`dnaN`, `recF`, `gyrB`) | 5,994 | 0.13 bits | 99.9 % |
-| 1-10 | 19,705 | 0.16 bits | 57.9 % |
-| 11-40 | 54,895 | 0.26 bits | 10.8 % |
-| 41-79 | 56,237 | 0.64 bits | 16.6 % |
+**Against the graph.** Predicting the next family from the previous one alone, by its most
+frequent successor learned on the other half of the genomes (the halves of the decoder),
+gives 90.0 %; the model gives 88.8 %. Where the graph is certain the model adds nothing.
+After a fork (the 35,640 calls whose previous family has at least two successors, each in
+at least 5 % of its adjacencies), the model is right 79.6 % of the time against 72.0 % for
+the graph: it reads upstream context that single adjacencies do not hold (`pg_graph_baseline.py`
+computes these figures, and two other definitions of a fork, in a few seconds).
+
+| columns | calls | entropy | top-1, own vocabulary | top-1 via the exemplar bank |
+|---|---|---|---|---|
+| 1-3 (`dnaN`, `recF`, `gyrB`) | 5,994 | 0.13 bits | 99.97 % | 99.9 % |
+| 1-10 | 19,705 | 0.16 bits | 94.7 % | 57.9 % |
+| 11-40 | 54,895 | 0.26 bits | 92.0 % | 10.8 % |
+| 41-79 | 56,237 | 0.64 bits | 83.7 % | 16.6 % |
 
 The window: 2,540 PPanGGOLiN families (575 persistent, 1,125 shell, 840 cloud). All
 2,002 genomes anchor (1,994 on the `dnaA` family, 8 on `dnaN` where `dnaA` is not a
-gene); 1,359 reach 80 genes, drafts stop at their contig end. Around columns 42-52 about
-fifty genomes carry the LEE pathogenicity island (`ler`, `esc`, `ces`, `tir`, `eae`),
-where the model hesitates most (up to 1.4 bits). Only two of the first eleven strains
+gene); 2,000 reach column 3 and 1,359 column 79, since drafts stop at their contig end.
+From column 42 about 45 genomes carry the LEE pathogenicity island (`ler`, `esc`, `ces`,
+`tir`, `eae`). The model hesitates most at column 45 (`yicJ`, 1.38 bits), a fork where 11 %
+of genomes take a branch of 8 shell families. Only two of the first eleven strains
 are among PanGBank's 2,002 (Sakai, Nissle 1917): the others were dereplicated away or
 moved species.
 
@@ -150,6 +342,46 @@ no other genome shares, 93 % right, +0.20 bit. Elsewhere it mostly follows the d
 branch, often over-confidently (gltS: 0.84 bits vs 0.71). "Unique haplotype" is a weak
 lineage control (one residue differs): a phylogeny-aware baseline is still owed.
 
+## The reading of a window, written by a language model
+
+The Findings tab offers, for every window, a reading written by **DeepSeek-V4.1-Flash**
+(through Hugging Face Inference Providers) and checked sentence by sentence (`pg_reading.py`,
+served at `/reading`).
+
+- **Facts, not the page's text.** The page sends only the window's id. The server builds the
+  facts from its own data, 2,000 to 2,900 tokens: the window's stretches (spine, fork,
+  variable, by the page's own rules), each column's families, genes and products,
+  partitions, shares in regions of plasticity, the model's naming and hesitation, and the
+  groups where the products agree, each line with an id (`[S3]`, `[S3.c12]`, `[M]`, `[Q]`...).
+- **A skill.** The system message (about 2,400 tokens) carries `reading_skill.md`
+  (version 2): what the pangenome words and the model's three numbers mean and do not mean,
+  the five sections of every
+  reading (@start, @variable, @model, @end, @whole), a six-step procedure, and two reference
+  readings (the hand-written one of the dnaA window, and one of a window nearly all spine).
+  Prompt version r9, temperature 0, 150 to 200 words asked, at most 220 served.
+- **Every sentence checked.** Each sentence names the facts lines it is written from, and is
+  checked against those lines only: every number must be one they show, in its role (a
+  share, a share in regions of plasticity, a share named, a hesitation) and bound to the gene
+  or column it is said of; every gene, column, kind of column and partition must stand in
+  them; the words of an interpretation (`[[ ]]`, shaded on the page) must come from the
+  products and gene names of the lines cited and fit most of the families they label, and no
+  product word may stand outside one; no superlative or trend the lines do not state. A
+  sentence that fails is dropped and the model is asked once more, with the faults named; if
+  too little is left (under 110 words, or no @start or @whole), the page keeps its automatic
+  reading.
+- **Costs.** The 112 readings written ahead (the dnaA window, the 106 windows that Next and
+  Previous reach from it, and 5 more; `pg_reading.py pregen --chain dnaA`) all passed. 67 of
+  them needed the second attempt, and 59 lost one to three sentences to the check. Both
+  attempts counted, a reading took 10,800 tokens in and 790 out, about $0.0005 and 11 s in
+  the median (28 s at most); all 112 cost $0.065. Readings are cached per window, keyed on
+  the facts, the prompt, the skill and the model, so they come back at once.
+- **Limits.** The check verifies the numbers, the names, the columns and what the
+  interpretations rest on, not the prose: a sentence can still be clumsy or slanted in its
+  wording, and an interpretation is read from gene names and products, not measured in the
+  window. New readings are capped: 6 per visitor in 10 minutes and 30 a day, 150 and $0.30
+  a day for the whole server, two written at once (six waiting), and only for the page's own
+  site. The LLM never receives text from the browser.
+
 ## First pass on eleven strains (superseded, kept for the record)
 
 
@@ -163,7 +395,7 @@ lineage control (one residue differs): a phylogeny-aware baseline is still owed.
 
 Per-step accuracy over the first twelve loci: **100, 100, 100, 0, 91, 9, 0, 0, 64, 64,
 9, 18 %**. The model names `dnaN`, `recF` and `gyrB` in **all eleven strains** without
-error. Not a decay — a cliff, landing exactly where the strains stop agreeing.
+error. Not a decay: a cliff, landing exactly where the strains stop agreeing.
 
 The same model on badly anchored input (mixed species, starting at each record's first
 gene) scored 23.6 % over loci 0–9. Anchoring and orienting is not a detail.
@@ -177,10 +409,11 @@ carries**. Persistent families are biologically right: the replication cassette,
 catabolism), absent from O157:H7 Sakai. Further out the walk reaches `waa`, the LPS
 core locus, among the most variable in the species.
 
-### Against PanGBank — the founding prediction splits in two
+### Against PanGBank: the founding prediction splits in two
 
 79 loci of O157:H7 Sakai joined **on genomic coordinate** (100 % matched) to PanGBank
-pangenome **11587** (`GTDB_refseq` v2.0.0, GTDB R232, 2,002 genomes).
+pangenome **11587** (`GTDB_refseq` v2.0.0, GTDB R232, 2,002 genomes). Top-1 here is via
+the exemplar bank.
 
 | PPanGGOLiN partition | loci | top-1 | median rank | entropy |
 |---|---|---|---|---|
@@ -198,11 +431,12 @@ plasticity than inside; monotone from persistent to shell to cloud. An independe
 built pangenome over two thousand genomes agrees about where the chromosome is
 constrained.
 
-**Confidence fails it.** 0.48 bits outside an RGP versus 0.49 inside — no difference.
+**Confidence fails it.** 0.48 bits outside an RGP versus 0.49 inside: no difference.
 The model is exactly as sure of itself where it is almost always wrong. The distribution
 does not flatten when it errs, it **moves**: at locus 17 in APEC O1 it puts 0.999 on
 `ybjL` with 0.02 bits of doubt while the real gene sits at rank 1,031. For trust work:
-**accuracy carries the signal, confidence does not.**
+**accuracy carries the signal, confidence does not.** (On all 2,002 genomes this reverses:
+see above.)
 
 Caveat: 79 loci, one strain, five of them cloud. Direction consistent, estimates loose.
 
@@ -245,7 +479,7 @@ species' pangenome.
 - **The masked head is a bad family assigner.** Across these 11 strains it gives
   orthologues the same family in **0 %** of the 41 genes tested (mean majority share
   0.48), because it predicts from genomic context as well as sequence. **Nearest
-  exemplar in embedding space** — what the 50,000 clusters actually are — agrees across
+  exemplar in embedding space**, what the 50,000 clusters actually are, agrees across
   all eleven for **90 %** of genes (0.985) and puts `dnaA`, `dnaN`, `recF`, `gyrB` each
   in one family. Any measurement built on the masked head is confounded.
 - **Assemblies are not consistently oriented.** MG1655 and W3110 run opposite ways, so
@@ -269,10 +503,13 @@ species' pangenome.
   is **2.9 MB** and carries partition, RGP and modules per gene. The `.h5` is **1.33 GB**.
   Rate limit is **one request per 30 s** across every route.
 - **Bacformer attention is O(L²) in proteins.** 4,000 proteins exhaust an 8 GB GPU; 900
-  is comfortable. `protein_seqs_to_bacformer_inputs` reloads ESM-2 on every call — load
+  is comfortable. `protein_seqs_to_bacformer_inputs` reloads ESM-2 on every call: load
   it once yourself.
 - **Two label dictionaries** will disagree on the same family (`yidA` here, `ybjQ`
   there). The page prefers the *E. coli* annotation.
+- **Score a model in its own vocabulary.** An exemplar bank that misses the model's
+  clusters scores it wrong where it is right (top-1 20.4 % by the bank, 88.8 % read
+  through a cross-validated decoder).
 
 ## The generative model exists, but not publicly
 
@@ -280,7 +517,7 @@ Figure 5 of the Bacformer preprint (`10.1101/2025.07.20.665723`) already generat
 genomes from a **property token plus seed families**, sampled by **temperature** (top-p
 and "nucleus" appear nowhere in the paper), conditioned on oxygen requirement and
 optimal growth temperature. `BacformerForCausalProteinFamilyModeling` is in the code
-with `generate()` and `property_ids`. **No published checkpoint carries its weights** —
+with `generate()` and `property_ids`. **No published checkpoint carries its weights**:
 verified by listing safetensors keys; neither causal checkpoint has
 `protein_family_embeddings`. Worth a GitHub issue.
 
@@ -294,22 +531,38 @@ graph, any entropy-versus-plasticity test. That gap is where this project lives.
 All 2,002 PanGBank genomes (the current page):
 
 ```bash
-# PanGBank HDF5 of pangenome 11587, 1.33 GB, md5 ae6cb5d3... (GET /pangenomes/11587/file)
+# PanGBank HDF5 of pangenome 11587, 1.33 GB, md5 ae6cb5d3... (GET /pangenomes/11587/file) -> pgb/ecoli_11587.h5
 python3 pgb_window.py     # dnaA windows, families, partitions, RGPs, proteins  -> pgb/window*.json   (~3 min)
 python3 pgb_model.py      # ESM-2 once per distinct protein, one causal pass per genome
                           #   -> pgb/window_emb.npy, pgb/model_calls.npz                        (~3 min, GPU)
-python3 pgb_graph.py      # graph + model calls aggregated  -> pgb/graph_pgb.json, summary tables  (~3 s)
+python3 pgb_graph.py      # graph + model calls aggregated, the decoder  -> pgb/graph_pgb.json, summary tables  (~3 s)
+python3 pg_graph_baseline.py  # the model against the graph's most frequent successor (Results)   (~5 s)
+python3 pg_chrom.py && python3 pg_embed.py && python3 pg_calls.py   # the 540 complete chromosomes, their proteins
+                          #   embedded, the model's call at every gene -> pgb/chrom*, pgb/calls_*       (GPU)
+python3 pgb_page_meta.py  # the header's numbers, what each genome is searched by, the chromosome map
+                          #   -> pgb/pangenome_info.json, pgb/genome_meta.json, pgb/chrom_map.json
+python3 pgb_pangbank_ids.py   # PanGBank's genome ids, for the links from the family cards -> pgb/pangbank_genome_ids.json
+                          #   (one request per 31 s: ~11 min)
+# coupled regions, long range (> 500 genes) and close range (50-500 genes)
 python3 pg_epistasis.py --ctrl_content   # distant families that go together within lineages -> pgb/epistasis.json
 python3 pg_region_sets.py # ... grouped into elements and sets                   -> pgb/region_sets.json
-python3 pg_epistasis.py --ctrl_content --mindist 50 --maxdist 500 --dist carriers --halves lineage --sep 10
+python3 pg_epistasis.py --ctrl_content --mindist 50 --maxdist 500 --dist carriers --halves lineage --sep 10 \
+        --out pgb/epistasis_close_sep.json
 python3 pg_region_sets.py --in pgb/epistasis_close_sep.json --out pgb/region_sets_close.json
-python3 pg_link_flags.py  # per link: one element at two spots, tract, replication   -> pgb/link_flags*.json
+python3 pg_link_flags.py  # per link: one element at two spots, tract, replication   -> pgb/link_flags.json
+python3 pg_link_flags.py --sets pgb/region_sets_close.json --epi pgb/epistasis_close_sep.json --out pgb/link_flags_close.json
+python3 pg_region_carriers.py             # the genomes carrying each element at its spot -> pgb/region_carriers.json
+# the in-silico knockout
 python3 pg_knockout.py --baselines        # 540 fp32 whole-chromosome passes          (~3 min, GPU)
 python3 pg_knockout.py --all --tag all --flags pgb/link_flags.json                  # (~4 h, GPU)
 python3 pg_knockout.py --all --sets pgb/region_sets_close.json --tag close --min_apart 50 \
         --max_apart 600 --ctrl_near --match_log 3 --flags pgb/link_flags_close.json # (~2 h, GPU)
+python3 -c "import pg_knock as K; K.export_decoder()"   # the compact decoder the Space reads -> pgb/knock/decoder_halves.npz
+# the page, its readings, the server
+python3 pg_reading.py pregen --chain dnaA   # the readings of the windows Next and Previous reach -> pgb/readings/
+                                            #   (needs HF_TOKEN or `huggingface-cli login`)
 python3 build_page.py     # page_template.html + data -> standalone/pangramgraph.html (NAME in the script)
-python3 serve_live.py     # per-genome calls and search, live, for the page's family cards
+python3 serve_live.py     # the page and the model, live: http://localhost:8765/
 ```
 
 One causal pass per genome equals one pass per prefix: checked on two genomes, top-1
@@ -349,28 +602,23 @@ python3 sweep.py      # nucleus size vs top_p
 Click a family: the card computes Bacformer's call for the next gene in one genome
 (Sakai by default when it carries the family; any of the 2,002 can be picked), and a
 search box gives the exact rank and softmax probability of any of the 50,000 families
-there. Needs `serve_live.py` (loads `pgb/window_emb.npy`, one forward pass per request,
-cached). Tail ranks are soft: two runs of the same bfloat16 model moved a gene's rank
-by about 1 % and its probability by up to 3.7 %.
+there. Needs the server (`serve_live.py` loads `pgb/window_emb.npy`, one forward pass per
+request, cached). Tail ranks are soft: two runs of the same bfloat16 model moved a gene's
+rank by about 1 % and its probability by up to 3.7 %.
 
 ### Draw a path, read the next family
 
-Switch the graph to **Draw a path** and click boxes in order: Bacformer's call after
-exactly that sequence of proteins comes back live (`/path`), the expected families are
-marked on the graph with their probability, and `+` extends the path with one. Each box
-brings its family's most common protein in the 2,002 windows (`pid` in the page data);
-**Draw from this path**, in a pinned card, starts from a genome's own proteins
+Each box brings its family's most common protein in the 2,002 windows (`pid` in the page
+data); **Draw from this path**, in a pinned card, starts from a genome's own proteins
 (`/prefix`). Paths no genome carries are allowed, which is the point: dnaA -> recF,
 skipping dnaN, still gives gyrB at 95.6 % (dnaN 2 %); dnaA -> gyrB gives 4.7 bits of
 doubt. A box is linked to every model cluster holding >= 10 % of its proteins (67 of
-289 common families are split). At each step every box of the graph glows by the probability that the next gene belongs
-to its family (log scale, 1 in 100 million to 1), the 12 likeliest with a label, and a
-hovered box states its own value. A box's probability is the sum over its model clusters
+289 common families are split). A box's probability is the sum over its model clusters
 of p(cluster) x P(family | cluster), from the window proteins, so a cluster shared by two
-families is not counted twice (`bfw` in the page data; `/path` returns p for the 1,834
-clusters present in the windows). A prediction with no box is marked *in no window*: after
-Sakai's path to cbrA the model puts 99.3 % on a cluster absent from all 2,002 windows,
-while yidR follows in 1,888 genomes.
+families is not counted twice (`bfw` in the page data; `/path` also returns p for the
+model clusters read on the boxes of the windows the server has built). A prediction with
+no box is marked *in no window*: after Sakai's path to cbrA the model puts 99.3 % on a
+cluster absent from all 2,002 windows, while yidR follows in 1,888 genomes.
 
 ### One position, full distribution over all 50,000 families
 
@@ -381,24 +629,44 @@ python3 probs_at.py --strain "Sakai" --locus 13 --csv d.csv   # real gene at ran
 
 ## Hugging Face Space
 
-The page and its model's server run together in a Docker Space, on a CPU: Bacformer has 27
-million parameters and the ESM-2 embeddings are precomputed, so two cores answer a drawn
-path in about 0.1 s and a genome's call with 800 proteins of context in about 1 to 2 s.
+https://huggingface.co/spaces/ggautreau/PanGramGraph runs the page and its model's server
+together in a Docker Space on free CPU hardware (2 vCPU, 16 GB). Bacformer has 50.85 million
+parameters (its output head over 50,000 families included) and the ESM-2 embeddings are
+precomputed, so two cores answer a drawn path in about 0.1 s, a genome's call with 800
+proteins of context in about 1 to 2 s, a window elsewhere on the chromosome in 1 to 3 s, and
+what the model does without an element in under a minute (23 to 47 s measured). A reading
+written before comes back at once; a new one takes 10 to 30 s. The Space sleeps after 48
+hours without visits and takes a minute or two to wake up; visitors wait their turn for the
+model (at most 6 requests queue; beyond, the server answers busy).
 
 ```bash
-python3 build_page.py && python3 space/assemble.py      # -> space_build/: Dockerfile, code, page, data (~680 MB)
-docker build -t pangramgraph-space space_build && docker run -p 7861:7860 pangramgraph-space   # try it here
+python3 build_page.py && python3 space/assemble.py      # -> space_build/: Dockerfile, code, page, readings, data (~760 MB)
+docker build -t pangramgraph-space space_build && docker run -p 7861:7860 -e HF_TOKEN pangramgraph-space   # try it here
 huggingface-cli upload ggautreau/PanGramGraph space_build . --repo-type space              # publish
 ```
 
 `space/` holds the Space's own files: the `Dockerfile` (the model is baked into the image),
-the `README.md` with the Space's settings (`sdk: docker`, `app_port: 7860`), `requirements.txt`
-(CPU PyTorch, transformers 4.53) and `start.py`. With `space/assemble.py --no-data` the data
-stay out of the Space and `start.py` fetches them at start from the dataset repository named by
-the variable `PGG_DATA_REPO`, with the secret `HF_TOKEN` if it is private. `serve_live.py`
-takes `--host`/`--port` (or `HOST`/`PORT`), runs in float32 on a CPU, lets at most
-`MAX_QUEUE` (6) requests wait for the model and answers 503 beyond; the page finds the server
-that served it, else one on the visitor's own machine.
+the `README.md` with the Space's card and settings (`sdk: docker`, `app_port: 7860`),
+`requirements.txt` (CPU PyTorch, transformers 4.53) and `start.py`. The Space's settings:
+
+- **`HF_TOKEN`, a secret**: a Hugging Face token allowed to "Make calls to Inference
+  Providers". The server uses it to have DeepSeek-V4.1-Flash write new Findings readings,
+  billed to the token's account and capped (by default 150 readings and $0.30 a day). It goes
+  only in the request's header to `router.huggingface.co`; it is never logged, written or sent
+  to the page. Without it the readings shipped in `pgb/readings/` are still served, and
+  `/health` says that new ones are off.
+- **`PGG_DATA_REPO`, a variable**: with `space/assemble.py --no-data` the data stay out of the
+  Space and `start.py` fetches them at start from that dataset repository (with `HF_TOKEN` if
+  it is private).
+- **`READING_CACHE=/data/readings`**, with the Space's persistent storage: keeps the readings
+  written online and the day's counters across restarts. Without it both are lost when the
+  Space restarts (the shipped readings stay). The other limits are set by `READING_*`
+  variables (`pg_reading.py`); `READING=off` stops new readings.
+
+`serve_live.py` takes `--host`/`--port` (or `HOST`/`PORT`), runs in float32 on a CPU, lets at
+most `MAX_QUEUE` (6) requests wait for the model and answers 503 beyond; the page talks to the
+server that served it, and, opened as a file, looks for one on the visitor's own machine
+(127.0.0.1:8765).
 
 ## Every bacterial species of PanGBank (`scale/`)
 
@@ -434,18 +702,26 @@ python scale/status.py                    # where it stands, and the disk it wil
 | | |
 |---|---|
 | `standalone/pangramgraph.html` | **the page**: 2,002 genomes, built by `build_page.py` from `page_template.html`; `index.html` and `origin-fork.html` lead to it |
+| `assets/` | the logo (`mark.svg`, `mark-dark.svg`) and the icons |
+| `serve_live.py` | the page's server: serves the page, computes per-genome calls, drawn paths, searches, windows, attention, `/elements` and `/influence`, and `/reading` |
 | `pgb_region.py` | any other window of the 540 complete chromosomes, built when the page asks (through `serve_live.py`) |
-| `pg_region_sets.py`, `pgb/region_sets.json` | the coupled regions: elements, links and sets, from `pg_epistasis.py --ctrl_content`; `pgb/region_sets_close.json` the 50-500 gene set |
-| `pg_knock.py`, `pg_knockout.py` | the in-silico knockout: units, whole-element null, off-target specificity, lineage halves, calibration; `pgb/knock/{all,close}_arcs.json` are the verdicts the page shows, `pgb/knock/*_report.md` the runs |
-| `pg_link_flags.py`, `pgb/link_flags*.json` | per link: one element at several spots, transfer tract, replication in lineage-disjoint halves |
-| `pg_reading.py`, `pgb/readings/*.json` | the model-written reading of a window: facts, prompt, checker, cache; served at `/reading` |
 | `pgb_page_meta.py` | the pangenome's own numbers, what each genome is searched by, the chromosome map |
-| `serve_live.py` | local server: serves the page, computes per-genome calls, searches, windows, attention, `/influence` and `/reading` |
+| `pgb_pangbank_ids.py`, `pgb/pangbank_genome_ids.json` | PanGBank's id of each of the 2,002 genomes, for the links from the family cards |
+| `pg_region_sets.py`, `pgb/region_sets.json` | the coupled regions: elements, links and sets, from `pg_epistasis.py --ctrl_content`; `pgb/region_sets_close.json` the 50-500 gene set |
+| `pg_link_flags.py`, `pgb/link_flags*.json` | per link: one element at several spots, transfer tract, replication in lineage-disjoint halves |
+| `pg_region_carriers.py`, `pgb/region_carriers.json` | the complete genomes carrying each coupled element at its spot, the influence panel's genome picker |
+| `pg_knock.py`, `pg_knockout.py` | the in-silico knockout: units, whole-element null, off-target specificity, lineage halves, calibration, and one element's influence on demand; `pgb/knock/{all,close}_arcs.json` are the verdicts the page shows, `pgb/knock/all/all_report.md` and `pgb/knock/close/close_report.md` the two runs, `pgb/knock/pilot_report.md` the 24-link pilot |
+| `serve_influence.py` | the same `/elements` and `/influence` in a process of its own (its own port and GPU cap) |
+| `pg_reading.py`, `reading_skill.md`, `pgb/readings/*.json` | the reading of a window written by a language model: facts, skill, prompt, per-sentence checker, cache, limits; served at `/reading`; the 112 readings written ahead |
+| `space/` | the Hugging Face Space: `Dockerfile`, card (`README.md`), `requirements.txt`, `start.py`, and `assemble.py`, which puts it together in `space_build/` |
 | `pgb/ecoli_11587.h5` | PanGBank pangenome 11587, 1.33 GB (not in git) |
-| not in git either | what the pipeline regenerates from it: `pgb/window*.json`, `pgb/window_emb.npy`, `pgb/model_calls.npz`, `pgb/chrom*`, `pgb/calls_*`, `pgb/*.npy`, `pgb/longrange.json`, `pgb/contingency.json`, `fam_exemplars.npz`, `fam_proto.npz` (see `.gitignore`). The page, `standalone/pangramgraph.html`, holds its own data and opens without them; the live server needs them |
+| not in git either | what the pipeline regenerates from it: `pgb/window*.json`, `pgb/window_emb.npy`, `pgb/model_calls.npz`, `pgb/chrom*`, `pgb/calls_*`, `pgb/*.npy`, `pgb/longrange.json`, `pgb/contingency.json`, the knockout's per-genome passes and baselines under `pgb/knock/`, `fam_exemplars.npz`, `fam_proto.npz` (see `.gitignore`). The page, `standalone/pangramgraph.html`, holds its own data and opens without them; the server needs them |
 | `pgb/window.json`, `pgb/window_prot.json` | the 2,002 dnaA windows and their 19,198 distinct proteins |
 | `pgb/window_emb.npy`, `pgb/model_calls.npz` | ESM-2 embeddings; the 130,837 calls (top 15, rank and probability of the real gene) |
 | `pgb/graph_pgb.json` | the page's data |
+| `pg_graph_baseline.py` | the model against the graph: the most frequent successor of the previous family, overall and after a fork (Results, "Against the graph") |
+| `DISCOVERY.md`, `REFERENCES.md` | the allelic-contingency result, and its references |
+| `scale/` | the same reading for every bacterial species of PanGBank |
 | `pgb/origin-fork-11strains.html`, `pgb/serve_live-11strains.py` | the first pass on eleven strains |
 | `probs_search.py` | precomputed search for the 11-strain page (superseded by `serve_live.py`) |
 | `fam_exemplars.npz` | 9,814 families, 26,371 real protein embeddings |
@@ -459,10 +735,10 @@ python scale/status.py                    # where it stands, and the disk it wil
 - Beyond 80 genes: PanGBank windows cover whole contigs; the model saw 6,000-protein
   genomes.
 - Calibration per column: which RGPs does the model find predictable (the `dgo` case)?
-- Couplings the model could reach: the knockouts show its content-specific range decays to
-  the noise floor well before 1,000 genes, while the presence tests find most of their
-  signal far beyond it. Pairs under ~300 genes, with the off-target test as the primary
-  statistic, would be a fair test of the same question.
+- Couplings the model could reach: the close-range test (50-500 genes, where its use of
+  the context is strongest) found one *knows* in 47 testable links, from genomic background.
+  Still open is whether the broad influence of a deletion has element-specific structure
+  across genomes; the page's *specific* verdict asks it one genome at a time.
 - A competitor model on the same test: PanBART (Horsfield *et al.*, 2026) reads one gene
   family per token over a whole chromosome and is trained on 394,000 *E. coli* genomes, so
   it would say whether the null result is Bacformer's or the question's. Its published
@@ -473,12 +749,15 @@ python scale/status.py                    # where it stands, and the disk it wil
 ## Credit
 
 Genomes, families, partitions and plasticity regions from **PanGBank**
-(pangenome 11587, GTDB_refseq v2.0.0, GTDB R232), built with **PPanGGOLiN** — Gautreau
-*et al.* 2020, PLOS Comput Biol 16(3):e1007732 — with plasticity regions from
-**panRGP** — Bazin *et al.* 2020, Bioinformatics 36(Suppl_2):i651. PanGBank data are
+(pangenome 11587, GTDB_refseq v2.0.0, GTDB R232), built with **PPanGGOLiN**: Gautreau
+*et al.* 2020, PLOS Comput Biol 16(3):e1007732, with plasticity regions from
+**panRGP**: Bazin *et al.* 2020, Bioinformatics 36(Suppl_2):i651. PanGBank data are
 **CC BY-SA 4.0**, as is the GTDB taxonomy it adapts; share-alike propagates to
 redistributed derivatives. Chromosomes from NCBI RefSeq. Model: Bacformer, Wiatrak
-*et al.*, bioRxiv 2025.07.20.665723.
+*et al.*, bioRxiv 2025.07.20.665723 (`macwiatrak/bacformer-causal-complete-genomes`,
+Apache-2.0), on ESM-2 protein embeddings, Lin *et al.* 2023, Science 379:1123. The
+Findings readings are written by DeepSeek-V4.1-Flash (DeepSeek) through Hugging Face
+Inference Providers.
 
 ---
 

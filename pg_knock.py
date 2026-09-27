@@ -19,9 +19,12 @@ the downstream element is read, in ONE causal fp32 pass over the whole chromosom
   readout    decoded family probability P(f | ctx) = sum_c P(c | ctx) P(f | c) over the FULL softmax at the
              readout row, the decoder P(f | c) rebuilt from fp32 full-chromosome baseline passes (top 64 per
              gene), cross-validated by lineage: a genome is always read with the decoder of the other half
-  controls   per genome a panel of <= 40 natural accessory elements (runs of panRGP genes of one spot, at
-             spots holding none of the 290 coupled regions), sizes matched to the U deletions, spread along
-             the chromosome; matched null per unit + a per-genome regression
+  controls   per genome a pool of <= POOL_MAX (72) WHOLE accessory elements, each deleted by its member genes
+             (control_pool): coupled elements present at their spot (per unit, those linked to U or D excluded)
+             and, a small second arm, whole panRGP runs at spots holding no coupled region; kept to match the U
+             sizes and spread along the chromosome. Matched null per unit: controls of size x0.5-2 of U's at a
+             distance to the readout within +-35 % (WIDEN: x1/3-3, +-60 % when fewer than 3 match; MATCH_LOG a
+             third tier for close range)
   numerics   every pass of a genome has the same padded length and the head is applied on fixed-size row
              chunks, so identical prefixes give bit-identical readouts: deleting nothing gives delta == 0
              exactly and deleting genes after a readout row leaves it exactly unchanged (asserted in every
@@ -1165,8 +1168,10 @@ def influence(g, element, n_ctrl=8, truncate=None, ctx=None, z_floor=1e-5, progr
       ctrl_abs_median           the controls' median |delta| profile (the reference curve: every deletion moves the
                                 model's expectations downstream, decaying with distance)
       ctrl_abs_q                per bin, min / median / max of the controls' mean |delta|: the band to draw the profile in
-      null                      the same summaries with each control in turn as the element, against the other controls
-                                (n_bins_z3, radius, radius_contig, broad): what 8 controls give by chance. radius_p /
+      n_bins                    how many of the 60 bins are read for the element (fewer when the chromosome ends first)
+      null                      the same summaries with each control in turn as the element, against the other controls,
+                                over the element's n_bins bins only (n_bins_z3, radius, radius_contig, broad): what 8
+                                controls give by chance, like for like. radius_p /
                                 n_bins_z3_p = share of these pseudo-elements with at least the element's value (+1 smoothed)
       broad                     median over bins of the element's mean |delta| / the controls' median: how much more (or
                                 less) than a typical deletion this one moves the model's expectations downstream
@@ -1231,6 +1236,7 @@ def influence(g, element, n_ctrl=8, truncate=None, ctx=None, z_floor=1e-5, progr
         R.sync(); secs.append(time.time() - t); res.append(r)
     nb = INF_WIN // INF_BIN
     r0 = res[0]; cr = res[1:]
+    fin = np.isfinite(np.asarray(r0["abs"], float))       # the bins read for the element (fewer near a chromosome's end)
     cm = np.array([r["mean"] for r in cr]).reshape(-1, nb); ca = np.array([r["abs"] for r in cr]).reshape(-1, nb)
     z_abs = np.full(nb, np.nan); z_mean = np.full(nb, np.nan)
     for k in range(nb):
@@ -1244,7 +1250,8 @@ def influence(g, element, n_ctrl=8, truncate=None, ctx=None, z_floor=1e-5, progr
         return (int((sig_[-1] + 1) * INF_BIN) if len(sig_) else 0), k_ * INF_BIN, int(len(sig_))
     radius, radius_contig, n_z3 = radii(z_abs)
     sig = np.arange(n_z3)
-    # the same with each control as the element, against the others: what the summaries give by chance
+    # the same with each control as the element, against the others, over the element's own bins (fin): what the
+    # summaries give by chance, compared like for like when the chromosome ends before the element's 60th bin
     cmed = np.nanmedian(ca, 0) if len(ca) else np.full(nb, np.nan)
     with np.errstate(invalid="ignore", divide="ignore"):
         broad = float(np.nanmedian(np.asarray(r0["abs"], float) / cmed))
@@ -1253,11 +1260,12 @@ def influence(g, element, n_ctrl=8, truncate=None, ctx=None, z_floor=1e-5, progr
         oth = np.delete(np.arange(len(ca)), c); zc = np.full(nb, np.nan)
         for k_ in range(nb):
             x = ca[oth, k_][np.isfinite(ca[oth, k_])]
-            if np.isfinite(ca[c, k_]) and len(x) >= 3: zc[k_] = robust_z(ca[c, k_], x, z_floor)[0]
+            if fin[k_] and np.isfinite(ca[c, k_]) and len(x) >= 3: zc[k_] = robust_z(ca[c, k_], x, z_floor)[0]
         rr = radii(zc)
         null["radius"].append(rr[0]); null["radius_contig"].append(rr[1]); null["n_bins_z3"].append(rr[2])
         with np.errstate(invalid="ignore", divide="ignore"):
-            null["broad"].append(float(np.nanmedian(ca[c] / np.nanmedian(ca[oth], 0))))
+            rc = (ca[c] / np.nanmedian(ca[oth], 0))[fin]
+            null["broad"].append(float(np.nanmedian(rc)) if np.isfinite(rc).any() else np.nan)
     pshare = lambda v, xs: float((1 + sum(x >= v for x in xs)) / (1 + len(xs))) if xs else np.nan
     # specificity at each neighbour, and its null: every control deletion scored the same way
     spec0 = _spec_scores(r0, entry, el["end"])
@@ -1309,7 +1317,7 @@ def influence(g, element, n_ctrl=8, truncate=None, ctx=None, z_floor=1e-5, progr
                bins=[[k_ * INF_BIN + 1, (k_ + 1) * INF_BIN] for k_ in range(nb)],
                profile=dict(mean=r0["mean"], abs=r0["abs"], rgp=r0["rgp"], n=r0["n"], n_rgp=r0["n_rgp"]),
                ctrl_mean=cm, ctrl_abs=ca, z_abs=z_abs, z_mean=z_mean, radius=radius, radius_contig=radius_contig,
-               n_bins_z3=int(len(sig)), ctrl_abs_median=cmed,
+               n_bins_z3=int(len(sig)), n_bins=int(fin.sum()), ctrl_abs_median=cmed,
                ctrl_abs_q=(np.stack([np.nanmin(ca, 0), cmed, np.nanmax(ca, 0)]) if len(ca) else np.full((3, nb), np.nan)),
                broad=broad, null=null, radius_p=pshare(radius, null["radius"]), n_bins_z3_p=pshare(int(len(sig)), null["n_bins_z3"]),
                broad_p=pshare(broad, null["broad"]),

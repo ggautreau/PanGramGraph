@@ -2,50 +2,215 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447902.9902065,
+ "created": 1790479574.7769198,
  "usage": {
-  "prompt_tokens": 4206,
-  "completion_tokens": 634,
-  "cost_usd": 0.000699,
-  "ms": 7523
+  "prompt_tokens": 6401,
+  "completion_tokens": 424,
+  "cost_usd": 0.000727,
+  "ms": 5059
  },
  "attempts": [
   {
-   "text": "**The window starts on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.44 bits. The other 79 columns are fork and variable columns, in a region of plasticity in 0.2 to 69% of calls.\n\n**The first forks carry the `csg` genes.** Columns 1 to 7, `csgC` to `csgG`, [[curli assembly and transport]], are persistent at 85 to 89%. Then columns 12 and 13 are the most hesitant of the window: `ycdU` at 2.22 bits, named 57%, in a region of plasticity in 65% of calls, and an IS3 family transposase at 1.36 bits, in a region of plasticity in 69%. The model names 86% of calls in the 11 columns most in regions of plasticity, against 93% elsewhere.\n\n**A long fork run follows.** `pgaA` to `pgaD`, [[poly-beta-1,6 N-acetyl-D-glucosamine biosynthesis]], are shell at 48 to 61%, then `phoH`, `efeB`, `efeO` and `efeU` are persistent at 83 to 84%, and the `rut` genes, [[pyrimidine utilization]], run from `rutR` to `rutG` at 79 to 83%. The `tor` genes, [[trimethylamine-N-oxide reduction]], follow at 76 to 78%, and `cspG`, `cspH` and `gfcA` to `gfcE`, [[capsule biosynthesis]], close the middle at 51 to 72%.\n\n**Branches run beside these columns.** A branch of 55 families through columns 1 to 55, from `ymdB` to `ptsG`, is persistent at 10 to 11%; another of 11 families through columns 57 to 67, from `hinT` to `ldtC`, at 10%; one of 4 families through columns 71 to 74, from `lolD` to `cobB`, at 10%; and one of 4 families through columns 76 to 79, from `ompA` to `fabA`, at 21 to 28%.\n\n**The window ends in fork columns.** `appA` to `appC`, [[cytochrome ubiquinol oxidase]], are persistent at 66%, the `hya` genes, [[hydrogenase 1 maturation]], at 64 to 65%, and `yccS` at 45%. Across the window the model names 92% of genes at 0.52 bits; inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.",
+   "text": "**The window opens on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.44 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 39 to 89%, in a region of plasticity in 0.2 to 69% of calls. The `csg` genes, columns 1 to 7, are [[curli assembly and transport]], and the `rut` genes, columns 26 to 33, are [[pyrimidine utilization]]. A branch of 55 families runs through columns 1 to 55 in 10 to 11%, `ymdB` to `ptsG`.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 92%, and hesitates less there, 0.44 against 0.52 bits. It hesitates most at column 12, `ycdU`, a fork column, 2.22 bits.\n\n**The window ends on fork columns.** Column 79, `yccS`, is carried by 45% of chromosomes. A branch of 4 families runs through columns 76 to 79 in 21 to 28%, `ompA` to `fabA`.\n\n**Across the window it names 92% of genes**, 0.52 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4206,
-    "completion_tokens": 634,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6401,
+    "completion_tokens": 424,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000699
+    "cost_usd": 0.000727
    },
    "provider": "deepinfra",
-   "ms": 7523,
-   "raw": "**The window starts on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.44 bits. The other 79 columns are fork and variable columns, in a region of plasticity in 0.2 to 69% of calls.\n\n**The first forks carry the `csg` genes.** Columns 1 to 7, `csgC` to `csgG`, [[curli assembly and transport]], are persistent at 85 to 89%. Then columns 12 and 13 are the most hesitant of the window: `ycdU` at 2.22 bits, named 57%, in a region of plasticity in 65% of calls, and an IS3 family transposase at 1.36 bits, in a region of plasticity in 69%. The model names 86% of calls in the 11 columns most in regions of plasticity, against 93% elsewhere.\n\n**A long fork run follows.** `pgaA` to `pgaD`, [[poly-beta-1,6 N-acetyl-D-glucosamine biosynthesis]], are shell at 48 to 61%, then `phoH`, `efeB`, `efeO` and `efeU` are persistent at 83 to 84%, and the `rut` genes, [[pyrimidine utilization]], run from `rutR` to `rutG` at 79 to 83%. The `tor` genes, [[trimethylamine-N-oxide reduction]], follow at 76 to 78%, and `cspG`, `cspH` and `gfcA` to `gfcE`, [[capsule biosynthesis]], close the middle at 51 to 72%.\n\n**Branches run beside these columns.** A branch of 55 families through columns 1 to 55, from `ymdB` to `ptsG`, is persistent at 10 to 11%; another of 11 families through columns 57 to 67, from `hinT` to `ldtC`, at 10%; one of 4 families through columns 71 to 74, from `lolD` to `cobB`, at 10%; and one of 4 families through columns 76 to 79, from `ompA` to `fabA`, at 21 to 28%.\n\n**The window ends in fork columns.** `appA` to `appC`, [[cytochrome ubiquinol oxidase]], are persistent at 66%, the `hya` genes, [[hydrogenase 1 maturation]], at 64 to 65%, and `yccS` at 45%. Across the window the model names 92% of genes at 0.52 bits; inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.",
+   "ms": 5059,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.44 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns**, 1 to 79, carried by 39 to 89%, in a region of plasticity in 0.2 to 69% of calls {S2}. The `csg` genes, columns 1 to 7, are [[curli assembly and transport]], and the `rut` genes, columns 26 to 33, are [[pyrimidine utilization]] {S2.c1-7, S2.c26-33, Q}. A branch of 55 families runs through columns 1 to 55 in 10 to 11%, `ymdB` to `ptsG` {S2.b1}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 92%, and hesitates less there, 0.44 against 0.52 bits {M}. It hesitates most at column 12, `ycdU`, a fork column, 2.22 bits {H}.\n\n@end **The window ends on fork columns.** Column 79, `yccS`, is carried by 45% of chromosomes {S2.c79, E}. A branch of 4 families runs through columns 76 to 79 in 21 to 28%, `ompA` to `fabA` {S2.b76}.\n\n@whole **Across the window it names 92% of genes**, 0.52 bits on average, perplexity 1.6 families {G}. Inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.44 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns**, 1 to 79, carried by 39 to 89%, in a region of plasticity in 0.2 to 69% of calls {S2}. The `csg` genes, columns 1 to 7, are [[curli assembly and transport]], and the `rut` genes, columns 26 to 33, are [[pyrimidine utilization]] {S2.c1-7, S2.c26-33, Q}. A branch of 55 families runs through columns 1 to 55 in 10 to 11%, `ymdB` to `ptsG` {S2.b1}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 92%, and hesitates less there, 0.44 against 0.52 bits {M}. It hesitates most at column 12, `ycdU`, a fork column, 2.22 bits {H}.\n\n@end **The window ends on fork columns.** Column 79, `yccS`, is carried by 45% of chromosomes {S2.c79, E}. A branch of 4 families runs through columns 76 to 79 in 21 to 28%, `ompA` to `fabA` {S2.b76}.\n\n@whole **Across the window it names 92% of genes**, 0.52 bits on average, perplexity 1.6 families {G}. Inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97% {C}.",
    "check": {
     "ok": true,
-    "numbers": 60,
-    "names": 31,
-    "words": 349,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 29,
+    "names": 9,
+    "words": 214,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 214,
+    "repeats": 0,
+    "interp": 2,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": [
+       "M"
+      ]
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.44 bits",
+      "cites": [
+       "S1",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The rest of the window is fork and variable columns**, 1 to 79, carried by 39 to 89%, in a region of plasticity in 0.2 to 69% of calls",
+      "cites": [
+       "S2"
+      ],
+      "inherit": [
+       "S2.c1-7",
+       "S2.c26-33",
+       "Q",
+       "S2.b1"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The `csg` genes, columns 1 to 7, are [[curli assembly and transport]], and the `rut` genes, columns 26 to 33, are [[pyrimidine utilization]]",
+      "cites": [
+       "S2.c1-7",
+       "S2.c26-33",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "A branch of 55 families runs through columns 1 to 55 in 10 to 11%, `ymdB` to `ptsG`",
+      "cites": [
+       "S2.b1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine column than on the fork and variable ones**, 99 against 92%, and hesitates less there, 0.44 against 0.52 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 12, `ycdU`, a fork column, 2.22 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork columns.** Column 79, `yccS`, is carried by 45% of chromosomes",
+      "cites": [
+       "S2.c79",
+       "E"
+      ],
+      "inherit": [
+       "S2.b76"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "A branch of 4 families runs through columns 76 to 79 in 21 to 28%, `ompA` to `fabA`",
+      "cites": [
+       "S2.b76"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 92% of genes**, 0.52 bits on average, perplexity 1.6 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 80
+   },
+   "dropped": [],
+   "served": "**The window opens on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.44 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 39 to 89%, in a region of plasticity in 0.2 to 69% of calls. The `csg` genes, columns 1 to 7, are [[curli assembly and transport]], and the `rut` genes, columns 26 to 33, are [[pyrimidine utilization]]. A branch of 55 families runs through columns 1 to 55 in 10 to 11%, `ymdB` to `ptsG`.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 92%, and hesitates less there, 0.44 against 0.52 bits. It hesitates most at column 12, `ycdU`, a fork column, 2.22 bits.\n\n**The window ends on fork columns.** Column 79, `yccS`, is carried by 45% of chromosomes. A branch of 4 families runs through columns 76 to 79 in 21 to 28%, `ompA` to `fabA`.\n\n**Across the window it names 92% of genes**, 0.52 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 60,
-  "names": 31,
-  "words": 349,
-  "attempts": 1
+  "numbers": 29,
+  "names": 9,
+  "words": 214,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 15,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 2,
+  "covered": 80
  },
- "text": "**The window starts on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.44 bits. The other 79 columns are fork and variable columns, in a region of plasticity in 0.2 to 69% of calls.\n\n**The first forks carry the `csg` genes.** Columns 1 to 7, `csgC` to `csgG`, [[curli assembly and transport]], are persistent at 85 to 89%. Then columns 12 and 13 are the most hesitant of the window: `ycdU` at 2.22 bits, named 57%, in a region of plasticity in 65% of calls, and an IS3 family transposase at 1.36 bits, in a region of plasticity in 69%. The model names 86% of calls in the 11 columns most in regions of plasticity, against 93% elsewhere.\n\n**A long fork run follows.** `pgaA` to `pgaD`, [[poly-beta-1,6 N-acetyl-D-glucosamine biosynthesis]], are shell at 48 to 61%, then `phoH`, `efeB`, `efeO` and `efeU` are persistent at 83 to 84%, and the `rut` genes, [[pyrimidine utilization]], run from `rutR` to `rutG` at 79 to 83%. The `tor` genes, [[trimethylamine-N-oxide reduction]], follow at 76 to 78%, and `cspG`, `cspH` and `gfcA` to `gfcE`, [[capsule biosynthesis]], close the middle at 51 to 72%.\n\n**Branches run beside these columns.** A branch of 55 families through columns 1 to 55, from `ymdB` to `ptsG`, is persistent at 10 to 11%; another of 11 families through columns 57 to 67, from `hinT` to `ldtC`, at 10%; one of 4 families through columns 71 to 74, from `lolD` to `cobB`, at 10%; and one of 4 families through columns 76 to 79, from `ompA` to `fabA`, at 21 to 28%.\n\n**The window ends in fork columns.** `appA` to `appC`, [[cytochrome ubiquinol oxidase]], are persistent at 66%, the `hya` genes, [[hydrogenase 1 maturation]], at 64 to 65%, and `yccS` at 45%. Across the window the model names 92% of genes at 0.52 bits; inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.",
- "html": "<p class=\"note\"><b>The window starts on a single spine column.</b> Column 0, <span class=\"gene\">ymdA</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.44 bits. The other 79 columns are fork and variable columns, in a region of plasticity in 0.2 to 69% of calls.</p><p class=\"note\"><b>The first forks carry the <span class=\"gene\">csg</span> genes.</b> Columns 1 to 7, <span class=\"gene\">csgC</span> to <span class=\"gene\">csgG</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">curli assembly and transport</span>, are persistent at 85 to 89%. Then columns 12 and 13 are the most hesitant of the window: <span class=\"gene\">ycdU</span> at 2.22 bits, named 57%, in a region of plasticity in 65% of calls, and an IS3 family transposase at 1.36 bits, in a region of plasticity in 69%. The model names 86% of calls in the 11 columns most in regions of plasticity, against 93% elsewhere.</p><p class=\"note\"><b>A long fork run follows.</b> <span class=\"gene\">pgaA</span> to <span class=\"gene\">pgaD</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">poly-beta-1,6 N-acetyl-D-glucosamine biosynthesis</span>, are shell at 48 to 61%, then <span class=\"gene\">phoH</span>, <span class=\"gene\">efeB</span>, <span class=\"gene\">efeO</span> and <span class=\"gene\">efeU</span> are persistent at 83 to 84%, and the <span class=\"gene\">rut</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">pyrimidine utilization</span>, run from <span class=\"gene\">rutR</span> to <span class=\"gene\">rutG</span> at 79 to 83%. The <span class=\"gene\">tor</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">trimethylamine-N-oxide reduction</span>, follow at 76 to 78%, and <span class=\"gene\">cspG</span>, <span class=\"gene\">cspH</span> and <span class=\"gene\">gfcA</span> to <span class=\"gene\">gfcE</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">capsule biosynthesis</span>, close the middle at 51 to 72%.</p><p class=\"note\"><b>Branches run beside these columns.</b> A branch of 55 families through columns 1 to 55, from <span class=\"gene\">ymdB</span> to <span class=\"gene\">ptsG</span>, is persistent at 10 to 11%; another of 11 families through columns 57 to 67, from <span class=\"gene\">hinT</span> to <span class=\"gene\">ldtC</span>, at 10%; one of 4 families through columns 71 to 74, from <span class=\"gene\">lolD</span> to <span class=\"gene\">cobB</span>, at 10%; and one of 4 families through columns 76 to 79, from <span class=\"gene\">ompA</span> to <span class=\"gene\">fabA</span>, at 21 to 28%.</p><p class=\"note\"><b>The window ends in fork columns.</b> <span class=\"gene\">appA</span> to <span class=\"gene\">appC</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">cytochrome ubiquinol oxidase</span>, are persistent at 66%, the <span class=\"gene\">hya</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">hydrogenase 1 maturation</span>, at 64 to 65%, and <span class=\"gene\">yccS</span> at 45%. Across the window the model names 92% of genes at 0.52 bits; inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.</p>",
+ "text": "**The window opens on a single spine column.** Column 0, `ymdA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.44 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 39 to 89%, in a region of plasticity in 0.2 to 69% of calls. The `csg` genes, columns 1 to 7, are [[curli assembly and transport]], and the `rut` genes, columns 26 to 33, are [[pyrimidine utilization]]. A branch of 55 families runs through columns 1 to 55 in 10 to 11%, `ymdB` to `ptsG`.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 92%, and hesitates less there, 0.44 against 0.52 bits. It hesitates most at column 12, `ycdU`, a fork column, 2.22 bits.\n\n**The window ends on fork columns.** Column 79, `yccS`, is carried by 45% of chromosomes. A branch of 4 families runs through columns 76 to 79 in 21 to 28%, `ompA` to `fabA`.\n\n**Across the window it names 92% of genes**, 0.52 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.",
+ "html": "<p class=\"note\"><b>The window opens on a single spine column.</b> Column 0, <span class=\"gene\">ymdA</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.44 bits.</p><p class=\"note\"><b>The rest of the window is fork and variable columns</b>, 1 to 79, carried by 39 to 89%, in a region of plasticity in 0.2 to 69% of calls. The <span class=\"gene\">csg</span> genes, columns 1 to 7, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">curli assembly and transport</span>, and the <span class=\"gene\">rut</span> genes, columns 26 to 33, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">pyrimidine utilization</span>. A branch of 55 families runs through columns 1 to 55 in 10 to 11%, <span class=\"gene\">ymdB</span> to <span class=\"gene\">ptsG</span>.</p><p class=\"note\"><b>The model names more genes on the spine column than on the fork and variable ones</b>, 99 against 92%, and hesitates less there, 0.44 against 0.52 bits. It hesitates most at column 12, <span class=\"gene\">ycdU</span>, a fork column, 2.22 bits.</p><p class=\"note\"><b>The window ends on fork columns.</b> Column 79, <span class=\"gene\">yccS</span>, is carried by 45% of chromosomes. A branch of 4 families runs through columns 76 to 79 in 21 to 28%, <span class=\"gene\">ompA</span> to <span class=\"gene\">fabA</span>.</p><p class=\"note\"><b>Across the window it names 92% of genes</b>, 0.52 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 1.45 against 0.21 bits, and names fewer genes, 75% against 97%.</p>",
  "window": "G8B09_RS10960",
  "label": "ymdA",
- "facts_hash": "383f02c1f767",
- "prompt_version": "r7",
- "facts": "WINDOW: the ymdA window: 80 columns, column 0 is the anchor ymdA, then the next 79 genes in dnaA's direction; about genes 2,648 to 2,727 from dnaA. Read in 518 of the 540 complete chromosomes (those carrying ymdA once); 41,440 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 92% of genes, 0.52 bits on average (perplexity 1.6 families). By partition of the gene: persistent 30,583 calls, named 99%, 0.18 bits; shell 10,130 calls, named 76%, 1.28 bits; cloud 727 calls, named 27%, 4.16 bits. Outside an RGP 31,042 calls, named 97%, 0.21 bits; inside an RGP 10,398 calls, named 75%, 1.45 bits. Columns: 1 spine, 76 fork, 3 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.45 against 0.21 bits) and names fewer genes (75% against 97%); 10,398 of the 41,440 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 12 (ycdU) 2.22 bits, RGP 65%; column 13 (\"IS3 family transposase\") 1.36 bits, RGP 69%; column 31 (rutE) 0.77 bits, RGP 23%. The 11 columns where most calls are in an RGP: named 86%, 0.80 bits on average; the other 69 columns: named 93%, 0.47 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 1-79 (fork and variable columns), RGP 0.2-69%; the least: column 0 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0%. Genes: ymdA \"protein YmdA\". named 99%; 0.44 bits.\n2. columns 1-79 (79 columns) fork and variable columns: RGP 0.2-69%. named 57-99.6% (mean 92%), fewest named and most hesitant at column 12, named 57%, 2.22 bits.\n   a second branch of 55 families through columns 1-55, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-11%, all P; the branch's families: ymdB, clsC, mdoC, mdoG, mdoH, yceK, msyB, mdtG, lpxL, trhO, yceI, yceJ, \"DUF2770 family protein\", solA, bssS, dinI, pyrC, yceB, grxB, mdtH, rimJ, yceH, yceM, murJ, flgN, flgM, flgA, flgB, flgC, flgD, flgE, flgF, flgG, flgH, flgI, flgJ, flgK, flgL, rne, rluC, yceF, yceD, rpmF, plsX, fabH, fabD, fabG, acpP, fabF, pabC, yceG, tmk, holB, ycfH, ptsG\n   a second branch of 11 families through columns 57-67, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all P; the branch's families: hinT, ycfL, lpoB, thiK, nagZ, ycfP, ndh, ycfJ, comR, bhsA, ldtC\n   a second branch of 4 families through columns 71-74, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all P; the branch's families: lolD, lolE, nagK, cobB\n   a second branch of 4 families through columns 76-79, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 21-28%, all P; the branch's families: ompA, matP, ycbZ, fabA\n   1 fork: csgC P 89%\n   2 fork: csgA P 88%\n   3 fork: csgB P 88%\n   4 fork: csgD P 85%; also \"IS1-like element transposase\" S 31%\n   5 fork: csgE P 87% \"curli production assembly/transport\u2026\"\n   6 fork: csgF P 88%\n   7 fork: csgG P 88%\n   8 fork: ycdZ P 89% \"DUF1097 domain-containing protein\"\n   9 fork: ycdY P 89% \"molecular chaperone YcdY\"\n   10 fork: ycdX P 87% \"zinc-binding phosphatase\"\n   11 fork: ghrA P 87%\n   12 fork: ycdU S 42% \"protein YcdU\"; also \"DUF2726 domain-containing protein\" S 20%, \"hypothetical protein\" S 12%\n   13 fork: \"IS3 family transposase\" S 39%; also \"DUF957 domain-containing protein\" S 15%\n   14 fork: dgcT S 55%; also \"DUF5983 family protein\" S 13%\n   15 fork: pgaA S 48% \"poly-beta-1,6 N-acetyl-D-glucosamin\u2026\"; also cbtA S 15%\n   16 fork: pgaB S 54%; also cbeA S 15%\n   17 fork: pgaC S 57%; also yeeT S 14%, \"hypothetical protein\" S 11%\n   18 fork: pgaD S 61%; also radC S 14%\n   19 fork: phoH P 84%; also \"antirestriction protein\" S 14%\n   20 fork: efeB P 83% \"iron uptake transporter deferrochel\u2026\"; also \"DUF932 domain-containing protein\" S 14%\n   21 fork: efeO P 84%\n   22 fork: efeU P 83%\n   23 fork: putP P 83%\n   24 fork: \"hypothetical protein\" P 80%\n   25 fork: putA P 83%; also yfjP S 14%\n   26 fork: rutR P 83%\n   27 fork: rutA P 82%\n   28 fork: rutB P 82%\n   29 fork: rutC P 81%\n   30 fork: rutD P 80%\n   31 fork: rutE P 80%\n   32 fork: rutF P 80%\n   33 fork: rutG P 79% \"pyrimidine utilization transport pr\u2026\"\n   34 fork: ymdF P 78% \"KGG domain-containing protein\"\n   35 fork: wrbA P 79%\n   36 fork: yccJ P 79% \"YccJ family protein\"\n   37 fork: agp P 77%\n   38 fork: yccE S 48%\n   39 fork: cbpA P 79%\n   40 fork: cbpM P 79% \"chaperone modulator CbpM\"\n   41 fork: torD P 78%\n   42 fork: torA P 77%\n   43 fork: torC P 77%\n   44 fork: torR P 77%\n   45 fork: torT P 76%\n   46 fork: torS S 61% \"TMAO reductase system sensor histid\u2026\"\n   47 fork: yccM P 72% \"4Fe-4S binding protein\"\n   48 fork: gnsA P 72%\n   49 fork: ymcE P 72% \"protein YmcE\"\n   50 fork: ymcF P 72% \"cold-shock protein\"\n   51 fork: cspG P 72% \"cold shock-like protein CspB\"\n   52 fork: cspH P 70%\n   53 fork: gfcA S 55%\n   54 fork: gfcB S 54%\n   55 fork: gfcC S 53% \"capsule biosynthesis GfcC D2 domain\u2026\"\n   56 variable: gfcD S 51%\n   57 fork: gfcE S 52%\n   58 fork: etp S 54%\n   59 fork: etk S 50%\n   60 fork: appA P 66%\n   61 fork: cbdX P 66%\n   62 fork: appB P 66%\n   63 fork: appC P 66% \"cytochrome ubiquinol oxidase subuni\u2026\"\n   64 fork: hyaF P 65%\n   65 fork: hyaE P 65%\n   66 fork: hyaD P 64% \"hydrogenase 1 maturation protease\"\n   67 fork: hyaC P 65%\n   68 variable: hyaB P 64%\n   69 fork: hyaA P 64%; also ycfT P 10%\n   70 variable: yccA P 62% \"FtsH protease modulator YccA\"\n   71 fork: tusE P 62%\n   72 fork: yccX P 62% \"acylphosphatase\"\n   73 fork: rlmI P 60%\n   74 fork: hspQ P 61%; also sxy P 36%\n   75 fork: yccU P 61% \"CoA-binding protein\"; also csgI P 61%, sulA P 30%\n   76 fork: mgsA P 60%; also rmf P 15%\n   77 fork: helD P 59%; also pqiC P 14%\n   78 fork: yccF P 55% \"YccF domain-containing protein\"; also pqiB P 11%\n   79 fork: yccS P 45% \"YccS family putative transporter\"\nPRODUCTS of named genes (for [[ ]]): csgC curli assembly chaperone CsgC; csgE curli production assembly/transport pro\u2026; csgF curli assembly protein CsgF; csgG curli production assembly/transport pro\u2026; pgaA poly-beta-1,6 N-acetyl-D-glucosamine ex\u2026; pgaC glycosyltransferase family 2 protein; pgaD poly-beta-1,6-N-acetyl-D-glucosamine bi\u2026; efeB iron uptake transporter deferrochelatas\u2026; rutR HTH-type transcriptional regulator RutR; rutB pyrimidine utilization protein B; rutC 3-aminoacrylate deaminase; rutD pyrimidine utilization protein D; rutE malonic semialdehyde reductase; rutF NADH-dependent FMN reductase RutF; rutG pyrimidine utilization transport protei\u2026; cbpA DnaJ C-terminal domain-containing prote\u2026; cbpM chaperone modulator CbpM; torD molecular chaperone TorD; torA trimethylamine-N-oxide reductase TorA; torC pentaheme c-type cytochrome TorC; torR two-component system response regulator\u2026; torT TMAO reductase system periplasmic prote\u2026; torS TMAO reductase system sensor histidine\u2026; cspG cold shock-like protein CspB; cspH cold shock-like protein CspH; gfcC capsule biosynthesis GfcC D2 domain-con\u2026; appB cytochrome d ubiquinol oxidase subunit\u2026; appC cytochrome ubiquinol oxidase subunit I; hyaF hydrogenase expression/formation protein; hyaE hydrogenase-1 operon protein HyaE; hyaD hydrogenase 1 maturation protease; hyaC Ni/Fe-hydrogenase b-type cytochrome sub\u2026; hyaB nickel-dependent hydrogenase large subu\u2026; hyaA hydrogenase 1 small subunit; ymdB O-acetyl-ADP-ribose deacetylase; clsC cardiolipin synthase ClsC; mdoC glucans biosynthesis protein MdoC; mdoG glucan biosynthesis protein; yceK YceK/YidQ family lipoprotein; mdtG MFS transporter\nEND: the window ends at column 79, yccS, in 45% of chromosomes."
+ "facts_hash": "6ae27bac2788",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the ymdA window: 80 columns, column 0 is the anchor ymdA, then the next 79 genes in dnaA's direction; about genes 2,648 to 2,727 from dnaA. Read in 518 of the 540 complete chromosomes (those carrying ymdA once); 41,440 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 92% of genes, 0.52 bits on average (perplexity 1.6 families). By partition of the gene: persistent 30,583 calls, named 99%, 0.18 bits; shell 10,130 calls, named 76%, 1.28 bits; cloud 727 calls, named 27%, 4.16 bits. Outside an RGP 31,042 calls, named 97%, 0.21 bits; inside an RGP 10,398 calls, named 75%, 1.45 bits. Columns: 1 spine, 76 fork, 3 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.45 against 0.21 bits) and names fewer genes (75% against 97%); 10,398 of the 41,440 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 12 (ycdU, a fork column) 2.22 bits, RGP 65%; column 13 (\"IS3-like element IS3 family transposase\", a fork column) 1.36 bits, RGP 69%; column 31 (rutE, a fork column) 0.77 bits, RGP 23%. The 11 columns (columns 12-17 and 51-55) where most calls are in an RGP: named 86%, 0.80 bits on average; the other 69 columns: named 93%, 0.47 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 1 spine column: named 99%, 0.44 bits on average; the 79 fork and variable columns: named 92%, 0.52 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 12, is a fork column.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0%. Genes: ymdA \"protein YmdA\". named 99%; 0.44 bits.\n[S2] 2. columns 1-79 (79 columns) fork and variable columns: share 39-89%, 63 P, 16 S, RGP 0.2-69%. named 57-99.6% (mean 92%), fewest named and most hesitant at column 12, named 57%, 2.22 bits.\n[S2.b1]    a second branch of 55 families through columns 1-55, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-11%, all P; the branch's families: ymdB, clsC, mdoC, mdoG, mdoH, yceK, msyB, mdtG, lpxL, trhO, yceI, yceJ, \"YceO family protein\", solA, bssS, dinI, pyrC, yceB, grxB, mdtH, rimJ, yceH, yceM, murJ, flgN, flgM, flgA, flgB, flgC, flgD, flgE, flgF, flgG, flgH, flgI, flgJ, flgK, flgL, rne, rluC, yceF, yceD, rpmF, plsX, fabH, fabD, fabG, acpP, fabF, pabC, yceG, tmk, holB, ycfH, ptsG\n[S2.b57]    a second branch of 11 families through columns 57-67, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all P; the branch's families: hinT, ycfL, lpoB, thiK, nagZ, ycfP, ndh, ycfJ, comR, bhsA, ldtC\n[S2.b71]    a second branch of 4 families through columns 71-74, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all P; the branch's families: lolD, lolE, nagK, cobB\n[S2.b76]    a second branch of 4 families through columns 76-79, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 21-28%, all P; the branch's families: ompA, matP, ycbZ, fabA\n[S2.c1]    1 fork: csgC P 89%\n[S2.c2]    2 fork: csgA P 88%\n[S2.c3]    3 fork: csgB P 88%\n[S2.c4]    4 fork: csgD P 85%; also \"IS1 family transposase\" S 31%\n[S2.c5]    5 fork: csgE P 87% \"curli production assembly/transport\u2026\"\n[S2.c6]    6 fork: csgF P 88%\n[S2.c7]    7 fork: csgG P 88%\n[S2.c8]    8 fork: ycdZ P 89% \"DUF1097 domain-containing protein\"\n[S2.c9]    9 fork: ycdY P 89% \"molecular chaperone YcdY\"\n[S2.c10]    10 fork: ycdX P 87% \"zinc-binding phosphatase\"\n[S2.c11]    11 fork: ghrA P 87%\n[S2.c12]    12 fork: ycdU S 42% \"protein YcdU\"; also \"DUF2726 domain-containing protein\" S 20%, \"DUF4942 domain-containing protein\" S 12%\n[S2.c13]    13 fork: \"IS3-like element IS3 family transposase\" S 39%; also \"DUF957 domain-containing protein\" S 15%\n[S2.c14]    14 fork: dgcT S 55%; also \"DUF5983 family protein\" S 13%\n[S2.c15]    15 fork: pgaA S 48% \"poly-beta-1,6 N-acetyl-D-glucosamin\u2026\"; also cbtA S 15%\n[S2.c16]    16 fork: pgaB S 54%; also cbeA S 15%\n[S2.c17]    17 fork: pgaC S 57%; also yeeT S 14%, \"hypothetical protein\" S 11%\n[S2.c18]    18 fork: pgaD S 61%; also radC S 14%\n[S2.c19]    19 fork: phoH P 84%; also \"antirestriction protein\" S 14%\n[S2.c20]    20 fork: efeB P 83% \"iron uptake transporter deferrochel\u2026\"; also \"DUF932 domain-containing protein\" S 14%\n[S2.c21]    21 fork: efeO P 84%\n[S2.c22]    22 fork: efeU P 83%\n[S2.c23]    23 fork: putP P 83%\n[S2.c24]    24 fork: \"DUF1387 domain-containing protein\" P 80%\n[S2.c25]    25 fork: putA P 83%; also yfjP S 14%\n[S2.c26]    26 fork: rutR P 83%\n[S2.c27]    27 fork: rutA P 82%\n[S2.c28]    28 fork: rutB P 82%\n[S2.c29]    29 fork: rutC P 81%\n[S2.c30]    30 fork: rutD P 80%\n[S2.c31]    31 fork: rutE P 80%\n[S2.c32]    32 fork: rutF P 80%\n[S2.c33]    33 fork: rutG P 79% \"pyrimidine utilization transport pr\u2026\"\n[S2.c34]    34 fork: ymdF P 78% \"general stress protein\"\n[S2.c35]    35 fork: wrbA P 79%\n[S2.c36]    36 fork: yccJ P 79% \"YccJ family protein\"\n[S2.c37]    37 fork: agp P 77%\n[S2.c38]    38 fork: yccE S 48% \"YccE family protein\"\n[S2.c39]    39 fork: cbpA P 79%\n[S2.c40]    40 fork: cbpM P 79% \"chaperone modulator CbpM\"\n[S2.c41]    41 fork: torD P 78%\n[S2.c42]    42 fork: torA P 77%\n[S2.c43]    43 fork: torC P 77%\n[S2.c44]    44 fork: torR P 77%\n[S2.c45]    45 fork: torT P 76%\n[S2.c46]    46 fork: torS S 61% \"TMAO reductase system sensor histid\u2026\"\n[S2.c47]    47 fork: yccM P 72% \"4Fe-4S binding protein\"\n[S2.c48]    48 fork: gnsA P 72%\n[S2.c49]    49 fork: ymcE P 72% \"protein YmcE\"\n[S2.c50]    50 fork: ymcF P 72% \"cold-shock protein\"\n[S2.c51]    51 fork: cspG P 72% \"cold shock protein CspG\"\n[S2.c52]    52 fork: cspH P 70%\n[S2.c53]    53 fork: gfcA S 55%\n[S2.c54]    54 fork: gfcB S 54%\n[S2.c55]    55 fork: gfcC S 53%\n[S2.c56]    56 variable: gfcD S 51%\n[S2.c57]    57 fork: gfcE S 52% \"polysaccharide export protein\"\n[S2.c58]    58 fork: etp S 54%\n[S2.c59]    59 fork: etk S 50%\n[S2.c60]    60 fork: appA P 66%\n[S2.c61]    61 fork: cbdX P 66%\n[S2.c62]    62 fork: appB P 66%\n[S2.c63]    63 fork: appC P 66% \"cytochrome bd-II oxidase subunit 1\"\n[S2.c64]    64 fork: hyaF P 65%\n[S2.c65]    65 fork: hyaE P 65%\n[S2.c66]    66 fork: hyaD P 64% \"hydrogenase 1 maturation protease\"\n[S2.c67]    67 fork: hyaC P 65%\n[S2.c68]    68 variable: hyaB P 64%\n[S2.c69]    69 fork: hyaA P 64%; also ycfT P 10%\n[S2.c70]    70 variable: yccA P 62% \"FtsH protease modulator YccA\"\n[S2.c71]    71 fork: tusE P 62%\n[S2.c72]    72 fork: yccX P 62% \"acylphosphatase\"\n[S2.c73]    73 fork: rlmI P 60%\n[S2.c74]    74 fork: hspQ P 61%; also sxy P 36%\n[S2.c75]    75 fork: yccU P 61% \"CoA-binding protein\"; also csgI P 61%, sulA P 30%\n[S2.c76]    76 fork: mgsA P 60%; also rmf P 15%\n[S2.c77]    77 fork: helD P 59%; also pqiC P 14%\n[S2.c78]    78 fork: yccF P 55% \"YccF domain-containing protein\"; also pqiB P 11%\n[S2.c79]    79 fork: yccS P 45% \"YccS family putative transporter\"\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 1-7 (csgC to csgG) [S2]: curli, assembly, production, transport; columns 15-18 (pgaA to pgaD) [S2]: acetyl, glucosamine, poly, poly-beta-1; columns 26-33 (rutR to rutG) [S2]: pyrimidine, utilization; columns 41-46 (torD to torS) [S2]: reductase, response, tmao; columns 64-69 (hyaF to hyaA) [S2]: hydrogenase, fe-hydrogenase.\n[X] PRODUCTS of named genes (for [[ ]]): csgC curli assembly chaperone CsgC; csgE curli production assembly/transport pro\u2026; csgF curli production assembly/transport pro\u2026; csgG curli production assembly/transport pro\u2026; pgaA poly-beta-1,6 N-acetyl-D-glucosamine ex\u2026; pgaB poly-beta-1,6-N-acetyl-D-glucosamine N-\u2026; pgaC poly-beta-1,6-N-acetyl-D-glucosamine sy\u2026; pgaD poly-beta-1,6-N-acetyl-D-glucosamine bi\u2026; efeB iron uptake transporter deferrochelatas\u2026; efeU iron uptake transporter permease EfeU; rutR HTH-type transcriptional regulator RutR; rutA pyrimidine utilization protein A; rutB peroxyureidoacrylate/ureidoacrylate ami\u2026; rutC 3-aminoacrylate deaminase; rutD pyrimidine utilization protein D; rutE malonic semialdehyde reductase; rutF NADH-dependent FMN reductase RutF; rutG pyrimidine utilization transport protei\u2026; cbpM chaperone modulator CbpM; torD molecular chaperone TorD; torA trimethylamine-N-oxide reductase TorA; torC pentaheme c-type cytochrome TorC; torR two-component system response regulator\u2026; torT TMAO reductase system periplasmic prote\u2026; torS TMAO reductase system sensor histidine\u2026; cspH cold shock-like protein CspH; gfcA threonine-rich inner membrane protein G\u2026; gfcC capsule biosynthesis GfcC family protein; gfcE polysaccharide export protein; appB cytochrome d ubiquinol oxidase subunit\u2026; appC cytochrome bd-II oxidase subunit 1; hyaF hydrogenase expression/formation protein; hyaE hydrogenase-1 operon protein HyaE; hyaD hydrogenase 1 maturation protease; hyaC Ni/Fe-hydrogenase b-type cytochrome sub\u2026; hyaB Ni/Fe-hydrogenase large subunit; hyaA hydrogenase 1 small subunit; ymdB O-acetyl-ADP-ribose deacetylase; clsC cardiolipin synthase ClsC; mdoC glucans biosynthesis protein MdoC\n[E] END: the window ends at column 79, yccS, in 45% of chromosomes."
 }

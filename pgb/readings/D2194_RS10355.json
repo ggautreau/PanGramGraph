@@ -2,80 +2,215 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447874.2324014,
+ "created": 1790479554.2936158,
  "usage": {
-  "prompt_tokens": 10042,
-  "completion_tokens": 923,
-  "cost_usd": 0.000942,
-  "ms": 10566
+  "prompt_tokens": 6967,
+  "completion_tokens": 410,
+  "cost_usd": 0.0008,
+  "ms": 3959
  },
  "attempts": [
   {
-   "text": "**The window starts on a single spine column.** Column 0, `ydgC`, a GlpM family protein, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.02 bits.\n\n**Then 79 fork and variable columns open up**, in a region of plasticity in 0 to 72% of calls, named in 37 to 99%. The most hesitant column is 31, 1.46 bits, in a region of plasticity in 55% of calls; the fewest named is column 7, 37%. A second branch of 68 families runs through columns 1 to 68, carried by 11 to 13% of chromosomes, and a second branch of 4 families through columns 70 to 73, carried by 13 to 17%.\n\n**The forks carry their own families.** `folM`, `ydgI`, `ydgH`, `pntA` and `pntB` are persistent at 86%, then `tqsA` at 82%, and `mdtJ` to `mdtI`, [[multidrug and spermidine efflux]], at 85 to 86%. The `mar` genes, `marB` to `marC`, [[multiple antibiotic resistance]], sit at 43 to 47%, and `lsrB` to `lsrK`, [[substrate binding and transport]], at 23 to 25%. `hipB` and `hipA`, [[toxin-antitoxin system]], are at 26 to 29%.\n\n**The model names genes readily on the spine and hesitates in the forks.** Persistent calls are named in 96%, at 0.21 bits; cloud calls in 20%, at 3.78 bits. Inside a region of plasticity the model hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%. The window ends at column 79, a phage minor tail protein L, in 20% of chromosomes.",
+   "text": "**The window opens on a single spine column.** Column 0, `ydgC`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.02 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 12 to 86%, in a region of plasticity in 0 to 72% of calls. A branch of 68 families runs through columns 1 to 68, `rstA` to `fumD`, carried by 11 to 13%. Columns 6 to 9, `tqsA` to `mdtI`, are [[multidrug efflux transporters]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 86%, and hesitates less there, 0.02 against 0.64 bits. Its most hesitant column, 31, \"site-specific integrase\", is a fork column, at 1.46 bits.\n\n**The window ends on fork columns.** Column 79, \"phage minor tail protein L\", is carried by 20% of chromosomes. Columns 74 to 76, \"phage tail protein\" to \"phage tail assembly protein T\", are [[phage tail assembly]].\n\n**Across the window it names 86% of genes**, 0.63 bits on average, perplexity 1.9 families. Inside a region of plasticity it hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4762,
-    "completion_tokens": 451,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6967,
+    "completion_tokens": 410,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.0007
+    "cost_usd": 0.0008
    },
    "provider": "deepinfra",
-   "ms": 6137,
-   "raw": "**The window starts on a single spine column.** Column 0, `ydgC`, a GlpM family protein, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.02 bits.\n\n**Then 79 fork and variable columns open up**, in a region of plasticity in 0 to 72% of calls, named in 37 to 99%. The most hesitant column is 31, 1.46 bits, in a region of plasticity in 55% of calls; the fewest named is column 7, 37%. A second branch of 68 families runs through columns 1 to 68, carried by 11 to 13% of chromosomes, and a second branch of 4 families through columns 70 to 73, carried by 13 to 17%.\n\n**The forks carry their own families.** `folM`, `ydgI`, `ydgH`, `pntA` and `pntB` are persistent at 86%, then `tqsA` at 82%, and `mdtJ` to `mdtI`, [[multidrug and spermidine efflux]], at 85 to 86%. The `mar` genes, `marB` to `marC`, [[multiple antibiotic resistance]], sit at 43 to 47%, and `lsrB` to `lsrK`, [[substrate binding and transport]], at 23 to 25%. `hipB` and `hipA`, [[toxin-antitoxin system]], are at 26 to 29%.\n\n**The model names genes readily on the spine and hesitates in the forks.** Persistent calls are named in 96%, at 0.21 bits; cloud calls in 20%, at 3.78 bits. Inside a region of plasticity the model hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%. The window ends at column 79, a phage minor tail protein L, in 20% of chromosomes.",
-   "check": {
-    "ok": false,
-    "numbers": 45,
-    "names": 16,
-    "words": 261,
-    "bad": [
-     {
-      "kind": "claim",
-      "text": "most hesitant",
-      "why": "the facts do not state that column as the most hesitant",
-      "context": "The most hesitant column is 31, 1.46 bits, in a region of plasticity in 55% of calls; the fewest named is column 7, 37%."
-     }
-    ],
-    "hints": []
-   },
-   "truncated": false
-  },
-  {
-   "text": "**The window starts on a single spine column.** Column 0, `ydgC`, a GlpM family protein, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.02 bits.\n\n**Then 79 fork and variable columns open up**, in a region of plasticity in 0 to 72% of calls, named in 37 to 99%. Column 31, an Arm DNA-binding domain-containing protein, is at 1.46 bits, in a region of plasticity in 55% of calls; column 36, `dcp`, is at 1.22 bits, in a region of plasticity in 56% of calls. The fewest named is column 7, 37%.\n\n**The forks carry their own families.** `folM`, `ydgI`, `ydgH`, `pntA` and `pntB` are persistent at 86%, then `tqsA` at 82%, and `mdtJ` to `mdtI`, [[multidrug and spermidine efflux]], at 85 to 86%. The `mar` genes, `marB` to `marC`, [[multiple antibiotic resistance]], sit at 43 to 47%, and `lsrB` to `lsrK`, [[substrate binding and transport]], at 23 to 25%. `hipB` and `hipA`, [[toxin-antitoxin system]], are at 26 to 29%.\n\n**A second branch of 68 families runs through columns 1 to 68**, carried by 11 to 13% of chromosomes, and a second branch of 4 families through columns 70 to 73, carried by 13 to 17%. The model names persistent calls in 96%, at 0.21 bits, and cloud calls in 20%, at 3.78 bits. Inside a region of plasticity the model hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%. The window ends at column 79, a phage minor tail protein L, in 20% of chromosomes.",
-   "finish": "stop",
-   "usage": {
-    "prompt_tokens": 5280,
-    "completion_tokens": 472,
-    "cached_tokens": 5120,
-    "reasoning_tokens": 0,
-    "cost_usd": 0.000242
-   },
-   "provider": "deepinfra",
-   "ms": 4429,
-   "raw": "**The window starts on a single spine column.** Column 0, `ydgC`, a GlpM family protein, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.02 bits.\n\n**Then 79 fork and variable columns open up**, in a region of plasticity in 0 to 72% of calls, named in 37 to 99%. Column 31, an Arm DNA-binding domain-containing protein, is at 1.46 bits, in a region of plasticity in 55% of calls; column 36, `dcp`, is at 1.22 bits, in a region of plasticity in 56% of calls. The fewest named is column 7, 37%.\n\n**The forks carry their own families.** `folM`, `ydgI`, `ydgH`, `pntA` and `pntB` are persistent at 86%, then `tqsA` at 82%, and `mdtJ` to `mdtI`, [[multidrug and spermidine efflux]], at 85 to 86%. The `mar` genes, `marB` to `marC`, [[multiple antibiotic resistance]], sit at 43 to 47%, and `lsrB` to `lsrK`, [[substrate binding and transport]], at 23 to 25%. `hipB` and `hipA`, [[toxin-antitoxin system]], are at 26 to 29%.\n\n**A second branch of 68 families runs through columns 1 to 68**, carried by 11 to 13% of chromosomes, and a second branch of 4 families through columns 70 to 73, carried by 13 to 17%. The model names persistent calls in 96%, at 0.21 bits, and cloud calls in 20%, at 3.78 bits. Inside a region of plasticity the model hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%. The window ends at column 79, a phage minor tail protein L, in 20% of chromosomes.",
+   "ms": 3959,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `ydgC`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.02 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns**, 1 to 79, carried by 12 to 86%, in a region of plasticity in 0 to 72% of calls {S2}. A branch of 68 families runs through columns 1 to 68, `rstA` to `fumD`, carried by 11 to 13% {S2.b1}. Columns 6 to 9, `tqsA` to `mdtI`, are [[multidrug efflux transporters]] {S2.c6-9, Q}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 86%, and hesitates less there, 0.02 against 0.64 bits {M}. Its most hesitant column, 31, \"site-specific integrase\", is a fork column, at 1.46 bits {H}.\n\n@end **The window ends on fork columns.** Column 79, \"phage minor tail protein L\", is carried by 20% of chromosomes {S2.c79, E}. Columns 74 to 76, \"phage tail protein\" to \"phage tail assembly protein T\", are [[phage tail assembly]] {S2.c74-76, Q}.\n\n@whole **Across the window it names 86% of genes**, 0.63 bits on average, perplexity 1.9 families {G}. Inside a region of plasticity it hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `ydgC`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.02 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns**, 1 to 79, carried by 12 to 86%, in a region of plasticity in 0 to 72% of calls {S2}. A branch of 68 families runs through columns 1 to 68, `rstA` to `fumD`, carried by 11 to 13% {S2.b1}. Columns 6 to 9, `tqsA` to `mdtI`, are [[multidrug efflux transporters]] {S2.c6-9, Q}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 86%, and hesitates less there, 0.02 against 0.64 bits {M}. Its most hesitant column, 31, \"site-specific integrase\", is a fork column, at 1.46 bits {H}.\n\n@end **The window ends on fork columns.** Column 79, \"phage minor tail protein L\", is carried by 20% of chromosomes {S2.c79, E}. Columns 74 to 76, \"phage tail protein\" to \"phage tail assembly protein T\", are [[phage tail assembly]] {S2.c74-76, Q}.\n\n@whole **Across the window it names 86% of genes**, 0.63 bits on average, perplexity 1.9 families {G}. Inside a region of plasticity it hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92% {C}.",
    "check": {
     "ok": true,
-    "numbers": 48,
-    "names": 17,
-    "words": 269,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 26,
+    "names": 5,
+    "words": 208,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 208,
+    "repeats": 0,
+    "interp": 2,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `ydgC`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": [
+       "M"
+      ]
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.02 bits",
+      "cites": [
+       "S1",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The rest of the window is fork and variable columns**, 1 to 79, carried by 12 to 86%, in a region of plasticity in 0 to 72% of calls",
+      "cites": [
+       "S2"
+      ],
+      "inherit": [
+       "S2.b1",
+       "S2.c6-9",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "A branch of 68 families runs through columns 1 to 68, `rstA` to `fumD`, carried by 11 to 13%",
+      "cites": [
+       "S2.b1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Columns 6 to 9, `tqsA` to `mdtI`, are [[multidrug efflux transporters]]",
+      "cites": [
+       "S2.c6-9",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine column than on the fork and variable ones**, 99 against 86%, and hesitates less there, 0.02 against 0.64 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 31, \"site-specific integrase\", is a fork column, at 1.46 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork columns.** Column 79, \"phage minor tail protein L\", is carried by 20% of chromosomes",
+      "cites": [
+       "S2.c79",
+       "E"
+      ],
+      "inherit": [
+       "S2.c74-76",
+       "Q"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "Columns 74 to 76, \"phage tail protein\" to \"phage tail assembly protein T\", are [[phage tail assembly]]",
+      "cites": [
+       "S2.c74-76",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 86% of genes**, 0.63 bits on average, perplexity 1.9 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 80
+   },
+   "dropped": [],
+   "served": "**The window opens on a single spine column.** Column 0, `ydgC`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.02 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 12 to 86%, in a region of plasticity in 0 to 72% of calls. A branch of 68 families runs through columns 1 to 68, `rstA` to `fumD`, carried by 11 to 13%. Columns 6 to 9, `tqsA` to `mdtI`, are [[multidrug efflux transporters]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 86%, and hesitates less there, 0.02 against 0.64 bits. Its most hesitant column, 31, \"site-specific integrase\", is a fork column, at 1.46 bits.\n\n**The window ends on fork columns.** Column 79, \"phage minor tail protein L\", is carried by 20% of chromosomes. Columns 74 to 76, \"phage tail protein\" to \"phage tail assembly protein T\", are [[phage tail assembly]].\n\n**Across the window it names 86% of genes**, 0.63 bits on average, perplexity 1.9 families. Inside a region of plasticity it hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 48,
-  "names": 17,
-  "words": 269,
-  "attempts": 2
+  "numbers": 26,
+  "names": 5,
+  "words": 208,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 15,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 2,
+  "covered": 80
  },
- "text": "**The window starts on a single spine column.** Column 0, `ydgC`, a GlpM family protein, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.02 bits.\n\n**Then 79 fork and variable columns open up**, in a region of plasticity in 0 to 72% of calls, named in 37 to 99%. Column 31, an Arm DNA-binding domain-containing protein, is at 1.46 bits, in a region of plasticity in 55% of calls; column 36, `dcp`, is at 1.22 bits, in a region of plasticity in 56% of calls. The fewest named is column 7, 37%.\n\n**The forks carry their own families.** `folM`, `ydgI`, `ydgH`, `pntA` and `pntB` are persistent at 86%, then `tqsA` at 82%, and `mdtJ` to `mdtI`, [[multidrug and spermidine efflux]], at 85 to 86%. The `mar` genes, `marB` to `marC`, [[multiple antibiotic resistance]], sit at 43 to 47%, and `lsrB` to `lsrK`, [[substrate binding and transport]], at 23 to 25%. `hipB` and `hipA`, [[toxin-antitoxin system]], are at 26 to 29%.\n\n**A second branch of 68 families runs through columns 1 to 68**, carried by 11 to 13% of chromosomes, and a second branch of 4 families through columns 70 to 73, carried by 13 to 17%. The model names persistent calls in 96%, at 0.21 bits, and cloud calls in 20%, at 3.78 bits. Inside a region of plasticity the model hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%. The window ends at column 79, a phage minor tail protein L, in 20% of chromosomes.",
- "html": "<p class=\"note\"><b>The window starts on a single spine column.</b> Column 0, <span class=\"gene\">ydgC</span>, a GlpM family protein, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.02 bits.</p><p class=\"note\"><b>Then 79 fork and variable columns open up</b>, in a region of plasticity in 0 to 72% of calls, named in 37 to 99%. Column 31, an Arm DNA-binding domain-containing protein, is at 1.46 bits, in a region of plasticity in 55% of calls; column 36, <span class=\"gene\">dcp</span>, is at 1.22 bits, in a region of plasticity in 56% of calls. The fewest named is column 7, 37%.</p><p class=\"note\"><b>The forks carry their own families.</b> <span class=\"gene\">folM</span>, <span class=\"gene\">ydgI</span>, <span class=\"gene\">ydgH</span>, <span class=\"gene\">pntA</span> and <span class=\"gene\">pntB</span> are persistent at 86%, then <span class=\"gene\">tqsA</span> at 82%, and <span class=\"gene\">mdtJ</span> to <span class=\"gene\">mdtI</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">multidrug and spermidine efflux</span>, at 85 to 86%. The <span class=\"gene\">mar</span> genes, <span class=\"gene\">marB</span> to <span class=\"gene\">marC</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">multiple antibiotic resistance</span>, sit at 43 to 47%, and <span class=\"gene\">lsrB</span> to <span class=\"gene\">lsrK</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">substrate binding and transport</span>, at 23 to 25%. <span class=\"gene\">hipB</span> and <span class=\"gene\">hipA</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">toxin-antitoxin system</span>, are at 26 to 29%.</p><p class=\"note\"><b>A second branch of 68 families runs through columns 1 to 68</b>, carried by 11 to 13% of chromosomes, and a second branch of 4 families through columns 70 to 73, carried by 13 to 17%. The model names persistent calls in 96%, at 0.21 bits, and cloud calls in 20%, at 3.78 bits. Inside a region of plasticity the model hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%. The window ends at column 79, a phage minor tail protein L, in 20% of chromosomes.</p>",
+ "text": "**The window opens on a single spine column.** Column 0, `ydgC`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.02 bits.\n\n**The rest of the window is fork and variable columns**, 1 to 79, carried by 12 to 86%, in a region of plasticity in 0 to 72% of calls. A branch of 68 families runs through columns 1 to 68, `rstA` to `fumD`, carried by 11 to 13%. Columns 6 to 9, `tqsA` to `mdtI`, are [[multidrug efflux transporters]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 86%, and hesitates less there, 0.02 against 0.64 bits. Its most hesitant column, 31, \"site-specific integrase\", is a fork column, at 1.46 bits.\n\n**The window ends on fork columns.** Column 79, \"phage minor tail protein L\", is carried by 20% of chromosomes. Columns 74 to 76, \"phage tail protein\" to \"phage tail assembly protein T\", are [[phage tail assembly]].\n\n**Across the window it names 86% of genes**, 0.63 bits on average, perplexity 1.9 families. Inside a region of plasticity it hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%.",
+ "html": "<p class=\"note\"><b>The window opens on a single spine column.</b> Column 0, <span class=\"gene\">ydgC</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.02 bits.</p><p class=\"note\"><b>The rest of the window is fork and variable columns</b>, 1 to 79, carried by 12 to 86%, in a region of plasticity in 0 to 72% of calls. A branch of 68 families runs through columns 1 to 68, <span class=\"gene\">rstA</span> to <span class=\"gene\">fumD</span>, carried by 11 to 13%. Columns 6 to 9, <span class=\"gene\">tqsA</span> to <span class=\"gene\">mdtI</span>, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">multidrug efflux transporters</span>.</p><p class=\"note\"><b>The model names more genes on the spine column than on the fork and variable ones</b>, 99 against 86%, and hesitates less there, 0.02 against 0.64 bits. Its most hesitant column, 31, &quot;site-specific integrase&quot;, is a fork column, at 1.46 bits.</p><p class=\"note\"><b>The window ends on fork columns.</b> Column 79, &quot;phage minor tail protein L&quot;, is carried by 20% of chromosomes. Columns 74 to 76, &quot;phage tail protein&quot; to &quot;phage tail assembly protein T&quot;, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">phage tail assembly</span>.</p><p class=\"note\"><b>Across the window it names 86% of genes</b>, 0.63 bits on average, perplexity 1.9 families. Inside a region of plasticity it hesitates more than outside, 1.25 against 0.23 bits, and names fewer genes, 78% against 92%.</p>",
  "window": "D2194_RS10355",
  "label": "ydgC",
- "facts_hash": "af11a09e03dc",
- "prompt_version": "r7",
- "facts": "WINDOW: the ydgC window: 80 columns, column 0 is the anchor ydgC, then the next 79 genes in dnaA's direction; about genes 2,132 to 2,211 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying ydgC once); 42,960 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 86% of genes, 0.63 bits on average (perplexity 1.9 families). By partition of the gene: persistent 23,612 calls, named 96%, 0.21 bits; shell 18,536 calls, named 78%, 1.04 bits; cloud 812 calls, named 20%, 3.78 bits. Outside an RGP 25,780 calls, named 92%, 0.23 bits; inside an RGP 17,180 calls, named 78%, 1.25 bits. Columns: 1 spine, 77 fork, 2 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.25 against 0.23 bits) and names fewer genes (78% against 92%); 17,180 of the 42,960 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 31 (\"Arm DNA-binding domain-containing prote\u2026\") 1.46 bits, RGP 55%; column 36 (dcp) 1.22 bits, RGP 56%; column 43 (marB) 1.06 bits, RGP 64%. The 51 columns where most calls are in an RGP: named 84%, 0.85 bits on average; the other 29 columns: named 91%, 0.26 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 1-79 (fork and variable columns), RGP 0-72%; the least: column 0 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0%. Genes: ydgC \"GlpM family protein\". named 99%; 0.02 bits.\n2. columns 1-79 (79 columns) fork and variable columns: RGP 0-72%. named 37-99% (mean 86%), fewest named at column 7, named 37%; most hesitant at column 31, 1.46 bits.\n   a second branch of 68 families through columns 1-68, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-13%, 64 P, 4 S; the branch's families: rstA, rstB, tus, fumC, fumB, manA, ydgA, uidC, uidB, uidA, uidR, hdhA, malI, malX, malY, add, ydgJ, blr, ydgT, ydgK, rsxA, rsxB, rsxC, rsxD, rsxG, rsxE, nth, dtpA, gstA, pdxY, tyrS, pdxH, mliC, anmK, slyB, slyA, ydhI, ydhJ, ydhK, sodC, ydhF, ydhL, nemR, nemA, gloA, rnt, lhr, grxD, mepH, sodB, ydhP, cydH, purR, punR, punC, cfa, ribE, mdtK, ydhQ, ydhR, ydhS, ydhT, phsC, ydhX, ydhW, ydhV, ydhY, fumD\n   a second branch of 4 families through columns 70-73, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 13-17%, all S; the branch's families: \"DUF2190 family protein\", \"DNA breaking-rejoining protein\", \"phage tail protein\", \"phage minor tail U family protein\"\n   1 fork: folM P 86%\n   2 fork: ydgI P 86% \"amino acid permease\"\n   3 fork: ydgH P 86% \"DUF1471 family protein YdgH\"\n   4 fork: pntA P 86%\n   5 fork: pntB P 86% \"Re/Si-specific NAD(P)(+) transhydro\u2026\"\n   6 fork: tqsA P 82%\n   7 fork: \"hypothetical protein\" S 66%\n   8 fork: mdtJ P 85% \"multidrug/spermidine efflux SMR tra\u2026\"\n   9 fork: mdtI P 86%\n   10 fork: ydgD P 86% \"serine protease\"\n   11 fork: ydgU P 86%\n   12 fork: asr P 86%\n   13 fork: \"KPN_01571 family protein\" P 86%\n   14 fork: ynfM P 86% \"MFS transporter\"\n   15 fork: ynfL P 86% \"LysR family substrate-binding domai\u2026\"\n   16 fork: mlc P 86%\n   17 fork: bioD P 86%\n   18 fork: clcB P 84%\n   19 fork: dmsD P 86%\n   20 fork: ynfH P 83% \"selenate reductase membrane anchor\u2026\"\n   21 fork: ynfG P 81% \"4Fe-4S dicluster domain-containing\u2026\"\n   22 fork: ynfF S 77%\n   23 fork: ynfE S 70%\n   24 fork: ynfD P 84% \"DUF1161 domain-containing protein\"\n   25 fork: ynfC P 82% \"YnfC family lipoprotein\"\n   26 fork: speG P 84%\n   27 fork: ynfB P 84% \"DUF1283 family protein\"\n   28 fork: ynfA P 83% \"YnfA family protein\"\n   29 fork: rspA S 79% \"enolase C-terminal domain-like prot\u2026\"\n   30 fork: rspB S 70%; also \"IS1-like element transposase\" S 27%\n   31 fork: \"Arm DNA-binding domain-containing prote\u2026\" S 41%; also ydfJ S 26%\n   32 fork: ydfI P 55% \"mannitol dehydrogenase family prote\u2026\"; also xisR S 45%\n   33 fork: ydfZ P 57% \"putative selenium delivery protein\u2026\"; also \"3'-5' exoribonuclease domain-containing\u2026\" S 34%, \"methyltransferase\" S 11%\n   34 fork: rspR P 57%; also ydfD S 37%\n   35 fork: ydfG P 55% \"bifunctional NADP-dependent 3-hydro\u2026\"; also dicB S 36%\n   36 fork: dcp P 54%; also ydfC S 14%\n   37 fork: ydeJ S 42% \"nicotinamide-nucleotide amidohydrol\u2026\"; also ydfB S 13%\n   38 fork: ydeI S 45% \"YdeI family stress tolerance OB fol\u2026\"; also ydfA S 36%\n   39 fork: dgcZ P 50%\n   40 fork: mgtS P 51%; also mgtT P 47%, dicC S 28%\n   41 fork: \"toxin YdaT family protein\" S 26%\n   42 fork: ydeE P 49%; also eamA S 45%, \"hypothetical protein\" S 25%, \"UTRA domain-containing protein\" S 14%\n   43 fork: marB P 47% \"multiple antibiotic resistance prot\u2026\"; also hokD P 46%, \"DUF977 family protein\" S 32%, ydfT S 26%\n   44 fork: marA P 46%; also \"hypothetical protein\" S 23%, \"PTS lactose/cellobiose transporter subu\u2026\" S 14%, \"PTS transporter subunit EIIC\" S 13%\n   45 fork: marR P 45%; also cspF S 22%, ydfW S 20%\n   46 fork: marC P 43%; also rem S 36%, flxA S 20%, \"family 1 glycosylhydrolase\" S 13%\n   47 fork: \"hypothetical protein\" S 45%; also ydeA P 41%, ynfU S 27%, ydfV S 21%\n   48 fork: ydfU S 45% \"DUF968 domain-containing protein\"; also yneK S 29%, relB S 21%\n   49 fork: ptrR P 38%; also relE S 21%, \"antiterminator Q family protein\" S 15%\n   50 fork: sad P 38%; also blc S 14%\n   51 fork: glsB P 38%; also \"DUF523 and DUF1722 domain-containing pr\u2026\" S 13%\n   52 fork: yneG P 37% \"DUF4186 domain-containing protein\"; also \"helix-turn-helix domain-containing prot\u2026\" S 14%\n   53 fork: essD S 49%\n   54 fork: uxaB P 36%; also ydfR S 31%, ynfR S 31%\n   55 fork: ynfN S 38% \"protein YnfN\"; also yneE P 35%\n   56 fork: gnsB S 43%; also rzpQ S 41%, tam P 33%, \"sensor domain-containing diguanylate cy\u2026\" S 22%\n   57 fork: cspI P 44%; also ydfO S 27%, lsrG S 26%\n   58 fork: rrrQ S 45%; also ynfQ S 44%, lsrF S 26%, ynfO S 22%\n   59 fork: lsrB S 24%; also ybcW S 22%, nohA S 19%\n   60 fork: lsrD S 25% \"ABC transporter permease subunit\"; also tfaQ S 22%, \"hypothetical protein\" S 17%, \"DUF1441 family protein\" S 14%\n   61 fork: pinQ S 24%; also lsrC S 24%\n   62 fork: ydfK S 25% \"cold shock protein YdfK\"; also lsrA S 23%\n   63 fork: ynfT S 25%; also lsrR S 24%, fimA S 11%\n   64 fork: lsrK S 23%; also \"hypothetical protein\" S 18%, \"hypothetical protein\" S 12%\n   65 fork: \"phage portal protein\" S 16%; also \"autotransporter outer membrane beta-bar\u2026\" S 11%, \"hypothetical protein\" S 10%\n   66 fork: hipB S 29% \"type II toxin-antitoxin system anti\u2026\"; also ydeS S 20%, \"Clp protease ClpP\" S 16%\n   67 fork: hipA S 26%; also ydeR S 20%\n   68 fork: ydeQ S 19% \"fimbrial protein\"\n   69 variable: ynhH P 12% \"protein YnhH\"\n   70 fork: ydeP P 20%; also pykF P 12%\n   71 fork: safA P 19%; also lpp P 12%, \"terminase gpA endonuclease subunit\" S 12%\n   72 fork: ydeO P 18% \"acid stress response transcriptiona\u2026\"; also \"gpW family head-tail joining protein\" S 13%, ldtE P 12%\n   73 fork: ydeN S 17% \"sulfatase\"; also sufE P 12%, \"phage portal protein\" S 12%\n   74 fork: \"phage tail tube protein\" S 17%; also ydeM S 15%, \"phage tail length tape measure family p\u2026\" S 14%, sufS P 12%\n   75 fork: gpG S 16%; also \"phage tail protein\" S 15%, sufD P 12%, \"head decoration protein\" S 11%\n   76 fork: \"phage tail assembly protein T\" S 16%; also \"Ail/Lom family outer membrane beta-barr\u2026\" S 15%, sufC P 12%, yddA S 11%\n   77 variable: sufB P 12%\n   78 fork: \"C40 family peptidase\" S 18%; also \"hypothetical protein\" S 15%, \"tail assembly protein\" S 13%, sufA P 12%\n   79 fork: \"phage minor tail protein L\" S 20%; also gpJ S 15%, ydiH P 12%, gadB P 11%\nPRODUCTS of named genes (for [[ ]]): pntA Re/Si-specific NAD(P)(+) transhydrogena\u2026; pntB Re/Si-specific NAD(P)(+) transhydrogena\u2026; mdtJ multidrug/spermidine efflux SMR transpo\u2026; mdtI multidrug/spermidine efflux SMR transpo\u2026; rspA enolase C-terminal domain-like protein; rspB Zn-dependent oxidoreductase; marB multiple antibiotic resistance protein\u2026; marA helix-turn-helix domain-containing prot\u2026; marR multiple antibiotic resistance transcri\u2026; marC MarC family NAAT transporter; lsrB substrate-binding domain-containing pro\u2026; lsrD ABC transporter permease subunit; hipB type II toxin-antitoxin system antitoxi\u2026; hipA HipA N-terminal domain-containing prote\u2026; rstA two-component system response regulator\u2026; fumB fumarate hydratase; manA mannose-6-phosphate isomerase; uidA beta-glucuronidase; hdhA SDR family NAD(P)-dependent oxidoreduct\u2026; malX PTS transporter subunit EIIC; malY bifunctional maltose regulon transcript\u2026; add adenosine deaminase; ydgJ Gfo/Idh/MocA family oxidoreductase; blr division septum protein Blr; ydgT transcription modulator YdgT; rsxA electron transport complex subunit RsxA; rsxB electron transport complex subunit RsxB; rsxC electron transport complex subunit RsxC; rsxD RnfABCDGE type electron transport compl\u2026; rsxG electron transport complex subunit RsxG; rsxE electron transport complex subunit RsxE; nth endonuclease III; gstA glutathione transferase GstA; pdxY pyridoxal kinase; ydfJ MHS family MFS transporter YdfJ; tyrS tyrosine--tRNA ligase; xisR excisionase family protein; pdxH pyridoxamine 5'-phosphate oxidase; mliC C-type lysozyme inhibitor; anmK anhydro-N-acetylmuramic acid kinase\nEND: the window ends at column 79, \"phage minor tail protein L\", in 20% of chromosomes."
+ "facts_hash": "d9bb216ead42",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the ydgC window: 80 columns, column 0 is the anchor ydgC, then the next 79 genes in dnaA's direction; about genes 2,132 to 2,211 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying ydgC once); 42,960 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 86% of genes, 0.63 bits on average (perplexity 1.9 families). By partition of the gene: persistent 23,612 calls, named 96%, 0.21 bits; shell 18,536 calls, named 78%, 1.04 bits; cloud 812 calls, named 20%, 3.78 bits. Outside an RGP 25,780 calls, named 92%, 0.23 bits; inside an RGP 17,180 calls, named 78%, 1.25 bits. Columns: 1 spine, 77 fork, 2 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.25 against 0.23 bits) and names fewer genes (78% against 92%); 17,180 of the 42,960 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 31 (\"site-specific integrase\", a fork column) 1.46 bits, RGP 55%; column 36 (dcp, a fork column) 1.22 bits, RGP 56%; column 43 (marB, a fork column) 1.06 bits, RGP 64%. The 51 columns (columns 29-79) where most calls are in an RGP: named 84%, 0.85 bits on average; the other 29 columns: named 91%, 0.26 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 1 spine column: named 99%, 0.02 bits on average; the 79 fork and variable columns: named 86%, 0.64 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 31, is a fork column.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0%. Genes: ydgC \"GlpM family protein\". named 99%; 0.02 bits.\n[S2] 2. columns 1-79 (79 columns) fork and variable columns: share 12-86%, 48 P, 31 S, RGP 0-72%. named 37-99% (mean 86%), fewest named at column 7, named 37%; most hesitant at column 31, 1.46 bits.\n[S2.b1]    a second branch of 68 families through columns 1-68, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-13%, 64 P, 4 S; the branch's families: rstA, rstB, tus, fumC, fumB, manA, ydgA, uidC, uidB, uidA, uidR, hdhA, malI, malX, malY, add, ydgJ, blr, ydgT, ydgK, rsxA, rsxB, rsxC, rsxD, rsxG, rsxE, nth, dtpA, gstA, pdxY, tyrS, pdxH, mliC, anmK, slyB, slyA, ydhI, ydhJ, ydhK, sodC, ydhF, ydhL, nemR, nemA, gloA, rnt, lhr, grxD, mepH, sodB, ydhP, cydH, purR, punR, punC, cfa, ribE, mdtK, ydhQ, ydhR, ydhS, ydhT, phsC, ydhX, ydhW, ydhV, ydhY, fumD\n[S2.b70]    a second branch of 4 families through columns 70-73, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 13-17%, all S; the branch's families: \"DUF2190 family protein\", \"DNA breaking-rejoining protein\", \"phage tail protein\", \"phage minor tail U family protein\"\n[S2.c1]    1 fork: folM P 86%\n[S2.c2]    2 fork: ydgI P 86% \"amino acid permease\"\n[S2.c3]    3 fork: ydgH P 86% \"DUF1471 family protein YdgH\"\n[S2.c4]    4 fork: pntA P 86%\n[S2.c5]    5 fork: pntB P 86% \"Re/Si-specific NAD(P)(+) transhydro\u2026\"\n[S2.c6]    6 fork: tqsA P 82%\n[S2.c7]    7 fork: \"protein YdgV\" S 66%\n[S2.c8]    8 fork: mdtJ P 85% \"multidrug/spermidine efflux SMR tra\u2026\"\n[S2.c9]    9 fork: mdtI P 86%\n[S2.c10]    10 fork: ydgD P 86% \"trypsin-like serine peptidase\"\n[S2.c11]    11 fork: ydgU P 86% \"small membrane protein YdgU\"\n[S2.c12]    12 fork: asr P 86%\n[S2.c13]    13 fork: \"KPN_01571 family protein\" P 86%\n[S2.c14]    14 fork: ynfM P 86% \"MFS transporter\"\n[S2.c15]    15 fork: ynfL P 86% \"LysR family transcriptional regulat\u2026\"\n[S2.c16]    16 fork: mlc P 86%\n[S2.c17]    17 fork: bioD P 86%\n[S2.c18]    18 fork: clcB P 84%\n[S2.c19]    19 fork: dmsD P 86%\n[S2.c20]    20 fork: ynfH P 83% \"selenate reductase membrane anchor\u2026\"\n[S2.c21]    21 fork: ynfG P 81% \"dimethylsulfoxide reductase iron-su\u2026\"\n[S2.c22]    22 fork: ynfF S 77% \"selenate/tellurate reductase subuni\u2026\"\n[S2.c23]    23 fork: ynfE S 70% \"selenate/tellurate reductase subuni\u2026\"\n[S2.c24]    24 fork: ynfD P 84% \"DUF1161 domain-containing protein\"\n[S2.c25]    25 fork: ynfC P 82% \"YnfC family lipoprotein\"\n[S2.c26]    26 fork: speG P 84%\n[S2.c27]    27 fork: ynfB P 84% \"DUF1283 family protein\"\n[S2.c28]    28 fork: ynfA P 83% \"YnfA family protein\"\n[S2.c29]    29 fork: rspA S 79%\n[S2.c30]    30 fork: rspB S 70% \"Zn-dependent oxidoreductase\"; also \"IS1 family transposase\" S 27%\n[S2.c31]    31 fork: \"site-specific integrase\" S 41%; also ydfJ S 26%\n[S2.c32]    32 fork: ydfI P 55% \"mannitol dehydrogenase family prote\u2026\"; also xisR S 45%\n[S2.c33]    33 fork: ydfZ P 57% \"putative selenium delivery protein\u2026\"; also \"exonuclease\" S 34%, \"class I SAM-dependent methyltransferase\" S 11%\n[S2.c34]    34 fork: rspR P 57%; also ydfD S 37%\n[S2.c35]    35 fork: ydfG P 55% \"bifunctional NADP-dependent 3-hydro\u2026\"; also dicB S 36%\n[S2.c36]    36 fork: dcp P 54%; also ydfC S 14%\n[S2.c37]    37 fork: ydeJ S 42% \"2-oxo-tetronate isomerase\"; also ydfB S 13%\n[S2.c38]    38 fork: ydeI S 45% \"YdeI family stress tolerance OB fol\u2026\"; also ydfA S 36%\n[S2.c39]    39 fork: dgcZ P 50%\n[S2.c40]    40 fork: mgtS P 51%; also mgtT P 47%, dicC S 28%\n[S2.c41]    41 fork: \"toxin YdaT family protein\" S 26%\n[S2.c42]    42 fork: ydeE P 49% \"efflux MFS transporter YdeE\"; also eamA S 45%, \"phage O protein family\" S 25%, \"GntR family transcriptional regulator\" S 14%\n[S2.c43]    43 fork: marB P 47% \"multiple antibiotic resistance prot\u2026\"; also hokD P 46%, \"DUF977 family protein\" S 32%, ydfT S 26%\n[S2.c44]    44 fork: marA P 46%; also \"hypothetical protein\" S 23%, \"PTS lactose/cellobiose transporter subu\u2026\" S 14%, \"PTS sugar transporter subunit IIC\" S 13%\n[S2.c45]    45 fork: marR P 45%; also cspF S 22%, ydfW S 20%\n[S2.c46]    46 fork: marC P 43%; also rem S 36%, flxA S 20%, \"6-phospho-beta-glucosidase\" S 13%\n[S2.c47]    47 fork: \"hypothetical protein\" S 45%; also ydeA P 41%, ynfU S 27%, ydfV S 21%\n[S2.c48]    48 fork: ydfU S 45% \"DUF968 domain-containing protein\"; also yneK S 29%, relB S 21%\n[S2.c49]    49 fork: ptrR P 38%; also relE S 21%, \"antiterminator Q family protein\" S 15%\n[S2.c50]    50 fork: sad P 38%; also blc S 14%\n[S2.c51]    51 fork: glsB P 38%; also \"YbgA family protein\" S 13%\n[S2.c52]    52 fork: yneG P 37% \"DUF4186 domain-containing protein\"; also \"helix-turn-helix domain-containing prot\u2026\" S 14%\n[S2.c53]    53 fork: essD S 49%\n[S2.c54]    54 fork: uxaB P 36%; also ydfR S 31%, ynfR S 31%\n[S2.c55]    55 fork: ynfN S 38% \"protein YnfN\"; also yneE P 35%\n[S2.c56]    56 fork: gnsB S 43%; also rzpQ S 41%, tam P 33%, \"sensor domain-containing diguanylate cy\u2026\" S 22%\n[S2.c57]    57 fork: cspI P 44%; also ydfO S 27%, lsrG S 26%\n[S2.c58]    58 fork: rrrQ S 45%; also ynfQ S 44%, lsrF S 26%, ynfO S 22%\n[S2.c59]    59 fork: lsrB S 24%; also ybcW S 22%, nohA S 19%\n[S2.c60]    60 fork: lsrD S 25% \"autoinducer 2 ABC transporter perme\u2026\"; also tfaQ S 22%, \"phage terminase large subunit family pr\u2026\" S 17%, \"DUF1441 family protein\" S 14%\n[S2.c61]    61 fork: pinQ S 24%; also lsrC S 24%\n[S2.c62]    62 fork: ydfK S 25% \"cold shock protein YdfK\"; also lsrA S 23%\n[S2.c63]    63 fork: ynfT S 25% \"YnaM/YnfT family protein\"; also lsrR S 24%, fimA S 11%\n[S2.c64]    64 fork: lsrK S 23%; also \"hypothetical protein\" S 18%, \"fimbria/pilus periplasmic chaperone\" S 12%\n[S2.c65]    65 fork: \"phage portal protein\" S 16%; also \"ECSE_1600 family autotransporter\" S 11%, \"fimbria/pilus outer membrane usher prot\u2026\" S 10%\n[S2.c66]    66 fork: hipB S 29%; also ydeS S 20%, \"ClpP-like prohead protease/major capsid\u2026\" S 16%\n[S2.c67]    67 fork: hipA S 26% \"type II toxin-antitoxin system seri\u2026\"; also ydeR S 20%\n[S2.c68]    68 fork: ydeQ S 19% \"fimbrial protein\"\n[S2.c69]    69 variable: ynhH P 12% \"protein YnhH\"\n[S2.c70]    70 fork: ydeP P 20% \"acid resistance putative oxidoreduc\u2026\"; also pykF P 12%\n[S2.c71]    71 fork: safA P 19%; also lpp P 12%, \"phage terminase large subunit family pr\u2026\" S 12%\n[S2.c72]    72 fork: ydeO P 18% \"acid stress response transcriptiona\u2026\"; also \"phage head-tail joining protein\" S 13%, ldtE P 12%\n[S2.c73]    73 fork: ydeN S 17% \"sulfatase-like hydrolase/transferase\"; also sufE P 12%, \"phage portal protein\" S 12%\n[S2.c74]    74 fork: \"phage tail protein\" S 17%; also ydeM S 15%, \"phage tail tape measure protein\" S 14%, sufS P 12%\n[S2.c75]    75 fork: gpG S 16%; also \"phage tail protein\" S 15%, sufD P 12%, \"head decoration protein\" S 11%\n[S2.c76]    76 fork: \"phage tail assembly protein T\" S 16%; also \"Ail/Lom family outer membrane beta-barr\u2026\" S 15%, sufC P 12%, yddA S 11%\n[S2.c77]    77 variable: sufB P 12%\n[S2.c78]    78 fork: \"C40 family peptidase\" S 18%; also \"protein YneP\" S 15%, \"tail assembly protein\" S 13%, sufA P 12%\n[S2.c79]    79 fork: \"phage minor tail protein L\" S 20%; also gpJ S 15%, ydiH P 12%, gadB P 11%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 6-9 (tqsA to mdtI) [S2]: transporter, efflux, multidrug, spermidine; columns 20-23 (ynfH to ynfE) [S2]: reductase, selenate, tellurate; columns 43-46 (marB to marC) [S2]: antibiotic, multiple, resistance; the branch [S2.b70] through columns 70-73: phage, tail; columns 74-76 [S2]: phage, tail, assembly.\n[X] PRODUCTS of named genes (for [[ ]]): pntA Re/Si-specific NAD(P)(+) transhydrogena\u2026; pntB Re/Si-specific NAD(P)(+) transhydrogena\u2026; mdtJ multidrug/spermidine efflux SMR transpo\u2026; mdtI multidrug/spermidine efflux SMR transpo\u2026; rspA starvation-sensing protein RspA; rspB Zn-dependent oxidoreductase; marB multiple antibiotic resistance protein\u2026; marA MDR efflux pump AcrAB transcriptional a\u2026; marR multiple antibiotic resistance transcri\u2026; marC NAAT family transporter MarC; lsrB autoinducer 2 ABC transporter substrate\u2026; lsrD autoinducer 2 ABC transporter permease\u2026; hipB type II toxin-antitoxin system antitoxi\u2026; hipA type II toxin-antitoxin system serine/t\u2026; rstA two-component system response regulator\u2026; rstB two-component system sensor histidine k\u2026; tus DNA replication terminus site-binding p\u2026; fumC class II fumarate hydratase; fumB class I fumarate hydratase; manA mannose-6-phosphate isomerase; uidC glucuronide uptake porin UidC; uidB glucuronide transporter; uidA beta-glucuronidase; hdhA 7-alpha-hydroxysteroid dehydrogenase; malX PTS maltose transporter subunit IICB; malY bifunctional maltose regulon transcript\u2026; add adenosine deaminase; ydgJ oxidoreductase; blr division septum protein Blr; ydgT transcription modulator YdgT; rsxA electron transport complex subunit RsxA; rsxB electron transport complex subunit RsxB; rsxC electron transport complex subunit RsxC; rsxD electron transport complex subunit RsxD; rsxG electron transport complex subunit RsxG; rsxE electron transport complex subunit RsxE; nth endonuclease III; dtpA dipeptide/tripeptide permease DtpA; gstA glutathione transferase GstA; pdxY pyridoxal kinase\n[E] END: the window ends at column 79, \"phage minor tail protein L\", in 20% of chromosomes."
 }

@@ -6,20 +6,38 @@ probability of any of its 50,000 families there, computed when the page asks.
 
 Serves standalone/ and answers the page; the page also finds it when opened as a
 local file. Listens on 127.0.0.1 unless --host says otherwise (0.0.0.0 in the
-Hugging Face Space, space/). Proteins are the dnaA windows extracted by
-pgb_window.py, embedded once by pgb_model.py (pgb/window_emb.npy). Each call is one
-forward pass on the genome's real prefix, cached.
+Hugging Face Space, space/, where it runs on 2 CPU threads). Proteins are the dnaA
+windows extracted by pgb_window.py, embedded once by pgb_model.py (pgb/window_emb.npy).
+Each call is one forward pass on the genome's real prefix, cached.
 
     GET /health
+        {ok, model, device, genomes, build, influence, reading}; build = {page_md5, built_at (the page's
+        file, UTC), git_sha, dirty, assembled_at (a Space: space/assemble.py's build.json)}; influence and
+        reading as below. HEAD /health answers the same headers.
     GET /gcall?acc=<assembly>&pfam=<PanGBank family>&q=<text>
-        the call for the gene after `pfam` in genome `acc`; with q, the families
-        matching q at that position, with rank and probability
-    GET /path?pids=<i,j,k...>&q=<text>
-        the call after any sequence of window proteins, a path drawn on the page
-    GET /prefix?acc=<assembly>&pfam=<PanGBank family>
-        genome `acc`'s own path from dnaA to `pfam`, to start a drawn path from
-    GET /region?q=<gene, PanGBank family or position from dnaA>   or   /region?anchor=<family>
-        any other window of the chromosome, in the 540 complete genomes (pgb_region.py);
+        the call for the gene after `pfam` in genome `acc`: {acc, strain, org, locus, ctx, ctx_first, ctx_last,
+        real (the gene actually there, its rank and p), top, entropy, and with q, n_match and matches: the
+        families matching q at that position, with rank and probability}
+    GET /path?pids=<i,j,k...>&ctx=<...>&q=<text>
+        the call after any sequence of window proteins, a path drawn on the page (ctx: a genome's proteins
+        read before it): {n, ctx, top, entropy, clusters (p of the clusters the graph's boxes read), matches}
+    GET /prefix?acc=<assembly>&pfam=<PanGBank family>[&anchor=<family>]
+        genome `acc`'s own path from dnaA (or from the window's anchor) to `pfam`, to start a drawn path from:
+        {acc, strain, items: [{pid, pfam, gene}]}, and with anchor, ctx: the 400 proteins before the anchor
+    GET /region?q=<gene, PanGBank family or position from dnaA>   or   /region?anchor=<family>[&want=<gene>]
+        any other window of the chromosome, in the 540 complete genomes (pgb_region.py): {meta, per_locus,
+        by_partition, by_rgp, nodes, edges, ghosts, bflabels}. A gene or family asked for opens the window
+        that shows it in the most chromosomes carrying it (each carrier's own copies placed against the
+        backbone; pgb_region.locate), and meta.want tells the page what it found:
+          {q, fam, node (the id of its box in nodes), label, found, column, carriers_in_window,
+           carriers (the complete chromosomes carrying it), window_genomes,
+           other_anchors: [{fam, label, pos, carriers, column}]}   the other places it sits, in the
+           chromosomes this window misses: the window's anchor, its position, how many of those
+           chromosomes it shows it in, at which column; most first, at most 3, each in at least 2
+           chromosomes and 2 % of the carriers (none: it is here in (nearly) all its carriers).
+           Each opens with /region?anchor=<fam>&want=<q>, whose meta.want lists the places that
+           window misses in turn
+        a position or an empty q: no meta.want. anchor must be a window's anchor (a backbone family), else 400.
         /gcall and /prefix then take &anchor=<family> and read that window, and /path takes
         their proteins as c<index> (pgb/chrom_emb.f16)
     GET /attn?pids=<...>&ctx=<...>&layer=<0-11 | mean>
@@ -27,6 +45,16 @@ forward pass on the genome's real prefix, cached.
         their mean (rows: the path's proteins; columns: the start token, the context before
         the path summed, the path's proteins), and for every layer and head the last
         protein's row, where the model looks when it calls the next family. Per mille.
+        {layers, heads, n, ctx, layer, m, last, stats: per layer and head, its share on the start token
+        (start), on the context before the path (before), on the previous protein (prev), on itself (self),
+        and how far back it looks among the path's proteins (dist, in proteins), ms}
+
+    Errors of these routes: {error, code}. 200 with found=false for an expected miss, which the page words:
+        not_found (no such gene, family or position in the complete chromosomes), not_in_window (the genome
+        does not carry the family in that window, or not the window's anchor once), not_complete (a draft
+        genome, asked beyond the dnaA window), window_end (no gene after this one: a contig or chromosome end);
+    400 bad_request (with the parameter at fault) or not_anchor; 503 busy (the model's queue is full: retry_s);
+    500 error (an unexpected failure, named).
 
 What the model itself knows about one accessory element (the Coupled regions tab): pg_knock.influence,
 the in-silico knockout of pg_knockout.py on demand, with the request and response of serve_influence.py.
@@ -39,10 +67,11 @@ starts and serves the rest as before, and /health says why influence is not avai
     GET /elements?acc=<assembly> | g=<index 0-539 of the complete chromosomes> [&sets=]
         the accessory elements of that chromosome (panRGP runs by spot, coupled regions present at
         their spot): kind, id, label, start, end, entry gene, size
-    GET /influence?acc= | g=  &region=<region id> | &spot=<spot id> | &genes=<p,q,...>  [&sets=] [&n_ctrl=8] [&wait=<s>]
+    GET /influence?acc= | g=  &region=<region id> | &spot=<spot id> | &genes=<p,q,...>  [&sets=] [&n_ctrl=3-16, 8] [&wait=<s>]
         baseline, deletion of the element and n_ctrl size-matched whole-element control deletions, one
-        fp32 pass each (its own fp32 copy of the model): ~3 s on a GPU (~8 s for the first request), ~2-4 min
-        on 2 CPU threads (a Hugging Face Space). One computation at a time, in a queue; results cached.
+        fp32 pass each (its own fp32 copy of the model): ~3 s on a GPU (~8 s for the first request), under a
+        minute on 2 CPU threads (a Hugging Face Space: 23-47 s measured, ~40 s expected until one is measured
+        here). One of region=, spot= or genes=. One computation at a time, in a queue; results cached.
           200  the result (serve_influence.py's JSON) with sets, sets_md5 and links: the elements linked to
                the deleted one and where each is in this genome (read among the neighbours, before it, beyond
                the 1,500 genes read, not located at its spot, absent)
@@ -51,18 +80,22 @@ starts and serves the rest as before, and /health says why influence is not avai
                (none before the first one), for a queued job from the jobs before it
         wait: hold the request until the result is ready or for that many seconds (at most 60; default
         60 on a GPU, 0 on a CPU, where a call is a background job to poll)
-          400  bad request (unknown genome or set, element not present in it...), checked before any queue
+          400  bad request (unknown genome or set, element not present in it, n_ctrl out of 3-16...), checked
+               before any queue
           404  unknown or expired job;  410  a queued job dropped because nobody asked for it for 30 s
           500  the computation failed (also a failed numerical check)
           503  influence not available here (why in `error`; a failed load is retried after a minute), or too
                many requests waiting (`retry_s`)
+        /health: influence = {available, loaded, device, mode: job | wait, decoder, sets, waiting, max_waiting,
+               cached, seconds: {load, last, expected, expected_first_load}, reason if not available}
 
 The reading of a window written by an LLM (the Findings tab): pg_reading, imported at the first /reading or /health.
     GET /reading?window=dnaA | anchor=<the window's anchor family, meta.anchor of /region> [&peek=1] [&facts=1]
         the page sends only the window's id: the server builds the facts from its own data, an LLM
-        (deepseek-ai/DeepSeek-V4.1-Flash, Hugging Face Inference Providers) writes the reading, and every number and
-        gene of it is checked against the facts (one retry naming what was wrong). Cached per window (memory,
-        READING_CACHE and pgb/readings/); peek=1 answers from the cache only, never generates; facts=1 adds the facts
+        (deepseek-ai/DeepSeek-V4.1-Flash, Hugging Face Inference Providers) writes the reading by the skill
+        reading_skill.md, and every sentence is checked against the facts lines it cites (one retry naming what
+        was wrong). Cached per window (memory, READING_CACHE and pgb/readings/, keyed by the facts, the prompt
+        version and the skill's sha); peek=1 answers from the cache only, never generates; facts=1 adds the facts
         given to the LLM. Not in the model's queue (it uses no model of this server): only the window's build is.
           200  {window, label, status: llm | fallback | none, model, provider, cached, created, checked, usage, ms}
                llm: + html (<p class="note">, <b>, <span class="gene">, <span class="interp">: interpretation from the
@@ -71,18 +104,26 @@ The reading of a window written by an LLM (the Findings tab): pg_reading, import
                none (peek=1): not written yet, + available (and code, reason when not)
           errors: {error, code, retry_s?, available?}; code tells the page what to say
           400  unknown window (not a backbone anchor);  403 cross_site: a new reading asked for by another site's page
+               (or by a page with Origin null: a sandboxed frame or a file; cached readings are still served)
           429  limit | limit_day: this client's new readings (retry_s);  502  upstream: the LLM could not be reached (retry_s)
           503  off | no_token | refused | credit | cap | spend: no new readings here (available=false; retry_s for the
                day's caps); busy: other readings are being written (retry_s: the page asks again)
-        /health: reading = {available, model, providers, code and reason if not, cached, today: {new, cap, calls,
-               cost_usd, usd_cap}, per_client: {new, per_s, per_day, clients, proxy}}
+        /health: reading = {available, model, providers, max_tokens, cached, prompt: {version, skill (its sha),
+               skill_file, temperature, words}, today: {new, cap, calls, cost_usd, usd_cap},
+               per_client: {new, per_s, per_day, clients, proxy}, code and reason if not available}
+
+Files: standalone/ (no listings); /favicon.ico is assets/favicon-32.png. HTML, JS, CSS, JSON and SVG files and the
+JSON answers over 16 KB are sent gzipped to a client that accepts it; the pages with Cache-Control: no-cache
+(revalidated by Last-Modified), the answers no-store; Vary: Origin, Accept-Encoding.
+
     GPU_MEM_FRAC=<0-1> caps the GPU memory of the whole process (a second instance next to a running one);
     INFLUENCE_DECODER=compact | full forces the decoder (default: the compact one when it is there, identical);
     INFLUENCE_JOBS=1 makes every influence call a job on a GPU too; INFLUENCE_QUEUE caps the jobs waiting (2 on a
-    CPU, 4 on a GPU). On a CPU the influence passes run on 2 threads (the whole process then does): their
-    exactness check (genes before the deletion unchanged, bit for bit) holds at 1-2 threads, not at 4 or more.
+    CPU, 4 on a GPU); MAX_QUEUE=6 the requests waiting for the model. On a CPU the influence passes run on 2 threads
+    (the whole process then does): their exactness check (genes before the deletion unchanged, bit for bit) holds at
+    1-2 threads, not at 4 or more.
 """
-import os, json, re, time, argparse, threading, urllib.parse, collections, numpy as np, torch
+import os, json, re, io, gzip, time, datetime, email.utils, argparse, threading, subprocess, traceback, urllib.parse, collections, numpy as np, torch
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from transformers import AutoModelForCausalLM
 
@@ -120,30 +161,46 @@ for g in W["genomes"]:
 for f,c in ALIAS.items():
     nm=NAMES.setdefault(f,[]); PROD.setdefault(f,"")
     nm+=[a for a,_ in c.most_common(3) if a not in nm]
-LNAME={f:[x.lower() for x in v] for f,v in NAMES.items()}; LPROD={f:v.lower() for f,v in PROD.items()}
-def name(f): return NAMES[f][0] if NAMES.get(f) else ""
 GRAPH=json.load(open("pgb/graph_pgb.json"))["nodes"]
 # the clusters the graph's boxes read (decoder of pgb_graph.py), and exemplar clusters as before
 CL=np.unique(np.concatenate([BF,np.array([c for n in GRAPH for c,_ in n["bfw"]],dtype=BF.dtype)]))
-for n in GRAPH:                      # a cluster the model uses for a family is searchable by its name
+# a cluster the model uses for a family of the dnaA window (decoder weight >= 0.5) is named first by it: by the family
+# it reads the most (weight x carriers), whatever the order of the file
+_best={}
+for n in GRAPH:
     for c,w in n["bfw"]:
-        if w>=0.5 and n.get("named") and n["label"] not in NAMES.setdefault(int(c),[]):
-            NAMES[int(c)].insert(0,n["label"]); PROD.setdefault(int(c),n.get("product",""))
+        if w>=0.5 and n.get("named") and (int(c) not in _best or w*n.get("n",1)>_best[int(c)][0]):
+            _best[int(c)]=(w*n.get("n",1),n["label"],n.get("product",""))
+for c,(_,l,pr) in _best.items():
+    nm=NAMES.setdefault(c,[])
+    if l in nm: nm.remove(l)
+    nm.insert(0,l); PROD.setdefault(c,pr)
+# the name and product shown for a cluster are fixed here, at start: the windows built later (register) only make more
+# names searchable, so a cluster is named the same whatever windows this server has built (the Space and a local one)
+DISPLAY={f:v[0] for f,v in NAMES.items() if v}
+def name(f): return DISPLAY.get(f,"")
 LNAME={f:[x.lower() for x in v] for f,v in NAMES.items()}; LPROD={f:v.lower() for f,v in PROD.items()}
+# the dnaA window's families by the name their genes most often carry (for the messages)
+_pfn=collections.defaultdict(collections.Counter)
+for g in W["genomes"]:
+    for x in g["genes"]:
+        if x[4]: _pfn[x[1]][x[4]]+=1
+PFNAME={f:c.most_common(1)[0][0] for f,c in _pfn.items()}; del _pfn
 # the rest of the chromosome: windows of the complete genomes, built on demand
 import pgb_region as RG
 NCE=os.path.getsize("pgb/chrom_emb.f16")//(480*2); CEMB=np.memmap("pgb/chrom_emb.f16",dtype=np.float16,mode="r",shape=(NCE,480))
 CIDX={g["acc"]:i for i,g in enumerate(RG.CGEN)}
 CLSET=set(CL.tolist()); REG=collections.OrderedDict(); REG_LOCK=threading.Lock()
 def register(D):
-    """a window's clusters are read on its boxes, and its names become searchable"""
-    global CL,LNAME,LPROD
+    """a window's clusters are read on its boxes, and its names become searchable (appended: the name shown, DISPLAY,
+    and the product stay those fixed at start)"""
+    global CL,LNAME
     for n in D["nodes"]:
         for c,w in n["bfw"]:
             CLSET.add(int(c))
             if w>=0.5 and n.get("named") and n["label"] not in NAMES.setdefault(int(c),[]):
-                NAMES[int(c)].insert(0,n["label"]); PROD.setdefault(int(c),n.get("product",""))
-    CL=np.array(sorted(CLSET)); LNAME={f:[x.lower() for x in v] for f,v in NAMES.items()}; LPROD={f:v.lower() for f,v in PROD.items()}
+                NAMES[int(c)].append(n["label"]); PROD.setdefault(int(c),""); LPROD.setdefault(int(c),"")
+    CL=np.array(sorted(CLSET)); LNAME={f:[x.lower() for x in v] for f,v in NAMES.items()}
 BUILD_LOCK=threading.Lock()                                # one window built at a time: memory stays bounded
 def region_of(anc):
     with REG_LOCK:
@@ -156,9 +213,28 @@ def region_of(anc):
         register(D); REG[anc]=D
         if len(REG)>16: REG.popitem(last=False)
     return D
+class BadRequest(ValueError):
+    """400: a parameter the server cannot read; code tells the page what to say"""
+    def __init__(self,msg,code="bad_request"): super().__init__(msg); self.code=code
+class Miss(KeyError):
+    """an expected miss (a genome without the family asked for...): 200 {found: false, code, error}"""
+    def __init__(self,msg,code="not_found"): super().__init__(msg); self.code=code
+def anchor_of(x,what="anchor"):
+    """a window's anchor (a backbone family) by its PanGBank name, else 400 not_anchor, before anything is built"""
+    anc=RG.FIDX.get(x or "")
+    if anc is None or anc not in RG.BB_RANK:
+        raise BadRequest(f"{what}: {x or '(empty)'} is not the anchor of a window (a backbone family, one copy in at least "
+                         f"{RG.BACKBONE_MIN:.0%} of the {RG.NG} complete chromosomes); /region?q=<gene or family> opens the window of any gene","not_anchor")
+    return anc
 def region(a):
-    anc=RG.FIDX.get(a.get("anchor","")) if a.get("anchor") else None
-    return region_of(anc if anc is not None else RG.resolve(a.get("q","")))
+    """/region: a window by its anchor (with want=, what the page looks for in it), or the one a query opens; meta.want
+    says whether what was asked for is in it, in how many chromosomes, and where else it sits (pgb_region.locate)"""
+    if a.get("anchor"):
+        anc=anchor_of(a["anchor"]); want=RG.want_at(a["want"],anc) if a.get("want","").strip() else None
+    else:
+        L=RG.locate(a.get("q","")); anc=L["anchor"]; want=L["want"]
+    D=region_of(anc)
+    return D if want is None else dict(D,meta=dict(D["meta"],want=RG.want_meta(want,D)))
 print(f"ready on {dev}: {len(GEN)} genomes, {len(EMB)} proteins, {len(NAMES)} named model families; "
       f"{RG.NG} complete chromosomes, {len(RG.BB)} backbone anchors, {NCE} of their proteins",flush=True)
 
@@ -191,12 +267,19 @@ def summary(p,rk,a,ntop=16):
         hits=search(a["q"],rk); out.update(n_match=len(hits),matches=[row(p,rk,f,sc) for sc,f in hits[:8]])
     return out
 lab=lambda x: x[4] or x[5] or "?"
+def genome_arg(a):
+    """the genome of acc= among the 2,002 of the page"""
+    acc=a.get("acc","").strip(); g=GEN.get(acc)
+    if g is None: raise BadRequest(f"acc: unknown genome {acc}: give the assembly accession of one of the {len(GEN):,} genomes" if acc
+                                   else "give acc=<the genome's assembly accession>")
+    return g
+def gname(g): return g.get("strain") or g["acc"]
 def locate(a):
-    g=GEN.get(a.get("acc","")); f=PFAM.get(a.get("pfam",""))
-    if g is None: raise KeyError("unknown genome")
-    if f is None: raise KeyError("unknown family")
+    """a genome of the page and the family's first place in its dnaA window"""
+    g=genome_arg(a); pf=a.get("pfam","").strip(); f=PFAM.get(pf)
+    if f is None: raise BadRequest(f"pfam: {pf} is not a family of the dnaA window" if pf else "give pfam=<the PanGBank family>")
     ks=[k for k,x in enumerate(g["genes"]) if x[1]==f]
-    if not ks: raise KeyError("this family is not in this genome's dnaA window")
+    if not ks: raise Miss(f"{gname(g)} does not carry {PFNAME.get(f) or pf} in its dnaA window","not_in_window")
     return g,ks[0]
 def search(q,rk):
     q=q.strip().lower(); m=re.fullmatch(r"(?:#|fam)?\s*(\d+)",q)
@@ -210,20 +293,24 @@ def search(q,rk):
 
 def in_window(a):
     """a complete genome's chromosome, the window from the anchor, and the family's column in it"""
-    anc=RG.FIDX.get(a.get("anchor","")); f=RG.FIDX.get(a.get("pfam","")); gi=CIDX.get(a.get("acc",""))
-    if anc is None or f is None: raise KeyError("unknown family")
-    if gi is None: raise KeyError("beyond the dnaA window only the 540 complete genomes are read: pick one of them")
+    anc=anchor_of(a.get("anchor","")); pf=a.get("pfam","").strip(); f=RG.FIDX.get(pf)
+    if f is None: raise BadRequest(f"pfam: {pf} is not a family of the complete chromosomes" if pf else "give pfam=<the PanGBank family>")
+    acc=a.get("acc","").strip(); gi=CIDX.get(acc)
+    if gi is None:
+        g=genome_arg(a)
+        raise Miss(f"{gname(g)} is a draft genome: beyond the dnaA window only the {RG.NG} complete genomes are read; pick one of them","not_complete")
+    g=RG.CGEN[gi]; alab=lambda: RG.fam_name_label(anc)[0]
     s,e=int(RG.OFF[gi]),int(RG.OFF[gi+1]); L=e-s; ia=np.flatnonzero(RG.FAM[s:e]==anc)
-    if len(ia)!=1: raise KeyError("the window's anchor is not once in this chromosome")
+    if len(ia)!=1: raise Miss(f"{gname(g)} does not carry {alab()} once: it is not in the {alab()} window","not_in_window")
     W=region_of(anc)["meta"]["window"]; seq=[(int(ia[0])+k)%L for k in range(W)]
     ks=[k for k,q in enumerate(seq) if RG.FAM[s+q]==f]
-    if not ks: raise KeyError("this family is not in this genome's window")
+    if not ks: raise Miss(f"{gname(g)} does not carry {RG.fam_name_label(f)[0]} in the {alab()} window","not_in_window")
     return gi,s,L,seq,ks[0],anc
 def glab(i):
     return RG.NAMES[int(RG.NAME[i])] or RG.PRODUCT[int(RG.FAM[i])] or RG.FN[int(RG.FAM[i])]
 def gcall_region(a):
     gi,s,L,seq,k,anc=in_window(a); j=seq[k]
-    if j+1>=L: raise KeyError("the chromosome ends after this gene")
+    if j+1>=L: raise Miss("the chromosome ends after this gene: there is no next gene to call","window_end")
     ctx=list(range(max(0,j-799),j+1)); t0=time.time()
     p,rk=dist(tuple(f"c{int(RG.PID[s+q])}" for q in ctx))
     f2=int(RG.FAM[s+j+1]); node=next((n for n in region_of(anc)["nodes"] if n["id"]==f"p{f2}"),None)
@@ -238,7 +325,7 @@ def gcall_region(a):
 def gcall(a):
     if a.get("anchor"): return gcall_region(a)
     g,k=locate(a); k+=1; L=g["genes"]
-    if k>=len(L): raise KeyError("this genome's window ends right after this family (contig end)")
+    if k>=len(L): raise Miss(f"{gname(g)}'s dnaA window ends right after this family (a contig end): there is no next gene to call","window_end")
     t0=time.time(); p,rk=dist([x[3] for x in L[:k]]); real=int(BF[L[k][3]])
     out=dict(acc=g["acc"],strain=g.get("strain",""),org=g.get("org",""),locus=k+g["start"],
              ctx=k,ctx_first=lab(L[0]),ctx_last=lab(L[k-1]),
@@ -255,12 +342,12 @@ def parse(txt):
     for x in (x.strip() for x in txt.split(",")):
         if re.fullmatch(r"\d+",x) and int(x)<len(EMB): out.append(int(x))
         elif re.fullmatch(r"c\d+",x) and int(x[1:])<NCE: out.append(x)
-        elif x: raise KeyError("unknown protein in the path")
+        elif x: raise BadRequest(f"unknown protein {x[:24]} in the path (window proteins 0-{len(EMB)-1}, chromosome proteins c0-c{NCE-1})")
     return out
 def path_args(a):
     pids=parse(a.get("pids","")); ctx=parse(a.get("ctx",""))     # ctx: a genome's proteins before the path, read too
-    if not pids: raise KeyError("empty path")
-    if len(pids)>400 or len(ctx)>400: raise KeyError("path too long (400 proteins at most)")
+    if not pids: raise BadRequest("pids: the path is empty")
+    if len(pids)>400 or len(ctx)>400: raise BadRequest("the path and its context: 400 proteins at most each")
     return pids,ctx
 ACACHE=collections.OrderedDict()
 @torch.no_grad()
@@ -273,14 +360,17 @@ def attention(pids,nctx):
     A=torch.stack([w[0] for w in out.attentions]).float()                 # layers x heads x n x n
     q=A[:,:,1+nctx:,:]
     return torch.cat([q[...,:1],q[...,1:1+nctx].sum(-1,keepdim=True),q[...,1+nctx:]],-1).cpu().numpy()
+NLAYERS=int(getattr(cm.config,"num_hidden_layers",12))
 def attncall(a):
+    lay=(a.get("layer") or "mean").strip().lower()
+    if lay!="mean" and not (re.fullmatch(r"\d+",lay) and int(lay)<NLAYERS): raise BadRequest(f"layer: mean or 0-{NLAYERS-1}")
     pids,ctx=path_args(a); key=(tuple(ctx),tuple(pids)); t0=time.time()
     with LOCK:
         if key not in ACACHE:
             ACACHE[key]=attention(ctx+pids,len(ctx))
             if len(ACACHE)>12: ACACHE.popitem(last=False)
         ACACHE.move_to_end(key); R=ACACHE[key]
-    L,H=R.shape[:2]; lay=a.get("layer","mean")
+    L,H=R.shape[:2]
     M=R.mean(0) if lay=="mean" else R[int(lay)]                           # heads x n x (n+2)
     M=np.concatenate([M,M.mean(0,keepdims=True)])                          # and the mean of the heads
     pm=lambda X: np.rint(X*1000).astype(int).ravel().tolist()
@@ -308,7 +398,7 @@ def queued(fn,a,admitted=False):
     """at most MAXQ requests wait for the model; beyond that the page is asked to try again
     (admitted: an influence job, refused or not when it was queued, only counted while it runs)"""
     with QL:
-        if QN[0]>=MAXQ and not admitted: raise Busy("the model is busy, try again in a moment")
+        if QN[0]>=MAXQ and not admitted: raise Busy(f"the model is busy ({QN[0]} requests waiting), try again in a moment")
         QN[0]+=1
     try: return fn(a)
     finally:
@@ -318,7 +408,7 @@ def queued(fn,a,admitted=False):
 # pg_knock (its data, its lineage-CV decoder and its own fp32 copy of the model) is loaded at the first request, per
 # link set (long: pgb/region_sets.json, close: pgb/region_sets_close.json; one model and one decoder serve both).
 # Each computation is a job run by one worker thread, first in first out, counted by queued() while it runs;
-# a request waits for it (GPU, ~3 s) or gets the job to poll (CPU, ~2-4 min on 2 threads).
+# a request waits for it (GPU, ~3 s) or gets the job to poll (CPU, under a minute on 2 threads: 23-47 s on the Space).
 import queue, secrets, hashlib
 class Unavailable(Exception): pass
 INF_NEED=["pg_knock.py","pgb/region_sets.json","pgb/chrom.npz","pgb/chrom_genomes.json","pgb/chrom_emb.f16"]
@@ -331,6 +421,7 @@ INF_KEEP=600                     # seconds a finished job stays to be fetched
 INF_IDLE=30.0                    # a queued job that nobody has asked about for this long is dropped (the page polls every ~4 s)
 INF_RETRY=60.0                   # a failed load is tried again by a request after this long
 INF_THREADS=2                    # CPU threads of the influence passes: its exactness check (g) holds at 1-2 threads, not at 4+
+INF_EXPECT=40.0 if dev=="cpu" else 4.0    # seconds per computation until one is measured here (the Space's CPU: 23-47 s)
 INF=dict(K=None,D={},ACC=None,ctx={},error=None,error_t=0.0,load_s=None,last_s=None)
 INF_LOAD=threading.Lock(); JL=threading.Lock(); JOBS=collections.OrderedDict(); INF_CACHE=collections.OrderedDict()
 INF_Q=queue.Queue(); INF_W=[]; _MD5={}
@@ -420,21 +511,33 @@ def elements(a):
                 elements=[dict(kind="region" if int(k)==1 else "spot",id=int(i),label=D.element_label(k,i)[:60],
                                start=int(s),end=int(e),entry=int(en),size=int(z))
                           for k,i,s,e,en,z in zip(E["kind"],E["id"],E["start"],E["end"],E["entry"],E["size"])])
+def intarg(a,k,what):
+    """an integer parameter, else 400 naming it (never Python's own message)"""
+    try: return int(str(a[k]).strip())
+    except ValueError: raise BadRequest(f"{k}: {what}") from None
+def inf_named(D,msg):
+    """pg_knock's messages name a chromosome by its index: here by its strain and assembly"""
+    return re.sub(r"\bgenome (\d+)\b",lambda m: f"{D.STRAIN[int(m.group(1))] or D.ACC[int(m.group(1))]} ({D.ACC[int(m.group(1))]})"
+                  if int(m.group(1))<D.NG else m.group(0),msg)
 def inf_request(a):
     """-> (cache key, genome, element, n_ctrl), the element checked against the genome (400 before any queue)"""
     sets=inf_setname(a); K,D=inf_data(sets); g=inf_genome(D,a)
+    given=[k for k in ("region","spot","genes") if k in a]
+    if len(given)>1: raise BadRequest("give one of region=, spot= or genes=, not "+" and ".join(f"{k}=" for k in given))
+    if not given: raise BadRequest("give region=, spot= or genes=")
+    n_ctrl=intarg(a,"n_ctrl","3 to 16 control deletions") if a.get("n_ctrl","").strip() else 8
+    if not 3<=n_ctrl<=16: raise BadRequest("n_ctrl: 3 to 16 control deletions")
     try:
-        n_ctrl=max(3,min(16,int(a.get("n_ctrl",8))))
-        if "region" in a: el=("region",int(a["region"]))
-        elif "spot" in a: el=("spot",int(a["spot"]))
-        elif "genes" in a:
-            el=("genes",tuple(sorted({int(x) for x in a["genes"].split(",") if x.strip()})))
-            if not el[1] or not all(0<=p<int(D.GL[g]) for p in el[1]): raise ValueError(f"genes: positions 0-{int(D.GL[g])-1} of this chromosome")
-            if len(el[1])>2000: raise ValueError("genes: 2,000 at most")
-        else: raise ValueError("give region=, spot= or genes=")
-        if el[0]=="region" and not 0<=el[1]<D.NR: raise ValueError(f"region: an id 0-{D.NR-1} of the {sets}-range sets")
+        if "region" in a: el=("region",intarg(a,"region",f"a region id 0-{D.NR-1} of the {sets}-range sets"))
+        elif "spot" in a: el=("spot",intarg(a,"spot","a spot id (an integer)"))
+        else:
+            try: el=("genes",tuple(sorted({int(x) for x in a["genes"].split(",") if x.strip()})))
+            except ValueError: raise BadRequest(f"genes: positions (integers 0-{int(D.GL[g])-1}) of this chromosome, comma-separated") from None
+            if not el[1] or not all(0<=p<int(D.GL[g]) for p in el[1]): raise BadRequest(f"genes: positions 0-{int(D.GL[g])-1} of this chromosome")
+            if len(el[1])>2000: raise BadRequest("genes: 2,000 at most")
+        if el[0]=="region" and not 0<=el[1]<D.NR: raise BadRequest(f"region: an id 0-{D.NR-1} of the {sets}-range sets")
         K.resolve_element(D,g,el)
-    except AssertionError as e: raise ValueError(str(e))
+    except AssertionError as e: raise BadRequest(inf_named(D,str(e))) from None
     return (sets,g,el,n_ctrl),g,el,n_ctrl
 def inf_left(x,now):
     """seconds left of a running job, from its passes so far (None before the first pass is done)"""
@@ -446,7 +549,7 @@ def inf_status(j):
     with JL: js=list(JOBS.values())
     run=[x for x in js if x["state"]=="running"]
     ahead=sum(1 for x in js if x["state"]=="queued" and x["t"]<j["t"])
-    per=INF["last_s"] or (150.0 if dev=="cpu" else 4.0)                  # a whole call: the last one measured here
+    per=INF["last_s"] or INF_EXPECT                                     # a whole call: the last one measured here
     if j["state"]=="running": pos=0; eta=inf_left(j,now)
     else:
         pos=ahead+len(run)
@@ -497,7 +600,7 @@ def inf_run(j):
     def tick(done,total,what): j.update(done=done,total=total,stage=what,t_pass0=j.get("t_pass0") or time.time(),t_tick=time.time())
     try: res=K.influence(g,el,n_ctrl=n_ctrl,ctx=ctx,progress=tick)
     except AssertionError as e:                                    # an internal check (the input was checked before queueing)
-        j.update(state="error",error=f"a numerical check of the computation failed ({e})",code=500); return
+        j.update(state="error",error=f"a numerical check of the computation failed ({inf_named(ctx[0],str(e))})",code=500); return
     res=dict(res,sets=sets,sets_md5=ctx[0].SETS_MD5,links=inf_links(ctx[0],g,res))
     INF["last_s"]=time.time()-(j["t_pass0"] or j["t_run"])
     with JL:
@@ -553,7 +656,7 @@ def inf_health():
     out=dict(available=ok,loaded=bool(INF["ctx"]),device=dev,mode="job" if INF_JOB else "wait",decoder=inf_decoder(),sets=inf_sets(),
              waiting=waiting,max_waiting=INF_MAXQ,cached=len(INF_CACHE),
              seconds=dict(load=r1(INF["load_s"]),last=r1(INF["last_s"]),     # measured here: loading; the last computation
-                          expected=r1(INF["last_s"]) or (150 if dev=="cpu" else 4),   # per element until one is measured
+                          expected=r1(INF["last_s"]) or INF_EXPECT,     # per element until one is measured
                           expected_first_load=15 if dev=="cpu" else 8))
     if not ok: out["reason"]=err or "missing "+", ".join(miss)
     return out
@@ -588,49 +691,144 @@ def reading(h,a):
     R=rd_mod()
     xff=",".join(h.headers.get_all("X-Forwarded-For") or [])
     site=R.site_ok(h.headers.get("Sec-Fetch-Site"),h.headers.get("Origin"),h.headers.get("Host"))
+    # Origin null: a page opened as a file, or a sandboxed frame of any site (which the CORS answer lets read this server):
+    # cached readings only, never a new one at this server's expense
+    if (h.headers.get("Origin") or "").strip().lower()=="null": site=False
     try: return R.answer(a,h.client_address[0],xff,rd_region,site)
     except R.ReadingError as e: return e.status,e.body()
 
+# ---------------------------------------------------------------- the build served (/health: which page and code answer)
+def _git_sha():
+    try:
+        sha=subprocess.run(["git","rev-parse","--short=12","HEAD"],capture_output=True,text=True,timeout=5).stdout.strip() or None
+        dirty=bool(subprocess.run(["git","status","--porcelain","--untracked-files=no"],capture_output=True,text=True,timeout=10).stdout.strip()) if sha else None
+        return sha,dirty
+    except Exception: return None,None
+BUILD=dict(git_sha=None,dirty=None,assembled_at=None)
+if os.path.exists("build.json"):                          # written by space/assemble.py (a Space has no .git)
+    try: BUILD.update({k:v for k,v in json.load(open("build.json")).items() if k in ("git_sha","dirty","assembled_at")})
+    except Exception: pass
+else: BUILD["git_sha"],BUILD["dirty"]=_git_sha()
+_PAGE="standalone/pangramgraph.html"; _PMD5={}
+def build_info():
+    out=dict(page_md5=None,built_at=None,**BUILD)
+    try: st=os.stat(_PAGE)
+    except OSError: return out
+    k=(st.st_mtime,st.st_size)
+    if _PMD5.get("k")!=k: _PMD5.update(k=k,md5=hashlib.md5(open(_PAGE,"rb").read()).hexdigest())
+    out.update(page_md5=_PMD5["md5"],built_at=time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime(st.st_mtime)))
+    return out
+
+# ---------------------------------------------------------------- HTTP
+API=("/health","/gcall","/path","/prefix","/region","/attn","/elements","/influence","/reading")
+ROUTES={"/gcall":gcall,"/path":pathcall,"/prefix":prefix,"/region":region,"/attn":attncall}
+GZ_EXT=(".html",".js",".css",".json",".svg",".txt",".md")
+GZ_MIN=16384                     # JSON answers over this many bytes are gzipped
+GZ_CACHE={}                      # a static file's gzip: path -> ((mtime, size), bytes)
+FAVICON="assets/favicon-32.png"
+RETRY_S=10 if dev=="cpu" else 3
+def healthcall():
+    return dict(ok=True,model=MODEL,device=dev,genomes=len(GEN),build=build_info(),influence=inf_health(),reading=rd_health())
 class H(SimpleHTTPRequestHandler):
     extensions_map={**SimpleHTTPRequestHandler.extensions_map,".html":"text/html; charset=utf-8",
-                    ".js":"text/javascript; charset=utf-8"}
-    def __init__(self,*a,**k): super().__init__(*a,directory="standalone",**k)
+                    ".js":"text/javascript; charset=utf-8",".json":"application/json",".svg":"image/svg+xml"}
+    def __init__(self,*a,**k): self._cc=None; self._gz=False; super().__init__(*a,directory="standalone",**k)
+    def gz_ok(self):
+        """the client accepts gzip (and not with q=0)"""
+        ae=(self.headers.get("Accept-Encoding") or "").lower()
+        return any(p.split(";")[0].strip() in ("gzip","*") and not re.search(r"q=0(\.0*)?\s*$",p) for p in ae.split(","))
     def end_headers(self):
         o=self.headers.get("Origin") or ""
         if o=="null" or re.fullmatch(r"http://(localhost|127\.0\.0\.1)(:\d+)?",o):     # a local page, or one opened as a file
             self.send_header("Access-Control-Allow-Origin",o)
             self.send_header("Access-Control-Allow-Private-Network","true")
+        self.send_header("Vary","Origin, Accept-Encoding")
+        if self._cc: self.send_header("Cache-Control",self._cc)
         super().end_headers()
     def do_OPTIONS(self): self.send_response(204); self.end_headers()
-    def js(self,obj,code=200):
-        b=json.dumps(obj).encode(); self.send_response(code)
+    def js(self,obj,code=200,head=False):
+        b=json.dumps(obj).encode(); self._cc="no-store"
+        if len(b)>GZ_MIN and self.gz_ok(): b=gzip.compress(b,5); self._gz=True
+        self.send_response(code)
         self.send_header("Content-Type","application/json"); self.send_header("Content-Length",str(len(b)))
-        self.send_header("Cache-Control","no-store"); self.end_headers(); self.wfile.write(b)
+        if self._gz: self.send_header("Content-Encoding","gzip")
+        self.end_headers()
+        if not head: self.wfile.write(b)
+    def send_head(self):
+        """a static file: gzipped when the client takes it (kept in memory until the file changes), with Cache-Control
+        (no-cache for pages: revalidated by Last-Modified); /favicon.ico from assets/"""
+        u=urllib.parse.urlparse(self.path)
+        if u.path=="/favicon.ico":
+            path=FAVICON; ctype="image/png"
+            if not os.path.isfile(path): self.send_error(404,"no favicon"); return None
+        else:
+            path=self.translate_path(self.path); ctype=None
+            if os.path.isdir(path):
+                self._cc="no-cache"; return super().send_head()          # index.html, or a redirect to the slash
+            if not os.path.isfile(path): return super().send_head()      # 404
+        self._cc="no-cache" if path.endswith(".html") else "public, max-age=3600"
+        if ctype is None and not (path.endswith(GZ_EXT) and self.gz_ok()): return super().send_head()
+        try: st=os.stat(path)
+        except OSError: self.send_error(404,"File not found"); return None
+        ims=self.headers.get("If-Modified-Since")
+        if ims and "If-None-Match" not in self.headers:
+            try:
+                t=email.utils.parsedate_to_datetime(ims)
+                if t is not None and t.tzinfo is None: t=t.replace(tzinfo=datetime.timezone.utc)
+                if t is not None and int(st.st_mtime)<=t.timestamp(): self.send_response(304); self.end_headers(); return None
+            except (TypeError,ValueError,IndexError,OverflowError): pass
+        if ctype is None:                                                  # a compressible file, gzipped
+            k=(st.st_mtime,st.st_size); c=GZ_CACHE.get(path)
+            if not c or c[0]!=k:
+                with open(path,"rb") as f: c=GZ_CACHE[path]=(k,gzip.compress(f.read(),6,mtime=0))
+            data=c[1]; ctype=self.guess_type(path); self._gz=True
+        else:
+            with open(path,"rb") as f: data=f.read()
+        self.send_response(200); self.send_header("Content-Type",ctype); self.send_header("Content-Length",str(len(data)))
+        if self._gz: self.send_header("Content-Encoding","gzip")
+        self.send_header("Last-Modified",self.date_time_string(st.st_mtime)); self.end_headers()
+        return io.BytesIO(data)
+    def do_HEAD(self):
+        u=urllib.parse.urlparse(self.path)
+        if u.path=="/health": return self.js(healthcall(),head=True)
+        if u.path in API:
+            self.send_response(405); self.send_header("Allow","GET"); self.send_header("Content-Length","0"); self.end_headers(); return
+        return super().do_HEAD()
+    def fail(self,e,where):
+        """an unexpected failure: named to the client (500) and logged here with its traceback"""
+        print(f"{where} {self.path[:200]}: {type(e).__name__}: {e}",flush=True); traceback.print_exc()
+        return dict(error=f"the server failed on this request ({type(e).__name__}: {emsg(e)})",code="error"),500
     def do_GET(self):
         u=urllib.parse.urlparse(self.path); a=dict(urllib.parse.parse_qsl(u.query))
-        if u.path=="/health": return self.js(dict(ok=True,model=MODEL,device=dev,genomes=len(GEN),influence=inf_health(),reading=rd_health()))
+        if u.path=="/health": return self.js(healthcall())
         if u.path=="/reading":
-            try: code,obj=reading(self,a); return self.js(obj,code)
-            except Busy as e: return self.js(dict(error=str(e),code="busy",retry_s=10 if dev=="cpu" else 3),503)
-            except Unavailable as e: return self.js(dict(error=str(e),code="off",available=False),503)
-            except (KeyError,ValueError) as e: return self.js(dict(error=emsg(e)),400)
-            except Exception as e: return self.js(dict(error=f"{type(e).__name__}: {e}"),500)
+            try: code,obj=reading(self,a)
+            except Busy as e: code,obj=503,dict(error=str(e),code="busy",retry_s=RETRY_S)
+            except Unavailable as e: code,obj=503,dict(error=str(e),code="off",available=False)
+            except (KeyError,ValueError) as e: code,obj=400,dict(error=emsg(e),code=getattr(e,"code","bad_request"))
+            except Exception as e: obj,code=self.fail(e,"/reading")
+            return self.js(obj,code)
         if u.path in ("/influence","/elements"):
             try:
-                if u.path=="/elements": return self.js(elements(a))
-                code,obj=influence(a); return self.js(obj,code)
-            except Busy as e: return self.js(dict(error=str(e),retry_s=10 if dev=="cpu" else 3),503)
-            except Unavailable as e: return self.js(dict(error=str(e),available=False),503)
-            except (KeyError,ValueError) as e: return self.js(dict(error=emsg(e)),400)
-            except Exception as e: return self.js(dict(error=f"{type(e).__name__}: {e}"),500)
-        route={"/gcall":gcall,"/path":pathcall,"/prefix":prefix,"/region":region,"/attn":attncall}.get(u.path)
+                if u.path=="/elements": code,obj=200,elements(a)
+                else: code,obj=influence(a)
+            except Busy as e: code,obj=503,dict(error=str(e),code="busy",retry_s=RETRY_S)
+            except Unavailable as e: code,obj=503,dict(error=str(e),code="off",available=False)
+            except (KeyError,ValueError) as e: code,obj=400,dict(error=emsg(e),code=getattr(e,"code","bad_request"))
+            except Exception as e: obj,code=self.fail(e,u.path)
+            return self.js(obj,code)
+        route=ROUTES.get(u.path)
         if route is None: return super().do_GET()
-        try: self.js(queued(route,a))
-        except Busy as e: self.js(dict(error=str(e)),503)
-        except (KeyError,ValueError) as e: self.js(dict(error=emsg(e)),400)
+        try: code,obj=200,queued(route,a)
+        except Busy as e: code,obj=503,dict(error=str(e),code="busy",retry_s=RETRY_S)
+        except (Miss,RG.NotFound) as e: code,obj=200,dict(error=emsg(e),code=getattr(e,"code","not_found"),found=False)
+        except (KeyError,ValueError) as e: code,obj=400,dict(error=emsg(e),code=getattr(e,"code","bad_request"))
+        except Exception as e: obj,code=self.fail(e,u.path)
+        self.js(obj,code)
     def list_directory(self,path): self.send_error(404); return None     # files only, no listings
     def log_message(self,format,*args): pass
 
 print(f"open http://localhost:{A.port}/",flush=True)
 ThreadingHTTPServer.daemon_threads=True
+ThreadingHTTPServer.request_queue_size=64                 # connections waiting to be accepted (the default 5 drops a burst)
 ThreadingHTTPServer((A.host,A.port),H).serve_forever()

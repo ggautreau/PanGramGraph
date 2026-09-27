@@ -2,50 +2,220 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447780.4237955,
+ "created": 1790479486.5906682,
  "usage": {
-  "prompt_tokens": 3474,
-  "completion_tokens": 555,
-  "cost_usd": 0.000563,
-  "ms": 5540
+  "prompt_tokens": 5377,
+  "completion_tokens": 440,
+  "cost_usd": 0.00059,
+  "ms": 4573
  },
  "attempts": [
   {
-   "text": "**The window starts in a long persistent spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, and only 0 to 5% of calls there are in a region of plasticity. The model names 95 to 100% of these genes, mean 99%, and no column hesitates more than 0.17 bits.\n\n**Then the graph opens at the fimbrial and `aga` columns.** Columns 24 to 42 are fork and variable columns, in a region of plasticity in 40 to 92% of calls. The model names 89 to 98% there, mean 95%, and its most hesitant column of the window is column 25, `yraJ`, at 0.93 bits, named 89%. The variable columns carry `yraK` to `yraH` at 54 to 60%, then `agaI` to `agaD` at 86 to 87%, and `agaB` to `prlF` at 79 to 89%, [[fimbrial assembly and PTS sugar transport]].\n\n**A short spine follows, then a hesitant variable pair.** Columns 43 to 47, `garD` to `garK`, are persistent, carried by 91 to 96%, and named in 91 to 97% of calls. Columns 48 and 49, `yhaC` and `yhaB`, are variable: named 84 to 93%, with column 48 the most hesitant at 0.72 bits.\n\n**The `tdc` and `cyu` spine is where naming drops.** Columns 50 to 62, `tdcR` to `yhaJ`, are persistent, carried by 93 to 95%, but the model names only 73 to 94%, mean 87%, fewest at column 58, `cyuP`, 73%. Column 63, `yhaI`, is variable, named 76%.\n\n**The window closes in a persistent spine and a fork.** Columns 64 to 76, `yhaH` to `uxaC`, are carried by 91 to 96% and named in 91 to 98% of calls. Columns 77 to 79 are fork columns, named 96%, ending at column 79, `sstT`, in 79% of chromosomes. Across the window, inside a region of plasticity the model hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.",
+   "text": "**The window opens on a long spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 5% of calls. The model names 95 to 100% of them, fewest at column 9, `yhbW`, 95%.\n\n**The first fork and variable stretch follows**, columns 24 to 42, all shell, carried by 54 to 89%, the most plastic stretch of the window. Columns 24 to 27, `yraK` to `yraH`, are [[fimbrial proteins]]. Then columns 28 to 31, `agaI` to `agaB`, are [[galactosamine transport]]. The spine at columns 43 to 47, `garD` to `garK`, is [[galactarate and glycerate]].\n\n**The model names about as many genes on the spine columns as on the fork and variable ones**, 95 against 94%, and hesitates less there, 0.13 against 0.31 bits. Its most hesitant column, 25, `yraJ`, is a variable column, 0.93 bits.\n\n**The window ends on a fork.** Columns 77 to 79, `uxaA` to `sstT`, are carried by 79 to 87% of chromosomes, all persistent. The last column is `sstT`, in 79% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3474,
-    "completion_tokens": 555,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5377,
+    "completion_tokens": 440,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000563
+    "cost_usd": 0.00059
    },
    "provider": "deepinfra",
-   "ms": 5540,
-   "raw": "**The window starts in a long persistent spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, and only 0 to 5% of calls there are in a region of plasticity. The model names 95 to 100% of these genes, mean 99%, and no column hesitates more than 0.17 bits.\n\n**Then the graph opens at the fimbrial and `aga` columns.** Columns 24 to 42 are fork and variable columns, in a region of plasticity in 40 to 92% of calls. The model names 89 to 98% there, mean 95%, and its most hesitant column of the window is column 25, `yraJ`, at 0.93 bits, named 89%. The variable columns carry `yraK` to `yraH` at 54 to 60%, then `agaI` to `agaD` at 86 to 87%, and `agaB` to `prlF` at 79 to 89%, [[fimbrial assembly and PTS sugar transport]].\n\n**A short spine follows, then a hesitant variable pair.** Columns 43 to 47, `garD` to `garK`, are persistent, carried by 91 to 96%, and named in 91 to 97% of calls. Columns 48 and 49, `yhaC` and `yhaB`, are variable: named 84 to 93%, with column 48 the most hesitant at 0.72 bits.\n\n**The `tdc` and `cyu` spine is where naming drops.** Columns 50 to 62, `tdcR` to `yhaJ`, are persistent, carried by 93 to 95%, but the model names only 73 to 94%, mean 87%, fewest at column 58, `cyuP`, 73%. Column 63, `yhaI`, is variable, named 76%.\n\n**The window closes in a persistent spine and a fork.** Columns 64 to 76, `yhaH` to `uxaC`, are carried by 91 to 96% and named in 91 to 98% of calls. Columns 77 to 79 are fork columns, named 96%, ending at column 79, `sstT`, in 79% of chromosomes. Across the window, inside a region of plasticity the model hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.",
+   "ms": 4573,
+   "raw": "@start **The window opens on a long spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 5% of calls {S1, P}. The model names 95 to 100% of them, fewest at column 9, `yhbW`, 95% {S1}.\n\n@variable **The first fork and variable stretch follows**, columns 24 to 42, all shell, carried by 54 to 89%, the most plastic stretch of the window {S2, P}. Columns 24 to 27, `yraK` to `yraH`, are [[fimbrial proteins]] {S2, Q}. Then columns 28 to 31, `agaI` to `agaB`, are [[galactosamine transport]] {S2, Q}. The spine at columns 43 to 47, `garD` to `garK`, is [[galactarate and glycerate]] {S3, Q}.\n\n@model **The model names about as many genes on the spine columns as on the fork and variable ones**, 95 against 94%, and hesitates less there, 0.13 against 0.31 bits {M}. Its most hesitant column, 25, `yraJ`, is a variable column, 0.93 bits {H}.\n\n@end **The window ends on a fork.** Columns 77 to 79, `uxaA` to `sstT`, are carried by 79 to 87% of chromosomes, all persistent {S8}. The last column is `sstT`, in 79% of chromosomes {E}.\n\n@whole **Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96% {C}.",
+   "annotated": "@start **The window opens on a long spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 5% of calls {S1, P}. The model names 95 to 100% of them, fewest at column 9, `yhbW`, 95% {S1}.\n\n@variable **The first fork and variable stretch follows**, columns 24 to 42, all shell, carried by 54 to 89%, the most plastic stretch of the window {S2, P}. Columns 24 to 27, `yraK` to `yraH`, are [[fimbrial proteins]] {S2, Q}. Then columns 28 to 31, `agaI` to `agaB`, are [[galactosamine transport]] {S2, Q}. The spine at columns 43 to 47, `garD` to `garK`, is [[galactarate and glycerate]] {S3, Q}.\n\n@model **The model names about as many genes on the spine columns as on the fork and variable ones**, 95 against 94%, and hesitates less there, 0.13 against 0.31 bits {M}. Its most hesitant column, 25, `yraJ`, is a variable column, 0.93 bits {H}.\n\n@end **The window ends on a fork.** Columns 77 to 79, `uxaA` to `sstT`, are carried by 79 to 87% of chromosomes, all persistent {S8}. The last column is `sstT`, in 79% of chromosomes {E}.\n\n@whole **Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96% {C}.",
    "check": {
     "ok": true,
-    "numbers": 64,
-    "names": 23,
-    "words": 320,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 22,
+    "names": 13,
+    "words": 218,
+    "sentences": 12,
+    "cited": 17,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 218,
+    "repeats": 0,
+    "interp": 3,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a long spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 5% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 95 to 100% of them, fewest at column 9, `yhbW`, 95%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The first fork and variable stretch follows**, columns 24 to 42, all shell, carried by 54 to 89%, the most plastic stretch of the window",
+      "cites": [
+       "S2",
+       "P"
+      ],
+      "inherit": [
+       "Q",
+       "S3"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Columns 24 to 27, `yraK` to `yraH`, are [[fimbrial proteins]]",
+      "cites": [
+       "S2",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Then columns 28 to 31, `agaI` to `agaB`, are [[galactosamine transport]]",
+      "cites": [
+       "S2",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The spine at columns 43 to 47, `garD` to `garK`, is [[galactarate and glycerate]]",
+      "cites": [
+       "S3",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names about as many genes on the spine columns as on the fork and variable ones**, 95 against 94%, and hesitates less there, 0.13 against 0.31 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 25, `yraJ`, is a variable column, 0.93 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on a fork.** Columns 77 to 79, `uxaA` to `sstT`, are carried by 79 to 87% of chromosomes, all persistent",
+      "cites": [
+       "S8"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `sstT`, in 79% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 51
+   },
+   "dropped": [],
+   "served": "**The window opens on a long spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 5% of calls. The model names 95 to 100% of them, fewest at column 9, `yhbW`, 95%.\n\n**The first fork and variable stretch follows**, columns 24 to 42, all shell, carried by 54 to 89%, the most plastic stretch of the window. Columns 24 to 27, `yraK` to `yraH`, are [[fimbrial proteins]]. Then columns 28 to 31, `agaI` to `agaB`, are [[galactosamine transport]]. The spine at columns 43 to 47, `garD` to `garK`, is [[galactarate and glycerate]].\n\n**The model names about as many genes on the spine columns as on the fork and variable ones**, 95 against 94%, and hesitates less there, 0.13 against 0.31 bits. Its most hesitant column, 25, `yraJ`, is a variable column, 0.93 bits.\n\n**The window ends on a fork.** Columns 77 to 79, `uxaA` to `sstT`, are carried by 79 to 87% of chromosomes, all persistent. The last column is `sstT`, in 79% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 64,
-  "names": 23,
-  "words": 320,
-  "attempts": 1
+  "numbers": 22,
+  "names": 13,
+  "words": 218,
+  "attempts": 1,
+  "sentences": 12,
+  "cited": 17,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 3,
+  "covered": 51
  },
- "text": "**The window starts in a long persistent spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, and only 0 to 5% of calls there are in a region of plasticity. The model names 95 to 100% of these genes, mean 99%, and no column hesitates more than 0.17 bits.\n\n**Then the graph opens at the fimbrial and `aga` columns.** Columns 24 to 42 are fork and variable columns, in a region of plasticity in 40 to 92% of calls. The model names 89 to 98% there, mean 95%, and its most hesitant column of the window is column 25, `yraJ`, at 0.93 bits, named 89%. The variable columns carry `yraK` to `yraH` at 54 to 60%, then `agaI` to `agaD` at 86 to 87%, and `agaB` to `prlF` at 79 to 89%, [[fimbrial assembly and PTS sugar transport]].\n\n**A short spine follows, then a hesitant variable pair.** Columns 43 to 47, `garD` to `garK`, are persistent, carried by 91 to 96%, and named in 91 to 97% of calls. Columns 48 and 49, `yhaC` and `yhaB`, are variable: named 84 to 93%, with column 48 the most hesitant at 0.72 bits.\n\n**The `tdc` and `cyu` spine is where naming drops.** Columns 50 to 62, `tdcR` to `yhaJ`, are persistent, carried by 93 to 95%, but the model names only 73 to 94%, mean 87%, fewest at column 58, `cyuP`, 73%. Column 63, `yhaI`, is variable, named 76%.\n\n**The window closes in a persistent spine and a fork.** Columns 64 to 76, `yhaH` to `uxaC`, are carried by 91 to 96% and named in 91 to 98% of calls. Columns 77 to 79 are fork columns, named 96%, ending at column 79, `sstT`, in 79% of chromosomes. Across the window, inside a region of plasticity the model hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.",
- "html": "<p class=\"note\"><b>The window starts in a long persistent spine.</b> Columns 0 to 23, <span class=\"gene\">infB</span> to <span class=\"gene\">rsmI</span>, are carried by 95 to 100% of chromosomes, all persistent, and only 0 to 5% of calls there are in a region of plasticity. The model names 95 to 100% of these genes, mean 99%, and no column hesitates more than 0.17 bits.</p><p class=\"note\"><b>Then the graph opens at the fimbrial and <span class=\"gene\">aga</span> columns.</b> Columns 24 to 42 are fork and variable columns, in a region of plasticity in 40 to 92% of calls. The model names 89 to 98% there, mean 95%, and its most hesitant column of the window is column 25, <span class=\"gene\">yraJ</span>, at 0.93 bits, named 89%. The variable columns carry <span class=\"gene\">yraK</span> to <span class=\"gene\">yraH</span> at 54 to 60%, then <span class=\"gene\">agaI</span> to <span class=\"gene\">agaD</span> at 86 to 87%, and <span class=\"gene\">agaB</span> to <span class=\"gene\">prlF</span> at 79 to 89%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fimbrial assembly and PTS sugar transport</span>.</p><p class=\"note\"><b>A short spine follows, then a hesitant variable pair.</b> Columns 43 to 47, <span class=\"gene\">garD</span> to <span class=\"gene\">garK</span>, are persistent, carried by 91 to 96%, and named in 91 to 97% of calls. Columns 48 and 49, <span class=\"gene\">yhaC</span> and <span class=\"gene\">yhaB</span>, are variable: named 84 to 93%, with column 48 the most hesitant at 0.72 bits.</p><p class=\"note\"><b>The <span class=\"gene\">tdc</span> and <span class=\"gene\">cyu</span> spine is where naming drops.</b> Columns 50 to 62, <span class=\"gene\">tdcR</span> to <span class=\"gene\">yhaJ</span>, are persistent, carried by 93 to 95%, but the model names only 73 to 94%, mean 87%, fewest at column 58, <span class=\"gene\">cyuP</span>, 73%. Column 63, <span class=\"gene\">yhaI</span>, is variable, named 76%.</p><p class=\"note\"><b>The window closes in a persistent spine and a fork.</b> Columns 64 to 76, <span class=\"gene\">yhaH</span> to <span class=\"gene\">uxaC</span>, are carried by 91 to 96% and named in 91 to 98% of calls. Columns 77 to 79 are fork columns, named 96%, ending at column 79, <span class=\"gene\">sstT</span>, in 79% of chromosomes. Across the window, inside a region of plasticity the model hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.</p>",
+ "text": "**The window opens on a long spine.** Columns 0 to 23, `infB` to `rsmI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 5% of calls. The model names 95 to 100% of them, fewest at column 9, `yhbW`, 95%.\n\n**The first fork and variable stretch follows**, columns 24 to 42, all shell, carried by 54 to 89%, the most plastic stretch of the window. Columns 24 to 27, `yraK` to `yraH`, are [[fimbrial proteins]]. Then columns 28 to 31, `agaI` to `agaB`, are [[galactosamine transport]]. The spine at columns 43 to 47, `garD` to `garK`, is [[galactarate and glycerate]].\n\n**The model names about as many genes on the spine columns as on the fork and variable ones**, 95 against 94%, and hesitates less there, 0.13 against 0.31 bits. Its most hesitant column, 25, `yraJ`, is a variable column, 0.93 bits.\n\n**The window ends on a fork.** Columns 77 to 79, `uxaA` to `sstT`, are carried by 79 to 87% of chromosomes, all persistent. The last column is `sstT`, in 79% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on a long spine.</b> Columns 0 to 23, <span class=\"gene\">infB</span> to <span class=\"gene\">rsmI</span>, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 5% of calls. The model names 95 to 100% of them, fewest at column 9, <span class=\"gene\">yhbW</span>, 95%.</p><p class=\"note\"><b>The first fork and variable stretch follows</b>, columns 24 to 42, all shell, carried by 54 to 89%, the most plastic stretch of the window. Columns 24 to 27, <span class=\"gene\">yraK</span> to <span class=\"gene\">yraH</span>, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fimbrial proteins</span>. Then columns 28 to 31, <span class=\"gene\">agaI</span> to <span class=\"gene\">agaB</span>, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">galactosamine transport</span>. The spine at columns 43 to 47, <span class=\"gene\">garD</span> to <span class=\"gene\">garK</span>, is <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">galactarate and glycerate</span>.</p><p class=\"note\"><b>The model names about as many genes on the spine columns as on the fork and variable ones</b>, 95 against 94%, and hesitates less there, 0.13 against 0.31 bits. Its most hesitant column, 25, <span class=\"gene\">yraJ</span>, is a variable column, 0.93 bits.</p><p class=\"note\"><b>The window ends on a fork.</b> Columns 77 to 79, <span class=\"gene\">uxaA</span> to <span class=\"gene\">sstT</span>, are carried by 79 to 87% of chromosomes, all persistent. The last column is <span class=\"gene\">sstT</span>, in 79% of chromosomes.</p><p class=\"note\"><b>Across the window it names 95% of genes</b>, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.39 against 0.13 bits, and names fewer genes, 91% against 96%.</p>",
  "window": "C6W76_RS25325",
  "label": "infB",
- "facts_hash": "9017f842c94c",
- "prompt_version": "r7",
- "facts": "WINDOW: the infB window: 80 columns, column 0 is the anchor infB, then the next 79 genes in dnaA's direction; about genes 536 to 615 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying infB once); 43,200 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 95% of genes, 0.18 bits on average (perplexity 1.3 families). By partition of the gene: persistent 32,508 calls, named 98%, 0.09 bits; shell 10,560 calls, named 86%, 0.42 bits; cloud 132 calls, named 11%, 3.66 bits. Outside an RGP 34,126 calls, named 96%, 0.13 bits; inside an RGP 9,074 calls, named 91%, 0.39 bits. Columns: 55 spine, 4 fork, 21 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.39 against 0.13 bits) and names fewer genes (91% against 96%); 9,074 of the 43,200 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 25 (yraJ) 0.93 bits, RGP 89%; column 26 (yraI) 0.73 bits, RGP 92%; column 24 (yraK) 0.72 bits, RGP 87%. The 18 columns where most calls are in an RGP: named 95%, 0.31 bits on average; the other 62 columns: named 95%, 0.15 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 24-42 (fork and variable columns), RGP 40-92%; the least: columns 0-23 (spine), RGP 0-5%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-23 (24 columns) spine: share 95-100%, all P, RGP 0-5%. Genes: infB, rbfA, truB, rpsO, pnp, nlpI, yrbN \"protein YrbN\", deaD, mtr, yhbW \"MsnO8 family LLM class oxidoreducta\u2026\", ubiV \"U32 family peptidase\", ubiU, ubiT, yhbS \"GNAT family N-acetyltransferase\", yhbQ \"DNA damage response exodeoxyribonuc\u2026\", yhbP \"YhbP family protein\", yhbO \"protein/nucleic acid deglycase\", yraR \"NAD(P)H-binding protein\", yraQ \"permease\", dolP, diaA, yraN \"YraN family protein\", lpoA, rsmI. named 95-100% (mean 99%), fewest named at column 9 (yhbW), named 95%; no column of this stretch hesitates more than 0.17 bits (column 9 (yhbW)).\n2. columns 24-42 (19 columns) fork and variable columns: RGP 40-92%. named 89-98% (mean 95%), fewest named and most hesitant at column 25, named 89%, 0.93 bits.\n   columns 24-29 variable, share 54-87%, all S: yraK \"fimbrial protein\" 60%, yraJ \"FimD/PapC N-terminal domain-contain\u2026\" 55%, yraI \"molecular chaperone\" 55%, yraH \"fimbrial protein\" 54%, agaI 87%, agaD 86%\n   30 fork: agaC S 83% \"PTS sugar transporter subunit IIC\"; also \"IS1-like element transposase\" S 23%\n   columns 31-42 variable, share 79-89%, all S: agaB 87%, kbaY 88%, agaS 89%, nagA 85%, agaF \"PTS galactosamine/N-acetylgalactosa\u2026\" 88%, agaE 87%, agaW 88%, agaV 89%, kbaZ 88%, agaR 89%, yhaV \"type II toxin-antitoxin system ribo\u2026\" 79%, prlF 88%\n3. columns 43-47 (5 columns) spine: share 91-96%, all P, RGP 2-4%. Genes: garD, garP \"galactarate/glucarate/glycerate tra\u2026\", garL, garR, garK. named 91-97% (mean 95%), fewest named at column 47 (garK), named 91%; most hesitant at column 44 (garP), 0.45 bits.\n4. columns 48-49 (2 columns) variable: RGP 2-3%. named 84-93% (mean 89%), fewest named and most hesitant at column 48, named 84%, 0.72 bits.\n   48: yhaC S 59%\n   49: yhaB S 73% \"protein YhaB\"\n5. columns 50-62 (13 columns) spine: share 93-95%, all P, RGP 1-2%. Genes: tdcR, tdcA, tdcB \"bifunctional threonine ammonia-lyas\u2026\", tdcC, tdcD, tdcE, tdcF, tdcG, cyuP, cyuA \"serine dehydratase subunit alpha fa\u2026\", yhaL \"protein YhaL\", yhaK \"pirin family protein\", yhaJ \"LysR family transcriptional regulat\u2026\". named 73-94% (mean 87%), fewest named at column 58 (cyuP), named 73%; most hesitant at column 50 (tdcR), 0.24 bits.\n6. column 63 variable: RGP 1%. named 76%; 0.16 bits.\n   63: yhaI S 79% \"DUF805 domain-containing protein\"\n7. columns 64-76 (13 columns) spine: share 91-96%, all P, RGP 1-11%. Genes: yhaH \"DUF805 domain-containing protein\", yqjG \"glutathionyl-hydroquinone reductase\u2026\", yqjF \"DoxX family protein\", yqjK \"YqjK-like family protein\", yqjE \"phage holin family protein\", yqjD \"YqjD family protein\", yqjC \"DUF1090 family protein YqjC\", mzrA, yqjA \"DedA family general envelope mainte\u2026\", yqiM \"protein YqiM\", exuR, exuT \"MFS transporter\", uxaC \"glucuronate isomerase\". named 91-98% (mean 95%), fewest named and most hesitant at column 74 (exuR), named 91%, 0.26 bits.\n8. columns 77-79 (3 columns) fork: RGP 3-7%. named 96%; most hesitant at column 77, 0.20 bits.\n   77: uxaA P 87%; also ygjK P 11%\n   78: ygjV P 83% \"YgjV family protein\"; also ygjQ P 35%, higA S 17%\n   79: sstT P 79%; also alx P 57%, ygjR P 46%, ygjP P 30%\nPRODUCTS of named genes (for [[ ]]): ubiU peptidase U32 family protein; agaI galactosamine-6-phosphate isomerase; agaD PTS galactosamine transporter subunit I\u2026; agaC PTS sugar transporter subunit IIC; agaB PTS sugar transporter subunit IIB; agaE PTS system mannose/fructose/sorbose fam\u2026; agaW PTS sugar transporter subunit IIC; agaV PTS N-acetylgalactosamine transporter s\u2026; garD UxaA family hydrolase; garL 2-dehydro-3-deoxyglucarate aldolase; garR 2-hydroxy-3-oxopropionate reductase; garK glycerate 2-kinase; tdcR transcriptional activator TdcR; tdcC aromatic amino acid transport family pr\u2026; tdcD propionate kinase; tdcE pyruvate formate lyase family protein; tdcF enamine/imine deaminase; tdcG L-serine ammonia-lyase; uxaA altronate dehydratase; rlmG 23S rRNA (guanine(1835)-N(2))-methyltra\u2026; ygjK MGH1-like glycoside hydrolase domain-co\u2026; ygjQ vancomycin high temperature exclusion p\u2026; higA type II toxin-antitoxin system antitoxi\u2026; ygjR Gfo/Idh/MocA family protein; ygjP M48 family metallopeptidase; fadH NAD(P)/FAD-dependent oxidoreductase\nEND: the window ends at column 79, sstT, in 79% of chromosomes."
+ "facts_hash": "90cd20934609",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the infB window: 80 columns, column 0 is the anchor infB, then the next 79 genes in dnaA's direction; about genes 536 to 615 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying infB once); 43,200 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 95% of genes, 0.18 bits on average (perplexity 1.3 families). By partition of the gene: persistent 32,508 calls, named 98%, 0.09 bits; shell 10,560 calls, named 86%, 0.42 bits; cloud 132 calls, named 11%, 3.66 bits. Outside an RGP 34,126 calls, named 96%, 0.13 bits; inside an RGP 9,074 calls, named 91%, 0.39 bits. Columns: 55 spine, 4 fork, 21 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.39 against 0.13 bits) and names fewer genes (91% against 96%); 9,074 of the 43,200 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 25 (yraJ, a variable column) 0.93 bits, RGP 89%; column 26 (yraI, a variable column) 0.73 bits, RGP 92%; column 24 (yraK, a variable column) 0.72 bits, RGP 87%. The 18 columns (columns 24-41) where most calls are in an RGP: named 95%, 0.31 bits on average; the other 62 columns: named 95%, 0.15 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 55 spine columns: named 95%, 0.13 bits on average; the 25 fork and variable columns: named 94%, 0.31 bits. The model names about as many genes on the spine columns as on the fork and variable ones, and hesitates less there. Its most hesitant column, 25, is a variable column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 24-42 (fork and variable columns), RGP 40-92%; the least: columns 0-23 (spine), RGP 0-5%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-23 (24 columns) spine: share 95-100%, all P, RGP 0-5%. Genes: infB, rbfA, truB, rpsO, pnp, nlpI, yrbN \"protein YrbN\", deaD, mtr, yhbW \"luciferase-like monooxygenase\", ubiV, ubiU, ubiT \"ubiquinone anaerobic biosynthesis a\u2026\", yhbS \"GNAT family N-acetyltransferase\", yhbQ \"DNA damage response exodeoxyribonuc\u2026\", yhbP \"YhbP family protein\", yhbO \"protein/nucleic acid deglycase\", yraR \"NAD(P)H-binding protein\", yraQ \"permease\", dolP, diaA, yraN \"YraN family protein\", lpoA, rsmI. named 95-100% (mean 99%), fewest named at column 9 (yhbW), named 95%; no column of this stretch hesitates more than 0.17 bits (column 9 (yhbW)).\n[S2] 2. columns 24-42 (19 columns) fork and variable columns: share 54-89%, all S, RGP 40-92%. named 89-98% (mean 95%), fewest named and most hesitant at column 25, named 89%, 0.93 bits.\n[S2.c24-29]    columns 24-29 variable, share 54-87%, all S: yraK \"fimbrial protein\" 60%, yraJ \"fimbria/pilus outer membrane usher\u2026\" 55%, yraI \"fimbrial biogenesis chaperone\" 55%, yraH \"fimbrial protein\" 54%, agaI 87%, agaD \"PTS galactosamine transporter subun\u2026\" 86%\n[S2.c30]    30 fork: agaC S 83%; also \"IS1 family transposase\" S 23%\n[S2.c31-42]    columns 31-42 variable, share 79-89%, all S: agaB 87%, kbaY 88%, agaS 89%, nagA 85%, agaF \"PTS galactosamine/N-acetylgalactosa\u2026\" 88%, agaE 87%, agaW 88%, agaV 89%, kbaZ 88%, agaR 89%, yhaV \"type II toxin-antitoxin system ribo\u2026\" 79%, prlF 88%\n[S3] 3. columns 43-47 (5 columns) spine: share 91-96%, all P, RGP 2-4%. Genes: garD, garP \"galactarate/glucarate/glycerate tra\u2026\", garL, garR, garK. named 91-97% (mean 95%), fewest named at column 47 (garK), named 91%; most hesitant at column 44 (garP), 0.45 bits.\n[S4] 4. columns 48-49 (2 columns) variable: share 59-73%, all S, RGP 2-3%. named 84-93% (mean 89%), fewest named and most hesitant at column 48, named 84%, 0.72 bits.\n[S4.c48]    48: yhaC S 59% \"YhaC family protein\"\n[S4.c49]    49: yhaB S 73% \"protein YhaB\"\n[S5] 5. columns 50-62 (13 columns) spine: share 93-95%, all P, RGP 1-2%. Genes: tdcR, tdcA, tdcB \"bifunctional threonine ammonia-lyas\u2026\", tdcC, tdcD, tdcE, tdcF, tdcG, cyuP \"amino acid permease\", cyuA, yhaL \"protein YhaL\", yhaK \"pirin family protein\", yhaJ \"DNA-binding transcriptional regulat\u2026\". named 73-94% (mean 87%), fewest named at column 58 (cyuP), named 73%; most hesitant at column 50 (tdcR), 0.24 bits.\n[S6] 6. column 63 variable: share 79%, all S, RGP 1%. named 76%; 0.16 bits.\n[S6.c63]    63: yhaI S 79% \"DUF805 domain-containing protein\"\n[S7] 7. columns 64-76 (13 columns) spine: share 91-96%, all P, RGP 1-11%. Genes: yhaH \"DUF805 domain-containing protein\", yqjG \"glutathionyl-hydroquinone reductase\u2026\", yqjF \"DoxX family protein\", yqjK \"YqjK-like family protein\", yqjE \"phage holin family protein\", yqjD \"DUF883 family protein\", yqjC \"DUF1090 family protein YqjC\", mzrA, yqjA \"DedA family general envelope mainte\u2026\", yqiM \"protein YqiM\", exuR, exuT \"hexuronate transporter ExuT\", uxaC \"glucuronate isomerase\". named 91-98% (mean 95%), fewest named and most hesitant at column 74 (exuR), named 91%, 0.26 bits.\n[S8] 8. columns 77-79 (3 columns) fork: share 79-87%, all P, RGP 3-7%. named 96%; most hesitant at column 77, 0.20 bits.\n[S8.c77]    77: uxaA P 87%; also ygjK P 11%\n[S8.c78]    78: ygjV P 83% \"YgjV family protein\"; also ygjQ P 35%, higA S 17%\n[S8.c79]    79: sstT P 79%; also alx P 57%, ygjR P 46%, ygjP P 30%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 24-27 (yraK to yraH) [S2]: fimbrial; columns 28-31 (agaI to agaB) [S2]: galactosamine, transporter; columns 35-38 (agaF to agaV) [S2]: acetylgalactosamine, n-acetylgalactosamine, transporter; columns 43-47 (garD to garK) [S3]: galactarate, glycerate; columns 50-57 (tdcR to tdcG) [S5]: serine.\n[X] PRODUCTS of named genes (for [[ ]]): ubiV U32 family peptidase; ubiU ubiquinone anaerobic biosynthesis prote\u2026; agaI galactosamine-6-phosphate isomerase; agaC PTS galactosamine transporter subunit I\u2026; agaB PTS galactosamine transporter subunit I\u2026; agaE PTS N-acetylgalactosamine transporter s\u2026; agaW PTS N-acetylgalactosamine transporter s\u2026; agaV PTS N-acetylgalactosamine transporter s\u2026; garD galactarate dehydratase; garL 2-dehydro-3-deoxyglucarate aldolase; garR 2-hydroxy-3-oxopropionate reductase; garK glycerate 2-kinase; tdcR transcriptional activator TdcR; tdcC threonine/serine transporter TdcC; tdcD propionate kinase; tdcE formate C-acetyltransferase; tdcF enamine/imine deaminase; tdcG L-serine ammonia-lyase; cyuA cysteine desulfidase; uxaA altronate dehydratase; rlmG 23S rRNA (guanine(1835)-N(2))-methyltra\u2026; ygjK alpha-glucosidase; ygjQ SanA/YdcF family protein; higA type II toxin-antitoxin system antitoxi\u2026; ygjR Gfo/Idh/MocA family protein; ygjP M48 metallopeptidase family protein; fadH NADPH-dependent 2,4-dienoyl-CoA reducta\u2026\n[E] END: the window ends at column 79, sstT, in 79% of chromosomes."
 }

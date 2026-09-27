@@ -2,50 +2,219 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447888.9556057,
+ "created": 1790479565.4641235,
  "usage": {
-  "prompt_tokens": 4296,
-  "completion_tokens": 456,
-  "cost_usd": 0.000637,
-  "ms": 6601
+  "prompt_tokens": 6463,
+  "completion_tokens": 376,
+  "cost_usd": 0.000715,
+  "ms": 3665
  },
  "attempts": [
   {
-   "text": "**The window starts on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.18 bits. Then the graph opens: columns 1 to 79 are fork and variable columns, in a region of plasticity in 0 to 32% of calls.\n\n**The first fork is at `rnm`**, and the `trp` genes follow, [[tryptophan biosynthesis]], carried by 88% of chromosomes. A second branch runs through columns 1 to 27, 27 families at 10 to 12%, from `yciQ` to `fabI`, with `rluB`, `cobO` and `topA` among them. The model names genes in 62 to 100% of genomes here, fewest at column 22, `oppD`, 62%.\n\n**The `opp` operon sits in the middle**, [[oligopeptide transport]], columns 21 to 25, and the most hesitant column of the window is column 26, a hypothetical protein, at 1.26 bits. A second branch of 20 families, `sapF` to `pspE`, runs through columns 29 to 48, and the `nar` genes, [[nitrate reduction]], follow at columns 37 to 43. The model hesitates more inside a region of plasticity than outside: 1.78 against 0.20 bits, and names 65% against 96%.\n\n**The window ends in variable columns.** Columns 49 to 51 and 55 to 58 are variable, and the last stretch runs from `ispE` to `ycgB`, ending at column 79, `ycgB`, in 35% of chromosomes. A second branch of 6 families, from an iron ABC transporter substrate-binding protein to a TonB-dependent siderophore receptor, runs through columns 69 to 74 at 19 to 21%. Across the window the model names 90% of genes at 0.53 bits.",
+   "text": "**The window opens on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.18 bits.\n\n**The first fork is at `rnm`**, column 1, carried by 88%. Then the `trp` genes, columns 2 to 7, [[tryptophan biosynthesis]], carried by 87 to 88%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 90%, and hesitates less there, 0.18 against 0.54 bits. It hesitates most at column 26, a fork column, 1.26 bits.\n\n**The window ends on fork and variable columns.** Columns 76 to 79, `cvrA` to `ycgB`, are carried by 43 to 35% of chromosomes.\n\n**Across the window it names 90% of genes**, 0.53 bits on average, perplexity 1.7 families. Inside a region of plasticity it hesitates more than outside, 1.78 against 0.20 bits, and names fewer genes, 65% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4296,
-    "completion_tokens": 456,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6463,
+    "completion_tokens": 376,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000637
+    "cost_usd": 0.000715
    },
    "provider": "deepinfra",
-   "ms": 6601,
-   "raw": "**The window starts on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.18 bits. Then the graph opens: columns 1 to 79 are fork and variable columns, in a region of plasticity in 0 to 32% of calls.\n\n**The first fork is at `rnm`**, and the `trp` genes follow, [[tryptophan biosynthesis]], carried by 88% of chromosomes. A second branch runs through columns 1 to 27, 27 families at 10 to 12%, from `yciQ` to `fabI`, with `rluB`, `cobO` and `topA` among them. The model names genes in 62 to 100% of genomes here, fewest at column 22, `oppD`, 62%.\n\n**The `opp` operon sits in the middle**, [[oligopeptide transport]], columns 21 to 25, and the most hesitant column of the window is column 26, a hypothetical protein, at 1.26 bits. A second branch of 20 families, `sapF` to `pspE`, runs through columns 29 to 48, and the `nar` genes, [[nitrate reduction]], follow at columns 37 to 43. The model hesitates more inside a region of plasticity than outside: 1.78 against 0.20 bits, and names 65% against 96%.\n\n**The window ends in variable columns.** Columns 49 to 51 and 55 to 58 are variable, and the last stretch runs from `ispE` to `ycgB`, ending at column 79, `ycgB`, in 35% of chromosomes. A second branch of 6 families, from an iron ABC transporter substrate-binding protein to a TonB-dependent siderophore receptor, runs through columns 69 to 74 at 19 to 21%. Across the window the model names 90% of genes at 0.53 bits.",
+   "ms": 3665,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.18 bits {S1, M}.\n\n@variable **The first fork is at `rnm`**, column 1, carried by 88% {S2.c1}. Then the `trp` genes, columns 2 to 7, [[tryptophan biosynthesis]], carried by 87 to 88% {S2.c2-7, Q}. A branch of 27 families runs through columns 1 to 27 in 10 to 12%, [[rRNA pseudouridine synthase and protease]] {S2.b1}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 90%, and hesitates less there, 0.18 against 0.54 bits {M}. It hesitates most at column 26, a fork column, 1.26 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 76 to 79, `cvrA` to `ycgB`, are carried by 43 to 35% of chromosomes {S2.c76-79}. The last column is `ycgB`, in 35% of chromosomes {E}.\n\n@whole **Across the window it names 90% of genes**, 0.53 bits on average, perplexity 1.7 families {G}. Inside a region of plasticity it hesitates more than outside, 1.78 against 0.20 bits, and names fewer genes, 65% against 96% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.18 bits {S1, M}.\n\n@variable **The first fork is at `rnm`**, column 1, carried by 88% {S2.c1}. Then the `trp` genes, columns 2 to 7, [[tryptophan biosynthesis]], carried by 87 to 88% {S2.c2-7, Q}. A branch of 27 families runs through columns 1 to 27 in 10 to 12%, [[rRNA pseudouridine synthase and protease]] {S2.b1}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 90%, and hesitates less there, 0.18 against 0.54 bits {M}. It hesitates most at column 26, a fork column, 1.26 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 76 to 79, `cvrA` to `ycgB`, are carried by 43 to 35% of chromosomes {S2.c76-79}. The last column is `ycgB`, in 35% of chromosomes {E}.\n\n@whole **Across the window it names 90% of genes**, 0.53 bits on average, perplexity 1.7 families {G}. Inside a region of plasticity it hesitates more than outside, 1.78 against 0.20 bits, and names fewer genes, 65% against 96% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 45,
-    "names": 16,
-    "words": 275,
-    "bad": [],
-    "hints": []
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "interpretation",
+      "text": "rRNA pseudouridine synthase and protease",
+      "why": "this says what 2 of the 27 families of the lines cited (S2.b1) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[rRNA pseudouridine synthase and protease]]"
+     }
+    ],
+    "numbers": 23,
+    "names": 6,
+    "words": 189,
+    "sentences": 11,
+    "cited": 13,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 160,
+    "repeats": 1,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": [
+       "M"
+      ]
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.18 bits",
+      "cites": [
+       "S1",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The first fork is at `rnm`**, column 1, carried by 88%",
+      "cites": [
+       "S2.c1"
+      ],
+      "inherit": [
+       "S2.c2-7",
+       "Q",
+       "S2.b1"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then the `trp` genes, columns 2 to 7, [[tryptophan biosynthesis]], carried by 87 to 88%",
+      "cites": [
+       "S2.c2-7",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine column than on the fork and variable ones**, 99 against 90%, and hesitates less there, 0.18 against 0.54 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 26, a fork column, 1.26 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork and variable columns.** Columns 76 to 79, `cvrA` to `ycgB`, are carried by 43 to 35% of chromosomes",
+      "cites": [
+       "S2.c76-79"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 90% of genes**, 0.53 bits on average, perplexity 1.7 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.78 against 0.20 bits, and names fewer genes, 65% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 13
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "A branch of 27 families runs through columns 1 to 27 in 10 to 12%, [[rRNA pseudouridine synthase and protease]]",
+     "cites": [
+      "S2.b1"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "rRNA pseudouridine synthase and protease",
+       "why": "this says what 2 of the 27 families of the lines cited (S2.b1) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.18 bits.\n\n**The first fork is at `rnm`**, column 1, carried by 88%. Then the `trp` genes, columns 2 to 7, [[tryptophan biosynthesis]], carried by 87 to 88%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 90%, and hesitates less there, 0.18 against 0.54 bits. It hesitates most at column 26, a fork column, 1.26 bits.\n\n**The window ends on fork and variable columns.** Columns 76 to 79, `cvrA` to `ycgB`, are carried by 43 to 35% of chromosomes.\n\n**Across the window it names 90% of genes**, 0.53 bits on average, perplexity 1.7 families. Inside a region of plasticity it hesitates more than outside, 1.78 against 0.20 bits, and names fewer genes, 65% against 96%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 45,
-  "names": 16,
-  "words": 275,
-  "attempts": 1
+  "numbers": 23,
+  "names": 6,
+  "words": 160,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 13,
+  "skill": "4a7fdc464826",
+  "dropped": 1,
+  "trimmed": 0,
+  "repeats": 1,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 13
  },
- "text": "**The window starts on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.18 bits. Then the graph opens: columns 1 to 79 are fork and variable columns, in a region of plasticity in 0 to 32% of calls.\n\n**The first fork is at `rnm`**, and the `trp` genes follow, [[tryptophan biosynthesis]], carried by 88% of chromosomes. A second branch runs through columns 1 to 27, 27 families at 10 to 12%, from `yciQ` to `fabI`, with `rluB`, `cobO` and `topA` among them. The model names genes in 62 to 100% of genomes here, fewest at column 22, `oppD`, 62%.\n\n**The `opp` operon sits in the middle**, [[oligopeptide transport]], columns 21 to 25, and the most hesitant column of the window is column 26, a hypothetical protein, at 1.26 bits. A second branch of 20 families, `sapF` to `pspE`, runs through columns 29 to 48, and the `nar` genes, [[nitrate reduction]], follow at columns 37 to 43. The model hesitates more inside a region of plasticity than outside: 1.78 against 0.20 bits, and names 65% against 96%.\n\n**The window ends in variable columns.** Columns 49 to 51 and 55 to 58 are variable, and the last stretch runs from `ispE` to `ycgB`, ending at column 79, `ycgB`, in 35% of chromosomes. A second branch of 6 families, from an iron ABC transporter substrate-binding protein to a TonB-dependent siderophore receptor, runs through columns 69 to 74 at 19 to 21%. Across the window the model names 90% of genes at 0.53 bits.",
- "html": "<p class=\"note\"><b>The window starts on a single spine column.</b> Column 0, <span class=\"gene\">yciO</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls, and the model names it in 99% of genomes at 0.18 bits. Then the graph opens: columns 1 to 79 are fork and variable columns, in a region of plasticity in 0 to 32% of calls.</p><p class=\"note\"><b>The first fork is at <span class=\"gene\">rnm</span></b>, and the <span class=\"gene\">trp</span> genes follow, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">tryptophan biosynthesis</span>, carried by 88% of chromosomes. A second branch runs through columns 1 to 27, 27 families at 10 to 12%, from <span class=\"gene\">yciQ</span> to <span class=\"gene\">fabI</span>, with <span class=\"gene\">rluB</span>, <span class=\"gene\">cobO</span> and <span class=\"gene\">topA</span> among them. The model names genes in 62 to 100% of genomes here, fewest at column 22, <span class=\"gene\">oppD</span>, 62%.</p><p class=\"note\"><b>The <span class=\"gene\">opp</span> operon sits in the middle</b>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">oligopeptide transport</span>, columns 21 to 25, and the most hesitant column of the window is column 26, a hypothetical protein, at 1.26 bits. A second branch of 20 families, <span class=\"gene\">sapF</span> to <span class=\"gene\">pspE</span>, runs through columns 29 to 48, and the <span class=\"gene\">nar</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">nitrate reduction</span>, follow at columns 37 to 43. The model hesitates more inside a region of plasticity than outside: 1.78 against 0.20 bits, and names 65% against 96%.</p><p class=\"note\"><b>The window ends in variable columns.</b> Columns 49 to 51 and 55 to 58 are variable, and the last stretch runs from <span class=\"gene\">ispE</span> to <span class=\"gene\">ycgB</span>, ending at column 79, <span class=\"gene\">ycgB</span>, in 35% of chromosomes. A second branch of 6 families, from an iron ABC transporter substrate-binding protein to a TonB-dependent siderophore receptor, runs through columns 69 to 74 at 19 to 21%. Across the window the model names 90% of genes at 0.53 bits.</p>",
+ "text": "**The window opens on a single spine column.** Column 0, `yciO`, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.18 bits.\n\n**The first fork is at `rnm`**, column 1, carried by 88%. Then the `trp` genes, columns 2 to 7, [[tryptophan biosynthesis]], carried by 87 to 88%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 90%, and hesitates less there, 0.18 against 0.54 bits. It hesitates most at column 26, a fork column, 1.26 bits.\n\n**The window ends on fork and variable columns.** Columns 76 to 79, `cvrA` to `ycgB`, are carried by 43 to 35% of chromosomes.\n\n**Across the window it names 90% of genes**, 0.53 bits on average, perplexity 1.7 families. Inside a region of plasticity it hesitates more than outside, 1.78 against 0.20 bits, and names fewer genes, 65% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on a single spine column.</b> Column 0, <span class=\"gene\">yciO</span>, is carried by 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.18 bits.</p><p class=\"note\"><b>The first fork is at <span class=\"gene\">rnm</span></b>, column 1, carried by 88%. Then the <span class=\"gene\">trp</span> genes, columns 2 to 7, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">tryptophan biosynthesis</span>, carried by 87 to 88%.</p><p class=\"note\"><b>The model names more genes on the spine column than on the fork and variable ones</b>, 99 against 90%, and hesitates less there, 0.18 against 0.54 bits. It hesitates most at column 26, a fork column, 1.26 bits.</p><p class=\"note\"><b>The window ends on fork and variable columns.</b> Columns 76 to 79, <span class=\"gene\">cvrA</span> to <span class=\"gene\">ycgB</span>, are carried by 43 to 35% of chromosomes.</p><p class=\"note\"><b>Across the window it names 90% of genes</b>, 0.53 bits on average, perplexity 1.7 families. Inside a region of plasticity it hesitates more than outside, 1.78 against 0.20 bits, and names fewer genes, 65% against 96%.</p>",
  "window": "G8B09_RS12915",
  "label": "yciO",
- "facts_hash": "6ff82cb06c30",
- "prompt_version": "r7",
- "facts": "WINDOW: the yciO window: 80 columns, column 0 is the anchor yciO, then the next 79 genes in dnaA's direction; about genes 2,420 to 2,499 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying yciO once); 43,200 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 90% of genes, 0.53 bits on average (perplexity 1.7 families). By partition of the gene: persistent 31,980 calls, named 97%, 0.16 bits; shell 9,659 calls, named 76%, 1.21 bits; cloud 1,561 calls, named 16%, 3.85 bits. Outside an RGP 34,213 calls, named 96%, 0.20 bits; inside an RGP 8,987 calls, named 65%, 1.78 bits. Columns: 1 spine, 67 fork, 12 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.78 against 0.20 bits) and names fewer genes (65% against 96%); 8,987 of the 43,200 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 26 (\"hypothetical protein\") 1.26 bits, RGP 22%; column 11 (ompW) 1.18 bits, RGP 14%; column 17 (kch) 1.06 bits, RGP 25%. No column has most of its calls in an RGP.\nPLASTICITY: the stretch most in regions of plasticity: columns 1-79 (fork and variable columns), RGP 0-32%; the least: column 0 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0%. Genes: yciO \"L-threonylcarbamoyladenylate syntha\u2026\". named 99%; 0.18 bits.\n2. columns 1-79 (79 columns) fork and variable columns: RGP 0-32%. named 62-100% (mean 90%), fewest named at column 22, named 62%; most hesitant at column 26, 1.26 bits.\n   a second branch of 27 families through columns 1-27, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, 25 P, 2 S; the branch's families: yciQ, rluB, cobO, yciK, sohB, yciN, topA, cysB, ymiA, yciX, ymiC, acnA, ribA, pgpB, lapA, lapB, pyrF, yciH, osmB, yciT, yciZ, ymiD, pdeR, \"hypothetical protein\", rnb, yciW, fabI\n   a second branch of 20 families through columns 29-48, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, 12 P, 8 S; the branch's families: sapF, sapD, sapC, sapB, sapA, ymjA, puuP, ymjE, puuA, puuD, puuR, puuC, puuB, puuE, pspF, pspA, pspB, pspC, pspD, pspE\n   a second branch of 3 families through columns 52-54, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 13%, all S; the branch's families: \"RusA family crossover junction endodeox\u2026\", \"DUF968 domain-containing protein\", \"hypothetical protein\"\n   a second branch of 9 families through columns 59-67, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, 6 P, 3 S; the branch's families: ompG, ycjW, ycjX, ycjF, tyrR, tpx, ycjG, mpaA, ycjY\n   a second branch of 6 families through columns 69-74, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 19-21%, all S; the branch's families: \"iron ABC transporter substrate-binding\u2026\", \"hypothetical protein\", \"ABC transporter ATP-binding protein\", \"class I SAM-dependent methyltransferase\", modD, \"TonB-dependent siderophore receptor\"\n   1 fork: rnm P 88%\n   2 fork: trpL P 88%\n   3 fork: trpE P 88%\n   4 fork: trpD P 88%\n   5 fork: trpCF P 87%\n   6 fork: trpB P 88% \"tryptophan synthase subunit beta\"\n   7 fork: trpA P 88%\n   8 fork: yciG P 79% \"KGG domain-containing protein\"; also \"IS1-like element transposase\" S 15%\n   9 fork: yciF S 79% \"YciE/YciF ferroxidase family protein\"\n   10 fork: yciE S 80% \"ferritin-like domain-containing pro\u2026\"\n   11 fork: ompW P 85%\n   12 fork: yciC P 85% \"YciC family protein\"\n   13 fork: yciB P 85% \"septation protein A\"\n   14 fork: yciA P 84% \"acyl-CoA thioester hydrolase YciA\"\n   15 fork: tonB P 83%\n   16 fork: yciI P 82% \"YciI family protein\"\n   17 fork: kch P 80%\n   18 fork: yciY P 79% \"YciY family protein\"\n   19 fork: cls P 78%; also \"C40 family peptidase\" S 11%\n   20 fork: yciU P 77% \"HI1450 family dsDNA-mimic protein\"; also \"phage minor tail protein L\" S 11%\n   21 fork: oppF P 76% \"murein tripeptide/oligopeptide ABC\u2026\"\n   22 fork: oppD P 76%\n   23 fork: oppC P 74%\n   24 fork: oppB P 74%\n   25 fork: oppA P 74%\n   26 fork: \"hypothetical protein\" S 57%\n   27 fork: ychE P 72% \"NAAT family transporter YchE\"\n   28 variable: ychE P 71% \"protein YchT\"\n   29 fork: adhE P 72%\n   30 fork: tdk P 72%\n   31 fork: hns P 71%\n   32 fork: galU P 71%\n   33 fork: rssB P 71%\n   34 fork: rssA P 71% \"patatin-like phospholipase RssA\"\n   35 fork: ychJ P 71% \"YchJ family protein\"\n   36 fork: purU P 71%\n   37 fork: narI P 71%\n   38 fork: narJ P 71% \"nitrate reductase molybdenum cofact\u2026\"\n   39 fork: narH P 71%\n   40 fork: narG P 70%; also rrrQ S 13%\n   41 fork: narK P 70%\n   42 fork: narX P 70%\n   43 fork: narL P 70%\n   44 fork: ychO P 70% \"inverse autotransporter beta domain\u2026\"; also essD S 11%\n   45 fork: ychN P 70% \"DsrE/F sulfur relay family protein\u2026\"\n   46 fork: chaC P 68%\n   47 fork: chaB P 69%; also hokD P 12%\n   48 fork: chaA P 70% \"sodium-potassium/proton antiporter\u2026\"\n   49 variable: ldrB P 70%\n   50 variable: ycjN S 9% \"ABC transporter substrate-binding p\u2026\"\n   51 variable: ycjO S 10% \"carbohydrate ABC transporter permea\u2026\"\n   52 fork: kdsA P 69%\n   53 fork: sirB1 P 69%\n   54 fork: sirB2 P 69% \"invasion regulator SirB2\"; also ycjR S 10%\n   55 variable: prmC P 69%\n   56 variable: prfA P 69%\n   57 variable: hemA P 69%\n   58 variable: lolB P 69%\n   59 fork: ispE P 69%\n   60 fork: prs P 69%\n   61 fork: dauA P 68%\n   62 fork: ychH P 69% \"stress-induced protein YchH\"; also ydfA S 11%\n   63 fork: pth P 69%\n   64 fork: ychF P 69% \"redox-regulated ATPase YchF\"\n   65 fork: ycgV S 49% \"autotransporter outer membrane beta\u2026\"\n   66 fork: dhaR P 66% \"dihydroxyacetone kinase operon tran\u2026\"\n   67 fork: dhaK P 66%\n   68 variable: dhaL P 66%\n   69 fork: dhaM P 65%; also mppA P 11%\n   70 fork: treA P 62%; also ynaI P 11%\n   71 fork: ycgY S 39% \"protein YcgY\"; also ynaJ P 12%\n   72 fork: ymgE P 60% \"GlsB/YeaQ/YmgE family stress respon\u2026\"; also uspE P 12%\n   73 fork: ycgR P 60% \"flagellar brake protein YcgR\"; also fnr P 11%, \"3'-5' exoribonuclease domain-containing\u2026\" S 10%\n   74 fork: emtA P 58%; also \"excisionase\" S 12%, ogt P 10%\n   75 fork: ldcA P 55%; also \"phage integrase Arm DNA-binding domain-\u2026\" S 12%\n   76 variable: cvrA S 43%\n   77 variable: dadX P 43%\n   78 variable: dadA P 40% \"D-amino acid dehydrogenase\"\n   79 fork: ycgB P 35% \"SpoVR family protein\"; also fadR P 17%\nPRODUCTS of named genes (for [[ ]]): trpE chorismate-binding protein; trpD glutamine amidotransferase-related prot\u2026; trpCF bifunctional indole-3-glycerol-phosphat\u2026; trpB tryptophan synthase subunit beta; trpA tryptophan synthase subunit alpha; oppF murein tripeptide/oligopeptide ABC tran\u2026; oppD murein tripeptide/oligopeptide ABC tran\u2026; oppC ABC transporter permease subunit; oppB oligopeptide ABC transporter permease O\u2026; oppA ABC transporter substrate-binding prote\u2026; rssB response regulator; rssA patatin-like phospholipase RssA; narI respiratory nitrate reductase subunit g\u2026; narJ nitrate reductase molybdenum cofactor a\u2026; narH nitrate reductase subunit beta; narK nitrate transporter NarK; narX nitrate/nitrite two-component system se\u2026; narL two-component system response regulator\u2026; chaC cation transport regulator; chaA sodium-potassium/proton antiporter ChaA; sirB2 invasion regulator SirB2; dhaR dihydroxyacetone kinase operon transcri\u2026; dhaK dihydroxyacetone kinase subunit DhaK; dhaL dihydroxyacetone kinase subunit DhaL; dhaM PEP-utilizing enzyme; dadX alanine racemase; dadA D-amino acid dehydrogenase; rluB pseudouridine synthase; cobO cob(I)yrinic acid a,c-diamide adenosylt\u2026; yciK SDR family NAD(P)-dependent oxidoreduct\u2026; sohB protease SohB; topA topoisomerase DNA-binding C4 zinc finge\u2026; ribA GTP cyclohydrolase II; pgpB phosphatidylglycerophosphatase B; lapA lipopolysaccharide assembly protein LapA; lapB lipopolysaccharide assembly protein LapB; pyrF orotidine 5'-phosphate decarboxylase /\u2026; yciH stress response translation initiation\u2026; osmB osmotically-inducible lipoprotein OsmB; rnb exoribonuclease II\nEND: the window ends at column 79, ycgB, in 35% of chromosomes."
+ "facts_hash": "caff7a86ac5e",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the yciO window: 80 columns, column 0 is the anchor yciO, then the next 79 genes in dnaA's direction; about genes 2,420 to 2,499 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying yciO once); 43,200 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 90% of genes, 0.53 bits on average (perplexity 1.7 families). By partition of the gene: persistent 31,980 calls, named 97%, 0.16 bits; shell 9,659 calls, named 76%, 1.21 bits; cloud 1,561 calls, named 16%, 3.85 bits. Outside an RGP 34,213 calls, named 96%, 0.20 bits; inside an RGP 8,987 calls, named 65%, 1.78 bits. Columns: 1 spine, 67 fork, 12 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.78 against 0.20 bits) and names fewer genes (65% against 96%); 8,987 of the 43,200 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 26 (\"hypothetical protein\", a fork column) 1.26 bits, RGP 22%; column 11 (ompW, a fork column) 1.18 bits, RGP 14%; column 17 (kch, a fork column) 1.06 bits, RGP 25%. No column has most of its calls in an RGP.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 1 spine column: named 99%, 0.18 bits on average; the 79 fork and variable columns: named 90%, 0.54 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 26, is a fork column.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0%. Genes: yciO \"L-threonylcarbamoyladenylate syntha\u2026\". named 99%; 0.18 bits.\n[S2] 2. columns 1-79 (79 columns) fork and variable columns: share 9-88%, 71 P, 8 S, RGP 0-32%. named 62-100% (mean 90%), fewest named at column 22, named 62%; most hesitant at column 26, 1.26 bits.\n[S2.b1]    a second branch of 27 families through columns 1-27, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, 25 P, 2 S; the branch's families: yciQ, rluB, cobO, yciK, sohB, yciN, topA, cysB, ymiA, yciX, ymiC, acnA, ribA, pgpB, lapA, lapB, pyrF, yciH, osmB, yciT, yciZ, ymiD, pdeR, \"hypothetical protein\", rnb, yciW, fabI\n[S2.b29]    a second branch of 20 families through columns 29-48, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, 12 P, 8 S; the branch's families: sapF, sapD, sapC, sapB, sapA, ymjA, puuP, ymjE, puuA, puuD, puuR, puuC, puuB, puuE, pspF, pspA, pspB, pspC, pspD, pspE\n[S2.b52]    a second branch of 3 families through columns 52-54, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 13%, all S; the branch's families: \"RusA family crossover junction endodeox\u2026\", \"DUF968 domain-containing protein\", \"hypothetical protein\"\n[S2.b59]    a second branch of 9 families through columns 59-67, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, 6 P, 3 S; the branch's families: ompG, ycjW, ycjX, ycjF, tyrR, tpx, ycjG, mpaA, ycjY\n[S2.b69]    a second branch of 6 families through columns 69-74, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 19-21%, all S; the branch's families: \"iron ABC transporter substrate-binding\u2026\", \"FecCD family ABC transporter permease\", \"ABC transporter ATP-binding protein\", \"class I SAM-dependent methyltransferase\", modD, \"TonB-dependent receptor plug domain-con\u2026\"\n[S2.c1]    1 fork: rnm P 88%\n[S2.c2]    2 fork: trpL P 88%\n[S2.c3]    3 fork: trpE P 88%\n[S2.c4]    4 fork: trpD P 88% \"bifunctional anthranilate synthase\u2026\"\n[S2.c5]    5 fork: trpCF P 87%\n[S2.c6]    6 fork: trpB P 88%\n[S2.c7]    7 fork: trpA P 88%\n[S2.c8]    8 fork: yciG P 79% \"general stress protein\"; also \"IS1 family transposase\" S 15%\n[S2.c9]    9 fork: yciF S 79% \"ferritin-like domain-containing pro\u2026\"\n[S2.c10]    10 fork: yciE S 80% \"ferritin-like domain-containing pro\u2026\"\n[S2.c11]    11 fork: ompW P 85%\n[S2.c12]    12 fork: yciC P 85% \"YciC family protein\"\n[S2.c13]    13 fork: yciB P 85% \"septation protein A\"\n[S2.c14]    14 fork: yciA P 84% \"acyl-CoA thioester hydrolase YciA\"\n[S2.c15]    15 fork: tonB P 83%\n[S2.c16]    16 fork: yciI P 82% \"YciI family protein\"\n[S2.c17]    17 fork: kch P 80%\n[S2.c18]    18 fork: yciY P 79% \"YciY family protein\"\n[S2.c19]    19 fork: cls P 78%; also \"C40 family peptidase\" S 11%\n[S2.c20]    20 fork: yciU P 77% \"HI1450 family dsDNA-mimic protein\"; also \"phage minor tail protein L\" S 11%\n[S2.c21]    21 fork: oppF P 76% \"murein tripeptide/oligopeptide ABC\u2026\"\n[S2.c22]    22 fork: oppD P 76%\n[S2.c23]    23 fork: oppC P 74%\n[S2.c24]    24 fork: oppB P 74%\n[S2.c25]    25 fork: oppA P 74%\n[S2.c26]    26 fork: \"hypothetical protein\" S 57%\n[S2.c27]    27 fork: ychE P 72% \"NAAT family transporter YchE\"\n[S2.c28]    28 variable: ychE P 71% \"protein YchT\"\n[S2.c29]    29 fork: adhE P 72%\n[S2.c30]    30 fork: tdk P 72%\n[S2.c31]    31 fork: hns P 71%\n[S2.c32]    32 fork: galU P 71%\n[S2.c33]    33 fork: rssB P 71%\n[S2.c34]    34 fork: rssA P 71% \"patatin-like phospholipase RssA\"\n[S2.c35]    35 fork: ychJ P 71% \"YchJ family protein\"\n[S2.c36]    36 fork: purU P 71%\n[S2.c37]    37 fork: narI P 71%\n[S2.c38]    38 fork: narJ P 71% \"nitrate reductase molybdenum cofact\u2026\"\n[S2.c39]    39 fork: narH P 71%\n[S2.c40]    40 fork: narG P 70%; also rrrQ S 13%\n[S2.c41]    41 fork: narK P 70%\n[S2.c42]    42 fork: narX P 70%\n[S2.c43]    43 fork: narL P 70%\n[S2.c44]    44 fork: ychO P 70% \"inverse autotransporter invasin YchO\"; also essD S 11%\n[S2.c45]    45 fork: ychN P 70% \"DsrE/F sulfur relay family protein\u2026\"\n[S2.c46]    46 fork: chaC P 68%\n[S2.c47]    47 fork: chaB P 69%; also hokD P 12%\n[S2.c48]    48 fork: chaA P 70% \"sodium-potassium/proton antiporter\u2026\"\n[S2.c49]    49 variable: ldrB P 70%\n[S2.c50]    50 variable: ycjN S 9% \"ABC transporter substrate-binding p\u2026\"\n[S2.c51]    51 variable: ycjO S 10% \"carbohydrate ABC transporter permea\u2026\"\n[S2.c52]    52 fork: kdsA P 69%\n[S2.c53]    53 fork: sirB1 P 69% \"invasion regulator SirB1\"\n[S2.c54]    54 fork: sirB2 P 69%; also ycjR S 10%\n[S2.c55]    55 variable: prmC P 69%\n[S2.c56]    56 variable: prfA P 69%\n[S2.c57]    57 variable: hemA P 69%\n[S2.c58]    58 variable: lolB P 69%\n[S2.c59]    59 fork: ispE P 69%\n[S2.c60]    60 fork: prs P 69%\n[S2.c61]    61 fork: dauA P 68%\n[S2.c62]    62 fork: ychH P 69% \"stress-induced protein YchH\"; also ydfA S 11%\n[S2.c63]    63 fork: pth P 69%\n[S2.c64]    64 fork: ychF P 69% \"redox-regulated ATPase YchF\"\n[S2.c65]    65 fork: ycgV S 49% \"autotransporter outer membrane beta\u2026\"\n[S2.c66]    66 fork: dhaR P 66%\n[S2.c67]    67 fork: dhaK P 66%\n[S2.c68]    68 variable: dhaL P 66%\n[S2.c69]    69 fork: dhaM P 65% \"dihydroxyacetone kinase phosphoryl\u2026\"; also mppA P 11%\n[S2.c70]    70 fork: treA P 62%; also ynaI P 11%\n[S2.c71]    71 fork: ycgY S 39% \"protein YcgY\"; also ynaJ P 12%\n[S2.c72]    72 fork: ymgE P 60% \"GlsB/YeaQ/YmgE family stress respon\u2026\"; also uspE P 12%\n[S2.c73]    73 fork: ycgR P 60% \"flagellar brake protein YcgR\"; also fnr P 11%, \"exonuclease\" S 10%\n[S2.c74]    74 fork: emtA P 58%; also \"excisionase\" S 12%, ogt P 10%\n[S2.c75]    75 fork: ldcA P 55%; also \"phage integrase Arm DNA-binding domain-\u2026\" S 12%\n[S2.c76]    76 variable: cvrA S 43%\n[S2.c77]    77 variable: dadX P 43%\n[S2.c78]    78 variable: dadA P 40% \"D-amino acid dehydrogenase\"\n[S2.c79]    79 fork: ycgB P 35% \"SpoVR family protein\"; also fadR P 17%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 2-7 (trpL to trpA) [S2]: synthase, anthranilate, tryptophan; columns 21-25 (oppF to oppA) [S2]: oligopeptide, transporter, murein, permease; columns 37-43 (narI to narL) [S2]: nitrate, reductase; columns 66-69 (dhaR to dhaM) [S2]: dihydroxyacetone, kinase; the branch [S2.b69] through columns 69-74: transporter.\n[X] PRODUCTS of named genes (for [[ ]]): trpE anthranilate synthase component I; trpD bifunctional anthranilate synthase glut\u2026; trpCF bifunctional indole-3-glycerol-phosphat\u2026; trpB tryptophan synthase subunit beta; trpA tryptophan synthase subunit alpha; oppF murein tripeptide/oligopeptide ABC tran\u2026; oppD murein tripeptide/oligopeptide ABC tran\u2026; oppC oligopeptide ABC transporter permease O\u2026; oppB oligopeptide ABC transporter permease O\u2026; oppA oligopeptide ABC transporter substrate-\u2026; rssB two-component system response regulator\u2026; rssA patatin-like phospholipase RssA; narI respiratory nitrate reductase subunit g\u2026; narJ nitrate reductase molybdenum cofactor a\u2026; narH nitrate reductase subunit beta; narG nitrate reductase subunit alpha; narK nitrate transporter NarK; narX nitrate/nitrite two-component system se\u2026; narL two-component system response regulator\u2026; chaC glutathione-specific gamma-glutamylcycl\u2026; chaB putative cation transport regulator ChaB; chaA sodium-potassium/proton antiporter ChaA; sirB1 invasion regulator SirB1; sirB2 invasion regulator SirB2; dhaR dihydroxyacetone kinase operon transcri\u2026; dhaK dihydroxyacetone kinase subunit DhaK; dhaL dihydroxyacetone kinase subunit DhaL; dhaM dihydroxyacetone kinase phosphoryl dono\u2026; dadX catabolic alanine racemase DadX; dadA D-amino acid dehydrogenase; rluB 23S rRNA pseudouridine(2605) synthase R\u2026; cobO cob(I)yrinic acid a,c-diamide adenosylt\u2026; yciK YciK family oxidoreductase; sohB protease SohB; topA type I DNA topoisomerase; cysB HTH-type transcriptional regulator CysB; acnA aconitate hydratase AcnA; ribA GTP cyclohydrolase II; pgpB phosphatidylglycerophosphatase B; lapA lipopolysaccharide assembly protein LapA\n[E] END: the window ends at column 79, ycgB, in 35% of chromosomes."
 }

@@ -2,50 +2,443 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447802.4136643,
+ "created": 1790479507.9031134,
  "usage": {
-  "prompt_tokens": 3086,
-  "completion_tokens": 464,
-  "cost_usd": 0.00047,
-  "ms": 4986
+  "prompt_tokens": 10785,
+  "completion_tokens": 840,
+  "cost_usd": 0.000785,
+  "ms": 6263
  },
  "attempts": [
   {
-   "text": "**The window starts in the `hyc` hydrogenase stretch.** Columns 0 to 10 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 89% of genes on average there, but at column 6, `hycF`, it names only 7%, and at column 10, `ascB`, it hesitates most, 1.17 bits.\n\n**Column 11 is a fork at `ascF`**, a PTS transporter subunit EIIB carried by 89% of chromosomes, with a helix-turn-helix protein and a toxin-antitoxin family on its branches. Then columns 12 to 61 run as spine, 91 to 96% carried, in a region of plasticity in 0 to 9% of calls. The model names 97% of genes on average, fewest at column 61, `glaH`, 92%, where it also hesitates most, 0.69 bits.\n\n**Columns 62 to 79 are fork and variable columns**, in a region of plasticity in 31 to 51% of calls, the most plastic stretch of the window. The model names 77% of genes on average, fewest at column 63, `ypjA`, 70%, and hesitates most at column 62, an ATPase, 2.73 bits. Forks at `smpB`, `ratA` and `bamE` carry persistent families beyond the window in some chromosomes, alongside transposase and integrase branches.\n\n**The variable tail fades.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent families. The window ends at column 79, `dgcN`, in 19% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%. Over the whole window it names 92% of genes, 0.41 bits on average, perplexity 1.5 families.",
+   "text": "**The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7%.\n\n**A fork follows at column 11**, `ascF`, carried by 89%. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits. Its most hesitant column, 62, is a fork column, at 2.73 bits.\n\n**The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent. The last column is `dgcN`, in 19% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3086,
-    "completion_tokens": 464,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5047,
+    "completion_tokens": 419,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.00047
+    "cost_usd": 0.000535
    },
    "provider": "deepinfra",
-   "ms": 4986,
-   "raw": "**The window starts in the `hyc` hydrogenase stretch.** Columns 0 to 10 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 89% of genes on average there, but at column 6, `hycF`, it names only 7%, and at column 10, `ascB`, it hesitates most, 1.17 bits.\n\n**Column 11 is a fork at `ascF`**, a PTS transporter subunit EIIB carried by 89% of chromosomes, with a helix-turn-helix protein and a toxin-antitoxin family on its branches. Then columns 12 to 61 run as spine, 91 to 96% carried, in a region of plasticity in 0 to 9% of calls. The model names 97% of genes on average, fewest at column 61, `glaH`, 92%, where it also hesitates most, 0.69 bits.\n\n**Columns 62 to 79 are fork and variable columns**, in a region of plasticity in 31 to 51% of calls, the most plastic stretch of the window. The model names 77% of genes on average, fewest at column 63, `ypjA`, 70%, and hesitates most at column 62, an ATPase, 2.73 bits. Forks at `smpB`, `ratA` and `bamE` carry persistent families beyond the window in some chromosomes, alongside transposase and integrase branches.\n\n**The variable tail fades.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent families. The window ends at column 79, `dgcN`, in 19% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%. Over the whole window it names 92% of genes, 0.41 bits on average, perplexity 1.5 families.",
+   "ms": 3117,
+   "raw": "@start **The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1}. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7% {S1}.\n\n@variable **A fork follows at column 11**, `ascF`, carried by 89% {S2.c11}. Then the long spine, columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol glucitol transporter]] at columns 21 to 24 {S3, Q}. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls {S4, P}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits {M}. Its most hesitant column, 62, is a fork column, at 2.73 bits {H}.\n\n@end **The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent {S4.c68-79}. The last column is `dgcN`, in 19% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96% {C}.",
+   "annotated": "@start **The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1}. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7% {S1}.\n\n@variable **A fork follows at column 11**, `ascF`, carried by 89% {S2.c11}. Then the long spine, columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol glucitol transporter]] at columns 21 to 24 {S3, Q}. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls {S4, P}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits {M}. Its most hesitant column, 62, is a fork column, at 2.73 bits {H}.\n\n@end **The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent {S4.c68-79}. The last column is `dgcN`, in 19% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 45,
-    "names": 12,
-    "words": 274,
-    "bad": [],
-    "hints": []
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "column",
+      "text": "column 1, 2, 3, 4, 5, 6",
+      "why": "the lines cited (S3, Q) do not speak of that column",
+      "context": "Then the long spine, columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol gluc"
+     },
+     {
+      "kind": "interpretation",
+      "text": "formate hydrogenlyase",
+      "why": "this says what 0 of the 50 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[formate hydrogenlyase]]"
+     },
+     {
+      "kind": "claim",
+      "text": "after it",
+      "why": "columns 1 to 61 come before the columns of the sentence before (from 11): the window is read in its order",
+      "context": "Then the long spine, columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol gluc"
+     }
+    ],
+    "numbers": 26,
+    "names": 9,
+    "words": 217,
+    "sentences": 11,
+    "cited": 13,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 190,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A fork follows at column 11**, `ascF`, carried by 89%",
+      "cites": [
+       "S2.c11"
+      ],
+      "inherit": [
+       "S3",
+       "Q",
+       "S4",
+       "P"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls",
+      "cites": [
+       "S4",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 62, is a fork column, at 2.73 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent",
+      "cites": [
+       "S4.c68-79"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `dgcN`, in 19% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 30
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "Then the long spine, columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol glucitol transporter]] at columns 21 to 24",
+     "cites": [
+      "S3",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "column",
+       "text": "column 1, 2, 3, 4, 5, 6",
+       "why": "the lines cited (S3, Q) do not speak of that column"
+      },
+      {
+       "kind": "interpretation",
+       "text": "formate hydrogenlyase",
+       "why": "this says what 0 of the 50 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      },
+      {
+       "kind": "claim",
+       "text": "after it",
+       "why": "columns 1 to 61 come before the columns of the sentence before (from 11): the window is read in its order"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7%.\n\n**A fork follows at column 11**, `ascF`, carried by 89%. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits. Its most hesitant column, 62, is a fork column, at 2.73 bits.\n\n**The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent. The last column is `dgcN`, in 19% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%.",
+   "truncated": false,
+   "ok": false
+  },
+  {
+   "text": "**The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7%.\n\n**A fork follows at column 11**, `ascF`, carried by 89%. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits. Its most hesitant column, 62, is a fork column, at 2.73 bits.\n\n**The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent. The last column is `dgcN`, in 19% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%.",
+   "finish": "stop",
+   "usage": {
+    "prompt_tokens": 5738,
+    "completion_tokens": 421,
+    "cached_tokens": 5376,
+    "reasoning_tokens": 0,
+    "cost_usd": 0.00025
+   },
+   "provider": "deepinfra",
+   "ms": 3146,
+   "raw": "@start **The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1}. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7% {S1}.\n\n@variable **A fork follows at column 11**, `ascF`, carried by 89% {S2.c11}. The spine resumes at columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol glucitol transporter]] at columns 21 to 24 {S1, S3, Q}. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls {S4, P}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits {M}. Its most hesitant column, 62, is a fork column, at 2.73 bits {H}.\n\n@end **The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent {S4.c68-79}. The last column is `dgcN`, in 19% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96% {C}.",
+   "annotated": "@start **The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1}. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7% {S1}.\n\n@variable **A fork follows at column 11**, `ascF`, carried by 89% {S2.c11}. The spine resumes at columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol glucitol transporter]] at columns 21 to 24 {S1, S3, Q}. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls {S4, P}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits {M}. Its most hesitant column, 62, is a fork column, at 2.73 bits {H}.\n\n@end **The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent {S4.c68-79}. The last column is `dgcN`, in 19% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96% {C}.",
+   "check": {
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "interpretation",
+      "text": "formate hydrogenlyase",
+      "why": "this says what 0 of the 50 families of the lines cited (S1, S3, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[formate hydrogenlyase]]"
+     },
+     {
+      "kind": "interpretation",
+      "text": "sorbitol glucitol transporter",
+      "why": "this says what 0 of the 9 families of the lines cited (S1, S3, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[sorbitol glucitol transporter]]"
+     }
+    ],
+    "numbers": 24,
+    "names": 9,
+    "words": 217,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
+   },
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 190,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A fork follows at column 11**, `ascF`, carried by 89%",
+      "cites": [
+       "S2.c11"
+      ],
+      "inherit": [
+       "S1",
+       "S3",
+       "Q",
+       "S4",
+       "P"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls",
+      "cites": [
+       "S4",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 62, is a fork column, at 2.73 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent",
+      "cites": [
+       "S4.c68-79"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `dgcN`, in 19% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 30
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "The spine resumes at columns 12 to 61, `ascG` to `glaH`, [[formate hydrogenlyase]] at columns 1 to 9 and [[sorbitol glucitol transporter]] at columns 21 to 24",
+     "cites": [
+      "S1",
+      "S3",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "formate hydrogenlyase",
+       "why": "this says what 0 of the 50 families of the lines cited (S1, S3, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      },
+      {
+       "kind": "interpretation",
+       "text": "sorbitol glucitol transporter",
+       "why": "this says what 0 of the 9 families of the lines cited (S1, S3, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7%.\n\n**A fork follows at column 11**, `ascF`, carried by 89%. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits. Its most hesitant column, 62, is a fork column, at 2.73 bits.\n\n**The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent. The last column is `dgcN`, in 19% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%.",
+   "truncated": false,
+   "ok": false
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 45,
-  "names": 12,
-  "words": 274,
-  "attempts": 1
+  "numbers": 26,
+  "names": 9,
+  "words": 190,
+  "attempts": 2,
+  "sentences": 11,
+  "cited": 13,
+  "skill": "4a7fdc464826",
+  "dropped": 1,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 0,
+  "covered": 30
  },
- "text": "**The window starts in the `hyc` hydrogenase stretch.** Columns 0 to 10 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 89% of genes on average there, but at column 6, `hycF`, it names only 7%, and at column 10, `ascB`, it hesitates most, 1.17 bits.\n\n**Column 11 is a fork at `ascF`**, a PTS transporter subunit EIIB carried by 89% of chromosomes, with a helix-turn-helix protein and a toxin-antitoxin family on its branches. Then columns 12 to 61 run as spine, 91 to 96% carried, in a region of plasticity in 0 to 9% of calls. The model names 97% of genes on average, fewest at column 61, `glaH`, 92%, where it also hesitates most, 0.69 bits.\n\n**Columns 62 to 79 are fork and variable columns**, in a region of plasticity in 31 to 51% of calls, the most plastic stretch of the window. The model names 77% of genes on average, fewest at column 63, `ypjA`, 70%, and hesitates most at column 62, an ATPase, 2.73 bits. Forks at `smpB`, `ratA` and `bamE` carry persistent families beyond the window in some chromosomes, alongside transposase and integrase branches.\n\n**The variable tail fades.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent families. The window ends at column 79, `dgcN`, in 19% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%. Over the whole window it names 92% of genes, 0.41 bits on average, perplexity 1.5 families.",
- "html": "<p class=\"note\"><b>The window starts in the <span class=\"gene\">hyc</span> hydrogenase stretch.</b> Columns 0 to 10 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 89% of genes on average there, but at column 6, <span class=\"gene\">hycF</span>, it names only 7%, and at column 10, <span class=\"gene\">ascB</span>, it hesitates most, 1.17 bits.</p><p class=\"note\"><b>Column 11 is a fork at <span class=\"gene\">ascF</span></b>, a PTS transporter subunit EIIB carried by 89% of chromosomes, with a helix-turn-helix protein and a toxin-antitoxin family on its branches. Then columns 12 to 61 run as spine, 91 to 96% carried, in a region of plasticity in 0 to 9% of calls. The model names 97% of genes on average, fewest at column 61, <span class=\"gene\">glaH</span>, 92%, where it also hesitates most, 0.69 bits.</p><p class=\"note\"><b>Columns 62 to 79 are fork and variable columns</b>, in a region of plasticity in 31 to 51% of calls, the most plastic stretch of the window. The model names 77% of genes on average, fewest at column 63, <span class=\"gene\">ypjA</span>, 70%, and hesitates most at column 62, an ATPase, 2.73 bits. Forks at <span class=\"gene\">smpB</span>, <span class=\"gene\">ratA</span> and <span class=\"gene\">bamE</span> carry persistent families beyond the window in some chromosomes, alongside transposase and integrase branches.</p><p class=\"note\"><b>The variable tail fades.</b> Columns 68 to 79, <span class=\"gene\">recN</span> to <span class=\"gene\">dgcN</span>, are carried by 19 to 57% of chromosomes, all persistent families. The window ends at column 79, <span class=\"gene\">dgcN</span>, in 19% of chromosomes.</p><p class=\"note\"><b>Inside a region of plasticity the model hesitates more than outside</b>, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%. Over the whole window it names 92% of genes, 0.41 bits on average, perplexity 1.5 families.</p>",
+ "text": "**The window opens on a spine.** Columns 0 to 10, `hypA` to `ascB`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 7 to 99.8% of them, fewest at column 6, `hycF`, 7%.\n\n**A fork follows at column 11**, `ascF`, carried by 89%. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits. Its most hesitant column, 62, is a fork column, at 2.73 bits.\n\n**The window ends on variable columns.** Columns 68 to 79, `recN` to `dgcN`, are carried by 19 to 57% of chromosomes, all persistent. The last column is `dgcN`, in 19% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.41 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on a spine.</b> Columns 0 to 10, <span class=\"gene\">hypA</span> to <span class=\"gene\">ascB</span>, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 7 to 99.8% of them, fewest at column 6, <span class=\"gene\">hycF</span>, 7%.</p><p class=\"note\"><b>A fork follows at column 11</b>, <span class=\"gene\">ascF</span>, carried by 89%. The last stretch, columns 62 to 79, is the most plastic of the window, in a region of plasticity in 31 to 51% of calls.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 96 against 78%, and hesitates less there, 0.16 against 1.23 bits. Its most hesitant column, 62, is a fork column, at 2.73 bits.</p><p class=\"note\"><b>The window ends on variable columns.</b> Columns 68 to 79, <span class=\"gene\">recN</span> to <span class=\"gene\">dgcN</span>, are carried by 19 to 57% of chromosomes, all persistent. The last column is <span class=\"gene\">dgcN</span>, in 19% of chromosomes.</p><p class=\"note\"><b>Across the window it names 92% of genes</b>, 0.41 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 2.29 against 0.18 bits, and names fewer genes, 53% against 96%.</p>",
  "window": "G8B09_RS17005",
  "label": "hypA",
- "facts_hash": "5f4ae2667b7f",
- "prompt_version": "r7",
- "facts": "WINDOW: the hypA window: 80 columns, column 0 is the anchor hypA, then the next 79 genes in dnaA's direction; about genes 1,009 to 1,088 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying hypA once); 43,200 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 92% of genes, 0.41 bits on average (perplexity 1.5 families). By partition of the gene: persistent 37,535 calls, named 98%, 0.17 bits; shell 4,594 calls, named 60%, 1.73 bits; cloud 1,071 calls, named 21%, 3.41 bits. Outside an RGP 38,480 calls, named 96%, 0.18 bits; inside an RGP 4,720 calls, named 53%, 2.29 bits. Columns: 61 spine, 5 fork, 14 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (2.29 against 0.18 bits) and names fewer genes (53% against 96%); 4,720 of the 43,200 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 62 (\"ATPase\") 2.73 bits, RGP 31%; column 63 (ypjA) 2.32 bits, RGP 36%; column 64 (smpB) 2.00 bits, RGP 44%. The 2 columns where most calls are in an RGP: named 76%, 1.49 bits on average; the other 78 columns: named 92%, 0.39 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 62-79 (fork and variable columns), RGP 31-51%; the least: columns 0-10 (spine), RGP 0-4%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-10 (11 columns) spine: share 91-100%, all P, RGP 0-4%. Genes: hypA, hycA, hycB, hycC, hycD, hycE, hycF, hycG, hycH \"formate hydrogenlyase assembly prot\u2026\", hycI, ascB. named 7-99.8% (mean 89%), fewest named at column 6 (hycF), named 7%; most hesitant at column 10 (ascB), 1.17 bits.\n2. column 11 fork: RGP 4%. named 96%; 0.27 bits.\n   11: ascF P 89% \"PTS transporter subunit EIIB\"; also \"helix-turn-helix domain-containing prot\u2026\" S 26%, \"type II toxin-antitoxin system HigB fam\u2026\" S 16%\n3. columns 12-61 (50 columns) spine: share 91-96%, all P, RGP 0-9%. Genes: ascG, hydN, hypF, norW, norV \"anaerobic nitric oxide reductase fl\u2026\", norR, gutQ, srlR, gutM, srlD, srlB \"PTS glucitol/sorbitol transporter s\u2026\", srlE, srlA, mltB, pncC, recA, recX \"recombination regulator RecX\", alaS, csrA, yqaB \"HAD hydrolase-like protein\", yqaA \"YqaA family protein\", gshA, luxS, emrB \"multidrug efflux MFS transporter pe\u2026\", emrA, emrR, ygaH \"AzlD domain-containing protein\", ygaZ \"L-valine exporter subunit YgaZ\", ygaY \"MFS transporter\", proX, proW \"glycine betaine/L-proline ABC trans\u2026\", proV, nrdF, nrdE, nrdI \"class Ib ribonucleoside-diphosphate\u2026\", nrdH, ygaM \"DUF883 domain-containing protein\", ygaC \"YgaC family protein\", alaE, stpA, ygaP \"thiosulfate sulfurtransferase YgaP\", ygaV \"helix-turn-helix transcriptional re\u2026\", yqaE \"YqaE/Pmp3 family membrane protein\", kbp, csiR, gabP, gabT \"aminotransferase class III-fold pyr\u2026\", gabD, lhgO, glaH. named 92-99.6% (mean 97%), fewest named and most hesitant at column 61 (glaH), named 92%, 0.69 bits.\n4. columns 62-79 (18 columns) fork and variable columns: RGP 31-51%. named 70-82% (mean 77%), fewest named at column 63, named 70%; most hesitant at column 62, 2.73 bits.\n   62 fork: \"ATPase\" P 60%; also \"IS1-like element transposase\" S 26%\n   63 variable: ypjA S 50% \"autotransporter outer membrane beta\u2026\"\n   64 fork: smpB P 62%; also ygaR S 23%\n   65 fork: ratA P 62%; also ypjCB S 12%\n   66 variable: yfjF P 61% \"RnfH family protein\"\n   67 fork: bamE P 60%; also \"tyrosine-type recombinase/integrase\" S 10%\n   columns 68-79 variable, share 19-57%, all P: recN 57%, nadK 55%, grpE 55%, yfjD \"CNNM domain-containing protein\" 54%, ypjD \"cytochrome c biogenesis protein CcsA\" 53%, ffh 51%, rpsP 47%, rimM 43%, trmD 37%, rplS 33%, yfiB \"OmpA family protein\" 27%, dgcN 19%\nPRODUCTS of named genes (for [[ ]]): hycA formate hydrogenlyase regulator HycA; hycB formate hydrogenlyase subunit HycB; hycC formate hydrogenlyase subunit 3; hycD formate hydrogenlyase subunit HycD; hycE formate hydrogenlyase subunit HycE; hycF formate hydrogenlyase subunit HycF; hycG formate hydrogenlyase subunit HycG; hycI hydrogenase maturation peptidase HycI; ascF PTS transporter subunit EIIB; norR nitric oxide reductase transcriptional\u2026; srlD SDR family oxidoreductase; srlE PTS glucitol/sorbitol transporter subun\u2026; srlA PTS glucitol/sorbitol transporter subun\u2026; emrA multidrug efflux MFS transporter peripl\u2026; emrR multidrug efflux transporter EmrAB tran\u2026; proX glycine betaine/L-proline ABC transport\u2026; proV glycine betaine/L-proline ABC transport\u2026; nrdF class 1b ribonucleoside-diphosphate red\u2026; nrdE ribonucleotide reductase N-terminal alp\u2026; nrdH glutaredoxin-like protein NrdH; gabP amino acid permease; gabD aldehyde dehydrogenase family protein; pdxR PLP-dependent aminotransferase family p\u2026\nEND: the window ends at column 79, dgcN, in 19% of chromosomes."
+ "facts_hash": "acfcb97871ab",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the hypA window: 80 columns, column 0 is the anchor hypA, then the next 79 genes in dnaA's direction; about genes 1,009 to 1,088 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying hypA once); 43,200 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 92% of genes, 0.41 bits on average (perplexity 1.5 families). By partition of the gene: persistent 37,535 calls, named 98%, 0.17 bits; shell 4,594 calls, named 60%, 1.73 bits; cloud 1,071 calls, named 21%, 3.41 bits. Outside an RGP 38,480 calls, named 96%, 0.18 bits; inside an RGP 4,720 calls, named 53%, 2.29 bits. Columns: 61 spine, 5 fork, 14 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (2.29 against 0.18 bits) and names fewer genes (53% against 96%); 4,720 of the 43,200 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 62 (\"ATPase\", a fork column) 2.73 bits, RGP 31%; column 63 (ypjA, a variable column) 2.32 bits, RGP 36%; column 64 (smpB, a fork column) 2.00 bits, RGP 44%. The 2 columns (columns 66-67) where most calls are in an RGP: named 76%, 1.49 bits on average; the other 78 columns: named 92%, 0.39 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 61 spine columns: named 96%, 0.16 bits on average; the 19 fork and variable columns: named 78%, 1.23 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 62, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 62-79 (fork and variable columns), RGP 31-51%; the least: columns 0-10 (spine), RGP 0-4%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-10 (11 columns) spine: share 91-100%, all P, RGP 0-4%. Genes: hypA, hycA, hycB, hycC, hycD, hycE, hycF, hycG, hycH \"formate hydrogenlyase assembly prot\u2026\", hycI, ascB. named 7-99.8% (mean 89%), fewest named at column 6 (hycF), named 7%; most hesitant at column 10 (ascB), 1.17 bits.\n[S2] 2. column 11 fork: share 89%, all P, RGP 4%. named 96%; 0.27 bits.\n[S2.c11]    11: ascF P 89% \"PTS cellobiose/arbutin/salicin tran\u2026\"; also \"helix-turn-helix domain-containing prot\u2026\" S 26%, \"type II toxin-antitoxin system HigB fam\u2026\" S 16%\n[S3] 3. columns 12-61 (50 columns) spine: share 91-96%, all P, RGP 0-9%. Genes: ascG, hydN, hypF, norW, norV \"anaerobic nitric oxide reductase fl\u2026\", norR, gutQ, srlR, gutM, srlD, srlB \"PTS glucitol/sorbitol transporter s\u2026\", srlE, srlA, mltB, pncC, recA \"recombinase RecA\", recX, alaS, csrA, yqaB \"fructose-1-phosphate/6-phosphogluco\u2026\", yqaA \"YqaA family protein\", gshA, luxS, emrB \"multidrug efflux MFS transporter pe\u2026\", emrA, emrR, ygaH \"L-valine transporter subunit YgaH\", ygaZ \"L-valine exporter subunit YgaZ\", ygaY \"MFS transporter\", proX, proW \"glycine betaine/L-proline ABC trans\u2026\", proV, nrdF, nrdE, nrdI \"class Ib ribonucleoside-diphosphate\u2026\", nrdH, ygaM \"DUF883 domain-containing protein\", ygaC \"DUF2002 family protein\", alaE, stpA, ygaP \"thiosulfate sulfurtransferase YgaP\", ygaV \"ArsR/SmtB family transcription fact\u2026\", yqaE \"YqaE/Pmp3 family membrane protein\", kbp, csiR, gabP, gabT, gabD \"NADP-dependent succinate-semialdehy\u2026\", lhgO, glaH. named 92-99.6% (mean 97%), fewest named and most hesitant at column 61 (glaH), named 92%, 0.69 bits.\n[S4] 4. columns 62-79 (18 columns) fork and variable columns: share 19-62%, 17 P, 1 S, RGP 31-51%. named 70-82% (mean 77%), fewest named at column 63, named 70%; most hesitant at column 62, 2.73 bits.\n[S4.c62]    62 fork: \"ATPase\" P 60%; also \"IS1 family transposase\" S 26%\n[S4.c63]    63 variable: ypjA S 50% \"adhesin-like autotransporter YpjA/E\u2026\"\n[S4.c64]    64 fork: smpB P 62%; also ygaR S 23%\n[S4.c65]    65 fork: ratA P 62%; also ypjCB S 12%\n[S4.c66]    66 variable: yfjF P 61% \"RnfH family protein\"\n[S4.c67]    67 fork: bamE P 60%; also \"integrase domain-containing protein\" S 10%\n[S4.c68-79]    columns 68-79 variable, share 19-57%, all P: recN 57%, nadK 55%, grpE 55%, yfjD \"HlyC/CorC family transporter\" 54%, ypjD \"cytochrome C assembly family protein\" 53%, ffh 51%, rpsP 47%, rimM 43%, trmD 37%, rplS 33%, yfiB \"OmpA family protein\" 27%, dgcN 19%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 1-9 (hycA to hycI) [S1]: formate, hydrogenlyase; columns 15-17 (norW to norR) [S3]: reductase, flavorubredoxin, nitric, oxide; columns 21-24 (srlD to srlA) [S3]: sorbitol, glucitol, transporter; columns 35-37 (emrB to emrR) [S3]: efflux, multidrug, transporter; columns 44-47 (nrdF to nrdH) [S3]: diphosphate, reductase, ribonucleoside, ribonucleoside-diphosphate.\n[X] PRODUCTS of named genes (for [[ ]]): hycA formate hydrogenlyase regulator HycA; hycB formate hydrogenlyase subunit HycB; hycC formate hydrogenlyase subunit 3; hycD formate hydrogenlyase subunit HycD; hycE formate hydrogenlyase subunit HycE; hycF formate hydrogenlyase subunit HycF; hycG formate hydrogenlyase subunit HycG; hycI hydrogenase maturation peptidase HycI; ascB 6-phospho-beta-glucosidase AscB; ascF PTS cellobiose/arbutin/salicin transpor\u2026; norW NADH:flavorubredoxin reductase NorW; norR nitric oxide reductase transcriptional\u2026; srlD sorbitol-6-phosphate dehydrogenase; srlE PTS glucitol/sorbitol transporter subun\u2026; srlA PTS glucitol/sorbitol transporter subun\u2026; recX recombination regulator RecX; emrA multidrug efflux MFS transporter peripl\u2026; emrR multidrug efflux transporter EmrAB tran\u2026; proX glycine betaine/L-proline ABC transport\u2026; proV glycine betaine/L-proline ABC transport\u2026; nrdF class 1b ribonucleoside-diphosphate red\u2026; nrdE class 1b ribonucleoside-diphosphate red\u2026; nrdH glutaredoxin-like protein NrdH; gabP GABA permease; gabT 4-aminobutyrate--2-oxoglutarate transam\u2026; pdxR PLP-dependent aminotransferase family p\u2026; ygaR alpha-amylase family glycosyl hydrolase\n[E] END: the window ends at column 79, dgcN, in 19% of chromosomes."
 }

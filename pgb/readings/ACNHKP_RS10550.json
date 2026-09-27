@@ -2,55 +2,213 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447864.2735457,
+ "created": 1790479550.3049245,
  "usage": {
-  "prompt_tokens": 3946,
-  "completion_tokens": 478,
-  "cost_usd": 0.000597,
-  "ms": 5720
+  "prompt_tokens": 6067,
+  "completion_tokens": 394,
+  "cost_usd": 0.000667,
+  "ms": 3818
  },
  "attempts": [
   {
-   "text": "**The window starts on the anchor.** Column 0 is the single spine column, `ydhX`, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls with 0.06 bits.\n\n**Then 79 fork and variable columns open**, in a region of plasticity in 0 to 6% of calls, named in 67 to 100% (mean 95%). The model hesitates most at column 17, `lhr`, 0.53 bits, and names fewest at column 71, a hypothetical protein, 67%. A second branch of 58 families runs through columns 1 to 58, in 11 to 13% of chromosomes, 55 persistent and 3 shell, from `ydhW` to `tcyP`, [[Fe-S cluster assembly]] and [[pyruvate and fumarate metabolism]].\n\n**Two shorter branches follow.** Columns 60 to 65 carry 6 families, in 10 to 11% of chromosomes, all persistent, `cedA` to `chbA`, [[sugar phosphotransfer and catabolism]]. Columns 67 to 69 carry 3 families, in 10% of chromosomes, all persistent, `chbB` to `nadE`.\n\n**The long fork stretch runs `phsC` to `manA`**, columns 1 to 58, most families persistent at 83 to 87%, with `uidA`, `uidB` and `uidC` shell at 80%, 76% and 73%, [[glucuronide catabolism]]. The `rsx` genes, [[electron transport complex]], sit at columns 38 to 43, and `malY`, `malX` and `malI`, [[maltose regulon]], at columns 49 to 51.\n\n**The window ends variable.** Columns 74 to 78, in 80 to 83% of chromosomes, all persistent, run `ydgD` to `ynfM`, and column 79, `ynfL`, is carried by 68% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.",
+   "text": "**The window opens on a single spine column.** Column 0, `ydhX`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.06 bits.\n\n**The rest of the window is fork and variable columns.** Columns 1 to 79 are carried by 63 to 87%, 74 persistent and 5 shell, in a region of plasticity in 0 to 6% of calls. A branch of 58 families runs through columns 1 to 58, a parallel path carried in 11 to 13%. The `rsxE` to `rsxA` genes, columns 38 to 43, are [[electron transport]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 95%, and hesitates less there, 0.06 against 0.18 bits. Its most hesitant column, 17, `lhr`, is a fork column, at 0.53 bits.\n\n**The window ends on fork and variable columns.** Column 79, `ynfL`, is carried by 68% of chromosomes. A branch of 3 families runs through columns 67 to 69, carried in 10%.\n\n**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3946,
-    "completion_tokens": 478,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6067,
+    "completion_tokens": 394,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000597
+    "cost_usd": 0.000667
    },
    "provider": "deepinfra",
-   "ms": 5720,
-   "raw": "**The window starts on the anchor.** Column 0 is the single spine column, `ydhX`, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls with 0.06 bits.\n\n**Then 79 fork and variable columns open**, in a region of plasticity in 0 to 6% of calls, named in 67 to 100% (mean 95%). The model hesitates most at column 17, `lhr`, 0.53 bits, and names fewest at column 71, a hypothetical protein, 67%. A second branch of 58 families runs through columns 1 to 58, share 11 to 13%, 55 persistent and 3 shell, from `ydhW` to `tcyP`, [[Fe-S cluster assembly]] and [[pyruvate and fumarate metabolism]].\n\n**Two shorter branches follow.** Columns 60 to 65 carry 6 families, share 10 to 11%, all persistent, `cedA` to `chbA`, [[sugar phosphotransfer and catabolism]]. Columns 67 to 69 carry 3 families, share 10%, all persistent, `chbB` to `nadE`.\n\n**The long fork stretch runs `phsC` to `manA`**, columns 1 to 58, most families persistent at 83 to 87%, with `uidA`, `uidB` and `uidC` shell at 80%, 76% and 73%, [[glucuronide catabolism]]. The `rsx` genes, [[electron transport complex]], sit at columns 38 to 43, and `malY`, `malX` and `malI`, [[maltose regulon]], at columns 49 to 51.\n\n**The window ends variable.** Columns 74 to 78, share 80 to 83%, all persistent, run `ydgD` to `ynfM`, and column 79, `ynfL`, is carried by 68% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.",
+   "ms": 3818,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `ydhX`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.06 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns.** Columns 1 to 79 are carried by 63 to 87%, 74 persistent and 5 shell, in a region of plasticity in 0 to 6% of calls {S2}. A branch of 58 families runs through columns 1 to 58, a parallel path carried in 11 to 13% {S2.b1}. The `rsxE` to `rsxA` genes, columns 38 to 43, are [[electron transport]] {S2.c38-43, Q}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 95%, and hesitates less there, 0.06 against 0.18 bits {M}. Its most hesitant column, 17, `lhr`, is a fork column, at 0.53 bits {H}.\n\n@end **The window ends on fork and variable columns.** Column 79, `ynfL`, is carried by 68% of chromosomes {S2.c79, E}. A branch of 3 families runs through columns 67 to 69, carried in 10% {S2.b67}.\n\n@whole **Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `ydhX`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.06 bits {S1, M}.\n\n@variable **The rest of the window is fork and variable columns.** Columns 1 to 79 are carried by 63 to 87%, 74 persistent and 5 shell, in a region of plasticity in 0 to 6% of calls {S2}. A branch of 58 families runs through columns 1 to 58, a parallel path carried in 11 to 13% {S2.b1}. The `rsxE` to `rsxA` genes, columns 38 to 43, are [[electron transport]] {S2.c38-43, Q}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 95%, and hesitates less there, 0.06 against 0.18 bits {M}. Its most hesitant column, 17, `lhr`, is a fork column, at 0.53 bits {H}.\n\n@end **The window ends on fork and variable columns.** Column 79, `ynfL`, is carried by 68% of chromosomes {S2.c79, E}. A branch of 3 families runs through columns 67 to 69, carried in 10% {S2.b67}.\n\n@whole **Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96% {C}.",
    "check": {
     "ok": true,
-    "numbers": 53,
-    "names": 20,
-    "words": 270,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": [
-     {
-      "text": "phosphotransfer",
-      "where": "[[sugar phosphotransfer and catabolism]]"
-     }
-    ]
+    "numbers": 27,
+    "names": 5,
+    "words": 210,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 210,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `ydhX`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": [
+       "M"
+      ]
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.06 bits",
+      "cites": [
+       "S1",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The rest of the window is fork and variable columns.** Columns 1 to 79 are carried by 63 to 87%, 74 persistent and 5 shell, in a region of plasticity in 0 to 6% of calls",
+      "cites": [
+       "S2"
+      ],
+      "inherit": [
+       "S2.b1",
+       "S2.c38-43",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "A branch of 58 families runs through columns 1 to 58, a parallel path carried in 11 to 13%",
+      "cites": [
+       "S2.b1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The `rsxE` to `rsxA` genes, columns 38 to 43, are [[electron transport]]",
+      "cites": [
+       "S2.c38-43",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine column than on the fork and variable ones**, 99 against 95%, and hesitates less there, 0.06 against 0.18 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 17, `lhr`, is a fork column, at 0.53 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork and variable columns.** Column 79, `ynfL`, is carried by 68% of chromosomes",
+      "cites": [
+       "S2.c79",
+       "E"
+      ],
+      "inherit": [
+       "S2.b67"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "A branch of 3 families runs through columns 67 to 69, carried in 10%",
+      "cites": [
+       "S2.b67"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 80
+   },
+   "dropped": [],
+   "served": "**The window opens on a single spine column.** Column 0, `ydhX`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.06 bits.\n\n**The rest of the window is fork and variable columns.** Columns 1 to 79 are carried by 63 to 87%, 74 persistent and 5 shell, in a region of plasticity in 0 to 6% of calls. A branch of 58 families runs through columns 1 to 58, a parallel path carried in 11 to 13%. The `rsxE` to `rsxA` genes, columns 38 to 43, are [[electron transport]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 95%, and hesitates less there, 0.06 against 0.18 bits. Its most hesitant column, 17, `lhr`, is a fork column, at 0.53 bits.\n\n**The window ends on fork and variable columns.** Column 79, `ynfL`, is carried by 68% of chromosomes. A branch of 3 families runs through columns 67 to 69, carried in 10%.\n\n**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 53,
-  "names": 20,
-  "words": 270,
-  "attempts": 1
+  "numbers": 27,
+  "names": 5,
+  "words": 210,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 80
  },
- "text": "**The window starts on the anchor.** Column 0 is the single spine column, `ydhX`, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls with 0.06 bits.\n\n**Then 79 fork and variable columns open**, in a region of plasticity in 0 to 6% of calls, named in 67 to 100% (mean 95%). The model hesitates most at column 17, `lhr`, 0.53 bits, and names fewest at column 71, a hypothetical protein, 67%. A second branch of 58 families runs through columns 1 to 58, in 11 to 13% of chromosomes, 55 persistent and 3 shell, from `ydhW` to `tcyP`, [[Fe-S cluster assembly]] and [[pyruvate and fumarate metabolism]].\n\n**Two shorter branches follow.** Columns 60 to 65 carry 6 families, in 10 to 11% of chromosomes, all persistent, `cedA` to `chbA`, [[sugar phosphotransfer and catabolism]]. Columns 67 to 69 carry 3 families, in 10% of chromosomes, all persistent, `chbB` to `nadE`.\n\n**The long fork stretch runs `phsC` to `manA`**, columns 1 to 58, most families persistent at 83 to 87%, with `uidA`, `uidB` and `uidC` shell at 80%, 76% and 73%, [[glucuronide catabolism]]. The `rsx` genes, [[electron transport complex]], sit at columns 38 to 43, and `malY`, `malX` and `malI`, [[maltose regulon]], at columns 49 to 51.\n\n**The window ends variable.** Columns 74 to 78, in 80 to 83% of chromosomes, all persistent, run `ydgD` to `ynfM`, and column 79, `ynfL`, is carried by 68% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.",
- "html": "<p class=\"note\"><b>The window starts on the anchor.</b> Column 0 is the single spine column, <span class=\"gene\">ydhX</span>, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names it in 99% of calls with 0.06 bits.</p><p class=\"note\"><b>Then 79 fork and variable columns open</b>, in a region of plasticity in 0 to 6% of calls, named in 67 to 100% (mean 95%). The model hesitates most at column 17, <span class=\"gene\">lhr</span>, 0.53 bits, and names fewest at column 71, a hypothetical protein, 67%. A second branch of 58 families runs through columns 1 to 58, in 11 to 13% of chromosomes, 55 persistent and 3 shell, from <span class=\"gene\">ydhW</span> to <span class=\"gene\">tcyP</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">Fe-S cluster assembly</span> and <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">pyruvate and fumarate metabolism</span>.</p><p class=\"note\"><b>Two shorter branches follow.</b> Columns 60 to 65 carry 6 families, in 10 to 11% of chromosomes, all persistent, <span class=\"gene\">cedA</span> to <span class=\"gene\">chbA</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">sugar phosphotransfer and catabolism</span>. Columns 67 to 69 carry 3 families, in 10% of chromosomes, all persistent, <span class=\"gene\">chbB</span> to <span class=\"gene\">nadE</span>.</p><p class=\"note\"><b>The long fork stretch runs <span class=\"gene\">phsC</span> to <span class=\"gene\">manA</span></b>, columns 1 to 58, most families persistent at 83 to 87%, with <span class=\"gene\">uidA</span>, <span class=\"gene\">uidB</span> and <span class=\"gene\">uidC</span> shell at 80%, 76% and 73%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">glucuronide catabolism</span>. The <span class=\"gene\">rsx</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">electron transport complex</span>, sit at columns 38 to 43, and <span class=\"gene\">malY</span>, <span class=\"gene\">malX</span> and <span class=\"gene\">malI</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">maltose regulon</span>, at columns 49 to 51.</p><p class=\"note\"><b>The window ends variable.</b> Columns 74 to 78, in 80 to 83% of chromosomes, all persistent, run <span class=\"gene\">ydgD</span> to <span class=\"gene\">ynfM</span>, and column 79, <span class=\"gene\">ynfL</span>, is carried by 68% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.</p>",
+ "text": "**The window opens on a single spine column.** Column 0, `ydhX`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.06 bits.\n\n**The rest of the window is fork and variable columns.** Columns 1 to 79 are carried by 63 to 87%, 74 persistent and 5 shell, in a region of plasticity in 0 to 6% of calls. A branch of 58 families runs through columns 1 to 58, a parallel path carried in 11 to 13%. The `rsxE` to `rsxA` genes, columns 38 to 43, are [[electron transport]].\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 95%, and hesitates less there, 0.06 against 0.18 bits. Its most hesitant column, 17, `lhr`, is a fork column, at 0.53 bits.\n\n**The window ends on fork and variable columns.** Column 79, `ynfL`, is carried by 68% of chromosomes. A branch of 3 families runs through columns 67 to 69, carried in 10%.\n\n**Across the window it names 95% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on a single spine column.</b> Column 0, <span class=\"gene\">ydhX</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.06 bits.</p><p class=\"note\"><b>The rest of the window is fork and variable columns.</b> Columns 1 to 79 are carried by 63 to 87%, 74 persistent and 5 shell, in a region of plasticity in 0 to 6% of calls. A branch of 58 families runs through columns 1 to 58, a parallel path carried in 11 to 13%. The <span class=\"gene\">rsxE</span> to <span class=\"gene\">rsxA</span> genes, columns 38 to 43, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">electron transport</span>.</p><p class=\"note\"><b>The model names more genes on the spine column than on the fork and variable ones</b>, 99 against 95%, and hesitates less there, 0.06 against 0.18 bits. Its most hesitant column, 17, <span class=\"gene\">lhr</span>, is a fork column, at 0.53 bits.</p><p class=\"note\"><b>The window ends on fork and variable columns.</b> Column 79, <span class=\"gene\">ynfL</span>, is carried by 68% of chromosomes. A branch of 3 families runs through columns 67 to 69, carried in 10%.</p><p class=\"note\"><b>Across the window it names 95% of genes</b>, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 2.18 against 0.14 bits, and names fewer genes, 37% against 96%.</p>",
  "window": "ACNHKP_RS10550",
  "label": "ydhX",
- "facts_hash": "3ea6b6fa6217",
- "prompt_version": "r7",
- "facts": "WINDOW: the ydhX window: 80 columns, column 0 is the anchor ydhX, then the next 79 genes in dnaA's direction; about genes 2,072 to 2,151 from dnaA. Read in 531 of the 540 complete chromosomes (those carrying ydhX once); 42,480 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 95% of genes, 0.18 bits on average (perplexity 1.3 families). By partition of the gene: persistent 39,257 calls, named 98%, 0.11 bits; shell 3,013 calls, named 66%, 0.76 bits; cloud 210 calls, named 1%, 3.70 bits. Outside an RGP 41,702 calls, named 96%, 0.14 bits; inside an RGP 778 calls, named 37%, 2.18 bits. Columns: 1 spine, 70 fork, 9 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (2.18 against 0.14 bits) and names fewer genes (37% against 96%); 778 of the 42,480 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 17 (lhr) 0.53 bits, RGP 0%; column 16 (grxD) 0.49 bits, RGP 0%; column 55 (uidB) 0.46 bits, RGP 6%. No column has most of its calls in an RGP.\nPLASTICITY: the stretch most in regions of plasticity: columns 1-79 (fork and variable columns), RGP 0-6%; the least: column 0 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0%. Genes: ydhX \"4Fe-4S dicluster domain-containing\u2026\". named 99%; 0.06 bits.\n2. columns 1-79 (79 columns) fork and variable columns: RGP 0-6%. named 67-100% (mean 95%), fewest named at column 71, named 67%; most hesitant at column 17, 0.53 bits.\n   a second branch of 58 families through columns 1-58, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-13%, 55 P, 3 S; the branch's families: ydhW, ydhV, ydhY, fumD, ynhH, pykF, lpp, ldtE, sufE, sufS, sufD, sufC, sufB, sufA, ydiH, menI, ydiJ, ydiK, ydiL, ydiM, ydiN, ydiB, aroD, ydiF, ydiO, ydiP, ydiQ, ydiR, ydiS, ydiT, fadK, ppsA, ppsR, aroH, hemP, selO, ydiV, nlpC, btuD, btuE, btuC, ihfA, pheT, pheS, pheM, rplT, rpmI, infC, thrS, yniD, ydiY, pfkB, ghoS, yniA, yniB, hxpB, ydjM, tcyP\n   a second branch of 6 families through columns 60-65, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-11%, all P; the branch's families: cedA, katE, chbG, celF, chbR, chbA\n   a second branch of 3 families through columns 67-69, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all P; the branch's families: chbB, osmE, nadE\n   1 fork: phsC P 86%\n   2 fork: ydhT P 87% \"protein YdhT\"\n   3 fork: ydhS P 84% \"FAD/NAD(P)-binding protein\"\n   4 fork: ydhR P 86% \"YdhR family protein\"\n   5 fork: ydhQ P 86%\n   6 fork: mdtK P 87%\n   7 fork: ribE P 87%\n   8 fork: cfa P 86%\n   9 fork: punC P 87% \"MFS transporter\"\n   10 fork: punR P 87%\n   11 fork: purR P 87%\n   12 fork: cydH P 87%\n   13 fork: ydhP P 87%\n   14 fork: sodB P 87%\n   15 fork: mepH P 87%\n   16 fork: grxD P 87%; also \"hypothetical protein\" S 21%\n   17 fork: lhr S 70%\n   18 fork: rnt P 87%\n   19 fork: gloA P 87%\n   20 fork: nemA P 87% \"alkene reductase\"\n   21 fork: nemR P 87%\n   22 fork: ydhL P 87% \"DUF1289 domain-containing protein\"\n   23 fork: ydhF P 86% \"aldo/keto reductase family oxidored\u2026\"\n   24 fork: sodC P 86%\n   25 fork: ydhK P 84% \"FUSC family protein\"\n   26 fork: ydhJ P 85% \"HlyD family secretion protein\"\n   27 fork: ydhI P 87% \"DUF1656 domain-containing protein\"\n   28 fork: slyA P 87%\n   29 fork: slyB P 87%\n   30 fork: anmK P 87%\n   31 fork: mliC P 87%\n   32 fork: pdxH P 87%\n   33 fork: tyrS P 87%\n   34 fork: pdxY P 87%\n   35 fork: gstA P 87%\n   36 fork: dtpA P 86%\n   37 fork: nth P 87%\n   38 fork: rsxE P 87% \"electron transport complex subunit\u2026\"\n   39 fork: rsxG P 87%\n   40 fork: rsxD P 83%\n   41 fork: rsxC P 85%\n   42 fork: rsxB P 87%\n   43 fork: rsxA P 86%\n   44 fork: ydgK P 86% \"DUF2569 domain-containing protein\"\n   45 fork: ydgT P 87% \"transcription modulator YdgT\"\n   46 fork: blr P 86%\n   47 fork: ydgJ P 86% \"Gfo/Idh/MocA family oxidoreductase\"\n   48 fork: add P 87%\n   49 fork: malY P 87% \"bifunctional maltose regulon transc\u2026\"\n   50 fork: malX P 84%\n   51 fork: malI P 86%\n   52 fork: hdhA P 83%\n   53 fork: uidR P 86%\n   54 fork: uidA S 80% \"beta-glucuronidase\"\n   55 fork: uidB S 76%\n   56 fork: uidC S 73%; also \"IS1-like element transposase\" S 15%\n   57 fork: ydgA P 86% \"DUF945 family protein\"\n   58 fork: manA P 86%\n   59 variable: fumB P 86% \"fumarate hydratase\"\n   60 fork: fumC P 86%\n   61 fork: tus P 86%\n   62 fork: rstB P 85%\n   63 fork: rstA P 85% \"two-component system response regul\u2026\"\n   64 fork: ydgC P 85% \"GlpM family protein\"\n   65 fork: folM P 85%\n   66 variable: ydgI P 85% \"amino acid permease\"\n   67 fork: ydgH P 85% \"DUF1471 family protein YdgH\"\n   68 fork: pntA P 86%\n   69 fork: pntB P 85% \"Re/Si-specific NAD(P)(+) transhydro\u2026\"\n   70 variable: tqsA P 81%\n   71 variable: \"hypothetical protein\" S 63%\n   72 fork: mdtJ P 82% \"multidrug/spermidine efflux SMR tra\u2026\"; also spy P 10%\n   73 fork: mdtI P 83%; also astE P 10%\n   columns 74-78 variable, share 80-83%, all P: ydgD \"serine protease\" 83%, ydgU 83%, asr 83%, \"KPN_01571 family protein\" 82%, ynfM \"MFS transporter\" 80%\n   79 fork: ynfL P 68% \"LysR family substrate-binding domai\u2026\"; also mlc P 39%, bioD P 16%\nPRODUCTS of named genes (for [[ ]]): punC MFS transporter; nemA alkene reductase; rsxE electron transport complex subunit RsxE; rsxG electron transport complex subunit RsxG; rsxD RnfABCDGE type electron transport compl\u2026; rsxC electron transport complex subunit RsxC; rsxB electron transport complex subunit RsxB; rsxA electron transport complex subunit RsxA; malY bifunctional maltose regulon transcript\u2026; malX PTS transporter subunit EIIC; uidA beta-glucuronidase; fumB fumarate hydratase; rstA two-component system response regulator\u2026; pntA Re/Si-specific NAD(P)(+) transhydrogena\u2026; pntB Re/Si-specific NAD(P)(+) transhydrogena\u2026; mdtJ multidrug/spermidine efflux SMR transpo\u2026; mdtI multidrug/spermidine efflux SMR transpo\u2026; ydhW YdhW family putative oxidoreductase sys\u2026; ydhV aldehyde ferredoxin oxidoreductase N-te\u2026; ydhY ferredoxin-like protein; fumD fumarate hydratase FumD; pykF pyruvate kinase PykF; ldtE L,D-transpeptidase LdtE; sufE cysteine desulfuration protein SufE; sufS cysteine desulfurase SufS; sufD Fe-S cluster assembly protein SufD; sufC Fe-S cluster assembly ATPase SufC; sufB Fe-S cluster assembly protein SufB; sufA Fe-S cluster assembly scaffold SufA; menI 1,4-dihydroxy-2-naphthoyl-CoA hydrolase; ydiJ FAD-linked oxidase C-terminal domain-co\u2026; ydiK AI-2E family transporter YdiK; ydiL Aca2/YdiL-like domain-containing protein; ydiM MFS transporter; ydiN MFS transporter; ydiB quinate/shikimate dehydrogenase; aroD type I 3-dehydroquinate dehydratase; ydiF CoA-transferase; ydiO acyl-CoA dehydrogenase; ydiP helix-turn-helix transcriptional regula\u2026\nEND: the window ends at column 79, ynfL, in 68% of chromosomes."
+ "facts_hash": "f12a82b4d99e",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the ydhX window: 80 columns, column 0 is the anchor ydhX, then the next 79 genes in dnaA's direction; about genes 2,072 to 2,151 from dnaA. Read in 531 of the 540 complete chromosomes (those carrying ydhX once); 42,480 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 95% of genes, 0.18 bits on average (perplexity 1.3 families). By partition of the gene: persistent 39,257 calls, named 98%, 0.11 bits; shell 3,013 calls, named 66%, 0.76 bits; cloud 210 calls, named 1%, 3.70 bits. Outside an RGP 41,702 calls, named 96%, 0.14 bits; inside an RGP 778 calls, named 37%, 2.18 bits. Columns: 1 spine, 70 fork, 9 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (2.18 against 0.14 bits) and names fewer genes (37% against 96%); 778 of the 42,480 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 17 (lhr, a fork column) 0.53 bits, RGP 0%; column 16 (grxD, a fork column) 0.49 bits, RGP 0%; column 55 (uidB, a fork column) 0.46 bits, RGP 6%. No column has most of its calls in an RGP.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 1 spine column: named 99%, 0.06 bits on average; the 79 fork and variable columns: named 95%, 0.18 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 17, is a fork column.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0%. Genes: ydhX \"4Fe-4S dicluster domain-containing\u2026\". named 99%; 0.06 bits.\n[S2] 2. columns 1-79 (79 columns) fork and variable columns: share 63-87%, 74 P, 5 S, RGP 0-6%. named 67-100% (mean 95%), fewest named at column 71, named 67%; most hesitant at column 17, 0.53 bits.\n[S2.b1]    a second branch of 58 families through columns 1-58, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-13%, 55 P, 3 S; the branch's families: ydhW, ydhV, ydhY, fumD, ynhH, pykF, lpp, ldtE, sufE, sufS, sufD, sufC, sufB, sufA, ydiH, menI, ydiJ, ydiK, ydiL, ydiM, ydiN, ydiB, aroD, ydiF, ydiO, ydiP, ydiQ, ydiR, ydiS, ydiT, fadK, ppsA, ppsR, aroH, hemP, selO, ydiV, nlpC, btuD, btuE, btuC, ihfA, pheT, pheS, pheM, rplT, rpmI, infC, thrS, yniD, ydiY, pfkB, ghoS, yniA, yniB, hxpB, ydjM, tcyP\n[S2.b60]    a second branch of 6 families through columns 60-65, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-11%, all P; the branch's families: cedA, katE, chbG, celF, chbR, chbA\n[S2.b67]    a second branch of 3 families through columns 67-69, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all P; the branch's families: chbB, osmE, nadE\n[S2.c1]    1 fork: phsC P 86%\n[S2.c2]    2 fork: ydhT P 87% \"protein YdhT\"\n[S2.c3]    3 fork: ydhS P 84% \"FAD-NAD(P)-binding protein\"\n[S2.c4]    4 fork: ydhR P 86% \"monooxygenase\"\n[S2.c5]    5 fork: ydhQ P 86% \"AIDA repeat-containing protein\"\n[S2.c6]    6 fork: mdtK P 87%\n[S2.c7]    7 fork: ribE P 87%\n[S2.c8]    8 fork: cfa P 86%\n[S2.c9]    9 fork: punC P 87% \"purine nucleoside transporter PunC\"\n[S2.c10]    10 fork: punR P 87%\n[S2.c11]    11 fork: purR P 87%\n[S2.c12]    12 fork: cydH P 87%\n[S2.c13]    13 fork: ydhP P 87% \"MFS transporter\"\n[S2.c14]    14 fork: sodB P 87%\n[S2.c15]    15 fork: mepH P 87%\n[S2.c16]    16 fork: grxD P 87%; also \"hypothetical protein\" S 21%\n[S2.c17]    17 fork: lhr S 70%\n[S2.c18]    18 fork: rnt P 87%\n[S2.c19]    19 fork: gloA P 87%\n[S2.c20]    20 fork: nemA P 87% \"N-ethylmaleimide reductase\"\n[S2.c21]    21 fork: nemR P 87%\n[S2.c22]    22 fork: ydhL P 87% \"DUF1289 domain-containing protein\"\n[S2.c23]    23 fork: ydhF P 86% \"aldo/keto reductase\"\n[S2.c24]    24 fork: sodC P 86%\n[S2.c25]    25 fork: ydhK P 84% \"FUSC family protein\"\n[S2.c26]    26 fork: ydhJ P 85% \"efflux RND transporter periplasmic\u2026\"\n[S2.c27]    27 fork: ydhI P 87% \"DUF1656 domain-containing protein\"\n[S2.c28]    28 fork: slyA P 87%\n[S2.c29]    29 fork: slyB P 87%\n[S2.c30]    30 fork: anmK P 87%\n[S2.c31]    31 fork: mliC P 87%\n[S2.c32]    32 fork: pdxH P 87%\n[S2.c33]    33 fork: tyrS P 87%\n[S2.c34]    34 fork: pdxY P 87%\n[S2.c35]    35 fork: gstA P 87%\n[S2.c36]    36 fork: dtpA P 86%\n[S2.c37]    37 fork: nth P 87%\n[S2.c38]    38 fork: rsxE P 87% \"electron transport complex subunit\u2026\"\n[S2.c39]    39 fork: rsxG P 87%\n[S2.c40]    40 fork: rsxD P 83%\n[S2.c41]    41 fork: rsxC P 85%\n[S2.c42]    42 fork: rsxB P 87%\n[S2.c43]    43 fork: rsxA P 86%\n[S2.c44]    44 fork: ydgK P 86% \"DUF2569 domain-containing protein\"\n[S2.c45]    45 fork: ydgT P 87% \"transcription modulator YdgT\"\n[S2.c46]    46 fork: blr P 86%\n[S2.c47]    47 fork: ydgJ P 86% \"oxidoreductase\"\n[S2.c48]    48 fork: add P 87%\n[S2.c49]    49 fork: malY P 87% \"bifunctional maltose regulon transc\u2026\"\n[S2.c50]    50 fork: malX P 84%\n[S2.c51]    51 fork: malI P 86%\n[S2.c52]    52 fork: hdhA P 83%\n[S2.c53]    53 fork: uidR P 86%\n[S2.c54]    54 fork: uidA S 80%\n[S2.c55]    55 fork: uidB S 76%\n[S2.c56]    56 fork: uidC S 73% \"glucuronide uptake porin UidC\"; also \"IS1 family transposase\" S 15%\n[S2.c57]    57 fork: ydgA P 86% \"YdgA family protein\"\n[S2.c58]    58 fork: manA P 86%\n[S2.c59]    59 variable: fumB P 86% \"class I fumarate hydratase\"\n[S2.c60]    60 fork: fumC P 86%\n[S2.c61]    61 fork: tus P 86%\n[S2.c62]    62 fork: rstB P 85% \"two-component system sensor histidi\u2026\"\n[S2.c63]    63 fork: rstA P 85%\n[S2.c64]    64 fork: ydgC P 85% \"GlpM family protein\"\n[S2.c65]    65 fork: folM P 85%\n[S2.c66]    66 variable: ydgI P 85% \"amino acid permease\"\n[S2.c67]    67 fork: ydgH P 85% \"DUF1471 family protein YdgH\"\n[S2.c68]    68 fork: pntA P 86%\n[S2.c69]    69 fork: pntB P 85% \"Re/Si-specific NAD(P)(+) transhydro\u2026\"\n[S2.c70]    70 variable: tqsA P 81%\n[S2.c71]    71 variable: \"protein YdgV\" S 63%\n[S2.c72]    72 fork: mdtJ P 82% \"multidrug/spermidine efflux SMR tra\u2026\"; also spy P 10%\n[S2.c73]    73 fork: mdtI P 83%; also astE P 10%\n[S2.c74-78]    columns 74-78 variable, share 80-83%, all P: ydgD \"trypsin-like serine peptidase\" 83%, ydgU \"small membrane protein YdgU\" 83%, asr 83%, \"KPN_01571 family protein\" 82%, ynfM \"MFS transporter\" 80%\n[S2.c79]    79 fork: ynfL P 68% \"LysR family transcriptional regulat\u2026\"; also mlc P 39%, bioD P 16%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 38-43 (rsxE to rsxA) [S2]: electron, transport; columns 49-51 (malY to malI) [S2]: maltose, regulon; columns 53-56 (uidR to uidC) [S2]: glucuronide; columns 70-73 (tqsA to mdtI) [S2]: transporter, efflux, multidrug, spermidine.\n[X] PRODUCTS of named genes (for [[ ]]): punC purine nucleoside transporter PunC; punR DNA-binding transcriptional activator P\u2026; nemA N-ethylmaleimide reductase; rsxE electron transport complex subunit RsxE; rsxG electron transport complex subunit RsxG; rsxD electron transport complex subunit RsxD; rsxC electron transport complex subunit RsxC; rsxB electron transport complex subunit RsxB; rsxA electron transport complex subunit RsxA; malY bifunctional maltose regulon transcript\u2026; malX PTS maltose transporter subunit IICB; uidA beta-glucuronidase; uidB glucuronide transporter; uidC glucuronide uptake porin UidC; fumB class I fumarate hydratase; fumC class II fumarate hydratase; rstB two-component system sensor histidine k\u2026; rstA two-component system response regulator\u2026; pntA Re/Si-specific NAD(P)(+) transhydrogena\u2026; pntB Re/Si-specific NAD(P)(+) transhydrogena\u2026; mdtJ multidrug/spermidine efflux SMR transpo\u2026; mdtI multidrug/spermidine efflux SMR transpo\u2026; ydhW YdhW family putative oxidoreductase sys\u2026; ydhV aldehyde ferredoxin oxidoreductase; ydhY ferredoxin-like protein; fumD fumarate hydratase FumD; pykF pyruvate kinase PykF; ldtE L,D-transpeptidase LdtE; sufE cysteine desulfuration protein SufE; sufS cysteine desulfurase SufS; sufD Fe-S cluster assembly protein SufD; sufC Fe-S cluster assembly ATPase SufC; sufB Fe-S cluster assembly protein SufB; sufA Fe-S cluster assembly scaffold SufA; menI 1,4-dihydroxy-2-naphthoyl-CoA hydrolase; ydiJ D-2-hydroxyglutarate dehydrogenase YdiJ; ydiK AI-2E family transporter YdiK; ydiM MFS transporter; ydiN MFS transporter; ydiB quinate/shikimate dehydrogenase\n[E] END: the window ends at column 79, ynfL, in 68% of chromosomes."
 }

@@ -18,6 +18,14 @@ proteins of upstream context). A window elsewhere is read in them.
              following it in no genome).
   proteins   the most common protein of each family, as "c<index>" into pgb/chrom_emb.f16,
              so a drawn path can be sent to the model.
+  locate     a gene or a family asked for (the page's search) opens the window that shows it in the
+             most chromosomes: each carrier's copies are placed against every backbone anchor of that
+             chromosome, the anchor at or before a copy within REACH genes that covers the most carriers
+             is taken (its copy about LEAD genes in, when several do as well), and the other places the
+             gene sits, in carriers this window misses, are listed (want_meta: the /region's meta.want).
+  neighbours the windows of the page's Next and Previous: Next is the last anchor within `step` genes;
+             Previous undoes Next (on the chain of Next from dnaA always, elsewhere when a window leads
+             there by Next).
 
     python3 pgb_region.py [family or gene or position]     # builds one window, prints a summary
 """
@@ -39,19 +47,30 @@ NAMES = [""] + sorted(_names); _ni = {n: i for i, n in enumerate(NAMES)}
 NAME = np.array([_ni.get(x or "", 0) for g in CJ["gene_names"] for x in g], dtype=np.int32)
 
 # per family: partition and one product, from the PanGBank file once, then cached
-if not os.path.exists("pgb/fam_info.json"):
+HYPOTHETICAL = ("hypothetical protein", "")
+def build_fam_info(out="pgb/fam_info.json"):
+    """each family's partition and product: the product most of its genes carry, "hypothetical protein" set aside
+    (lacZ: 1,942 beta-galactosidase, 15 hypothetical protein); a family with no other product keeps that one.
+    NOTE: the pgb/fam_info.json of the repository was written by the earlier rule (the product of the family's first
+    gene: lacZ "hypothetical protein"). Rebuilding it (delete it, or call this) changes the product of 5,272 families
+    and the facts of 111 of the 112 readings written ahead: regenerate them then (pg_reading.py pregen; check with
+    space/assemble.py --dry-run --check-facts)."""
     import pandas as pd, tables
     h = tables.open_file("pgb/ecoli_11587.h5"); A = h.root.annotations
     info = h.root.geneFamiliesInfo.read(); PART = {"P": "persistent", "S": "shell", "C": "cloud"}
     part = [PART.get(x.decode(), x.decode()) for x in info["partition"]]
     gf = h.root.geneFamilies.read(); gfam = pd.Index(FN).get_indexer([x.decode() for x in gf["geneFam"]])
-    one = pd.Series(gf["gene"]).groupby(gfam).first()
     gid_all = pd.Index(A.genes.read(field="ID")); ggd = A.genes.read(field="genedata_id")
-    rows = gid_all.get_indexer(one.values); gd = ggd[rows]; o = np.argsort(gd)
-    pr = A.genedata.read_coordinates(gd[o], field="product"); h.close()
+    gd = ggd[gid_all.get_indexer(gf["gene"])]
+    pr = A.genedata.read(field="product")[gd]; h.close()
+    df = pd.DataFrame(dict(f=gfam, p=pr)); df = df[df.f >= 0]
+    n = df.groupby(["f", "p"]).size().reset_index(name="n"); n["p"] = [x.decode() for x in n.p]
+    n["hyp"] = n.p.isin(HYPOTHETICAL)                           # most carried first, "hypothetical protein" last
+    n = n.sort_values(["f", "hyp", "n", "p"], ascending=[True, True, False, True]).drop_duplicates("f")
     prod = [""] * NF
-    for i, p in zip(o, pr): prod[int(one.index[i])] = p.decode()
-    json.dump(dict(partition=part, product=prod), open("pgb/fam_info.json", "w"))
+    for f, p in zip(n.f, n.p): prod[int(f)] = p
+    json.dump(dict(partition=part, product=prod), open(out, "w"))
+if not os.path.exists("pgb/fam_info.json"): build_fam_info()
 _fi = json.load(open("pgb/fam_info.json")); PARTITION = _fi["partition"]; PRODUCT = _fi["product"]
 
 # the model's clusters, named from its exemplar bank
@@ -81,6 +100,17 @@ starts = np.searchsorted(fs, BB); ends = np.searchsorted(fs, BB, "right")
 for f, a, b in zip(BB, starts, ends): _med[int(f)] = float(np.median(ps[a:b]))
 BB = np.array(sorted(BB, key=lambda f: _med[int(f)])); BB_POS = np.array([_med[int(f)] for f in BB])
 BB_RANK = {int(f): i for i, f in enumerate(BB)}
+# where each backbone anchor sits in each chromosome (-1: not there once): the window from anchor i in chromosome g
+# is its genes ANC_LOC[i, g] .. ANC_LOC[i, g] + W - 1 (around the origin), as build() walks them
+_rank = np.full(NF, -1, np.int64); _rank[BB] = np.arange(len(BB))
+ANC_LOC = np.full((len(BB), NG), -1, np.int32)
+_bs = _rank[f_single] >= 0
+ANC_LOC[_rank[f_single[_bs]], GID[first[single]][_bs]] = pos_single[_bs]
+del _bs
+WINDOW = 80                      # genes per window (build's W)
+REACH = 72                       # a gene is looked for at most this far after an anchor: a few columns follow it
+LEAD = 12                        # when several anchors show a gene in as many chromosomes: the one that puts it about here
+LAST_END = int(np.max(GL))       # the longest chromosome, in genes
 
 def fam_name_label(f):
     """the family's most common gene name in the chromosomes, else its product, else its PanGBank name"""
@@ -89,29 +119,147 @@ def fam_name_label(f):
     if c: return NAMES[c.most_common(1)[0][0]], True
     return (PRODUCT[f] or FN[f]), False
 
-def resolve(q):
-    """a query (PanGBank family, gene name, or position from dnaA) -> the backbone anchor at or just before it"""
-    q = (q or "").strip()
-    if not q: return int(BB[0])
-    if re.fullmatch(r"\d+", q):                                  # a position from dnaA
-        i = int(np.clip(np.searchsorted(BB_POS, float(q), "right") - 1, 0, len(BB) - 1)); return int(BB[i])
+class NotFound(KeyError):
+    """a query that names nothing here (an expected miss: the server answers 200 with found=false)"""
+
+
+def _family(q):
+    """a PanGBank family or a gene name (exact, else ignoring case; the family most carrying it) -> (family, name)"""
     f = FIDX.get(q)
-    if f is None:                                                # a gene name, most carried first
-        k = _ni.get(q) or next((i for n, i in _ni.items() if n.lower() == q.lower()), None)
-        if not k: raise KeyError(f"no gene or family called {q} in the complete chromosomes")
-        f = collections.Counter(FAM[NAME == k].tolist()).most_common(1)[0][0]
-    if f in BB_RANK: return int(f)
-    idx = np.flatnonzero(FAM == f)
-    if not len(idx): raise KeyError(f"{q} is in no complete chromosome")
-    p = float(np.median(LOC[idx]))                              # a few genes before it, so it shows in the window
-    i = int(np.clip(np.searchsorted(BB_POS, p - 8, "right") - 1, 0, len(BB) - 1)); return int(BB[i])
+    if f is not None: return f, None
+    k = _ni.get(q) or next((i for n, i in _ni.items() if n.lower() == q.lower()), None)
+    if not k: raise NotFound(f"no gene or family called {q} in the {NG} complete chromosomes")
+    return collections.Counter(FAM[NAME == k].tolist()).most_common(1)[0][0], NAMES[k]
+
+
+def _places(f, W=WINDOW, chunk=2048):
+    """for family f: its carrier chromosomes, and for every backbone anchor and carrier the offset of the carrier's copy
+    nearest after the anchor (the smallest (copy - anchor) mod length; 32767 when the chromosome lacks the anchor once)"""
+    idx = np.flatnonzero(FAM == f)                           # sorted: by chromosome, then position
+    g = GID[idx]; car, first_ = np.unique(g, return_index=True)
+    off = np.full((len(BB), len(car)), 32767, np.int32)
+    bounds = np.r_[first_, len(idx)]; s = 0
+    while s < len(idx):                                      # chunks of whole chromosomes: bounded memory for many copies
+        e = int(bounds[np.searchsorted(bounds, s + chunk, "right") - 1])
+        if e <= s: e = int(bounds[np.searchsorted(bounds, s, "right")])
+        gi, li = g[s:e], LOC[idx[s:e]]
+        al = ANC_LOC[:, gi]
+        d = np.where(al >= 0, (li[None, :] - al) % GL[gi][None, :], 32767)
+        seg = np.flatnonzero(np.r_[True, gi[1:] != gi[:-1]])
+        cols = np.searchsorted(car, gi[seg])
+        off[:, cols] = np.minimum(off[:, cols], np.minimum.reduceat(d, seg, axis=1))
+        s = e
+    return car, off
+
+
+def locate(q, W=WINDOW):
+    """a query -> dict(anchor=<backbone family index>, want=<what was asked for, or None>).
+    q: empty (the dnaA window), a position in genes from dnaA (the window whose anchor is at or just before it), a
+    PanGBank family or a gene name: the anchor at or before a copy of it, within REACH genes, that shows it in the most
+    carrier chromosomes (then the one putting it nearest LEAD genes in; when no copy is within REACH, within the window's
+    W genes); a backbone family is its own window's anchor.
+    want: q, fam, node (its node's id in the window), label, carriers (the complete chromosomes carrying it), and
+    places: the anchors that show it in the carriers the chosen window misses, most carriers first (greedy, up to 3).
+    Raises NotFound for a name or a position that is not there."""
+    q = (q or "").strip()
+    if not q: return dict(anchor=int(BB[0]), want=None)
+    if re.fullmatch(r"\d+", q):                                  # a position from dnaA
+        p = int(q)
+        if p >= LAST_END: raise NotFound(f"gene {p:,} from dnaA is past the end of the chromosomes (the longest has {LAST_END:,} genes)")
+        i = int(np.clip(np.searchsorted(BB_POS, float(p), "right") - 1, 0, len(BB) - 1)); return dict(anchor=int(BB[i]), want=None)
+    f, nm = _family(q)
+    car, off = _places(f, W)
+    if not len(car): raise NotFound(f"{q} is in none of the {NG} complete chromosomes (only in draft genomes)")
+    want = dict(q=q, fam=FN[f], node=f"p{f}", label=nm or fam_name_label(f)[0], carriers=int(len(car)))
+    # anywhere: some window shows it in some carrier (a copy at most W - 1 genes after an anchor of that chromosome)
+    want["anywhere"] = bool((off <= W - 1).any())
+    reach = REACH if (off <= REACH).any() else W - 1              # past REACH everywhere: a window showing it near its end
+    if f in BB_RANK: a = f                                        # a backbone family: the window it anchors
+    elif not want["anywhere"]:                                    # no window shows it: the one before its median place
+        p = float(np.median(LOC[FAM == f]))
+        a = int(BB[int(np.clip(np.searchsorted(BB_POS, p - 8, "right") - 1, 0, len(BB) - 1))])
+    else:
+        good = (off <= reach).sum(1)
+        top = np.flatnonzero(good == good.max())
+        med = np.array([np.median(off[j][off[j] <= reach]) for j in top])
+        a = int(BB[top[int(np.argmin(np.abs(med - LEAD)))]])      # ties: the lower anchor (np.argmin keeps the first)
+    want["places"] = _other_places(a, car, off, W)
+    return dict(anchor=int(a), want=want)
+
+
+def _other_places(a, car, off, W=WINDOW, most=3):
+    """the anchors that show the family in the carriers the window of anchor a misses, greedily, most carriers first"""
+    left = off[BB_RANK[a]] > W - 1
+    out = []
+    while left.any() and len(out) < most:
+        good = ((off <= REACH) & left[None, :]).sum(1)
+        j = int(np.argmax(good)); n = int(good[j])
+        if n < max(2, 0.02 * len(car)): break                    # a place in one chromosome, or in under 2 % of them: not listed
+        hit = (off[j] <= REACH) & left
+        out.append(dict(fam=FN[int(BB[j])], label=fam_name_label(int(BB[j]))[0], pos=round(float(BB_POS[j])), carriers=n,
+                        column=int(np.median(off[j][hit]))))
+        left &= ~(off[j] <= W - 1)
+    return out
+
+
+def want_meta(want, D, place_of=None):
+    """the /region's meta.want for a window built (D, build's output) and what was asked for (locate's or want_at's
+    want): found (its node is in the window), column (its node's), carriers_in_window (the chromosomes showing it
+    here), carriers (the complete chromosomes carrying it), window_genomes, and other_anchors: the other places it sits
+    in the chromosomes this window misses, each {fam, label, pos (the anchor's, from dnaA), carriers (of those
+    chromosomes, shown there), column (its median column there)}, and anywhere (false when every copy sits more than
+    W - 1 genes after every anchor of its chromosome: no window shows it)"""
+    if not want: return None
+    n = next((x for x in D["nodes"] if x["id"] == want["node"]), None)
+    anc = D["meta"]["anchor"]
+    return dict(q=want["q"], fam=want["fam"], node=want["node"], label=want["label"], found=n is not None,
+                column=n["locus"] if n else None, carriers_in_window=n["n"] if n else 0, carriers=want["carriers"],
+                window_genomes=D["meta"]["n_genomes"], other_anchors=[p for p in want["places"] if p["fam"] != anc],
+                anywhere=want.get("anywhere"))
+
+
+def want_at(q, anchor, W=WINDOW):
+    """what was asked for, seen from a window chosen by its anchor (the page's button to another place of a gene): the
+    places listed are those that show it in the carriers this window misses, as locate lists them for its own choice"""
+    f, nm = _family(q)
+    car, off = _places(f, W)
+    if not len(car): raise NotFound(f"{q} is in none of the {NG} complete chromosomes (only in draft genomes)")
+    return dict(q=q, fam=FN[f], node=f"p{f}", label=nm or fam_name_label(f)[0], carriers=int(len(car)),
+                places=_other_places(int(anchor), car, off, W), anywhere=bool((off <= W - 1).any()))
+
+
+def resolve(q):
+    """a query (PanGBank family, gene name, or position from dnaA) -> the anchor of the window that shows it (locate)"""
+    return locate(q)["anchor"]
+
+
+_NAV = {}
+def _nav(step):
+    """Next of every anchor (the last one within `step` genes, at least the following one; -1 for the last) and the
+    chain of Next from the dnaA window (the page's Next from dnaA goes to the anchor at or before gene `step`)"""
+    if step not in _NAV:
+        i = np.arange(len(BB))
+        nx = np.clip(np.searchsorted(BB_POS, BB_POS + step, "right") - 1, i + 1, len(BB) - 1); nx[-1] = -1
+        chain, a = {}, 0
+        while a >= 0 and a not in chain: chain[a] = len(chain); a = int(nx[a])
+        _NAV[step] = (nx, {a: k for a, k in chain.items()}, list(chain))
+    return _NAV[step]
+
 
 def neighbours(f, step):
-    i = BB_RANK[f]; p = BB_POS[i]
-    nx = int(np.clip(np.searchsorted(BB_POS, p + step, "right") - 1, i + 1, len(BB) - 1)) if i + 1 < len(BB) else None
-    pv = int(np.clip(np.searchsorted(BB_POS, p - step, "left"), 0, i - 1)) if i > 0 else None
+    """the windows of the page's Previous and Next from anchor f. Next: the last anchor within `step` genes. Previous
+    undoes Next: on the chain of Next from dnaA, the window before in it; elsewhere the nearest window whose Next is
+    this one; if none (a window opened by a search), the first anchor at least `step` genes before"""
+    i = BB_RANK[f]; p = BB_POS[i]; nx, at, chain = _nav(step)
+    n = int(nx[i]) if nx[i] >= 0 else None
+    if i == 0: pv = None
+    elif i in at and at[i] > 0: pv = chain[at[i] - 1]
+    else:
+        c = np.flatnonzero(nx[:i] == i)
+        pv = int(c[-1]) if len(c) else int(np.clip(np.searchsorted(BB_POS, p - step, "left"), 0, i - 1))
     lab = lambda j: None if j is None else dict(fam=FN[int(BB[j])], label=fam_name_label(int(BB[j]))[0], pos=round(float(BB_POS[j])))
-    return lab(pv), lab(nx)
+    return lab(pv), lab(n)
+
 
 def build(anchor, W=80):
     t0 = time.time(); a = int(anchor)

@@ -1,14 +1,15 @@
 """Start the PanGramGraph Space: fetch the data if the Space does not carry them, then serve.
 
-The data (pgb/*, about 720 MB) either sit in the Space itself, or in a dataset repository
-named by the variable PGG_DATA_REPO; a private one is read with HF_TOKEN, a Space secret.
+The data (pgb/*, about 670 MB, and 80 MB more for influence) either sit in the Space itself, or in a
+dataset repository named by the variable PGG_DATA_REPO; a private one is read with HF_TOKEN, a Space secret.
 DATA are needed to start; INFLUENCE (the Coupled regions tab's knockout of one element,
 serve_live /influence) are not: without them the Space starts and /health says influence is off.
 HF_TOKEN also lets the Findings tab's reading of a window be written by an LLM (pg_reading, Hugging
 Face Inference Providers): the token must be allowed to "Make calls to Inference Providers"; without
-it the readings shipped in pgb/readings/ are still served and /health says new ones are off. With the
-Space's persistent storage, the variable READING_CACHE=/data/readings keeps new readings and the day's
-counter across restarts.
+it the readings shipped in pgb/readings/ are still served and /health says new ones are off.
+Where new readings and the day's counters are kept: READING_CACHE if set; else /data/readings when the
+Space has persistent storage (/data, writable), so they survive a restart; else pgb/readings/ in the
+container, lost at each restart (the shipped readings are always read from pgb/readings/).
 """
 import os, sys
 DATA = ["pgb/window.json", "pgb/window_emb.npy", "pgb/model_calls.npz", "pgb/graph_pgb.json", "pgb/fam_info.json",
@@ -29,4 +30,9 @@ if (missing or optional) and repo:
     if missing: sys.exit(f"still missing after fetching from {repo}: {', '.join(missing)}")
 optional = [p for p in INFLUENCE if not os.path.exists(p)]
 if optional: print(f"influence off (missing {', '.join(optional)}): the rest of the page is served", flush=True)
+if not os.environ.get("READING_CACHE") and os.path.isdir("/data") and os.access("/data", os.W_OK):
+    try:
+        os.makedirs("/data/readings", exist_ok=True); os.environ["READING_CACHE"] = "/data/readings"
+    except OSError: pass
+print(f"new readings kept in {os.environ.get('READING_CACHE') or 'pgb/readings (lost at a restart: no persistent storage)'}", flush=True)
 os.execvp(sys.executable, [sys.executable, "serve_live.py"])

@@ -2,55 +2,469 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447807.5641565,
+ "created": 1790479512.3052897,
  "usage": {
-  "prompt_tokens": 3224,
-  "completion_tokens": 515,
-  "cost_usd": 0.000511,
-  "ms": 5127
+  "prompt_tokens": 11091,
+  "completion_tokens": 876,
+  "cost_usd": 0.000826,
+  "ms": 6818
  },
  "attempts": [
   {
-   "text": "**The window starts in a long persistent stretch.** Columns 0 to 31 are spine, carried by 90 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of genes there, fewest at column 22 (`mltF`), 95%, and hesitates most at column 31 (`yphG`), 0.71 bits.\n\n**Then a variable stretch opens.** Columns 32 to 43, in a region of plasticity in 5 to 87% of calls, carried by 82 to 90% of chromosomes: the `yph` genes, [[sugar transport]], and the `hca` genes, [[aromatic compound degradation]]. The model names 89 to 97% of genes, fewest at column 37, 89%, and hesitates most at column 32, 0.62 bits.\n\n**A short spine follows**, columns 44 to 45, `hcaT` and `csiE`, carried by 92% of chromosomes, in a region of plasticity in 5 to 12% of calls, named 96 to 97%, no column above 0.14 bits. Column 46, `yfhR`, is variable, named 95%, 0.24 bits.\n\n**Then the longest spine**, columns 47 to 70, carried by 90 to 93% of chromosomes, in a region of plasticity in 5 to 16% of calls: the `isc` genes, [[iron-sulfur cluster assembly]], and `sseB` to `sseA`. The model names 90 to 97% of genes, fewest at column 65 (`rodZ`), 90%, and hesitates most at column 59 (`timP`), 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, in a region of plasticity in 13 to 19% of calls, named 82 to 90%, fewest at column 75, 82%, most hesitant at column 76, 0.66 bits. A second branch of 4 families runs through columns 71 to 74, carried by 15 to 26% of chromosomes, including `sinH`, [[inverse autotransporter adhesion]]. The window ends at column 79, `pdeF`, in 44% of chromosomes.",
+   "text": "**The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95%.\n\n**A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%. The last column is `pdeF`, in 44% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3224,
-    "completion_tokens": 515,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5153,
+    "completion_tokens": 433,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000511
+    "cost_usd": 0.000556
    },
    "provider": "deepinfra",
-   "ms": 5127,
-   "raw": "**The window starts in a long persistent stretch.** Columns 0 to 31 are spine, carried by 90 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of genes there, fewest at column 22 (`mltF`), 95%, and hesitates most at column 31 (`yphG`), 0.71 bits.\n\n**Then a variable stretch opens.** Columns 32 to 43, in a region of plasticity in 5 to 87% of calls, carried by 82 to 90% of chromosomes: the `yph` genes, [[sugar transport]], and the `hca` genes, [[aromatic compound degradation]]. The model names 89 to 97% of genes, fewest at column 37, 89%, and hesitates most at column 32, 0.62 bits.\n\n**A short spine follows**, columns 44 to 45, `hcaT` and `csiE`, carried by 92% of chromosomes, in a region of plasticity in 5 to 12% of calls, named 96 to 97%, no column above 0.14 bits. Column 46, `yfhR`, is variable, named 95%, 0.24 bits.\n\n**Then the longest spine**, columns 47 to 70, carried by 90 to 93% of chromosomes, in a region of plasticity in 5 to 16% of calls: the `isc` genes, [[iron-sulfur cluster assembly]], and `sseB` to `sseA`. The model names 90 to 97% of genes, fewest at column 65 (`rodZ`), 90%, and hesitates most at column 59 (`timP`), 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, in a region of plasticity in 13 to 19% of calls, named 82 to 90%, fewest at column 75, 82%, most hesitant at column 76, 0.66 bits. A second branch of 4 families runs through columns 71 to 74, carried by 15 to 26% of chromosomes, including `sinH`, [[inverse autotransporter adhesion]]. The window ends at column 79, `pdeF`, in 44% of chromosomes.",
+   "ms": 3313,
+   "raw": "@start **The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1, P}. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95% {S1}.\n\n@variable **A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window {S2, P}. Its genes, `yphF` to `hcaR`, are [[3-phenylpropionate catabolism]] {S2.c32-43, Q}. Then a spine, columns 47 to 70, `suhB` to `der`, carries [[Fe-S cluster assembly]] at columns 49 to 56 {S5, Q}. A branch of 4 shell families runs through columns 71 to 74, [[autotransporter]] {S6.b71, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits {M}. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90% {S6}. The last column is `pdeF`, in 44% of chromosomes {E}.\n\n@whole **Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98% {C}.",
+   "annotated": "@start **The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1, P}. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95% {S1}.\n\n@variable **A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window {S2, P}. Its genes, `yphF` to `hcaR`, are [[3-phenylpropionate catabolism]] {S2.c32-43, Q}. Then a spine, columns 47 to 70, `suhB` to `der`, carries [[Fe-S cluster assembly]] at columns 49 to 56 {S5, Q}. A branch of 4 shell families runs through columns 71 to 74, [[autotransporter]] {S6.b71, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits {M}. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90% {S6}. The last column is `pdeF`, in 44% of chromosomes {E}.\n\n@whole **Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 64,
-    "names": 14,
-    "words": 294,
-    "bad": [],
-    "hints": [
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
      {
-      "text": "compound",
-      "where": "[[aromatic compound degradation]]"
+      "kind": "interpretation",
+      "text": "3-phenylpropionate catabolism",
+      "why": "this says what 5 of the 12 families of the lines cited (S2.c32-43, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[3-phenylpropionate catabolism]]"
+     },
+     {
+      "kind": "interpretation",
+      "text": "Fe-S cluster assembly",
+      "why": "this says what 4 of the 24 families of the lines cited (S5, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[Fe-S cluster assembly]]"
+     },
+     {
+      "kind": "interpretation",
+      "text": "autotransporter",
+      "why": "an interpretation is one phrase of 2 to 6 words, not a word or a list",
+      "context": "[[autotransporter]]"
      }
-    ]
+    ],
+    "numbers": 25,
+    "names": 9,
+    "words": 216,
+    "sentences": 12,
+    "cited": 17,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 3,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 176,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window",
+      "cites": [
+       "S2",
+       "P"
+      ],
+      "inherit": [
+       "S2.c32-43",
+       "Q",
+       "S5",
+       "S6.b71"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%",
+      "cites": [
+       "S6"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `pdeF`, in 44% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 54
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "Its genes, `yphF` to `hcaR`, are [[3-phenylpropionate catabolism]]",
+     "cites": [
+      "S2.c32-43",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "3-phenylpropionate catabolism",
+       "why": "this says what 5 of the 12 families of the lines cited (S2.c32-43, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    },
+    {
+     "tag": "variable",
+     "text": "Then a spine, columns 47 to 70, `suhB` to `der`, carries [[Fe-S cluster assembly]] at columns 49 to 56",
+     "cites": [
+      "S5",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "Fe-S cluster assembly",
+       "why": "this says what 4 of the 24 families of the lines cited (S5, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    },
+    {
+     "tag": "variable",
+     "text": "A branch of 4 shell families runs through columns 71 to 74, [[autotransporter]]",
+     "cites": [
+      "S6.b71",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "autotransporter",
+       "why": "an interpretation is one phrase of 2 to 6 words, not a word or a list"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95%.\n\n**A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%. The last column is `pdeF`, in 44% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%.",
+   "truncated": false,
+   "ok": false
+  },
+  {
+   "text": "**The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95%.\n\n**A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window. A branch of 4 shell families runs through columns 71 to 74, [[inverse autotransporter]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%. The last column is `pdeF`, in 44% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%.",
+   "finish": "stop",
+   "usage": {
+    "prompt_tokens": 5938,
+    "completion_tokens": 443,
+    "cached_tokens": 5504,
+    "reasoning_tokens": 0,
+    "cost_usd": 0.00027
+   },
+   "provider": "deepinfra",
+   "ms": 3505,
+   "raw": "@start **The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1, P}. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95% {S1}.\n\n@variable **A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window {S2, P}. At columns 38 to 44, `hcaD` to `hcaT`, the products agree on [[3-phenylpropionate dioxygenase]] {S2, S3, Q}. Then a spine, columns 47 to 70, `suhB` to `der`, carries [[Fe-S cluster assembly]] at columns 49 to 56 {S5, Q}. A branch of 4 shell families runs through columns 71 to 74, [[inverse autotransporter]] {S6.b71, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits {M}. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90% {S6}. The last column is `pdeF`, in 44% of chromosomes {E}.\n\n@whole **Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98% {C}.",
+   "annotated": "@start **The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls {S1, P}. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95% {S1}.\n\n@variable **A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window {S2, P}. At columns 38 to 44, `hcaD` to `hcaT`, the products agree on [[3-phenylpropionate dioxygenase]] {S2, S3, Q}. Then a spine, columns 47 to 70, `suhB` to `der`, carries [[Fe-S cluster assembly]] at columns 49 to 56 {S5, Q}. A branch of 4 shell families runs through columns 71 to 74, [[inverse autotransporter]] {S6.b71, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits {M}. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90% {S6}. The last column is `pdeF`, in 44% of chromosomes {E}.\n\n@whole **Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98% {C}.",
+   "check": {
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "wording",
+      "text": "products agree",
+      "why": "the reading speaks of the window, not of the facts"
+     },
+     {
+      "kind": "interpretation",
+      "text": "Fe-S cluster assembly",
+      "why": "this says what 4 of the 24 families of the lines cited (S5, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[Fe-S cluster assembly]]"
+     }
+    ],
+    "numbers": 25,
+    "names": 9,
+    "words": 223,
+    "sentences": 12,
+    "cited": 18,
+    "structure": []
+   },
+   "report": {
+    "dropped": 2,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 190,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window",
+      "cites": [
+       "S2",
+       "P"
+      ],
+      "inherit": [
+       "S3",
+       "Q",
+       "S5",
+       "S6.b71"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "A branch of 4 shell families runs through columns 71 to 74, [[inverse autotransporter]]",
+      "cites": [
+       "S6.b71",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%",
+      "cites": [
+       "S6"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `pdeF`, in 44% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 54
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "At columns 38 to 44, `hcaD` to `hcaT`, the products agree on [[3-phenylpropionate dioxygenase]]",
+     "cites": [
+      "S2",
+      "S3",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "wording",
+       "text": "products agree",
+       "why": "the reading speaks of the window, not of the facts"
+      }
+     ]
+    },
+    {
+     "tag": "variable",
+     "text": "Then a spine, columns 47 to 70, `suhB` to `der`, carries [[Fe-S cluster assembly]] at columns 49 to 56",
+     "cites": [
+      "S5",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "Fe-S cluster assembly",
+       "why": "this says what 4 of the 24 families of the lines cited (S5, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95%.\n\n**A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window. A branch of 4 shell families runs through columns 71 to 74, [[inverse autotransporter]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%. The last column is `pdeF`, in 44% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%.",
+   "truncated": false,
+   "ok": false
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 64,
-  "names": 14,
-  "words": 294,
-  "attempts": 1
+  "numbers": 25,
+  "names": 9,
+  "words": 190,
+  "attempts": 2,
+  "sentences": 12,
+  "cited": 18,
+  "skill": "4a7fdc464826",
+  "dropped": 2,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 54
  },
- "text": "**The window starts in a long persistent stretch.** Columns 0 to 31 are spine, carried by 90 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of genes there, fewest at column 22 (`mltF`), 95%, and hesitates most at column 31 (`yphG`), 0.71 bits.\n\n**Then a variable stretch opens.** Columns 32 to 43, in a region of plasticity in 5 to 87% of calls, carried by 82 to 90% of chromosomes: the `yph` genes, [[sugar transport]], and the `hca` genes, [[aromatic compound degradation]]. The model names 89 to 97% of genes, fewest at column 37, 89%, and hesitates most at column 32, 0.62 bits.\n\n**A short spine follows**, columns 44 to 45, `hcaT` and `csiE`, carried by 92% of chromosomes, in a region of plasticity in 5 to 12% of calls, named 96 to 97%, no column above 0.14 bits. Column 46, `yfhR`, is variable, named 95%, 0.24 bits.\n\n**Then the longest spine**, columns 47 to 70, carried by 90 to 93% of chromosomes, in a region of plasticity in 5 to 16% of calls: the `isc` genes, [[iron-sulfur cluster assembly]], and `sseB` to `sseA`. The model names 90 to 97% of genes, fewest at column 65 (`rodZ`), 90%, and hesitates most at column 59 (`timP`), 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, in a region of plasticity in 13 to 19% of calls, named 82 to 90%, fewest at column 75, 82%, most hesitant at column 76, 0.66 bits. A second branch of 4 families runs through columns 71 to 74, carried by 15 to 26% of chromosomes, including `sinH`, [[inverse autotransporter adhesion]]. The window ends at column 79, `pdeF`, in 44% of chromosomes.",
- "html": "<p class=\"note\"><b>The window starts in a long persistent stretch.</b> Columns 0 to 31 are spine, carried by 90 to 100% of chromosomes, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of genes there, fewest at column 22 (<span class=\"gene\">mltF</span>), 95%, and hesitates most at column 31 (<span class=\"gene\">yphG</span>), 0.71 bits.</p><p class=\"note\"><b>Then a variable stretch opens.</b> Columns 32 to 43, in a region of plasticity in 5 to 87% of calls, carried by 82 to 90% of chromosomes: the <span class=\"gene\">yph</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">sugar transport</span>, and the <span class=\"gene\">hca</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">aromatic compound degradation</span>. The model names 89 to 97% of genes, fewest at column 37, 89%, and hesitates most at column 32, 0.62 bits.</p><p class=\"note\"><b>A short spine follows</b>, columns 44 to 45, <span class=\"gene\">hcaT</span> and <span class=\"gene\">csiE</span>, carried by 92% of chromosomes, in a region of plasticity in 5 to 12% of calls, named 96 to 97%, no column above 0.14 bits. Column 46, <span class=\"gene\">yfhR</span>, is variable, named 95%, 0.24 bits.</p><p class=\"note\"><b>Then the longest spine</b>, columns 47 to 70, carried by 90 to 93% of chromosomes, in a region of plasticity in 5 to 16% of calls: the <span class=\"gene\">isc</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">iron-sulfur cluster assembly</span>, and <span class=\"gene\">sseB</span> to <span class=\"gene\">sseA</span>. The model names 90 to 97% of genes, fewest at column 65 (<span class=\"gene\">rodZ</span>), 90%, and hesitates most at column 59 (<span class=\"gene\">timP</span>), 1.03 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 71 to 79, in a region of plasticity in 13 to 19% of calls, named 82 to 90%, fewest at column 75, 82%, most hesitant at column 76, 0.66 bits. A second branch of 4 families runs through columns 71 to 74, carried by 15 to 26% of chromosomes, including <span class=\"gene\">sinH</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">inverse autotransporter adhesion</span>. The window ends at column 79, <span class=\"gene\">pdeF</span>, in 44% of chromosomes.</p>",
+ "text": "**The window opens on a long spine.** Columns 0 to 31, `eamB` to `yphG`, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of them, fewest at column 22, `mltF`, 95%.\n\n**A variable stretch follows**, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window. A branch of 4 shell families runs through columns 71 to 74, [[inverse autotransporter]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits. Its most hesitant column, 59, `timP`, is a spine column, at 1.03 bits.\n\n**The window ends in fork and variable columns.** Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%. The last column is `pdeF`, in 44% of chromosomes.\n\n**Across the window it names 95% of genes**, 0.23 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%.",
+ "html": "<p class=\"note\"><b>The window opens on a long spine.</b> Columns 0 to 31, <span class=\"gene\">eamB</span> to <span class=\"gene\">yphG</span>, are carried by 90 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 4% of calls. The model names 95 to 99.8% of them, fewest at column 22, <span class=\"gene\">mltF</span>, 95%.</p><p class=\"note\"><b>A variable stretch follows</b>, columns 32 to 43, carried by 82 to 90%, the most plastic stretch of the window. A branch of 4 shell families runs through columns 71 to 74, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">inverse autotransporter</span>.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 97 against 91%, and hesitates less there, 0.18 against 0.36 bits. Its most hesitant column, 59, <span class=\"gene\">timP</span>, is a spine column, at 1.03 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 71 to 79, carried by 44 to 90%, are named 82 to 90%. The last column is <span class=\"gene\">pdeF</span>, in 44% of chromosomes.</p><p class=\"note\"><b>Across the window it names 95% of genes</b>, 0.23 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.79 against 0.16 bits, and names fewer genes, 75% against 98%.</p>",
  "window": "BEH51_RS22880",
  "label": "eamB",
- "facts_hash": "44d5c06a3c9c",
- "prompt_version": "r7",
- "facts": "WINDOW: the eamB window: 80 columns, column 0 is the anchor eamB, then the next 79 genes in dnaA's direction; about genes 1,129 to 1,208 from dnaA. Read in 534 of the 540 complete chromosomes (those carrying eamB once); 42,720 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 95% of genes, 0.23 bits on average (perplexity 1.3 families). By partition of the gene: persistent 37,025 calls, named 99%, 0.15 bits; shell 5,262 calls, named 77%, 0.53 bits; cloud 433 calls, named 27%, 3.34 bits. Outside an RGP 37,648 calls, named 98%, 0.16 bits; inside an RGP 5,072 calls, named 75%, 0.79 bits. Columns: 58 spine, 7 fork, 15 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.79 against 0.16 bits) and names fewer genes (75% against 98%); 5,072 of the 42,720 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 59 (timP) 1.03 bits, RGP 5%; column 31 (yphG) 0.71 bits, RGP 4%; column 60 (sseA) 0.66 bits, RGP 5%. The 6 columns where most calls are in an RGP: named 95%, 0.26 bits on average; the other 74 columns: named 95%, 0.23 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 32-43 (variable), RGP 5-87%; the least: columns 0-31 (spine), RGP 0-4%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-31 (32 columns) spine: share 90-100%, all P, RGP 0-4%. Genes: eamB, yfiE \"LysR family transcriptional regulat\u2026\", srmB, trmN, nadB, rseD, rpoE, rseA, rseB \"sigma-E factor regulatory protein R\u2026\", rseC, lepA \"translation elongation factor 4\", lepB, rnc, era, recO, pdxJ, acpS, shoB, yfhL \"4Fe-4S dicluster ferredoxin YfhL\", yfhH \"MurR/RpiR family transcriptional re\u2026\", yfhb \"phosphatidylglycerophosphatase C\", tadA, mltF, purL, qseE \"two component system sensor histidi\u2026\", qseG, glrR, glnB, hmpA, glyA, yphH \"ROK family protein\", yphG \"DUF5107 domain-containing protein\". named 95-99.8% (mean 98%), fewest named at column 22 (mltF), named 95%; most hesitant at column 31 (yphG), 0.71 bits.\n2. columns 32-43 (12 columns) variable: RGP 5-87%. named 89-97% (mean 94%), fewest named at column 37, named 89%; most hesitant at column 32, 0.62 bits.\n   columns 32-43, share 82-90%, 6 P, 6 S: yphF \"substrate-binding domain-containing\u2026\" 89%, yphE \"sugar ABC transporter ATP-binding p\u2026\" 86%, yphD \"ABC transporter permease\" 90%, yphC \"alcohol dehydrogenase catalytic dom\u2026\" 90%, yphB \"aldose 1-epimerase\" 89%, yphA \"DoxX family protein\" 90%, hcaD 82%, hcaB 83%, hcaC \"bifunctional 3-phenylpropionate/cin\u2026\" 83%, hcaF 83%, hcaE 82%, hcaR 83%\n3. columns 44-45 (2 columns) spine: share 92%, all P, RGP 5-12%. Genes: hcaT, csiE. named 96-97% (mean 97%), fewest named at column 45 (csiE), named 96%; no column of this stretch hesitates more than 0.14 bits (column 45 (csiE)).\n4. column 46 variable: RGP 5%. named 95%; 0.24 bits.\n   46: yfhR P 90% \"alpha/beta hydrolase\"\n5. columns 47-70 (24 columns) spine: share 90-93%, all P, RGP 5-16%. Genes: suhB, trmJ, iscR, iscS, iscU \"Fe-S cluster assembly scaffold IscU\", iscA, hscB, hscA \"Fe-S protein assembly chaperone HscA\", fdx, iscX, pepB, sseB, timP, sseA, yfhM, pbpC, ndk, rlmN, rodZ, ispG, hisS, yfgM \"ancillary SecYEG translocon subunit\u2026\", bamB, der. named 90-97% (mean 95%), fewest named at column 65 (rodZ), named 90%; most hesitant at column 59 (timP), 1.03 bits.\n6. columns 71-79 (9 columns) fork and variable columns: RGP 13-19%. named 82-90% (mean 87%), fewest named at column 75, named 82%; most hesitant at column 76, 0.66 bits.\n   a second branch of 4 families through columns 71-74, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-26%, all S; the branch's families: \"zinc ribbon domain-containing protein\", sinH, \"SinI family autotransporter-associated\u2026\", \"adhesion domain-containing protein\"\n   71 fork: yfgJ S 64% \"zinc ribbon domain-containing prote\u2026\"\n   72 fork: xseA P 90%\n   73 fork: guaB P 90%\n   74 fork: guaA P 89% \"glutamine-hydrolyzing GMP synthase\"\n   75 fork: yfgI P 70% \"DUF5384 family protein\"; also \"site-specific integrase\" S 11%\n   76 variable: yfgH P 66% \"glycine zipper 2TM domain-containin\u2026\"\n   77 variable: yfgG P 59% \"YfgG family protein\"\n   78 fork: \"hypothetical protein\" P 54%; also \"IS1-like element transposase\" S 13%, ppk1 P 12%\n   79 fork: pdeF P 44%; also ppx P 20%\nPRODUCTS of named genes (for [[ ]]): rseA anti-sigma-E factor RseA; rseC SoxR-reducing system protein RseC; lepB signal peptidase I; qseG two-component system QseEF-associated l\u2026; hcaD FAD-dependent oxidoreductase; hcaB 3-phenylpropionate-dihydrodiol/cinnamic\u2026; hcaF aromatic-ring-hydroxylating dioxygenase\u2026; hcaT 3-phenylpropionate MFS transporter; iscR Fe-S cluster assembly transcriptional r\u2026; iscS cysteine desulfurase; iscA iron-sulfur cluster assembly protein Is\u2026; hscB co-chaperone HscB; guaB IMP dehydrogenase; guaA glutamine-hydrolyzing GMP synthase; sinH intimin-like inverse autotransporter pr\u2026; ppx Ppx/GppA phosphatase family protein\nEND: the window ends at column 79, pdeF, in 44% of chromosomes."
+ "facts_hash": "3f588faede4d",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the eamB window: 80 columns, column 0 is the anchor eamB, then the next 79 genes in dnaA's direction; about genes 1,129 to 1,208 from dnaA. Read in 534 of the 540 complete chromosomes (those carrying eamB once); 42,720 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 95% of genes, 0.23 bits on average (perplexity 1.3 families). By partition of the gene: persistent 37,025 calls, named 99%, 0.15 bits; shell 5,262 calls, named 77%, 0.53 bits; cloud 433 calls, named 27%, 3.34 bits. Outside an RGP 37,648 calls, named 98%, 0.16 bits; inside an RGP 5,072 calls, named 75%, 0.79 bits. Columns: 58 spine, 7 fork, 15 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.79 against 0.16 bits) and names fewer genes (75% against 98%); 5,072 of the 42,720 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 59 (timP, a spine column) 1.03 bits, RGP 5%; column 31 (yphG, a spine column) 0.71 bits, RGP 4%; column 60 (sseA, a spine column) 0.66 bits, RGP 5%. The 6 columns (columns 38-43) where most calls are in an RGP: named 95%, 0.26 bits on average; the other 74 columns: named 95%, 0.23 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 58 spine columns: named 97%, 0.18 bits on average; the 22 fork and variable columns: named 91%, 0.36 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 59, is a spine column: the model can hesitate most inside a spine.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 32-43 (variable), RGP 5-87%; the least: columns 0-31 (spine), RGP 0-4%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-31 (32 columns) spine: share 90-100%, all P, RGP 0-4%. Genes: eamB, yfiE \"LysR family transcriptional regulat\u2026\", srmB, trmN, nadB, rseD, rpoE, rseA, rseB \"sigma-E factor regulatory protein R\u2026\", rseC, lepA \"translation elongation factor 4\", lepB, rnc, era, recO, pdxJ, acpS, shoB, yfhL \"4Fe-4S dicluster ferredoxin YfhL\", yfhH \"MurR/RpiR family transcriptional re\u2026\", yfhb \"phosphatidylglycerophosphatase C\", tadA, mltF, purL, qseE \"two component system sensor histidi\u2026\", qseG, glrR, glnB, hmpA, glyA, yphH \"ROK family protein\", yphG \"DUF5107 domain-containing protein\". named 95-99.8% (mean 98%), fewest named at column 22 (mltF), named 95%; most hesitant at column 31 (yphG), 0.71 bits.\n[S2] 2. columns 32-43 (12 columns) variable: share 82-90%, 6 P, 6 S, RGP 5-87%. named 89-97% (mean 94%), fewest named at column 37, named 89%; most hesitant at column 32, 0.62 bits.\n[S2.c32-43]    columns 32-43, share 82-90%, 6 P, 6 S: yphF \"substrate-binding domain-containing\u2026\" 89%, yphE \"sugar ABC transporter ATP-binding p\u2026\" 86%, yphD \"ABC transporter permease\" 90%, yphC \"zinc-dependent alcohol dehydrogenas\u2026\" 90%, yphB \"aldose 1-epimerase\" 89%, yphA \"DoxX family protein\" 90%, hcaD 82%, hcaB 83%, hcaC \"bifunctional 3-phenylpropionate/cin\u2026\" 83%, hcaF 83%, hcaE 82%, hcaR 83%\n[S3] 3. columns 44-45 (2 columns) spine: share 92%, all P, RGP 5-12%. Genes: hcaT, csiE. named 96-97% (mean 97%), fewest named at column 45 (csiE), named 96%; no column of this stretch hesitates more than 0.14 bits (column 45 (csiE)).\n[S4] 4. column 46 variable: share 90%, all P, RGP 5%. named 95%; 0.24 bits.\n[S4.c46]    46: yfhR P 90% \"alpha/beta hydrolase\"\n[S5] 5. columns 47-70 (24 columns) spine: share 90-93%, all P, RGP 5-16%. Genes: suhB, trmJ, iscR, iscS, iscU \"Fe-S cluster assembly scaffold IscU\", iscA, hscB, hscA \"Fe-S protein assembly chaperone HscA\", fdx, iscX, pepB, sseB, timP, sseA, yfhM \"alpha2-macroglobulin\", pbpC, ndk, rlmN, rodZ, ispG, hisS, yfgM \"ancillary SecYEG translocon subunit\u2026\", bamB, der. named 90-97% (mean 95%), fewest named at column 65 (rodZ), named 90%; most hesitant at column 59 (timP), 1.03 bits.\n[S6] 6. columns 71-79 (9 columns) fork and variable columns: share 44-90%, 8 P, 1 S, RGP 13-19%. named 82-90% (mean 87%), fewest named at column 75, named 82%; most hesitant at column 76, 0.66 bits.\n[S6.b71]    a second branch of 4 families through columns 71-74, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-26%, all S; the branch's families: \"zinc ribbon domain-containing protein\", sinH, \"SinI family autotransporter-associated\u2026\", \"adhesion domain-containing protein\"\n[S6.c71]    71 fork: yfgJ S 64% \"zinc ribbon domain-containing prote\u2026\"\n[S6.c72]    72 fork: xseA P 90%\n[S6.c73]    73 fork: guaB P 90%\n[S6.c74]    74 fork: guaA P 89% \"glutamine-hydrolyzing GMP synthase\"\n[S6.c75]    75 fork: yfgI P 70% \"DUF5384 family protein\"; also \"tyrosine-type recombinase/integrase\" S 11%\n[S6.c76]    76 variable: yfgH P 66% \"glycine zipper 2TM domain-containin\u2026\"\n[S6.c77]    77 variable: yfgG P 59% \"YfgG family protein\"\n[S6.c78]    78 fork: \"hypothetical protein\" P 54%; also \"IS1 family transposase\" S 13%, ppk1 P 12%\n[S6.c79]    79 fork: pdeF P 44%; also ppx P 20%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 7-9 (rseA to rseC) [S1]: factor, sigma; columns 38-44 (hcaD to hcaT) [S2, S3]: phenylpropionate, 3-phenylpropionate, cinnamic, dioxygenase; columns 49-56 (iscR to iscX) [S5]: assembly, cluster, fe-s; the branch [S6.b71] through columns 71-74: autotransporter.\n[X] PRODUCTS of named genes (for [[ ]]): rseA anti-sigma-E factor RseA; rseC SoxR-reducing system protein RseC; lepB signal peptidase I; qseG two-component system QseEF-associated l\u2026; hcaD phenylpropionate dioxygenase ferredoxin\u2026; hcaB 3-phenylpropionate-dihydrodiol/cinnamic\u2026; hcaF 3-phenylpropionate/cinnamic acid dioxyg\u2026; hcaE 3-phenylpropionate/cinnamic acid dioxyg\u2026; hcaT 3-phenylpropionate MFS transporter; iscR Fe-S cluster assembly transcriptional r\u2026; iscS cysteine desulfurase; iscA iron-sulfur cluster assembly protein Is\u2026; hscB co-chaperone HscB; guaB IMP dehydrogenase; guaA glutamine-hydrolyzing GMP synthase; sinH intimin-like inverse autotransporter Si\u2026; ppk1 polyphosphate kinase 1; ppx exopolyphosphatase\n[E] END: the window ends at column 79, pdeF, in 44% of chromosomes."
 }

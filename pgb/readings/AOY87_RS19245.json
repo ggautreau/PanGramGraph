@@ -2,50 +2,224 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447800.8217704,
+ "created": 1790479502.4828255,
  "usage": {
-  "prompt_tokens": 4318,
-  "completion_tokens": 606,
-  "cost_usd": 0.000703,
-  "ms": 6378
+  "prompt_tokens": 6492,
+  "completion_tokens": 396,
+  "cost_usd": 0.000728,
+  "ms": 3329
  },
  "attempts": [
   {
-   "text": "**The window starts at `relA`.** Column 0 is a spine column, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls; the model names it in 100% of calls with 0.05 bits. Then columns 1 to 2, `mazE` and `mazF`, [[type II toxin-antitoxin system]], variable, in a region of plasticity in 0% of calls.\n\n**A fork opens at `ygcG`.** Columns 6 to 7 are fork columns, in a region of plasticity in 91 to 92% of calls; the model names 75 to 85% there, fewest at column 6, 75%, with 1.86 bits, the window's most hesitant column. Column 8, `queE`, is a spine column in a region of plasticity in 92% of calls, the stretch most in regions of plasticity.\n\n**Then a variable stretch follows**, columns 9 to 15, in a region of plasticity in 82 to 92% of calls, carried by 86 to 90% of chromosomes, all shell: `ygcE` to `ygcQ`, [[carbohydrate transport and oxidation]]. The model names 87 to 97% there, fewest at column 9, 87%, with 1.05 bits. Columns 16 to 17, `ygcP` and `ygcO`, are spine columns, and column 18, `ygcN`, is variable.\n\n**A fork and variable stretch runs from column 23 to 30**, in a region of plasticity in 42 to 61% of calls; the model names 65 to 96%, fewest at column 24, 65%, with 1.18 bits. A second branch of 6 families, `cas3` to `cas6e`, [[type I-E CRISPR-associated genes]], is carried by 18 to 29% of chromosomes. Columns 31 to 43, `iap` to `rpoS`, are spine, named in 94 to 98%.\n\n**The window ends in a long spine**, columns 53 to 68, `ygbA` to `hycI`, [[formate hydrogenlyase and hydrogenase maturation]], named in 79 to 95%, fewest at column 65, 79%. Columns 69 to 79 are fork and variable, in a region of plasticity in 4 to 5% of calls, named in 92 to 96%; a second branch of 4 families, `srlE` to `pncC`, is carried by 17 to 30% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.",
+   "text": "**The window opens on a single spine column.** Column 0, `relA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 100% of them, at 0.05 bits.\n\n**A variable pair follows at `mazE` and `mazF`**, columns 1 to 2, carried by 84%, fewest named at column 1, 88%. Through columns 23 to 28 a branch of 6 families runs in 18 to 29%, [[CRISPR-associated proteins]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 93 against 91%, and hesitates less there, 0.23 against 0.42 bits. It hesitates most at column 6, `ygcG`, a fork column, 1.86 bits.\n\n**The window ends in fork and variable columns.** Columns 69 to 79, `ascB` to `gutM`, are carried by 64 to 85%, all persistent. The last column is `gutM`, in 64% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.32 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4318,
-    "completion_tokens": 606,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6492,
+    "completion_tokens": 396,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000703
+    "cost_usd": 0.000728
    },
    "provider": "deepinfra",
-   "ms": 6378,
-   "raw": "**The window starts at `relA`.** Column 0 is a spine column, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls; the model names it in 100% of calls with 0.05 bits. Then columns 1 to 2, `mazE` and `mazF`, [[type II toxin-antitoxin system]], variable, in a region of plasticity in 0% of calls.\n\n**A fork opens at `ygcG`.** Columns 6 to 7 are fork columns, in a region of plasticity in 91 to 92% of calls; the model names 75 to 85% there, fewest at column 6, 75%, with 1.86 bits, the window's most hesitant column. Column 8, `queE`, is a spine column in a region of plasticity in 92% of calls, the stretch most in regions of plasticity.\n\n**Then a variable stretch follows**, columns 9 to 15, in a region of plasticity in 82 to 92% of calls, carried by 86 to 90% of chromosomes, all shell: `ygcE` to `ygcQ`, [[carbohydrate transport and oxidation]]. The model names 87 to 97% there, fewest at column 9, 87%, with 1.05 bits. Columns 16 to 17, `ygcP` and `ygcO`, are spine columns, and column 18, `ygcN`, is variable.\n\n**A fork and variable stretch runs from column 23 to 30**, in a region of plasticity in 42 to 61% of calls; the model names 65 to 96%, fewest at column 24, 65%, with 1.18 bits. A second branch of 6 families, `cas3` to `cas6e`, [[type I-E CRISPR-associated genes]], is carried by 18 to 29% of chromosomes. Columns 31 to 43, `iap` to `rpoS`, are spine, named in 94 to 98%.\n\n**The window ends in a long spine**, columns 53 to 68, `ygbA` to `hycI`, [[formate hydrogenlyase and hydrogenase maturation]], named in 79 to 95%, fewest at column 65, 79%. Columns 69 to 79 are fork and variable, in a region of plasticity in 4 to 5% of calls, named in 92 to 96%; a second branch of 4 families, `srlE` to `pncC`, is carried by 17 to 30% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.",
+   "ms": 3329,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `relA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 100% of them, at 0.05 bits {S1}.\n\n@variable **A variable pair follows at `mazE` and `mazF`**, columns 1 to 2, carried by 84%, fewest named at column 1, 88% {S2}. The fork at columns 6 to 7, `ygcG` and `yqcG`, is carried by 49 to 71%, in a region of plasticity in 91 to 92% of calls {S4}. Through columns 23 to 28 a branch of 6 families runs in 18 to 29%, [[CRISPR-associated proteins]] {S10.b23, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 93 against 91%, and hesitates less there, 0.23 against 0.42 bits {M}. It hesitates most at column 6, `ygcG`, a fork column, 1.86 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 69 to 79, `ascB` to `gutM`, are carried by 64 to 85%, all persistent {S16}. The last column is `gutM`, in 64% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.32 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `relA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 100% of them, at 0.05 bits {S1}.\n\n@variable **A variable pair follows at `mazE` and `mazF`**, columns 1 to 2, carried by 84%, fewest named at column 1, 88% {S2}. The fork at columns 6 to 7, `ygcG` and `yqcG`, is carried by 49 to 71%, in a region of plasticity in 91 to 92% of calls {S4}. Through columns 23 to 28 a branch of 6 families runs in 18 to 29%, [[CRISPR-associated proteins]] {S10.b23, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 93 against 91%, and hesitates less there, 0.23 against 0.42 bits {M}. It hesitates most at column 6, `ygcG`, a fork column, 1.86 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 69 to 79, `ascB` to `gutM`, are carried by 64 to 85%, all persistent {S16}. The last column is `gutM`, in 64% of chromosomes {E}.\n\n@whole **Across the window it names 92% of genes**, 0.32 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 68,
-    "names": 18,
-    "words": 355,
-    "bad": [],
-    "hints": []
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "number",
+      "text": "71%",
+      "why": "column 7 is carried by 49% in the lines cited (S4)",
+      "context": "The fork at columns 6 to 7, `ygcG` and `yqcG`, is carried by 49 to 71%, in a region of plasticity in 91 to 92% of calls"
+     }
+    ],
+    "numbers": 27,
+    "names": 9,
+    "words": 208,
+    "sentences": 11,
+    "cited": 12,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 181,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `relA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 100% of them, at 0.05 bits",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A variable pair follows at `mazE` and `mazF`**, columns 1 to 2, carried by 84%, fewest named at column 1, 88%",
+      "cites": [
+       "S2"
+      ],
+      "inherit": [
+       "S4",
+       "S10.b23",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Through columns 23 to 28 a branch of 6 families runs in 18 to 29%, [[CRISPR-associated proteins]]",
+      "cites": [
+       "S10.b23",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 93 against 91%, and hesitates less there, 0.23 against 0.42 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 6, `ygcG`, a fork column, 1.86 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in fork and variable columns.** Columns 69 to 79, `ascB` to `gutM`, are carried by 64 to 85%, all persistent",
+      "cites": [
+       "S16"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `gutM`, in 64% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 92% of genes**, 0.32 bits on average, perplexity 1.4 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 21
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "The fork at columns 6 to 7, `ygcG` and `yqcG`, is carried by 49 to 71%, in a region of plasticity in 91 to 92% of calls",
+     "cites": [
+      "S4"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "number",
+       "text": "71%",
+       "why": "column 7 is carried by 49% in the lines cited (S4)"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a single spine column.** Column 0, `relA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 100% of them, at 0.05 bits.\n\n**A variable pair follows at `mazE` and `mazF`**, columns 1 to 2, carried by 84%, fewest named at column 1, 88%. Through columns 23 to 28 a branch of 6 families runs in 18 to 29%, [[CRISPR-associated proteins]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 93 against 91%, and hesitates less there, 0.23 against 0.42 bits. It hesitates most at column 6, `ygcG`, a fork column, 1.86 bits.\n\n**The window ends in fork and variable columns.** Columns 69 to 79, `ascB` to `gutM`, are carried by 64 to 85%, all persistent. The last column is `gutM`, in 64% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.32 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 68,
-  "names": 18,
-  "words": 355,
-  "attempts": 1
+  "numbers": 27,
+  "names": 9,
+  "words": 181,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 12,
+  "skill": "4a7fdc464826",
+  "dropped": 1,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 21
  },
- "text": "**The window starts at `relA`.** Column 0 is a spine column, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls; the model names it in 100% of calls with 0.05 bits. Then columns 1 to 2, `mazE` and `mazF`, [[type II toxin-antitoxin system]], variable, in a region of plasticity in 0% of calls.\n\n**A fork opens at `ygcG`.** Columns 6 to 7 are fork columns, in a region of plasticity in 91 to 92% of calls; the model names 75 to 85% there, fewest at column 6, 75%, with 1.86 bits, the window's most hesitant column. Column 8, `queE`, is a spine column in a region of plasticity in 92% of calls, the stretch most in regions of plasticity.\n\n**Then a variable stretch follows**, columns 9 to 15, in a region of plasticity in 82 to 92% of calls, carried by 86 to 90% of chromosomes, all shell: `ygcE` to `ygcQ`, [[carbohydrate transport and oxidation]]. The model names 87 to 97% there, fewest at column 9, 87%, with 1.05 bits. Columns 16 to 17, `ygcP` and `ygcO`, are spine columns, and column 18, `ygcN`, is variable.\n\n**A fork and variable stretch runs from column 23 to 30**, in a region of plasticity in 42 to 61% of calls; the model names 65 to 96%, fewest at column 24, 65%, with 1.18 bits. A second branch of 6 families, `cas3` to `cas6e`, [[type I-E CRISPR-associated genes]], is carried by 18 to 29% of chromosomes. Columns 31 to 43, `iap` to `rpoS`, are spine, named in 94 to 98%.\n\n**The window ends in a long spine**, columns 53 to 68, `ygbA` to `hycI`, [[formate hydrogenlyase and hydrogenase maturation]], named in 79 to 95%, fewest at column 65, 79%. Columns 69 to 79 are fork and variable, in a region of plasticity in 4 to 5% of calls, named in 92 to 96%; a second branch of 4 families, `srlE` to `pncC`, is carried by 17 to 30% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.",
- "html": "<p class=\"note\"><b>The window starts at <span class=\"gene\">relA</span>.</b> Column 0 is a spine column, carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls; the model names it in 100% of calls with 0.05 bits. Then columns 1 to 2, <span class=\"gene\">mazE</span> and <span class=\"gene\">mazF</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">type II toxin-antitoxin system</span>, variable, in a region of plasticity in 0% of calls.</p><p class=\"note\"><b>A fork opens at <span class=\"gene\">ygcG</span>.</b> Columns 6 to 7 are fork columns, in a region of plasticity in 91 to 92% of calls; the model names 75 to 85% there, fewest at column 6, 75%, with 1.86 bits, the window&#x27;s most hesitant column. Column 8, <span class=\"gene\">queE</span>, is a spine column in a region of plasticity in 92% of calls, the stretch most in regions of plasticity.</p><p class=\"note\"><b>Then a variable stretch follows</b>, columns 9 to 15, in a region of plasticity in 82 to 92% of calls, carried by 86 to 90% of chromosomes, all shell: <span class=\"gene\">ygcE</span> to <span class=\"gene\">ygcQ</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">carbohydrate transport and oxidation</span>. The model names 87 to 97% there, fewest at column 9, 87%, with 1.05 bits. Columns 16 to 17, <span class=\"gene\">ygcP</span> and <span class=\"gene\">ygcO</span>, are spine columns, and column 18, <span class=\"gene\">ygcN</span>, is variable.</p><p class=\"note\"><b>A fork and variable stretch runs from column 23 to 30</b>, in a region of plasticity in 42 to 61% of calls; the model names 65 to 96%, fewest at column 24, 65%, with 1.18 bits. A second branch of 6 families, <span class=\"gene\">cas3</span> to <span class=\"gene\">cas6e</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">type I-E CRISPR-associated genes</span>, is carried by 18 to 29% of chromosomes. Columns 31 to 43, <span class=\"gene\">iap</span> to <span class=\"gene\">rpoS</span>, are spine, named in 94 to 98%.</p><p class=\"note\"><b>The window ends in a long spine</b>, columns 53 to 68, <span class=\"gene\">ygbA</span> to <span class=\"gene\">hycI</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">formate hydrogenlyase and hydrogenase maturation</span>, named in 79 to 95%, fewest at column 65, 79%. Columns 69 to 79 are fork and variable, in a region of plasticity in 4 to 5% of calls, named in 92 to 96%; a second branch of 4 families, <span class=\"gene\">srlE</span> to <span class=\"gene\">pncC</span>, is carried by 17 to 30% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.</p>",
+ "text": "**The window opens on a single spine column.** Column 0, `relA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 100% of them, at 0.05 bits.\n\n**A variable pair follows at `mazE` and `mazF`**, columns 1 to 2, carried by 84%, fewest named at column 1, 88%. Through columns 23 to 28 a branch of 6 families runs in 18 to 29%, [[CRISPR-associated proteins]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 93 against 91%, and hesitates less there, 0.23 against 0.42 bits. It hesitates most at column 6, `ygcG`, a fork column, 1.86 bits.\n\n**The window ends in fork and variable columns.** Columns 69 to 79, `ascB` to `gutM`, are carried by 64 to 85%, all persistent. The last column is `gutM`, in 64% of chromosomes.\n\n**Across the window it names 92% of genes**, 0.32 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.",
+ "html": "<p class=\"note\"><b>The window opens on a single spine column.</b> Column 0, <span class=\"gene\">relA</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 100% of them, at 0.05 bits.</p><p class=\"note\"><b>A variable pair follows at <span class=\"gene\">mazE</span> and <span class=\"gene\">mazF</span></b>, columns 1 to 2, carried by 84%, fewest named at column 1, 88%. Through columns 23 to 28 a branch of 6 families runs in 18 to 29%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">CRISPR-associated proteins</span>.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 93 against 91%, and hesitates less there, 0.23 against 0.42 bits. It hesitates most at column 6, <span class=\"gene\">ygcG</span>, a fork column, 1.86 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 69 to 79, <span class=\"gene\">ascB</span> to <span class=\"gene\">gutM</span>, are carried by 64 to 85%, all persistent. The last column is <span class=\"gene\">gutM</span>, in 64% of chromosomes.</p><p class=\"note\"><b>Across the window it names 92% of genes</b>, 0.32 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.68 against 0.17 bits, and names fewer genes, 85% against 95%.</p>",
  "window": "AOY87_RS19245",
  "label": "relA",
- "facts_hash": "60bad41d28da",
- "prompt_version": "r7",
- "facts": "WINDOW: the relA window: 80 columns, column 0 is the anchor relA, then the next 79 genes in dnaA's direction; about genes 949 to 1,028 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying relA once); 43,120 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 92% of genes, 0.32 bits on average (perplexity 1.4 families). By partition of the gene: persistent 29,024 calls, named 96%, 0.14 bits; shell 13,740 calls, named 84%, 0.64 bits; cloud 356 calls, named 31%, 2.67 bits. Outside an RGP 30,449 calls, named 95%, 0.17 bits; inside an RGP 12,671 calls, named 85%, 0.68 bits. Columns: 42 spine, 19 fork, 19 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.68 against 0.17 bits) and names fewer genes (85% against 95%); 12,671 of the 43,120 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 6 (ygcG) 1.86 bits, RGP 91%; column 24 (\"transposase\") 1.18 bits, RGP 59%; column 9 (ygcE) 1.05 bits, RGP 92%. The 21 columns where most calls are in an RGP: named 87%, 0.59 bits on average; the other 59 columns: named 94%, 0.22 bits.\nPLASTICITY: the stretch most in regions of plasticity: column 8 (spine), RGP 92%; the least: column 0 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0%. Genes: relA. named 100%; 0.05 bits.\n2. columns 1-2 (2 columns) variable: RGP 0%. named 88-99.8% (mean 94%), fewest named and most hesitant at column 1, named 88%, 0.46 bits.\n   1: mazE S 84%\n   2: mazF S 84%\n3. columns 3-5 (3 columns) spine: share 95-96%, all P, RGP 0.4-12%. Genes: mazG \"nucleoside triphosphate pyrophospho\u2026\", pyrG, eno. named 89-99% (mean 96%), fewest named and most hesitant at column 4 (pyrG), named 89%, 0.20 bits.\n4. columns 6-7 (2 columns) fork: RGP 91-92%. named 75-85% (mean 80%), fewest named and most hesitant at column 6, named 75%, 1.86 bits.\n   6: ygcG S 71% \"TPM domain-containing protein\"; also \"IS1-like element transposase\" S 23%, \"TPM domain-containing protein\" S 13%\n   7: yqcG S 49%; also \"hypothetical protein\" S 19%\n5. column 8 spine: share 95%, all P, RGP 92%. Genes: queE. named 87%; 0.69 bits.\n6. columns 9-15 (7 columns) variable: RGP 82-92%. named 87-97% (mean 92%), fewest named and most hesitant at column 9, named 87%, 1.05 bits.\n   columns 9-15, share 86-90%, all S: ygcE \"FGGY family carbohydrate kinase\" 87%, yqcE \"MFS transporter\" 87%, ygcW \"SDR family oxidoreductase\" 86%, ygcU \"FAD-binding oxidoreductase\" 87%, ygcS \"MFS transporter\" 88%, ygcR \"electron transfer flavoprotein subu\u2026\" 90%, ygcQ \"electron transfer flavoprotein subu\u2026\" 88%\n7. columns 16-17 (2 columns) spine: share 90-93%, 1 S, 1 P, RGP 27-63%. Genes: ygcP \"glycerol-3-phosphate responsive ant\u2026\", ygcO \"ferredoxin family protein\". named 95-96% (mean 95%), fewest named at column 17 (ygcO), named 95%; no column of this stretch hesitates more than 0.19 bits (column 17 (ygcO)).\n8. column 18 variable: RGP 16%. named 97%; 0.20 bits.\n   18: ygcN P 89% \"FAD-dependent oxidoreductase\"\n9. columns 19-22 (4 columns) spine: share 95%, all P, RGP 13-30%. Genes: queD, cysJ, cysI \"NADPH-dependent assimilatory sulfit\u2026\", cysH. named 87-97% (mean 93%), fewest named and most hesitant at column 22 (cysH), named 87%, 0.46 bits.\n10. columns 23-30 (8 columns) fork and variable columns: RGP 42-61%. named 65-96% (mean 83%), fewest named and most hesitant at column 24, named 65%, 1.18 bits.\n   a second branch of 6 families through columns 23-28, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 18-29%, all S; the branch's families: cas3, casA, casB, cas7e, cas5e, cas6e\n   23 fork: small P 63%\n   24 fork: \"transposase\" S 28%; also cas3 S 26%\n   25 fork: casA S 31%\n   26 fork: casB S 32%\n   27 fork: cas7e S 31% \"type I-E CRISPR-associated protein\u2026\"\n   28 fork: cas5e S 32%\n   29 fork: cas1e S 62%; also cas6e S 32%\n   30 variable: cas2e S 67%\n11. columns 31-43 (13 columns) spine: share 92-95%, all P, RGP 6-45%. Genes: iap, cysD \"phosphoadenosine phosphosulfate red\u2026\", cysN, cysC, ygbE \"DUF3561 family protein\", ftsB, ispD, ispF \"2-C-methyl-D-erythritol 2,4-cyclodi\u2026\", truD, surE, pcm, nlpD, rpoS. named 94-98% (mean 97%), fewest named and most hesitant at column 43 (rpoS), named 94%, 0.35 bits.\n12. columns 44-49 (6 columns) fork and variable columns: RGP 43-59%. named 90-93% (mean 92%), fewest named at column 49, named 90%; most hesitant at column 47, 0.38 bits.\n   a second branch of 4 families through columns 45-48, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 26-29%, all S; the branch's families: hosA, kpdB, kpdC, kpdD\n   44 variable: ygbN S 75% \"GntP family transporter\"\n   45 fork: ygbM S 75% \"TIM barrel protein\"\n   46 fork: ygbL S 76% \"3-oxo-tetronate 4-phosphate decarbo\u2026\"\n   47 fork: otnK S 73%\n   48 fork: ltnD S 75%\n   49 variable: ygbI S 75% \"DeoR family transcriptional regulat\u2026\"\n13. columns 50-51 (2 columns) spine: share 90-95%, all P, RGP 22-30%. Genes: pphB, mutS. named 91-92% (mean 91%), fewest named and most hesitant at column 50 (pphB), named 91%, 0.32 bits.\n14. column 52 fork: RGP 17%. named 90%; 0.34 bits.\n   52: \"hypothetical protein\" S 47%; also \"hypothetical protein\" S 36%\n15. columns 53-68 (16 columns) spine: share 91-94%, all P, RGP 5-13%. Genes: ygbA \"nitrous oxide-stimulated promoter f\u2026\", flhA, hypE, hypD, hypC, hypB, hypA \"hydrogenase/urease maturation nicke\u2026\", hycA, hycB, hycC, hycD, hycE, hycF, hycG, hycH \"formate hydrogenlyase assembly prot\u2026\", hycI. named 79-95% (mean 90%), fewest named at column 65 (hycF), named 79%; most hesitant at column 63 (hycD), 0.33 bits.\n16. columns 69-79 (11 columns) fork and variable columns: RGP 4-5%. named 92-96% (mean 95%), fewest named at column 70, named 92%; most hesitant at column 69, 0.31 bits.\n   a second branch of 4 families through columns 76-79, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 17-30%, all P; the branch's families: srlE, srlA, mltB, pncC\n   69 variable: ascB P 85%\n   70 variable: ascF P 84% \"PTS transporter subunit EIIB\"\n   71 fork: ascG P 84%; also \"type II toxin-antitoxin system HigB fam\u2026\" S 15%\n   72 variable: hydN P 85%\n   73 variable: hypF P 84%\n   74 variable: norW P 84%\n   75 variable: norV P 82% \"anaerobic nitric oxide reductase fl\u2026\"\n   76 fork: norR P 79%\n   77 fork: gutQ P 76%\n   78 fork: srlR P 72%\n   79 fork: gutM P 64%; also srlD P 50%, srlB P 41%\nPRODUCTS of named genes (for [[ ]]): mazE type II toxin-antitoxin system antitoxi\u2026; mazF endoribonuclease MazF; cysJ flavodoxin domain-containing protein; cysH phosphoadenosine phosphosulfate reducta\u2026; casA type I-E CRISPR-associated protein Cse1\u2026; casB type I-E CRISPR-associated protein Cse2\u2026; cas7e type I-E CRISPR-associated protein Cas7\u2026; cas5e type I-E CRISPR-associated protein Cas5\u2026; cas2e type I-E CRISPR-associated endoribonucl\u2026; cysN sulfate adenylyltransferase subunit CysN; cysC adenylyl-sulfate kinase; ispD 2-C-methyl-D-erythritol 4-phosphate cyt\u2026; hypE AIR synthase-related protein; hypD hydrogenase formation protein HypD; hypC hydrogenase 3 maturation protein HypC; hypB hydrogenase nickel incorporation protei\u2026; hycA formate hydrogenlyase regulator HycA; hycB formate hydrogenlyase subunit HycB; hycC formate hydrogenlyase subunit 3; hycD formate hydrogenlyase subunit HycD; hycE formate hydrogenlyase subunit HycE; hycF formate hydrogenlyase subunit HycF; hycG formate hydrogenlyase subunit HycG; hycI hydrogenase maturation peptidase HycI; ascF PTS transporter subunit EIIB; norV anaerobic nitric oxide reductase flavor\u2026; norR nitric oxide reductase transcriptional\u2026; cas6e type I-E CRISPR-associated protein Cas6\u2026; hosA MarR family winged helix-turn-helix tra\u2026; kpdB flavoprotein; kpdC UbiD family decarboxylase domain-contai\u2026; kpdD non-oxidative hydroxyarylic acid decarb\u2026; srlE PTS glucitol/sorbitol transporter subun\u2026; srlA PTS glucitol/sorbitol transporter subun\u2026; mltB lytic murein transglycosylase; srlD SDR family oxidoreductase; srlB PTS glucitol/sorbitol transporter subun\u2026; pncC nicotinamide-nucleotide amidase\nEND: the window ends at column 79, gutM, in 64% of chromosomes."
+ "facts_hash": "72761e10ef4f",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the relA window: 80 columns, column 0 is the anchor relA, then the next 79 genes in dnaA's direction; about genes 949 to 1,028 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying relA once); 43,120 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 92% of genes, 0.32 bits on average (perplexity 1.4 families). By partition of the gene: persistent 29,024 calls, named 96%, 0.14 bits; shell 13,740 calls, named 84%, 0.64 bits; cloud 356 calls, named 31%, 2.67 bits. Outside an RGP 30,449 calls, named 95%, 0.17 bits; inside an RGP 12,671 calls, named 85%, 0.68 bits. Columns: 42 spine, 19 fork, 19 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.68 against 0.17 bits) and names fewer genes (85% against 95%); 12,671 of the 43,120 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 6 (ygcG, a fork column) 1.86 bits, RGP 91%; column 24 (\"IS4-like element IS421 family transposa\u2026\", a fork column) 1.18 bits, RGP 59%; column 9 (ygcE, a variable column) 1.05 bits, RGP 92%. The 21 columns (columns 6-16, 23-28 and 44-47) where most calls are in an RGP: named 87%, 0.59 bits on average; the other 59 columns: named 94%, 0.22 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 42 spine columns: named 93%, 0.23 bits on average; the 38 fork and variable columns: named 91%, 0.42 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 6, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: column 8 (spine), RGP 92%; the least: column 0 (spine), RGP 0%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0%. Genes: relA. named 100%; 0.05 bits.\n[S2] 2. columns 1-2 (2 columns) variable: share 84%, all S, RGP 0%. named 88-99.8% (mean 94%), fewest named and most hesitant at column 1, named 88%, 0.46 bits.\n[S2.c1]    1: mazE S 84%\n[S2.c2]    2: mazF S 84%\n[S3] 3. columns 3-5 (3 columns) spine: share 95-96%, all P, RGP 0.4-12%. Genes: mazG \"nucleoside triphosphate pyrophospho\u2026\", pyrG, eno. named 89-99% (mean 96%), fewest named and most hesitant at column 4 (pyrG), named 89%, 0.20 bits.\n[S4] 4. columns 6-7 (2 columns) fork: share 49-71%, all S, RGP 91-92%. named 75-85% (mean 80%), fewest named and most hesitant at column 6, named 75%, 1.86 bits.\n[S4.c6]    6: ygcG S 71% \"TPM domain-containing protein\"; also \"IS1 family transposase\" S 23%, \"TPM domain-containing protein\" S 13%\n[S4.c7]    7: yqcG S 49% \"cell envelope stress response prote\u2026\"; also \"TPM domain-containing protein\" S 19%\n[S5] 5. column 8 spine: share 95%, all P, RGP 92%. Genes: queE. named 87%; 0.69 bits.\n[S6] 6. columns 9-15 (7 columns) variable: share 86-90%, all S, RGP 82-92%. named 87-97% (mean 92%), fewest named and most hesitant at column 9, named 87%, 1.05 bits.\n[S6.c9-15]    columns 9-15, share 86-90%, all S: ygcE \"FGGY-family carbohydrate kinase\" 87%, yqcE \"MFS transporter\" 87%, ygcW \"SDR family oxidoreductase\" 86%, ygcU \"FAD-binding oxidoreductase\" 87%, ygcS \"MFS transporter\" 88%, ygcR \"electron transfer flavoprotein subu\u2026\" 90%, ygcQ \"electron transfer flavoprotein subu\u2026\" 88%\n[S7] 7. columns 16-17 (2 columns) spine: share 90-93%, 1 S, 1 P, RGP 27-63%. Genes: ygcP \"glycerol-3-phosphate responsive ant\u2026\", ygcO \"ferredoxin family protein\". named 95-96% (mean 95%), fewest named at column 17 (ygcO), named 95%; no column of this stretch hesitates more than 0.19 bits (column 17 (ygcO)).\n[S8] 8. column 18 variable: share 89%, all P, RGP 16%. named 97%; 0.20 bits.\n[S8.c18]    18: ygcN P 89% \"FAD-dependent oxidoreductase\"\n[S9] 9. columns 19-22 (4 columns) spine: share 95%, all P, RGP 13-30%. Genes: queD, cysJ, cysI \"assimilatory sulfite reductase (NAD\u2026\", cysH. named 87-97% (mean 93%), fewest named and most hesitant at column 22 (cysH), named 87%, 0.46 bits.\n[S10] 10. columns 23-30 (8 columns) fork and variable columns: share 28-67%, 7 S, 1 P, RGP 42-61%. named 65-96% (mean 83%), fewest named and most hesitant at column 24, named 65%, 1.18 bits.\n[S10.b23]    a second branch of 6 families through columns 23-28, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 18-29%, all S; the branch's families: cas3, casA, casB, cas7e, cas5e, cas6e\n[S10.c23]    23 fork: small P 63%\n[S10.c24]    24 fork: \"IS4-like element IS421 family transposa\u2026\" S 28%; also cas3 S 26%\n[S10.c25]    25 fork: casA S 31%\n[S10.c26]    26 fork: casB S 32%\n[S10.c27]    27 fork: cas7e S 31%\n[S10.c28]    28 fork: cas5e S 32%\n[S10.c29]    29 fork: cas1e S 62% \"type I-E CRISPR-associated endonucl\u2026\"; also cas6e S 32%\n[S10.c30]    30 variable: cas2e S 67%\n[S11] 11. columns 31-43 (13 columns) spine: share 92-95%, all P, RGP 6-45%. Genes: iap, cysD \"sulfate adenylyltransferase subunit\u2026\", cysN, cysC, ygbE \"DUF3561 family protein\", ftsB, ispD, ispF \"2-C-methyl-D-erythritol 2,4-cyclodi\u2026\", truD, surE, pcm, nlpD, rpoS. named 94-98% (mean 97%), fewest named and most hesitant at column 43 (rpoS), named 94%, 0.35 bits.\n[S12] 12. columns 44-49 (6 columns) fork and variable columns: share 73-76%, all S, RGP 43-59%. named 90-93% (mean 92%), fewest named at column 49, named 90%; most hesitant at column 47, 0.38 bits.\n[S12.b45]    a second branch of 4 families through columns 45-48, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 26-29%, all S; the branch's families: hosA, kpdB, kpdC, kpdD\n[S12.c44]    44 variable: ygbN S 75% \"GntP family transporter\"\n[S12.c45]    45 fork: ygbM S 75% \"HPr family phosphocarrier protein\"\n[S12.c46]    46 fork: ygbL S 76% \"aldolase\"\n[S12.c47]    47 fork: otnK S 73%\n[S12.c48]    48 fork: ltnD S 75%\n[S12.c49]    49 variable: ygbI S 75% \"DNA-binding transcriptional repress\u2026\"\n[S13] 13. columns 50-51 (2 columns) spine: share 90-95%, all P, RGP 22-30%. Genes: pphB, mutS. named 91-92% (mean 91%), fewest named and most hesitant at column 50 (pphB), named 91%, 0.32 bits.\n[S14] 14. column 52 fork: share 47%, all S, RGP 17%. named 90%; 0.34 bits.\n[S14.c52]    52: \"hypothetical protein\" S 47%; also \"hypothetical protein\" S 36%\n[S15] 15. columns 53-68 (16 columns) spine: share 91-94%, all P, RGP 5-13%. Genes: ygbA \"nitrous oxide-stimulated promoter f\u2026\", flhA, hypE, hypD, hypC, hypB, hypA \"hydrogenase maturation nickel metal\u2026\", hycA, hycB, hycC, hycD, hycE, hycF, hycG, hycH \"formate hydrogenlyase assembly prot\u2026\", hycI. named 79-95% (mean 90%), fewest named at column 65 (hycF), named 79%; most hesitant at column 63 (hycD), 0.33 bits.\n[S16] 16. columns 69-79 (11 columns) fork and variable columns: share 64-85%, all P, RGP 4-5%. named 92-96% (mean 95%), fewest named at column 70, named 92%; most hesitant at column 69, 0.31 bits.\n[S16.b76]    a second branch of 4 families through columns 76-79, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 17-30%, all P; the branch's families: srlE, srlA, mltB, pncC\n[S16.c69]    69 variable: ascB P 85%\n[S16.c70]    70 variable: ascF P 84% \"PTS cellobiose/arbutin/salicin tran\u2026\"\n[S16.c71]    71 fork: ascG P 84%; also \"type II toxin-antitoxin system HigB fam\u2026\" S 15%\n[S16.c72]    72 variable: hydN P 85%\n[S16.c73]    73 variable: hypF P 84%\n[S16.c74]    74 variable: norW P 84%\n[S16.c75]    75 variable: norV P 82% \"anaerobic nitric oxide reductase fl\u2026\"\n[S16.c76]    76 fork: norR P 79%\n[S16.c77]    77 fork: gutQ P 76%\n[S16.c78]    78 fork: srlR P 72%\n[S16.c79]    79 fork: gutM P 64%; also srlD P 50%, srlB P 41%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): the branch [S10.b23] through columns 23-28: associated, crispr, crispr-associated; columns 25-30 (casA to cas2e) [S10]: associated, crispr, crispr-associated; the branch [S12.b45] through columns 45-48: decarboxylases, hydroxyarylic, non-oxidative, oxidative; columns 55-59 (hypE to hypA) [S15]: hydrogenase, maturation, nickel; columns 60-68 (hycA to hycI) [S15]: formate, hydrogenlyase.\n[X] PRODUCTS of named genes (for [[ ]]): mazE type II toxin-antitoxin system antitoxi\u2026; mazF endoribonuclease MazF; cysJ NADPH-dependent assimilatory sulfite re\u2026; cysH phosphoadenosine phosphosulfate reducta\u2026; casA type I-E CRISPR-associated protein Cse1\u2026; casB type I-E CRISPR-associated protein Cse2\u2026; cas7e type I-E CRISPR-associated protein Cas7\u2026; cas5e type I-E CRISPR-associated protein Cas5\u2026; cas1e type I-E CRISPR-associated endonuclease\u2026; cas2e type I-E CRISPR-associated endoribonucl\u2026; cysN sulfate adenylyltransferase subunit CysN; cysC adenylyl-sulfate kinase; ispD 2-C-methyl-D-erythritol 4-phosphate cyt\u2026; hypE hydrogenase maturation carbamoyl dehydr\u2026; hypD hydrogenase formation protein HypD; hypC hydrogenase 3 maturation protein HypC; hypB hydrogenase nickel incorporation protei\u2026; hycA formate hydrogenlyase regulator HycA; hycB formate hydrogenlyase subunit HycB; hycC formate hydrogenlyase subunit 3; hycD formate hydrogenlyase subunit HycD; hycE formate hydrogenlyase subunit HycE; hycF formate hydrogenlyase subunit HycF; hycG formate hydrogenlyase subunit HycG; hycI hydrogenase maturation peptidase HycI; ascB 6-phospho-beta-glucosidase AscB; ascF PTS cellobiose/arbutin/salicin transpor\u2026; norW NADH:flavorubredoxin reductase NorW; norV anaerobic nitric oxide reductase flavor\u2026; norR nitric oxide reductase transcriptional\u2026; cas3 CRISPR-associated helicase/endonuclease\u2026; cas6e type I-E CRISPR-associated protein Cas6\u2026; hosA MarR family winged helix-turn-helix tra\u2026; kpdB non-oxidative hydroxyarylic acid decarb\u2026; kpdC non-oxidative hydroxyarylic acid decarb\u2026; kpdD non-oxidative hydroxyarylic acid decarb\u2026; srlE PTS glucitol/sorbitol transporter subun\u2026; srlA PTS glucitol/sorbitol transporter subun\u2026; mltB lytic murein transglycosylase B; srlD sorbitol-6-phosphate dehydrogenase\n[E] END: the window ends at column 79, gutM, in 64% of chromosomes."
 }

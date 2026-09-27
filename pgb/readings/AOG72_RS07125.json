@@ -2,55 +2,211 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790448447.4148915,
+ "created": 1790479606.105998,
  "usage": {
-  "prompt_tokens": 2883,
-  "completion_tokens": 537,
-  "cost_usd": 0.000247,
-  "ms": 6738
+  "prompt_tokens": 4792,
+  "completion_tokens": 400,
+  "cost_usd": 0.000491,
+  "ms": 3364
  },
  "attempts": [
   {
-   "text": "**The window starts in a six-column spine.** Columns 0 to 5, `qmcA`, `ybbJ`, `cueR`, `ybaT`, `glsA` and `copA`, are persistent, carried by 94 to 100% of chromosomes, in a region of plasticity in 0 to 19% of calls. The model names 89 to 99.8% of them, fewest at `ybaT` with 89%, and hesitates most at `cueR`, 0.44 bits.\n\n**Column 6 is variable**, in a region of plasticity in 19% of calls, the stretch most in regions of plasticity. The model names 94% of calls there, at 0.23 bits. Then columns 7 to 24 form a spine carried by 93 to 95% of chromosomes, in a region of plasticity in 2 to 21% of calls; the model names 78 to 99%, fewest at `ybaK` with 78%, and hesitates most at `fsr`, 0.59 bits, the window's most hesitant column.\n\n**A single variable column, 25, sits at 3%**, named in 96% of calls. The long spine of columns 26 to 68, carried by 91 to 95% of chromosomes, holds the efflux and oxidase genes, [[multidrug efflux and ubiquinol oxidase]], and the `rib` genes, [[riboflavin synthesis]]. The model names 94 to 99% there, fewest at `yajR` with 94%, hesitating most at `pdeB`, 0.48 bits.\n\n**The window ends in fork and variable columns**, 69 to 79, in a region of plasticity in 1 to 2% of calls, the least of the window. The model names 97 to 99%, and no column hesitates more than 0.16 bits. The variable columns 69 to 77 carry `yajO` to `tsx`, from 90% down to 59%; column 78 is the fork, `yajD` in 53% and `espY3` in 11%; column 79, `secF`, is in 48%.\n\n**Across the window the model names 97% of genes** at 0.20 bits. Inside a region of plasticity it hesitates more than outside, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.",
+   "text": "**The window opens on a spine.** Columns 0 to 5, `qmcA` to `copA`, are carried by 94 to 100% of chromosomes, all persistent. The model names 89 to 99.8% of them, fewest at column 3, `ybaT`, 89%.\n\n**A single variable column breaks the first spine**: column 6, `ybaQ`, shell, carried by 80%, the most plastic stretch of the window. Further along the long spine, columns 56 to 60, `cyoA` to `cyoE`, are [[cytochrome o ubiquinol oxidase]]. The last stretch, columns 69 to 79, is fork and variable, carried by 48 to 90%.\n\n**Here the model hesitates more on the spine than off it**, 0.22 against 0.13 bits, while naming 97% of genes on both. Its most hesitant column, 10, `fsr`, is a spine column, at 0.59 bits.\n\n**The window ends on persistent families.** Columns 69 to 79, `yajO` to `secF`, are carried from 90 to 48% of chromosomes. They are not rare: in the other chromosomes they lie beyond the window's end.\n\n**Across the window it names 97% of genes**, 0.20 bits on average, perplexity 1.2 families. Only 2,177 of the 42,960 calls fall in a region of plasticity, where it hesitates more, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 2883,
-    "completion_tokens": 537,
-    "cached_tokens": 2816,
+    "prompt_tokens": 4792,
+    "completion_tokens": 400,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000247
+    "cost_usd": 0.000491
    },
    "provider": "deepinfra",
-   "ms": 6738,
-   "raw": "**The window starts in a six-column spine.** Columns 0 to 5, `qmcA`, `ybbJ`, `cueR`, `ybaT`, `glsA` and `copA`, are persistent, carried by 94 to 100% of chromosomes, in a region of plasticity in 0 to 19% of calls. The model names 89 to 99.8% of them, fewest at `ybaT` with 89%, and hesitates most at `cueR`, 0.44 bits.\n\n**Column 6 is variable**, in a region of plasticity in 19% of calls, the stretch most in regions of plasticity. The model names 94% of calls there, at 0.23 bits. Then columns 7 to 24 form a spine carried by 93 to 95% of chromosomes, in a region of plasticity in 2 to 21% of calls; the model names 78 to 99%, fewest at `ybaK` with 78%, and hesitates most at `fsr`, 0.59 bits, the window's most hesitant column.\n\n**A single variable column, 25, sits at 3%**, named in 96% of calls. The long spine of columns 26 to 68, carried by 91 to 95% of chromosomes, holds the efflux and oxidase genes, [[multidrug efflux and ubiquinol oxidase]], and the `rib` genes, [[riboflavin synthesis]]. The model names 94 to 99% there, fewest at `yajR` with 94%, hesitating most at `pdeB`, 0.48 bits.\n\n**The window ends in fork and variable columns**, 69 to 79, in a region of plasticity in 1 to 2% of calls, the least of the window. The model names 97 to 99%, and no column hesitates more than 0.16 bits. The variable columns 69 to 77 carry `yajO` to `tsx`, from 90% down to 59%; column 78 is the fork, `yajD` in 53% and `espY3` in 11%; column 79, `secF`, is in 48%.\n\n**Across the window the model names 97% of genes** at 0.20 bits. Inside a region of plasticity it hesitates more than outside, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.",
+   "ms": 3364,
+   "raw": "@start **The window opens on a spine.** Columns 0 to 5, `qmcA` to `copA`, are carried by 94 to 100% of chromosomes, all persistent {S1}. The model names 89 to 99.8% of them, fewest at column 3, `ybaT`, 89% {S1}.\n\n@variable **A single variable column breaks the first spine**: column 6, `ybaQ`, shell, carried by 80%, the most plastic stretch of the window {S2.c6, P}. Further along the long spine, columns 56 to 60, `cyoA` to `cyoE`, are [[cytochrome o ubiquinol oxidase]] {S5, Q}. The last stretch, columns 69 to 79, is fork and variable, carried by 48 to 90% {S6}.\n\n@model **Here the model hesitates more on the spine than off it**, 0.22 against 0.13 bits, while naming 97% of genes on both {M}. Its most hesitant column, 10, `fsr`, is a spine column, at 0.59 bits {H}.\n\n@end **The window ends on persistent families.** Columns 69 to 79, `yajO` to `secF`, are carried from 90 to 48% of chromosomes {S6, E}. They are not rare: in the other chromosomes they lie beyond the window's end {T}.\n\n@whole **Across the window it names 97% of genes**, 0.20 bits on average, perplexity 1.2 families {G}. Only 2,177 of the 42,960 calls fall in a region of plasticity, where it hesitates more, 1.54 against 0.13 bits, and names fewer genes, 69% against 98% {C}.",
+   "annotated": "@start **The window opens on a spine.** Columns 0 to 5, `qmcA` to `copA`, are carried by 94 to 100% of chromosomes, all persistent {S1}. The model names 89 to 99.8% of them, fewest at column 3, `ybaT`, 89% {S1}.\n\n@variable **A single variable column breaks the first spine**: column 6, `ybaQ`, shell, carried by 80%, the most plastic stretch of the window {S2.c6, P}. Further along the long spine, columns 56 to 60, `cyoA` to `cyoE`, are [[cytochrome o ubiquinol oxidase]] {S5, Q}. The last stretch, columns 69 to 79, is fork and variable, carried by 48 to 90% {S6}.\n\n@model **Here the model hesitates more on the spine than off it**, 0.22 against 0.13 bits, while naming 97% of genes on both {M}. Its most hesitant column, 10, `fsr`, is a spine column, at 0.59 bits {H}.\n\n@end **The window ends on persistent families.** Columns 69 to 79, `yajO` to `secF`, are carried from 90 to 48% of chromosomes {S6, E}. They are not rare: in the other chromosomes they lie beyond the window's end {T}.\n\n@whole **Across the window it names 97% of genes**, 0.20 bits on average, perplexity 1.2 families {G}. Only 2,177 of the 42,960 calls fall in a region of plasticity, where it hesitates more, 1.54 against 0.13 bits, and names fewer genes, 69% against 98% {C}.",
    "check": {
     "ok": true,
-    "numbers": 58,
-    "names": 18,
-    "words": 307,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": [
-     {
-      "text": "riboflavin",
-      "where": "[[riboflavin synthesis]]"
-     }
-    ]
+    "numbers": 22,
+    "names": 9,
+    "words": 204,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 204,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a spine.** Columns 0 to 5, `qmcA` to `copA`, are carried by 94 to 100% of chromosomes, all persistent",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 89 to 99.8% of them, fewest at column 3, `ybaT`, 89%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A single variable column breaks the first spine**: column 6, `ybaQ`, shell, carried by 80%, the most plastic stretch of the window",
+      "cites": [
+       "S2.c6",
+       "P"
+      ],
+      "inherit": [
+       "S5",
+       "Q",
+       "S6"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Further along the long spine, columns 56 to 60, `cyoA` to `cyoE`, are [[cytochrome o ubiquinol oxidase]]",
+      "cites": [
+       "S5",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The last stretch, columns 69 to 79, is fork and variable, carried by 48 to 90%",
+      "cites": [
+       "S6"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**Here the model hesitates more on the spine than off it**, 0.22 against 0.13 bits, while naming 97% of genes on both",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 10, `fsr`, is a spine column, at 0.59 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on persistent families.** Columns 69 to 79, `yajO` to `secF`, are carried from 90 to 48% of chromosomes",
+      "cites": [
+       "S6",
+       "E"
+      ],
+      "inherit": [
+       "T"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "They are not rare: in the other chromosomes they lie beyond the window's end",
+      "cites": [
+       "T"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 97% of genes**, 0.20 bits on average, perplexity 1.2 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Only 2,177 of the 42,960 calls fall in a region of plasticity, where it hesitates more, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 62
+   },
+   "dropped": [],
+   "served": "**The window opens on a spine.** Columns 0 to 5, `qmcA` to `copA`, are carried by 94 to 100% of chromosomes, all persistent. The model names 89 to 99.8% of them, fewest at column 3, `ybaT`, 89%.\n\n**A single variable column breaks the first spine**: column 6, `ybaQ`, shell, carried by 80%, the most plastic stretch of the window. Further along the long spine, columns 56 to 60, `cyoA` to `cyoE`, are [[cytochrome o ubiquinol oxidase]]. The last stretch, columns 69 to 79, is fork and variable, carried by 48 to 90%.\n\n**Here the model hesitates more on the spine than off it**, 0.22 against 0.13 bits, while naming 97% of genes on both. Its most hesitant column, 10, `fsr`, is a spine column, at 0.59 bits.\n\n**The window ends on persistent families.** Columns 69 to 79, `yajO` to `secF`, are carried from 90 to 48% of chromosomes. They are not rare: in the other chromosomes they lie beyond the window's end.\n\n**Across the window it names 97% of genes**, 0.20 bits on average, perplexity 1.2 families. Only 2,177 of the 42,960 calls fall in a region of plasticity, where it hesitates more, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 58,
-  "names": 18,
-  "words": 307,
-  "attempts": 1
+  "numbers": 22,
+  "names": 9,
+  "words": 204,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 62
  },
- "text": "**The window starts in a six-column spine.** Columns 0 to 5, `qmcA`, `ybbJ`, `cueR`, `ybaT`, `glsA` and `copA`, are persistent, carried by 94 to 100% of chromosomes, in a region of plasticity in 0 to 19% of calls. The model names 89 to 99.8% of them, fewest at `ybaT` with 89%, and hesitates most at `cueR`, 0.44 bits.\n\n**Column 6 is variable**, in a region of plasticity in 19% of calls, the stretch most in regions of plasticity. The model names 94% of calls there, at 0.23 bits. Then columns 7 to 24 form a spine carried by 93 to 95% of chromosomes, in a region of plasticity in 2 to 21% of calls; the model names 78 to 99%, fewest at `ybaK` with 78%, and hesitates most at `fsr`, 0.59 bits, the window's most hesitant column.\n\n**A single variable column, 25, sits at 3%**, named in 96% of calls. The long spine of columns 26 to 68, carried by 91 to 95% of chromosomes, holds the efflux and oxidase genes, [[multidrug efflux and ubiquinol oxidase]], and the `rib` genes, [[riboflavin synthesis]]. The model names 94 to 99% there, fewest at `yajR` with 94%, hesitating most at `pdeB`, 0.48 bits.\n\n**The window ends in fork and variable columns**, 69 to 79, in a region of plasticity in 1 to 2% of calls, the least of the window. The model names 97 to 99%, and no column hesitates more than 0.16 bits. The variable columns 69 to 77 carry `yajO` to `tsx`, from 90% down to 59%; column 78 is the fork, `yajD` in 53% and `espY3` in 11%; column 79, `secF`, is in 48%.\n\n**Across the window the model names 97% of genes** at 0.20 bits. Inside a region of plasticity it hesitates more than outside, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.",
- "html": "<p class=\"note\"><b>The window starts in a six-column spine.</b> Columns 0 to 5, <span class=\"gene\">qmcA</span>, <span class=\"gene\">ybbJ</span>, <span class=\"gene\">cueR</span>, <span class=\"gene\">ybaT</span>, <span class=\"gene\">glsA</span> and <span class=\"gene\">copA</span>, are persistent, carried by 94 to 100% of chromosomes, in a region of plasticity in 0 to 19% of calls. The model names 89 to 99.8% of them, fewest at <span class=\"gene\">ybaT</span> with 89%, and hesitates most at <span class=\"gene\">cueR</span>, 0.44 bits.</p><p class=\"note\"><b>Column 6 is variable</b>, in a region of plasticity in 19% of calls, the stretch most in regions of plasticity. The model names 94% of calls there, at 0.23 bits. Then columns 7 to 24 form a spine carried by 93 to 95% of chromosomes, in a region of plasticity in 2 to 21% of calls; the model names 78 to 99%, fewest at <span class=\"gene\">ybaK</span> with 78%, and hesitates most at <span class=\"gene\">fsr</span>, 0.59 bits, the window&#x27;s most hesitant column.</p><p class=\"note\"><b>A single variable column, 25, sits at 3%</b>, named in 96% of calls. The long spine of columns 26 to 68, carried by 91 to 95% of chromosomes, holds the efflux and oxidase genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">multidrug efflux and ubiquinol oxidase</span>, and the <span class=\"gene\">rib</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">riboflavin synthesis</span>. The model names 94 to 99% there, fewest at <span class=\"gene\">yajR</span> with 94%, hesitating most at <span class=\"gene\">pdeB</span>, 0.48 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns</b>, 69 to 79, in a region of plasticity in 1 to 2% of calls, the least of the window. The model names 97 to 99%, and no column hesitates more than 0.16 bits. The variable columns 69 to 77 carry <span class=\"gene\">yajO</span> to <span class=\"gene\">tsx</span>, from 90% down to 59%; column 78 is the fork, <span class=\"gene\">yajD</span> in 53% and <span class=\"gene\">espY3</span> in 11%; column 79, <span class=\"gene\">secF</span>, is in 48%.</p><p class=\"note\"><b>Across the window the model names 97% of genes</b> at 0.20 bits. Inside a region of plasticity it hesitates more than outside, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.</p>",
+ "text": "**The window opens on a spine.** Columns 0 to 5, `qmcA` to `copA`, are carried by 94 to 100% of chromosomes, all persistent. The model names 89 to 99.8% of them, fewest at column 3, `ybaT`, 89%.\n\n**A single variable column breaks the first spine**: column 6, `ybaQ`, shell, carried by 80%, the most plastic stretch of the window. Further along the long spine, columns 56 to 60, `cyoA` to `cyoE`, are [[cytochrome o ubiquinol oxidase]]. The last stretch, columns 69 to 79, is fork and variable, carried by 48 to 90%.\n\n**Here the model hesitates more on the spine than off it**, 0.22 against 0.13 bits, while naming 97% of genes on both. Its most hesitant column, 10, `fsr`, is a spine column, at 0.59 bits.\n\n**The window ends on persistent families.** Columns 69 to 79, `yajO` to `secF`, are carried from 90 to 48% of chromosomes. They are not rare: in the other chromosomes they lie beyond the window's end.\n\n**Across the window it names 97% of genes**, 0.20 bits on average, perplexity 1.2 families. Only 2,177 of the 42,960 calls fall in a region of plasticity, where it hesitates more, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.",
+ "html": "<p class=\"note\"><b>The window opens on a spine.</b> Columns 0 to 5, <span class=\"gene\">qmcA</span> to <span class=\"gene\">copA</span>, are carried by 94 to 100% of chromosomes, all persistent. The model names 89 to 99.8% of them, fewest at column 3, <span class=\"gene\">ybaT</span>, 89%.</p><p class=\"note\"><b>A single variable column breaks the first spine</b>: column 6, <span class=\"gene\">ybaQ</span>, shell, carried by 80%, the most plastic stretch of the window. Further along the long spine, columns 56 to 60, <span class=\"gene\">cyoA</span> to <span class=\"gene\">cyoE</span>, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">cytochrome o ubiquinol oxidase</span>. The last stretch, columns 69 to 79, is fork and variable, carried by 48 to 90%.</p><p class=\"note\"><b>Here the model hesitates more on the spine than off it</b>, 0.22 against 0.13 bits, while naming 97% of genes on both. Its most hesitant column, 10, <span class=\"gene\">fsr</span>, is a spine column, at 0.59 bits.</p><p class=\"note\"><b>The window ends on persistent families.</b> Columns 69 to 79, <span class=\"gene\">yajO</span> to <span class=\"gene\">secF</span>, are carried from 90 to 48% of chromosomes. They are not rare: in the other chromosomes they lie beyond the window&#x27;s end.</p><p class=\"note\"><b>Across the window it names 97% of genes</b>, 0.20 bits on average, perplexity 1.2 families. Only 2,177 of the 42,960 calls fall in a region of plasticity, where it hesitates more, 1.54 against 0.13 bits, and names fewer genes, 69% against 98%.</p>",
  "window": "AOG72_RS07125",
  "label": "qmcA",
- "facts_hash": "4950662d0e4e",
- "prompt_version": "r7",
- "facts": "WINDOW: the qmcA window: 80 columns, column 0 is the anchor qmcA, then the next 79 genes in dnaA's direction; about genes 3,221 to 3,300 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying qmcA once); 42,960 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 97% of genes, 0.20 bits on average (perplexity 1.2 families). By partition of the gene: persistent 39,712 calls, named 99%, 0.12 bits; shell 2,942 calls, named 71%, 0.92 bits; cloud 306 calls, named 28%, 4.36 bits. Outside an RGP 40,783 calls, named 98%, 0.13 bits; inside an RGP 2,177 calls, named 69%, 1.54 bits. Columns: 67 spine, 1 fork, 12 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.54 against 0.13 bits) and names fewer genes (69% against 98%); 2,177 of the 42,960 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 10 (fsr) 0.59 bits, RGP 17%; column 9 (ushA) 0.56 bits, RGP 20%; column 32 (pdeB) 0.48 bits, RGP 2%. No column has most of its calls in an RGP.\nPLASTICITY: the stretch most in regions of plasticity: column 6 (variable), RGP 19%; the least: columns 69-79 (fork and variable columns), RGP 1-2%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-5 (6 columns) spine: share 94-100%, all P, RGP 0-19%. Genes: qmcA, ybbJ \"NfeD family protein\", cueR, ybaT \"APC family permease\", glsA, copA. named 89-99.8% (mean 96%), fewest named at column 3 (ybaT), named 89%; most hesitant at column 2 (cueR), 0.44 bits.\n2. column 6 variable: RGP 19%. named 94%; 0.23 bits.\n   6: ybaQ S 80% \"HigA family addiction module antito\u2026\"\n3. columns 7-24 (18 columns) spine: share 93-95%, all P, RGP 2-21%. Genes: ybaP \"TraB/GumN family protein\", ybaK \"Cys-tRNA(Pro)/Cys-tRNA(Cys) deacyla\u2026\", ushA, fsr, ybaL \"cation:proton antiporter\", gsk, aes, hemH, adk, htpG, recR, ybaB \"YbaB/EbfC family nucleoid-associate\u2026\", dnaX, apt, ybaN \"DUF454 family protein\", priC, rsmS, mscK. named 78-99% (mean 95%), fewest named at column 8 (ybaK), named 78%; most hesitant at column 10 (fsr), 0.59 bits.\n4. column 25 variable: RGP 3%. named 96%; 0.37 bits.\n   25: acrR P 90%\n5. columns 26-68 (43 columns) spine: share 91-95%, all P, RGP 1-7%. Genes: acrA \"multidrug efflux RND transporter pe\u2026\", acrB, tomB, hha, maa, ylaC \"YlaC family protein\", pdeB, ybaA \"DUF1428 domain-containing protein\", ybaZ \"MGMT family protein\", ybaY \"YbaY family lipoprotein\", tesB, amtB, glnK, mdlB \"ATP-binding cassette domain-contain\u2026\", mdlA, decR, cof, ybaE \"SgrR family transcriptional regulat\u2026\", queC, fadM, ybaV \"helix-hairpin-helix domain-containi\u2026\", ppiD, hupB, lon, clpX, clpP \"ATP-dependent Clp protease proteoly\u2026\", tig, bolA, yajG \"lipoprotein\", ampG, cyoA, cyoB, cyoC, cyoD \"cytochrome o ubiquinol oxidase subu\u2026\", cyoE, yajR, yajQ \"nucleotide binding protein YajQ\", panE, yajL \"DJ-1/PfpI family protein\", thiI, xseB, ispA, dxs. named 94-99% (mean 97%), fewest named at column 61 (yajR), named 94%; most hesitant at column 32 (pdeB), 0.48 bits.\n6. columns 69-79 (11 columns) fork and variable columns: RGP 1-2%. named 97-99% (mean 98%), fewest named at column 69, named 97%; no column of this stretch hesitates more than 0.16 bits (column 69).\n   columns 69-77 variable, share 59-90%, all P: yajO \"aldo/keto reductase\" 90%, pgpA 87%, thiL 82%, nusB 78%, ribH 74%, ribD \"bifunctional diaminohydroxyphosphor\u2026\" 71%, nrdR 69%, yajI \"DUF3251 domain-containing protein\" 65%, tsx 59%\n   78 fork: yajD P 53% \"HNH nuclease YajD\"; also espY3 S 11%\n   79 variable: secF P 48%\nPRODUCTS of named genes (for [[ ]]): acrB efflux RND transporter permease AcrB; mdlA ATP-binding cassette domain-containing\u2026; cyoA COX aromatic rich motif-containing prot\u2026; cyoC cytochrome o ubiquinol oxidase subunit\u2026; cyoE UbiA family prenyltransferase; ribH 6,7-dimethyl-8-ribityllumazine synthase; lapB ABC transporter transmembrane domain-co\u2026; siiEA Ig-like domain-containing protein; espY3 pentapeptide repeat-containing protein\nEND: the window ends at column 79, secF, in 48% of chromosomes."
+ "facts_hash": "0973ca9468c4",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the qmcA window: 80 columns, column 0 is the anchor qmcA, then the next 79 genes in dnaA's direction; about genes 3,221 to 3,300 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying qmcA once); 42,960 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 97% of genes, 0.20 bits on average (perplexity 1.2 families). By partition of the gene: persistent 39,712 calls, named 99%, 0.12 bits; shell 2,942 calls, named 71%, 0.92 bits; cloud 306 calls, named 28%, 4.36 bits. Outside an RGP 40,783 calls, named 98%, 0.13 bits; inside an RGP 2,177 calls, named 69%, 1.54 bits. Columns: 67 spine, 1 fork, 12 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.54 against 0.13 bits) and names fewer genes (69% against 98%); 2,177 of the 42,960 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 10 (fsr, a spine column) 0.59 bits, RGP 17%; column 9 (ushA, a spine column) 0.56 bits, RGP 20%; column 32 (pdeB, a spine column) 0.48 bits, RGP 2%. No column has most of its calls in an RGP.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 67 spine columns: named 97%, 0.22 bits on average; the 13 fork and variable columns: named 97%, 0.13 bits. The model names about as many genes on the spine columns as on the fork and variable ones, and hesitates more there. Its most hesitant column, 10, is a spine column: the model can hesitate most inside a spine.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: column 6 (variable), RGP 19%; the least: columns 69-79 (fork and variable columns), RGP 1-2%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-5 (6 columns) spine: share 94-100%, all P, RGP 0-19%. Genes: qmcA, ybbJ \"NfeD family protein\", cueR, ybaT \"APC family permease\", glsA, copA. named 89-99.8% (mean 96%), fewest named at column 3 (ybaT), named 89%; most hesitant at column 2 (cueR), 0.44 bits.\n[S2] 2. column 6 variable: share 80%, all S, RGP 19%. named 94%; 0.23 bits.\n[S2.c6]    6: ybaQ S 80% \"HigA family addiction module antito\u2026\"\n[S3] 3. columns 7-24 (18 columns) spine: share 93-95%, all P, RGP 2-21%. Genes: ybaP \"TraB/GumN family protein\", ybaK \"Cys-tRNA(Pro)/Cys-tRNA(Cys) deacyla\u2026\", ushA, fsr, ybaL \"YbaL family putative K(+) efflux tr\u2026\", gsk, aes, hemH, adk, htpG, recR, ybaB \"YbaB/EbfC family nucleoid-associate\u2026\", dnaX, apt, ybaN \"DUF454 family protein\", priC, rsmS, mscK. named 78-99% (mean 95%), fewest named at column 8 (ybaK), named 78%; most hesitant at column 10 (fsr), 0.59 bits.\n[S4] 4. column 25 variable: share 90%, all P, RGP 3%. named 96%; 0.37 bits.\n[S4.c25]    25: acrR P 90% \"multidrug efflux transporter transc\u2026\"\n[S5] 5. columns 26-68 (43 columns) spine: share 91-95%, all P, RGP 1-7%. Genes: acrA, acrB, tomB, hha, maa, ylaC \"YlaC family protein\", pdeB, ybaA \"DUF1428 domain-containing protein\", ybaZ \"MGMT family protein\", ybaY \"YbaY family lipoprotein\", tesB, amtB, glnK, mdlB \"SmdB family multidrug efflux ABC tr\u2026\", mdlA, decR, cof, ybaE \"SgrR family transcriptional regulat\u2026\", queC, fadM, ybaV \"helix-hairpin-helix domain-containi\u2026\", ppiD, hupB, lon, clpX \"ATP-dependent protease ATP-binding\u2026\", clpP, tig, bolA, yajG \"lipoprotein\", ampG, cyoA, cyoB \"cytochrome o ubiquinol oxidase subu\u2026\", cyoC, cyoD, cyoE, yajR \"MFS transporter\", yajQ \"nucleotide binding protein YajQ\", panE, yajL \"protein deglycase YajL\", thiI, xseB, ispA, dxs. named 94-99% (mean 97%), fewest named at column 61 (yajR), named 94%; most hesitant at column 32 (pdeB), 0.48 bits.\n[S6] 6. columns 69-79 (11 columns) fork and variable columns: share 48-90%, all P, RGP 1-2%. named 97-99% (mean 98%), fewest named at column 69, named 97%; no column of this stretch hesitates more than 0.16 bits (column 69).\n[S6.c69-77]    columns 69-77 variable, share 59-90%, all P: yajO \"1-deoxyxylulose-5-phosphate synthas\u2026\" 90%, pgpA 87%, thiL 82%, nusB 78%, ribH 74%, ribD \"bifunctional diaminohydroxyphosphor\u2026\" 71%, nrdR 69%, yajI \"DUF3251 domain-containing protein\" 65%, tsx 59%\n[S6.c78]    78 fork: yajD P 53% \"HNH nuclease YajD\"; also espY3 S 11%\n[S6.c79]    79 variable: secF P 48%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 25-27 (acrR to acrB) [S4, S5]: efflux, transporter, multidrug; columns 37-40 (amtB to mdlA) [S5]: transporter, multidrug, permease; columns 56-60 (cyoA to cyoE) [S5]: cytochrome, oxidase, ubiquinol; columns 67-69 (ispA to yajO) [S5, S6]: synthase, phosphate.\n[X] PRODUCTS of named genes (for [[ ]]): acrR multidrug efflux transporter transcript\u2026; acrA multidrug efflux RND transporter peripl\u2026; acrB efflux RND transporter permease AcrB; mdlA SmdA family multidrug ABC transporter p\u2026; clpP ATP-dependent Clp endopeptidase proteol\u2026; cyoA cytochrome o ubiquinol oxidase subunit\u2026; cyoC cytochrome o ubiquinol oxidase subunit\u2026; cyoD cytochrome o ubiquinol oxidase subunit\u2026; cyoE heme o synthase; ribH 6,7-dimethyl-8-ribityllumazine synthase; lapB type I secretion system permease/ATPase; siiEA BapA-related adhesin SiiEA; espY3 pentapeptide repeat-containing protein\n[E] END: the window ends at column 79, secF, in 48% of chromosomes."
 }

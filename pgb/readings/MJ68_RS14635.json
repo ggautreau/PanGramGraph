@@ -2,59 +2,407 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447768.4303093,
+ "created": 1790479475.51948,
  "usage": {
-  "prompt_tokens": 3284,
-  "completion_tokens": 535,
-  "cost_usd": 0.000528,
-  "ms": 7064
+  "prompt_tokens": 11110,
+  "completion_tokens": 783,
+  "cost_usd": 0.000789,
+  "ms": 6548
  },
  "attempts": [
   {
-   "text": "**The window starts in the `glp` region.** Columns 0 to 5 are spine, carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls: `glpD`, `glpE`, `glpG`, `glpR`, `rtcR`, `rtcB`. The model names 93 to 99% of them, but column 0, `glpD`, is the most hesitant of the whole window at 0.50 bits.\n\n**A variable column follows at `rtcA`**, then columns 7 to 13 are spine again, 95 to 97% of chromosomes, in a region of plasticity in 0% of calls: `malT` to `bioH`, [[maltose and glycogen breakdown]]. The model names 97 to 99% there, hesitating most at `malT`, 0.24 bits. Column 14, `rpnA`, is variable.\n\n**The long middle stretch runs from `feoC` to `yhfX`**, columns 15 to 44, spine, 90 to 97% of chromosomes, in a region of plasticity in 0 to 79% of calls. The model names 86 to 99%, hesitating most at `pckA`, column 22, 0.36 bits. Then column 45, `yhfW`, is variable, in a region of plasticity in 91% of calls.\n\n**Columns 46 and 47 are the most plastic spine**, `php` and `yhfU`, in a region of plasticity in 93 to 94% of calls, yet named in 97 to 98%. Columns 48 to 54 are variable, 63 to 88% of chromosomes, the `frl` genes, [[fructose and amino acid uptake]], in a region of plasticity in 41 to 91% of calls. Columns 55 to 78 are spine, `yhfL` to `fkpA`, named 90 to 99%.\n\n**The window ends at a fork**, column 79, `yheO` in 88% of chromosomes, with `tusD`, `tusC` and `tusB` on the branch. Across the window the model names 97% of genes at 0.10 bits; inside a region of plasticity it hesitates more, 0.22 against 0.09 bits, and names 95% against 98%.",
+   "text": "**The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93%.\n\n**A variable column follows at `rtcA`**, column 6, carried by 90%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits.\n\nThe last column is `yheO`.\n\n**Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3284,
-    "completion_tokens": 535,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5186,
+    "completion_tokens": 396,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000528
+    "cost_usd": 0.000545
    },
    "provider": "deepinfra",
-   "ms": 7064,
-   "raw": "**The window starts in the `glp` region.** Columns 0 to 5 are spine, carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls: `glpD`, `glpE`, `glpG`, `glpR`, `rtcR`, `rtcB`. The model names 93 to 99% of them, but column 0, `glpD`, is the most hesitant of the whole window at 0.50 bits.\n\n**A variable column follows at `rtcA`**, then columns 7 to 13 are spine again, 95 to 97% of chromosomes, in a region of plasticity in 0% of calls: `malT` to `bioH`, [[maltose and glycogen breakdown]]. The model names 97 to 99% there, hesitating most at `malT`, 0.24 bits. Column 14, `rpnA`, is variable.\n\n**The long middle stretch runs from `feoC` to `yhfX`**, columns 15 to 44, spine, 90 to 97% of chromosomes, in a region of plasticity in 0 to 79% of calls. The model names 86 to 99%, hesitating most at `pckA`, column 22, 0.36 bits. Then column 45, `yhfW`, is variable, in a region of plasticity in 91% of calls.\n\n**Columns 46 and 47 are the most plastic spine**, `php` and `yhfU`, in a region of plasticity in 93 to 94% of calls, yet named in 97 to 98%. Columns 48 to 54 are variable, 63 to 88% of chromosomes, the `frl` genes, [[fructose and amino acid uptake]], in a region of plasticity in 41 to 91% of calls. Columns 55 to 78 are spine, `yhfL` to `fkpA`, named 90 to 99%.\n\n**The window ends at a fork**, column 79, `yheO` in 88% of chromosomes, with `tusD`, `tusC` and `tusB` on the branch. Across the window the model names 97% of genes at 0.10 bits; inside a region of plasticity it hesitates more, 0.22 against 0.09 bits, and names 95% against 98%.",
+   "ms": 3777,
+   "raw": "@start **The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls {S1}. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93% {S1}.\n\n@variable **A variable column follows at `rtcA`**, column 6, carried by 90% {S2.c6}. Then columns 7 to 13, `malT` to `bioH`, are [[maltodextrin metabolism]], carried by 95 to 97% {S3, Q}. Columns 15 to 17, `feoC` to `feoA`, are [[ferrous iron transport]] {S5, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits {M}. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits {H}.\n\n@end **The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, with `tusD` at 57% {S10, E}. The last column is `yheO` {E}.\n\n@whole **Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families {G}. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98% {C}.",
+   "annotated": "@start **The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls {S1}. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93% {S1}.\n\n@variable **A variable column follows at `rtcA`**, column 6, carried by 90% {S2.c6}. Then columns 7 to 13, `malT` to `bioH`, are [[maltodextrin metabolism]], carried by 95 to 97% {S3, Q}. Columns 15 to 17, `feoC` to `feoA`, are [[ferrous iron transport]] {S5, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits {M}. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits {H}.\n\n@end **The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, with `tusD` at 57% {S10, E}. The last column is `yheO` {E}.\n\n@whole **Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families {G}. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 55,
-    "names": 26,
-    "words": 296,
-    "bad": [],
-    "hints": [
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
      {
-      "text": "maltose",
-      "where": "[[maltose and glycogen breakdown]]"
+      "kind": "interpretation",
+      "text": "maltodextrin metabolism",
+      "why": "this says what 1 of the 7 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[maltodextrin metabolism]]"
      },
      {
-      "text": "fructose",
-      "where": "[[fructose and amino acid uptake]]"
+      "kind": "interpretation",
+      "text": "ferrous iron transport",
+      "why": "this says what 1 of the 3 families of the lines cited (S5, Q) do: name the columns it is true of, or leave the stretch unnamed",
+      "context": "[[ferrous iron transport]]"
+     },
+     {
+      "kind": "number",
+      "text": "57%",
+      "why": "not a share of chromosomes of the lines cited (S10, E)",
+      "context": "**The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, with `tusD` at 57%"
      }
-    ]
+    ],
+    "numbers": 24,
+    "names": 13,
+    "words": 190,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 3,
+    "dropped_len": 0,
+    "unled": 1,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 143,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A variable column follows at `rtcA`**, column 6, carried by 90%",
+      "cites": [
+       "S2.c6"
+      ],
+      "inherit": [
+       "S3",
+       "Q",
+       "S5"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `yheO`",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 7
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "Then columns 7 to 13, `malT` to `bioH`, are [[maltodextrin metabolism]], carried by 95 to 97%",
+     "cites": [
+      "S3",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "maltodextrin metabolism",
+       "why": "this says what 1 of the 7 families of the lines cited (S3, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    },
+    {
+     "tag": "variable",
+     "text": "Columns 15 to 17, `feoC` to `feoA`, are [[ferrous iron transport]]",
+     "cites": [
+      "S5",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "ferrous iron transport",
+       "why": "this says what 1 of the 3 families of the lines cited (S5, Q) do: name the columns it is true of, or leave the stretch unnamed"
+      }
+     ]
+    },
+    {
+     "tag": "end",
+     "text": "**The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, with `tusD` at 57%",
+     "cites": [
+      "S10",
+      "E"
+     ],
+     "opens": true,
+     "bad": [
+      {
+       "kind": "number",
+       "text": "57%",
+       "why": "not a share of chromosomes of the lines cited (S10, E)"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93%.\n\n**A variable column follows at `rtcA`**, column 6, carried by 90%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits.\n\nThe last column is `yheO`.\n\n**Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%.",
+   "truncated": false,
+   "ok": false
+  },
+  {
+   "text": "**The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93%.\n\n**A variable column follows at `rtcA`**, column 6, carried by 90%. Then columns 7 to 13, `malT` to `bioH`, are carried by 95 to 97%. Columns 50 to 54, `frlR` to `frlA`, are [[fructoselysine metabolism]], carried by 63 to 66%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits.\n\n**The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, all persistent.\n\n**Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%.",
+   "finish": "stop",
+   "usage": {
+    "prompt_tokens": 5924,
+    "completion_tokens": 387,
+    "cached_tokens": 5504,
+    "reasoning_tokens": 0,
+    "cost_usd": 0.000244
+   },
+   "provider": "deepinfra",
+   "ms": 2771,
+   "raw": "@start **The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls {S1}. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93% {S1}.\n\n@variable **A variable column follows at `rtcA`**, column 6, carried by 90% {S2.c6}. Then columns 7 to 13, `malT` to `bioH`, are carried by 95 to 97% {S3}. Columns 50 to 54, `frlR` to `frlA`, are [[fructoselysine metabolism]], carried by 63 to 66% {S8, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits {M}. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits {H}.\n\n@end **The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, all persistent {S10}. The last column is `yheO` {E}.\n\n@whole **Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families {G}. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98% {C}.",
+   "annotated": "@start **The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls {S1}. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93% {S1}.\n\n@variable **A variable column follows at `rtcA`**, column 6, carried by 90% {S2.c6}. Then columns 7 to 13, `malT` to `bioH`, are carried by 95 to 97% {S3}. Columns 50 to 54, `frlR` to `frlA`, are [[fructoselysine metabolism]], carried by 63 to 66% {S8, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits {M}. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits {H}.\n\n@end **The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, all persistent {S10}. The last column is `yheO` {E}.\n\n@whole **Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families {G}. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98% {C}.",
+   "check": {
+    "ok": true,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [],
+    "numbers": 24,
+    "names": 12,
+    "words": 190,
+    "sentences": 11,
+    "cited": 12,
+    "structure": []
+   },
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 185,
+    "repeats": 1,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A variable column follows at `rtcA`**, column 6, carried by 90%",
+      "cites": [
+       "S2.c6"
+      ],
+      "inherit": [
+       "S3",
+       "S8",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then columns 7 to 13, `malT` to `bioH`, are carried by 95 to 97%",
+      "cites": [
+       "S3"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Columns 50 to 54, `frlR` to `frlA`, are [[fructoselysine metabolism]], carried by 63 to 66%",
+      "cites": [
+       "S8",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, all persistent",
+      "cites": [
+       "S10"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 22
+   },
+   "dropped": [],
+   "served": "**The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93%.\n\n**A variable column follows at `rtcA`**, column 6, carried by 90%. Then columns 7 to 13, `malT` to `bioH`, are carried by 95 to 97%. Columns 50 to 54, `frlR` to `frlA`, are [[fructoselysine metabolism]], carried by 63 to 66%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits.\n\n**The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, all persistent.\n\n**Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 55,
-  "names": 26,
-  "words": 296,
-  "attempts": 1
+  "numbers": 24,
+  "names": 12,
+  "words": 185,
+  "attempts": 2,
+  "sentences": 11,
+  "cited": 12,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 1,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 22
  },
- "text": "**The window starts in the `glp` region.** Columns 0 to 5 are spine, carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls: `glpD`, `glpE`, `glpG`, `glpR`, `rtcR`, `rtcB`. The model names 93 to 99% of them, but column 0, `glpD`, is the most hesitant of the whole window at 0.50 bits.\n\n**A variable column follows at `rtcA`**, then columns 7 to 13 are spine again, 95 to 97% of chromosomes, in a region of plasticity in 0% of calls: `malT` to `bioH`, [[maltose and glycogen breakdown]]. The model names 97 to 99% there, hesitating most at `malT`, 0.24 bits. Column 14, `rpnA`, is variable.\n\n**The long middle stretch runs from `feoC` to `yhfX`**, columns 15 to 44, spine, 90 to 97% of chromosomes, in a region of plasticity in 0 to 79% of calls. The model names 86 to 99%, hesitating most at `pckA`, column 22, 0.36 bits. Then column 45, `yhfW`, is variable, in a region of plasticity in 91% of calls.\n\n**Columns 46 and 47 are the most plastic spine**, `php` and `yhfU`, in a region of plasticity in 93 to 94% of calls, yet named in 97 to 98%. Columns 48 to 54 are variable, 63 to 88% of chromosomes, the `frl` genes, [[fructose and amino acid uptake]], in a region of plasticity in 41 to 91% of calls. Columns 55 to 78 are spine, `yhfL` to `fkpA`, named 90 to 99%.\n\n**The window ends at a fork**, column 79, `yheO` in 88% of chromosomes, with `tusD`, `tusC` and `tusB` on the branch. Across the window the model names 97% of genes at 0.10 bits; inside a region of plasticity it hesitates more, 0.22 against 0.09 bits, and names 95% against 98%.",
- "html": "<p class=\"note\"><b>The window starts in the <span class=\"gene\">glp</span> region.</b> Columns 0 to 5 are spine, carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls: <span class=\"gene\">glpD</span>, <span class=\"gene\">glpE</span>, <span class=\"gene\">glpG</span>, <span class=\"gene\">glpR</span>, <span class=\"gene\">rtcR</span>, <span class=\"gene\">rtcB</span>. The model names 93 to 99% of them, but column 0, <span class=\"gene\">glpD</span>, is the most hesitant of the whole window at 0.50 bits.</p><p class=\"note\"><b>A variable column follows at <span class=\"gene\">rtcA</span></b>, then columns 7 to 13 are spine again, 95 to 97% of chromosomes, in a region of plasticity in 0% of calls: <span class=\"gene\">malT</span> to <span class=\"gene\">bioH</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">maltose and glycogen breakdown</span>. The model names 97 to 99% there, hesitating most at <span class=\"gene\">malT</span>, 0.24 bits. Column 14, <span class=\"gene\">rpnA</span>, is variable.</p><p class=\"note\"><b>The long middle stretch runs from <span class=\"gene\">feoC</span> to <span class=\"gene\">yhfX</span></b>, columns 15 to 44, spine, 90 to 97% of chromosomes, in a region of plasticity in 0 to 79% of calls. The model names 86 to 99%, hesitating most at <span class=\"gene\">pckA</span>, column 22, 0.36 bits. Then column 45, <span class=\"gene\">yhfW</span>, is variable, in a region of plasticity in 91% of calls.</p><p class=\"note\"><b>Columns 46 and 47 are the most plastic spine</b>, <span class=\"gene\">php</span> and <span class=\"gene\">yhfU</span>, in a region of plasticity in 93 to 94% of calls, yet named in 97 to 98%. Columns 48 to 54 are variable, 63 to 88% of chromosomes, the <span class=\"gene\">frl</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fructose and amino acid uptake</span>, in a region of plasticity in 41 to 91% of calls. Columns 55 to 78 are spine, <span class=\"gene\">yhfL</span> to <span class=\"gene\">fkpA</span>, named 90 to 99%.</p><p class=\"note\"><b>The window ends at a fork</b>, column 79, <span class=\"gene\">yheO</span> in 88% of chromosomes, with <span class=\"gene\">tusD</span>, <span class=\"gene\">tusC</span> and <span class=\"gene\">tusB</span> on the branch. Across the window the model names 97% of genes at 0.10 bits; inside a region of plasticity it hesitates more, 0.22 against 0.09 bits, and names 95% against 98%.</p>",
+ "text": "**The window opens on the `glp` genes.** Columns 0 to 5, `glpD` to `rtcB`, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls. The model names 93 to 99% of them, fewest at column 4, `rtcR`, 93%.\n\n**A variable column follows at `rtcA`**, column 6, carried by 90%. Then columns 7 to 13, `malT` to `bioH`, are carried by 95 to 97%. Columns 50 to 54, `frlR` to `frlA`, are [[fructoselysine metabolism]], carried by 63 to 66%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits. Its most hesitant column, 0, `glpD`, is a spine column, at 0.50 bits.\n\n**The window ends on a fork column.** Column 79, `yheO`, is carried by 88% of chromosomes, all persistent.\n\n**Across the window it names 97% of genes**, 0.10 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%.",
+ "html": "<p class=\"note\"><b>The window opens on the <span class=\"gene\">glp</span> genes.</b> Columns 0 to 5, <span class=\"gene\">glpD</span> to <span class=\"gene\">rtcB</span>, are carried by 92 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 2% of calls. The model names 93 to 99% of them, fewest at column 4, <span class=\"gene\">rtcR</span>, 93%.</p><p class=\"note\"><b>A variable column follows at <span class=\"gene\">rtcA</span></b>, column 6, carried by 90%. Then columns 7 to 13, <span class=\"gene\">malT</span> to <span class=\"gene\">bioH</span>, are carried by 95 to 97%. Columns 50 to 54, <span class=\"gene\">frlR</span> to <span class=\"gene\">frlA</span>, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fructoselysine metabolism</span>, carried by 63 to 66%.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 98 against 95%, and hesitates less there, 0.09 against 0.18 bits. Its most hesitant column, 0, <span class=\"gene\">glpD</span>, is a spine column, at 0.50 bits.</p><p class=\"note\"><b>The window ends on a fork column.</b> Column 79, <span class=\"gene\">yheO</span>, is carried by 88% of chromosomes, all persistent.</p><p class=\"note\"><b>Across the window it names 97% of genes</b>, 0.10 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.22 against 0.09 bits, and names about as many genes, 95% against 98%.</p>",
  "window": "MJ68_RS14635",
  "label": "glpD",
- "facts_hash": "3798915b2641",
- "prompt_version": "r7",
- "facts": "WINDOW: the glpD window: 80 columns, column 0 is the anchor glpD, then the next 79 genes in dnaA's direction; about genes 296 to 375 from dnaA. Read in 538 of the 540 complete chromosomes (those carrying glpD once); 43,040 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 97% of genes, 0.10 bits on average (perplexity 1.2 families). By partition of the gene: persistent 36,671 calls, named 98%, 0.07 bits; shell 6,317 calls, named 92%, 0.26 bits; cloud 52 calls, named 60%, 1.25 bits. Outside an RGP 37,649 calls, named 98%, 0.09 bits; inside an RGP 5,391 calls, named 95%, 0.22 bits. Columns: 69 spine, 1 fork, 10 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.22 against 0.09 bits) and names about as many genes (95% against 98%); 5,391 of the 43,040 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 0 (glpD) 0.50 bits, RGP 0%; column 22 (pckA) 0.36 bits, RGP 0.4%; column 14 (rpnA) 0.29 bits, RGP 0.2%. The 11 columns where most calls are in an RGP: named 96%, 0.17 bits on average; the other 69 columns: named 97%, 0.09 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 46-47 (spine), RGP 93-94%; the least: columns 7-13 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-5 (6 columns) spine: share 92-100%, all P, RGP 0-2%. Genes: glpD, glpE, glpG \"rhomboid family intramembrane serin\u2026\", glpR, rtcR, rtcB. named 93-99% (mean 97%), fewest named at column 4 (rtcR), named 93%; most hesitant at column 0 (glpD), 0.50 bits.\n2. column 6 variable: RGP 0.2%. named 93%; 0.26 bits.\n   6: rtcA P 90% \"RNA 3'-terminal phosphate cyclase\"\n3. columns 7-13 (7 columns) spine: share 95-97%, all P, RGP 0%. Genes: malT, malP \"glycogen/starch/alpha-glucan phosph\u2026\", malQ, gntT, nfuA, gntX, bioH. named 97-99% (mean 98%), fewest named and most hesitant at column 7 (malT), named 97%, 0.24 bits.\n4. column 14 variable: RGP 0.2%. named 97%; 0.29 bits.\n   14: rpnA S 90%\n5. columns 15-44 (30 columns) spine: share 90-97%, 28 P, 2 S, RGP 0-79%. Genes: feoC, feoB, feoA \"ferrous iron transporter A\", yhgF \"S1 RNA-binding domain-containing pr\u2026\", greB, ompR, envZ, pckA, yhgE \"DUF4153 domain-containing protein\", hslO, hslR \"ribosome-associated heat shock prot\u2026\", yrfG \"GMP/IMP nucleotidase\", igaA, nudE, mrcA, hofM \"DNA utilization protein HofM\", hofN, hofO, hofP, hofQ, aroK \"shikimate kinase AroK\", aroB, damX, dam, rpe, gph, trpS, yhfZ \"YhfZ family protein\", yhfY \"PRD domain-containing protein\", yhfX \"alanine racemase\". named 86-99% (mean 98%), fewest named and most hesitant at column 22 (pckA), named 86%, 0.36 bits.\n6. column 45 variable: RGP 91%. named 96%; 0.18 bits.\n   45: yhfW S 89% \"phosphopentomutase\"\n7. columns 46-47 (2 columns) spine: share 91%, all S, RGP 93-94%. Genes: php, yhfU \"DUF2620 domain-containing protein\". named 97-98% (mean 97%), fewest named at column 46 (php), named 97%; no column of this stretch hesitates more than 0.13 bits (column 47 (yhfU)).\n8. columns 48-54 (7 columns) variable: RGP 41-91%. named 94-98% (mean 96%), fewest named at column 49, named 94%; most hesitant at column 52, 0.27 bits.\n   columns 48-54, share 63-88%, all S: yhfT \"YhfT family protein\" 88%, yhfS \"aminotransferase class V-fold PLP-d\u2026\" 87%, frlR 66%, frlD 64%, frlC 66%, frlB 66%, frlA \"amino acid permease\" 63%\n9. columns 55-78 (24 columns) spine: share 91-97%, all P, RGP 1-10%. Genes: yhfL \"DUF4223 family protein\", cysG, nirC \"formate/nitrite transporter family\u2026\", nirD, nirB, tsgA, ppiA, yhfG \"YhfG family protein\", fic, pabA, argD, yhfK \"YccS/YhfK family putative transport\u2026\", crp, yhfA \"OsmC family protein\", prkB, yheU \"YheU family protein\", yheT \"hydrolase\", yheS \"ATP-binding cassette domain-contain\u2026\", kefG, kefB \"monovalent cation:proton antiporter\u2026\", yheV \"YheV family putative zinc ribbon pr\u2026\", slyD \"peptidylprolyl isomerase\", slyX, fkpA. named 90-99% (mean 97%), fewest named at column 78 (fkpA), named 90%; no column of this stretch hesitates more than 0.08 bits (column 73 (kefG)).\n10. column 79 fork: RGP 2%. named 89%; 0.04 bits.\n   79: yheO P 88% \"transcriptional regulator\"; also tusD P 57%, tusC P 41%, tusB P 32%\nPRODUCTS of named genes (for [[ ]]): glpD glycerol-3-phosphate dehydrogenase C-te\u2026; glpE thiosulfate sulfurtransferase GlpE; glpR DeoR/GlpR family transcriptional regula\u2026; rtcR RNA repair transcriptional activator Rt\u2026; rtcA RNA 3'-terminal phosphate cyclase; malT LuxR C-terminal-related transcriptional\u2026; malQ 4-alpha-glucanotransferase; feoC [Fe-S]-dependent transcriptional repres\u2026; hslO Hsp33 family molecular chaperone HslO; hofN DNA utilization protein HofN; hofO DNA utilization protein HofO; hofP DNA utilization protein HofP; aroB 3-dehydroquinate synthase; damX cell division protein DamX; dam adenine-specific DNA-methyltransferase; frlD PfkB family carbohydrate kinase; nirD nitrite reductase (NAD(P)H) small subun\u2026; kefG glutathione-regulated potassium-efflux\u2026; rpsL 30S ribosomal protein S12; tusD sulfurtransferase complex subunit TusD; tusC sulfurtransferase complex subunit TusC; tusB sulfurtransferase complex subunit TusB; rpsG 30S ribosomal protein S7; fusA elongation factor G\nEND: the window ends at column 79, yheO, in 88% of chromosomes."
+ "facts_hash": "c93fff9d8d00",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the glpD window: 80 columns, column 0 is the anchor glpD, then the next 79 genes in dnaA's direction; about genes 296 to 375 from dnaA. Read in 538 of the 540 complete chromosomes (those carrying glpD once); 43,040 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 97% of genes, 0.10 bits on average (perplexity 1.2 families). By partition of the gene: persistent 36,671 calls, named 98%, 0.07 bits; shell 6,317 calls, named 92%, 0.26 bits; cloud 52 calls, named 60%, 1.25 bits. Outside an RGP 37,649 calls, named 98%, 0.09 bits; inside an RGP 5,391 calls, named 95%, 0.22 bits. Columns: 69 spine, 1 fork, 10 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.22 against 0.09 bits) and names about as many genes (95% against 98%); 5,391 of the 43,040 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 0 (glpD, a spine column) 0.50 bits, RGP 0%; column 22 (pckA, a spine column) 0.36 bits, RGP 0.4%; column 14 (rpnA, a variable column) 0.29 bits, RGP 0.2%. The 11 columns (columns 43-53) where most calls are in an RGP: named 96%, 0.17 bits on average; the other 69 columns: named 97%, 0.09 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 69 spine columns: named 98%, 0.09 bits on average; the 11 fork and variable columns: named 95%, 0.18 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 0, is a spine column: the model can hesitate most inside a spine.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 46-47 (spine), RGP 93-94%; the least: columns 7-13 (spine), RGP 0%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-5 (6 columns) spine: share 92-100%, all P, RGP 0-2%. Genes: glpD, glpE, glpG \"rhomboid family intramembrane serin\u2026\", glpR, rtcR, rtcB. named 93-99% (mean 97%), fewest named at column 4 (rtcR), named 93%; most hesitant at column 0 (glpD), 0.50 bits.\n[S2] 2. column 6 variable: share 90%, all P, RGP 0.2%. named 93%; 0.26 bits.\n[S2.c6]    6: rtcA P 90% \"RNA 3'-terminal phosphate cyclase\"\n[S3] 3. columns 7-13 (7 columns) spine: share 95-97%, all P, RGP 0%. Genes: malT, malP \"maltodextrin phosphorylase\", malQ, gntT, nfuA, gntX, bioH. named 97-99% (mean 98%), fewest named and most hesitant at column 7 (malT), named 97%, 0.24 bits.\n[S4] 4. column 14 variable: share 90%, all S, RGP 0.2%. named 97%; 0.29 bits.\n[S4.c14]    14: rpnA S 90%\n[S5] 5. columns 15-44 (30 columns) spine: share 90-97%, 28 P, 2 S, RGP 0-79%. Genes: feoC, feoB, feoA \"ferrous iron transporter A\", yhgF \"Tex family protein\", greB, ompR, envZ, pckA, yhgE \"DUF4153 domain-containing protein\", hslO, hslR \"ribosome-associated heat shock prot\u2026\", yrfG \"GMP/IMP nucleotidase\", igaA, nudE, mrcA, hofM \"DNA utilization protein HofM\", hofN, hofO, hofP, hofQ, aroK \"shikimate kinase AroK\", aroB, damX, dam, rpe, gph, trpS, yhfZ \"GntR family transcriptional regulat\u2026\", yhfY \"PRD domain protein\", yhfX \"YhfX family PLP-dependent enzyme\". named 86-99% (mean 98%), fewest named and most hesitant at column 22 (pckA), named 86%, 0.36 bits.\n[S6] 6. column 45 variable: share 89%, all S, RGP 91%. named 96%; 0.18 bits.\n[S6.c45]    45: yhfW S 89% \"phosphopentomutase\"\n[S7] 7. columns 46-47 (2 columns) spine: share 91%, all S, RGP 93-94%. Genes: php, yhfU \"DUF2620 domain-containing protein\". named 97-98% (mean 97%), fewest named at column 46 (php), named 97%; no column of this stretch hesitates more than 0.13 bits (column 47 (yhfU)).\n[S8] 8. columns 48-54 (7 columns) variable: share 63-88%, all S, RGP 41-91%. named 94-98% (mean 96%), fewest named at column 49, named 94%; most hesitant at column 52, 0.27 bits.\n[S8.c48-54]    columns 48-54, share 63-88%, all S: yhfT \"YhfT family protein\" 88%, yhfS \"aminotransferase class I/II-fold py\u2026\" 87%, frlR 66%, frlD 64%, frlC 66%, frlB \"fructoselysine 6-phosphate deglycase\" 66%, frlA 63%\n[S9] 9. columns 55-78 (24 columns) spine: share 91-97%, all P, RGP 1-10%. Genes: yhfL \"YhfL family protein\", cysG, nirC, nirD \"nitrite reductase small subunit NirD\", nirB, tsgA, ppiA, yhfG \"YhfG family protein\", fic, pabA, argD, yhfK \"YccS/YhfK family putative transport\u2026\", crp, yhfA \"OsmC family protein\", prkB, yheU \"YheU family protein\", yheT \"hydrolase\", yheS \"ABC transporter ATP-binding protein\", kefG \"glutathione-regulated potassium-eff\u2026\", kefB, yheV \"YheV family putative zinc ribbon pr\u2026\", slyD \"peptidylprolyl isomerase\", slyX, fkpA. named 90-99% (mean 97%), fewest named at column 78 (fkpA), named 90%; no column of this stretch hesitates more than 0.08 bits (column 73 (kefG)).\n[S10] 10. column 79 fork: share 88%, all P, RGP 2%. named 89%; 0.04 bits.\n[S10.c79]    79: yheO P 88% \"helix-turn-helix transcriptional re\u2026\"; also tusD P 57%, tusC P 41%, tusB P 32%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 15-17 (feoC to feoA) [S5]: transporter; columns 30-34 (hofM to hofQ) [S5]: utilization; columns 50-54 (frlR to frlA) [S8]: fructoselysine; columns 57-59 (nirC to nirB) [S9]: nitrite, reductase.\n[X] PRODUCTS of named genes (for [[ ]]): glpD glycerol-3-phosphate dehydrogenase; glpE thiosulfate sulfurtransferase GlpE; glpR DeoR/GlpR family transcriptional regula\u2026; rtcB RNA-splicing ligase RtcB; rtcA RNA 3'-terminal phosphate cyclase; malT HTH-type transcriptional regulator MalT; malQ 4-alpha-glucanotransferase; feoC [Fe-S]-dependent transcriptional repres\u2026; feoB Fe(2+) transporter permease subunit FeoB; hslO Hsp33 family molecular chaperone HslO; hofN DNA utilization protein HofN; hofO DNA utilization protein HofO; hofP DNA utilization protein HofP; aroB 3-dehydroquinate synthase; damX cell division protein DamX; dam adenine-specific DNA-methyltransferase; frlD fructoselysine 6-kinase; frlC fructoselysine 3-epimerase; frlA fructoselysine/psicoselysine transporter; nirC nitrite transporter NirC; nirB NADPH-nitrite reductase large subunit; kefB glutathione-regulated potassium-efflux\u2026; rpsL 30S ribosomal protein S12; tusD sulfurtransferase complex subunit TusD; tusC sulfurtransferase complex subunit TusC; tusB sulfurtransferase complex subunit TusB; rpsG 30S ribosomal protein S7; fusA elongation factor G\n[E] END: the window ends at column 79, yheO, in 88% of chromosomes."
 }

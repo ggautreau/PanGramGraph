@@ -2,50 +2,213 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447737.744049,
+ "created": 1790468382.1045249,
  "usage": {
-  "prompt_tokens": 3711,
-  "completion_tokens": 554,
-  "cost_usd": 0.0007,
-  "ms": 5468
+  "prompt_tokens": 5652,
+  "completion_tokens": 407,
+  "cost_usd": 0.000197,
+  "ms": 6721
  },
  "attempts": [
   {
-   "text": "**The spine starts at the origin.** Columns 0 to 5, `dnaA`, `dnaN`, `recF`, `gyrB`, `yidB` and `yidA`, are spine columns carried by 92 to 99.9% of genomes, and the least in a region of plasticity of the whole window: 0 to 0.5% of calls. The model names 93 to 100% of genes there, fewest at `yidB`, named 93%, where it also hesitates most in the stretch, 0.43 bits.\n\n**The first fork is at `yidX`**, column 6, named in 72% of calls. Then the `dgo` operon, [[galactonate catabolism]], variable columns 7 to 11, carried by 84 to 88% of genomes, in a region of plasticity in 90 to 99.9% of calls. The model still names 72 to 99% there, mean 90%.\n\n**A spine follows**, `cbrA` to `yidE`, carried by 95 to 97% of genomes, in a region of plasticity in 0.1 to 0.4% of calls. The model names 27 to 99%, mean 84%, fewest at `ibpB`, named 27%; no column here hesitates more than 0.19 bits.\n\n**Then 62 fork and variable columns**, columns 18 to 79, in a region of plasticity in 0.2 to 99.7% of calls. The model names 67 to 99%, mean 88%, fewest at column 75, named 67%, and hesitates most at column 45 (`yicJ`), 1.38 bits, in a region of plasticity in 39% of calls. Through columns 45 to 52 a second branch of 8 families, in 11% of genomes, runs parallel, [[sugar transport and aldolase genes]].\n\n**The window ends in the `waa` locus**, [[lipopolysaccharide core biosynthesis]]: `waaA` in 38% of genomes, then `rfaQ`, `waaG`, `rfaP`, `waaO`, `rfaC` and `rfaF`, down to 9 to 27%. Across the window the model names 89% of genes, 0.41 bits on average; inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.",
+   "text": "**The window opens on a spine.** Columns 0 to 5, `dnaA` to `yidA`, are carried by 92 to 99.9% of genomes, all persistent, in a region of plasticity in 0 to 0.5% of calls. The model names 93 to 100% of them, fewest at column 4, `yidB`, 93%.\n\n**The first fork is at `yidX`**, column 6, carried by 70%. Then the `dgo` genes, variable columns 7 to 11, [[galactonate catabolism]], carried by 84 to 88%: the most plastic stretch of the window. Through columns 45 to 52 a branch of 8 shell families runs in 11%, [[fructose transport and aldolases]].\n\n**The model names as many genes on the spine columns as on the others, 90 against 89%, and hesitates less there**, 0.14 against 0.46 bits. It hesitates most at column 45, `yicJ`, a fork column, 1.38 bits.\n\n**The window ends in the `waa` genes**, columns 69 to 79, [[lipopolysaccharide core]]. The last column is `rfaF`, in 12% of genomes.\n\n**Across the window it names 89% of genes**, 0.41 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3711,
-    "completion_tokens": 554,
-    "cached_tokens": 384,
+    "prompt_tokens": 5652,
+    "completion_tokens": 407,
+    "cached_tokens": 5632,
     "reasoning_tokens": 0,
-    "cost_usd": 0.0007
+    "cost_usd": 0.000197
    },
    "provider": "deepinfra",
-   "ms": 5468,
-   "raw": "**The spine starts at the origin.** Columns 0 to 5, `dnaA`, `dnaN`, `recF`, `gyrB`, `yidB` and `yidA`, are spine columns carried by 92 to 99.9% of genomes, and the least in a region of plasticity of the whole window: 0 to 0.5% of calls. The model names 93 to 100% of genes there, fewest at `yidB`, named 93%, where it also hesitates most in the stretch, 0.43 bits.\n\n**The first fork is at `yidX`**, column 6, named in 72% of calls. Then the `dgo` operon, [[galactonate catabolism]], variable columns 7 to 11, carried by 84 to 88% of genomes, in a region of plasticity in 90 to 99.9% of calls. The model still names 72 to 99% there, mean 90%.\n\n**A spine follows**, `cbrA` to `yidE`, carried by 95 to 97% of genomes, in a region of plasticity in 0.1 to 0.4% of calls. The model names 27 to 99%, mean 84%, fewest at `ibpB`, named 27%; no column here hesitates more than 0.19 bits.\n\n**Then 62 fork and variable columns**, columns 18 to 79, in a region of plasticity in 0.2 to 99.7% of calls. The model names 67 to 99%, mean 88%, fewest at column 75, named 67%, and hesitates most at column 45 (`yicJ`), 1.38 bits, in a region of plasticity in 39% of calls. Through columns 45 to 52 a second branch of 8 families, share 11%, runs parallel, [[sugar transport and aldolase genes]].\n\n**The window ends in the `waa` locus**, [[lipopolysaccharide core biosynthesis]]: `waaA` in 38% of genomes, then `rfaQ`, `waaG`, `rfaP`, `waaO`, `rfaC` and `rfaF`, down to 9 to 27%. Across the window the model names 89% of genes, 0.41 bits on average; inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.",
+   "ms": 6721,
+   "raw": "@start **The window opens on a spine.** Columns 0 to 5, `dnaA` to `yidA`, are carried by 92 to 99.9% of genomes, all persistent, in a region of plasticity in 0 to 0.5% of calls {S1, P}. The model names 93 to 100% of them, fewest at column 4, `yidB`, 93% {S1}.\n\n@variable **The first fork is at `yidX`**, column 6, carried by 70% {S2.c6}. Then the `dgo` genes, variable columns 7 to 11, [[galactonate catabolism]], carried by 84 to 88%: the most plastic stretch of the window {S2.c7-11, P, Q}. Through columns 45 to 52 a branch of 8 shell families runs in 11%, [[fructose transport and aldolases]] {S4.b45}.\n\n@model **The model names as many genes on the spine columns as on the others, 90 against 89%, and hesitates less there**, 0.14 against 0.46 bits {M}. It hesitates most at column 45, `yicJ`, a fork column, 1.38 bits {H}.\n\n@end **The window ends in the `waa` genes**, columns 69 to 79, [[lipopolysaccharide core]] {S4.c53-79, Q}. The last column is `rfaF`, in 12% of genomes {E}.\n\n@whole **Across the window it names 89% of genes**, 0.41 bits on average, perplexity 1.6 families {G}. Inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94% {C}.",
+   "annotated": "@start **The window opens on a spine.** Columns 0 to 5, `dnaA` to `yidA`, are carried by 92 to 99.9% of genomes, all persistent, in a region of plasticity in 0 to 0.5% of calls {S1, P}. The model names 93 to 100% of them, fewest at column 4, `yidB`, 93% {S1}.\n\n@variable **The first fork is at `yidX`**, column 6, carried by 70% {S2.c6}. Then the `dgo` genes, variable columns 7 to 11, [[galactonate catabolism]], carried by 84 to 88%: the most plastic stretch of the window {S2.c7-11, P, Q}. Through columns 45 to 52 a branch of 8 shell families runs in 11%, [[fructose transport and aldolases]] {S4.b45}.\n\n@model **The model names as many genes on the spine columns as on the others, 90 against 89%, and hesitates less there**, 0.14 against 0.46 bits {M}. It hesitates most at column 45, `yicJ`, a fork column, 1.38 bits {H}.\n\n@end **The window ends in the `waa` genes**, columns 69 to 79, [[lipopolysaccharide core]] {S4.c53-79, Q}. The last column is `rfaF`, in 12% of genomes {E}.\n\n@whole **Across the window it names 89% of genes**, 0.41 bits on average, perplexity 1.6 families {G}. Inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94% {C}.",
    "check": {
     "ok": true,
-    "numbers": 56,
-    "names": 21,
-    "words": 302,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 24,
+    "names": 8,
+    "words": 195,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 195,
+    "repeats": 0,
+    "interp": 3,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a spine.** Columns 0 to 5, `dnaA` to `yidA`, are carried by 92 to 99.9% of genomes, all persistent, in a region of plasticity in 0 to 0.5% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 93 to 100% of them, fewest at column 4, `yidB`, 93%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The first fork is at `yidX`**, column 6, carried by 70%",
+      "cites": [
+       "S2.c6"
+      ],
+      "inherit": [
+       "S2.c7-11",
+       "P",
+       "Q",
+       "S4.b45"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then the `dgo` genes, variable columns 7 to 11, [[galactonate catabolism]], carried by 84 to 88%: the most plastic stretch of the window",
+      "cites": [
+       "S2.c7-11",
+       "P",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Through columns 45 to 52 a branch of 8 shell families runs in 11%, [[fructose transport and aldolases]]",
+      "cites": [
+       "S4.b45"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names as many genes on the spine columns as on the others, 90 against 89%, and hesitates less there**, 0.14 against 0.46 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 45, `yicJ`, a fork column, 1.38 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in the `waa` genes**, columns 69 to 79, [[lipopolysaccharide core]]",
+      "cites": [
+       "S4.c53-79",
+       "Q"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `rfaF`, in 12% of genomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 89% of genes**, 0.41 bits on average, perplexity 1.6 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 47
+   },
+   "dropped": [],
+   "served": "**The window opens on a spine.** Columns 0 to 5, `dnaA` to `yidA`, are carried by 92 to 99.9% of genomes, all persistent, in a region of plasticity in 0 to 0.5% of calls. The model names 93 to 100% of them, fewest at column 4, `yidB`, 93%.\n\n**The first fork is at `yidX`**, column 6, carried by 70%. Then the `dgo` genes, variable columns 7 to 11, [[galactonate catabolism]], carried by 84 to 88%: the most plastic stretch of the window. Through columns 45 to 52 a branch of 8 shell families runs in 11%, [[fructose transport and aldolases]].\n\n**The model names as many genes on the spine columns as on the others, 90 against 89%, and hesitates less there**, 0.14 against 0.46 bits. It hesitates most at column 45, `yicJ`, a fork column, 1.38 bits.\n\n**The window ends in the `waa` genes**, columns 69 to 79, [[lipopolysaccharide core]]. The last column is `rfaF`, in 12% of genomes.\n\n**Across the window it names 89% of genes**, 0.41 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 56,
-  "names": 21,
-  "words": 302,
-  "attempts": 1
+  "numbers": 24,
+  "names": 8,
+  "words": 195,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 15,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 3,
+  "covered": 47
  },
- "text": "**The spine starts at the origin.** Columns 0 to 5, `dnaA`, `dnaN`, `recF`, `gyrB`, `yidB` and `yidA`, are spine columns carried by 92 to 99.9% of genomes, and the least in a region of plasticity of the whole window: 0 to 0.5% of calls. The model names 93 to 100% of genes there, fewest at `yidB`, named 93%, where it also hesitates most in the stretch, 0.43 bits.\n\n**The first fork is at `yidX`**, column 6, named in 72% of calls. Then the `dgo` operon, [[galactonate catabolism]], variable columns 7 to 11, carried by 84 to 88% of genomes, in a region of plasticity in 90 to 99.9% of calls. The model still names 72 to 99% there, mean 90%.\n\n**A spine follows**, `cbrA` to `yidE`, carried by 95 to 97% of genomes, in a region of plasticity in 0.1 to 0.4% of calls. The model names 27 to 99%, mean 84%, fewest at `ibpB`, named 27%; no column here hesitates more than 0.19 bits.\n\n**Then 62 fork and variable columns**, columns 18 to 79, in a region of plasticity in 0.2 to 99.7% of calls. The model names 67 to 99%, mean 88%, fewest at column 75, named 67%, and hesitates most at column 45 (`yicJ`), 1.38 bits, in a region of plasticity in 39% of calls. Through columns 45 to 52 a second branch of 8 families, in 11% of genomes, runs parallel, [[sugar transport and aldolase genes]].\n\n**The window ends in the `waa` locus**, [[lipopolysaccharide core biosynthesis]]: `waaA` in 38% of genomes, then `rfaQ`, `waaG`, `rfaP`, `waaO`, `rfaC` and `rfaF`, down to 9 to 27%. Across the window the model names 89% of genes, 0.41 bits on average; inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.",
- "html": "<p class=\"note\"><b>The spine starts at the origin.</b> Columns 0 to 5, <span class=\"gene\">dnaA</span>, <span class=\"gene\">dnaN</span>, <span class=\"gene\">recF</span>, <span class=\"gene\">gyrB</span>, <span class=\"gene\">yidB</span> and <span class=\"gene\">yidA</span>, are spine columns carried by 92 to 99.9% of genomes, and the least in a region of plasticity of the whole window: 0 to 0.5% of calls. The model names 93 to 100% of genes there, fewest at <span class=\"gene\">yidB</span>, named 93%, where it also hesitates most in the stretch, 0.43 bits.</p><p class=\"note\"><b>The first fork is at <span class=\"gene\">yidX</span></b>, column 6, named in 72% of calls. Then the <span class=\"gene\">dgo</span> operon, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">galactonate catabolism</span>, variable columns 7 to 11, carried by 84 to 88% of genomes, in a region of plasticity in 90 to 99.9% of calls. The model still names 72 to 99% there, mean 90%.</p><p class=\"note\"><b>A spine follows</b>, <span class=\"gene\">cbrA</span> to <span class=\"gene\">yidE</span>, carried by 95 to 97% of genomes, in a region of plasticity in 0.1 to 0.4% of calls. The model names 27 to 99%, mean 84%, fewest at <span class=\"gene\">ibpB</span>, named 27%; no column here hesitates more than 0.19 bits.</p><p class=\"note\"><b>Then 62 fork and variable columns</b>, columns 18 to 79, in a region of plasticity in 0.2 to 99.7% of calls. The model names 67 to 99%, mean 88%, fewest at column 75, named 67%, and hesitates most at column 45 (<span class=\"gene\">yicJ</span>), 1.38 bits, in a region of plasticity in 39% of calls. Through columns 45 to 52 a second branch of 8 families, in 11% of genomes, runs parallel, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">sugar transport and aldolase genes</span>.</p><p class=\"note\"><b>The window ends in the <span class=\"gene\">waa</span> locus</b>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">lipopolysaccharide core biosynthesis</span>: <span class=\"gene\">waaA</span> in 38% of genomes, then <span class=\"gene\">rfaQ</span>, <span class=\"gene\">waaG</span>, <span class=\"gene\">rfaP</span>, <span class=\"gene\">waaO</span>, <span class=\"gene\">rfaC</span> and <span class=\"gene\">rfaF</span>, down to 9 to 27%. Across the window the model names 89% of genes, 0.41 bits on average; inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.</p>",
+ "text": "**The window opens on a spine.** Columns 0 to 5, `dnaA` to `yidA`, are carried by 92 to 99.9% of genomes, all persistent, in a region of plasticity in 0 to 0.5% of calls. The model names 93 to 100% of them, fewest at column 4, `yidB`, 93%.\n\n**The first fork is at `yidX`**, column 6, carried by 70%. Then the `dgo` genes, variable columns 7 to 11, [[galactonate catabolism]], carried by 84 to 88%: the most plastic stretch of the window. Through columns 45 to 52 a branch of 8 shell families runs in 11%, [[fructose transport and aldolases]].\n\n**The model names as many genes on the spine columns as on the others, 90 against 89%, and hesitates less there**, 0.14 against 0.46 bits. It hesitates most at column 45, `yicJ`, a fork column, 1.38 bits.\n\n**The window ends in the `waa` genes**, columns 69 to 79, [[lipopolysaccharide core]]. The last column is `rfaF`, in 12% of genomes.\n\n**Across the window it names 89% of genes**, 0.41 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.",
+ "html": "<p class=\"note\"><b>The window opens on a spine.</b> Columns 0 to 5, <span class=\"gene\">dnaA</span> to <span class=\"gene\">yidA</span>, are carried by 92 to 99.9% of genomes, all persistent, in a region of plasticity in 0 to 0.5% of calls. The model names 93 to 100% of them, fewest at column 4, <span class=\"gene\">yidB</span>, 93%.</p><p class=\"note\"><b>The first fork is at <span class=\"gene\">yidX</span></b>, column 6, carried by 70%. Then the <span class=\"gene\">dgo</span> genes, variable columns 7 to 11, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">galactonate catabolism</span>, carried by 84 to 88%: the most plastic stretch of the window. Through columns 45 to 52 a branch of 8 shell families runs in 11%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fructose transport and aldolases</span>.</p><p class=\"note\"><b>The model names as many genes on the spine columns as on the others, 90 against 89%, and hesitates less there</b>, 0.14 against 0.46 bits. It hesitates most at column 45, <span class=\"gene\">yicJ</span>, a fork column, 1.38 bits.</p><p class=\"note\"><b>The window ends in the <span class=\"gene\">waa</span> genes</b>, columns 69 to 79, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">lipopolysaccharide core</span>. The last column is <span class=\"gene\">rfaF</span>, in 12% of genomes.</p><p class=\"note\"><b>Across the window it names 89% of genes</b>, 0.41 bits on average, perplexity 1.6 families. Inside a region of plasticity it hesitates more than outside, 0.83 against 0.21 bits, and names fewer genes, 78% against 94%.</p>",
  "window": "dnaA",
  "label": "dnaA",
- "facts_hash": "5fe19d0024a2",
- "prompt_version": "r7",
- "facts": "WINDOW: the dnaA window: 80 columns from dnaA (column 0) in its direction, in all 2,002 genomes of the PanGBank E. coli pangenome; 130,837 calls of the model, each on a genome's real proteins. 1,359 of the 2,002 genomes have all 80 columns on one contig; in the others the window stops earlier, at a contig end.\nTERMS: share: genomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of genomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every genome: in a fork or variable column its lower share means it lies beyond the window's end in the other genomes (genes inserted upstream push it out, or a contig ends); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 89% of genes, 0.41 bits on average (perplexity 1.6 families). By partition of the gene: persistent 82,603 calls, named 95%, 0.16 bits; shell 46,278 calls, named 80%, 0.73 bits; cloud 1,956 calls, named 29%, 3.34 bits. Outside an RGP 89,567 calls, named 94%, 0.21 bits; inside an RGP 41,270 calls, named 78%, 0.83 bits. Columns: 12 spine, 14 fork, 54 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.83 against 0.21 bits) and names fewer genes (78% against 94%); 41,270 of the 130,837 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 45 (yicJ) 1.38 bits, RGP 39%; column 44 (setC) 1.09 bits, RGP 46%; column 46 (yicI) 0.94 bits, RGP 51%. The 18 columns where most calls are in an RGP: named 86%, 0.35 bits on average; the other 61 columns: named 90%, 0.43 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 6-11 (fork and variable columns), RGP 90-99.9%; the least: columns 0-5 (spine), RGP 0-0.5%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of genomes; RGP: range over the columns):\n1. columns 0-5 (6 columns) spine: share 92-99.9%, all P, RGP 0-0.5%. Genes: dnaA \"chromosomal replication initiator p\u2026\", dnaN, recF, gyrB, yidB \"YidB family protein\", yidA \"sugar-phosphatase\". named 93-100% (mean 98%), fewest named and most hesitant at column 4 (yidB), named 93%, 0.43 bits.\n2. columns 6-11 (6 columns) fork and variable columns: RGP 90-99.9%. named 72-99% (mean 90%), fewest named at column 6, named 72%; most hesitant at column 11, 0.41 bits.\n   6 fork: yidX S 70% \"protein YidX\"; also \"hypothetical protein\" S 25%\n   columns 7-11 variable, share 84-88%, all S: dgoR 88%, dgoK 85%, dgoA 87%, dgoD \"galactonate dehydratase\" 86%, dgoT 84%\n3. columns 12-17 (6 columns) spine: share 95-97%, all P, RGP 0.1-0.4%. Genes: cbrA, yidR \"DUF3748 domain-containing protein\", yidQ \"YceK/YidQ family lipoprotein\", ibpA \"small heat shock chaperone IbpA\", ibpB, yidE \"putative transporter\". named 27-99% (mean 84%), fewest named at column 16 (ibpB), named 27%; no column of this stretch hesitates more than 0.19 bits (column 12 (cbrA)).\n4. columns 18-79 (62 columns) fork and variable columns: RGP 0.2-99.7%. named 67-99% (mean 88%), fewest named at column 75, named 67%; most hesitant at column 45, 1.38 bits.\n   a second branch of 8 families through columns 45-52, a parallel path that some genomes carry instead of the most carried families there, each following the previous one in most of its genomes, share 11%, all S; the branch's families: \"BglG family transcription antiterminator\", \"PTS sugar transporter subunit IIA\", \"PTS fructose transporter subunit IIB\", \"PTS fructose transporter subunit IIC\", \"class II fructose-bisphosphate aldolase\", \"ketose-bisphosphate aldolase\", \"ROK family protein\", \"D-lyxose/D-mannose family sugar isomera\u2026\"\n   18 variable: yidP S 77% \"GntR family transcriptional regulat\u2026\"\n   19 variable: glvC S 82%\n   20 fork: yidL S 79% \"helix-turn-helix transcriptional re\u2026\"; also glvA S 43%\n   columns 21-33 variable, share 66-89%, 9 P, 4 S: yidK \"solute:sodium symporter family tran\u2026\" 76%, yidJ \"sulfatase-like hydrolase/transferase\" 77%, yidI \"protein YidI\" 66%, yidH \"YidH family protein\" 89%, yidG \"DUF202 domain-containing protein\" 89%, yidF \"radical SAM protein\" 89%, emrD 89%, ysdE \"protein YsdE\" 87%, tisB 80%, ivbL 88%, ilvB \"acetolactate synthase large subunit\" 88%, ilvN 88%, uhpA 88%\n   34 fork: uhpB P 87% \"signal transduction histidine-prote\u2026\"; also \"hypothetical protein\" S 13%\n   35 fork: uhpC P 87%; also \"hypothetical protein\" S 11%\n   columns 36-42 variable, share 78-87%, all P: uhpT 87%, adeD \"adenine deaminase\" 86%, adeQ 84%, yicN \"DUF1198 domain-containing protein\" 86%, nepI 84%, yicS \"protein YicS\" 80%, nlpA 78%\n   43 fork: yicL P 79% \"carboxylate/amino acid/amine transp\u2026\"; also \"helix-turn-helix domain-containing prot\u2026\" S 24%, \"IS1-like element IS1A family transposase\" S 16%\n   44 fork: setC S 61%; also \"type II toxin-antitoxin system RelE/Par\u2026\" S 22%\n   45 fork: yicJ P 60% \"glycoside-pentoside-hexuronide fami\u2026\"; also \"DUF4942 domain-containing protein\" S 11%\n   46 fork: yicI P 58% \"alpha-xylosidase\"; also iatC S 15%, \"DUF957 domain-containing protein\" S 11%\n   47 fork: yicH P 60% \"AsmA family protein\"; also eilA S 15%\n   48 fork: xanP P 60%; also \"IpaD/SipD/SspD family type III secretio\u2026\" S 15%, cbtA S 10%\n   49 fork: gltS P 60%; also cbeA S 10%\n   50 fork: recG P 60%; also sctE S 15%, \"hypothetical protein\" S 12%\n   51 fork: trmH P 60%; also \"hypothetical protein\" S 13%\n   52 fork: spoT P 59%; also \"SycD/LcrH family type III secretion sys\u2026\" S 15%\n   columns 53-79 variable, share 9-59%, 20 P, 7 S: rpoZ 59%, gmk 59%, ligB 55%, yicG \"trimeric intracellular cation chann\u2026\" 59%, dinD 46%, yicC \"YicC/YloC family endoribonuclease\" 54%, rph 53%, pyrE 51%, slmA 50%, dut 49%, coaBC 47%, radC 46%, rpmB \"50S ribosomal protein L28\" 46%, rpmG 45%, mutM 43%, coaD 41%, waaA 38%, rfaQ 27%, waaG 36%, rfaP 35%, \"glycosyltransferase family 8 protein\" 13%, waaO 16%, \"UDP-galactose--(galactosyl) LPS alpha1,\u2026\" 11%, rfaY \"lipopolysaccharide core heptose(II)\u2026\" 12%, rfaY 9%, rfaC 16%, rfaF 12%\nPRODUCTS of named genes (for [[ ]]): dnaN DNA polymerase III subunit beta; dgoR D-galactonate utilization transcription\u2026; dgoK 2-dehydro-3-deoxygalactonokinase; dgoA 2-dehydro-3-deoxy-6-phosphogalactonate\u2026; dgoT MFS transporter; ibpB small heat shock chaperone IbpB; ilvN acetolactate synthase small subunit; uhpB signal transduction histidine-protein k\u2026; uhpC MFS transporter family glucose-6-phosph\u2026; uhpT hexose-6-phosphate:phosphate antiporter; adeQ adenine permease AdeQ; rpmG 50S ribosomal protein L33; rfaC lipopolysaccharide heptosyltransferase\u2026; rfaF ADP-heptose--LPS heptosyltransferase Rf\u2026; glvA 6-phospho-alpha-glucosidase; iatC inverse autotransporter adhesin IatC; cbeA type IV toxin-antitoxin system YeeU fam\u2026; sctE YopB/SseC family type III secretion sys\u2026\nEND: the window ends at column 79, rfaF, in 12% of genomes."
+ "facts_hash": "754b4982efa1",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the dnaA window: 80 columns from dnaA (column 0) in its direction, in all 2,002 genomes of the PanGBank E. coli pangenome; 130,837 calls of the model, each on a genome's real proteins. 1,359 of the 2,002 genomes have all 80 columns on one contig; in the others the window stops earlier, at a contig end.\n[T] TERMS: share: genomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of genomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every genome: in a fork or variable column its lower share means it lies beyond the window's end in the other genomes (genes inserted upstream push it out, or a contig ends); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 89% of genes, 0.41 bits on average (perplexity 1.6 families). By partition of the gene: persistent 82,603 calls, named 95%, 0.16 bits; shell 46,278 calls, named 80%, 0.73 bits; cloud 1,956 calls, named 29%, 3.34 bits. Outside an RGP 89,567 calls, named 94%, 0.21 bits; inside an RGP 41,270 calls, named 78%, 0.83 bits. Columns: 12 spine, 14 fork, 54 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.83 against 0.21 bits) and names fewer genes (78% against 94%); 41,270 of the 130,837 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 45 (yicJ, a fork column) 1.38 bits, RGP 39%; column 44 (setC, a fork column) 1.09 bits, RGP 46%; column 46 (yicI, a fork column) 0.94 bits, RGP 51%. The 18 columns (columns 6-11, 18-23, 46 and 73-77) where most calls are in an RGP: named 86%, 0.35 bits on average; the other 61 columns: named 90%, 0.43 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 11 spine columns: named 90%, 0.14 bits on average; the 68 fork and variable columns: named 89%, 0.46 bits. The model names about as many genes on the spine columns as on the fork and variable ones, and hesitates less there. Its most hesitant column, 45, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 6-11 (fork and variable columns), RGP 90-99.9%; the least: columns 0-5 (spine), RGP 0-0.5%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of genomes; RGP: range over the columns):\n[S1] 1. columns 0-5 (6 columns) spine: share 92-99.9%, all P, RGP 0-0.5%. Genes: dnaA \"chromosomal replication initiator p\u2026\", dnaN, recF, gyrB, yidB \"YidB family protein\", yidA \"sugar-phosphatase\". named 93-100% (mean 98%), fewest named and most hesitant at column 4 (yidB), named 93%, 0.43 bits.\n[S2] 2. columns 6-11 (6 columns) fork and variable columns: share 70-88%, all S, RGP 90-99.9%. named 72-99% (mean 90%), fewest named at column 6, named 72%; most hesitant at column 11, 0.41 bits.\n[S2.c6]    6 fork: yidX S 70% \"protein YidX\"; also \"hypothetical protein\" S 25%\n[S2.c7-11]    columns 7-11 variable, share 84-88%, all S: dgoR 88%, dgoK 85%, dgoA 87%, dgoD \"galactonate dehydratase\" 86%, dgoT 84%\n[S3] 3. columns 12-17 (6 columns) spine: share 95-97%, all P, RGP 0.1-0.4%. Genes: cbrA, yidR \"DUF3748 domain-containing protein\", yidQ \"YceK/YidQ family lipoprotein\", ibpA \"small heat shock chaperone IbpA\", ibpB, yidE \"putative transporter\". named 27-99% (mean 84%), fewest named at column 16 (ibpB), named 27%; no column of this stretch hesitates more than 0.19 bits (column 12 (cbrA)).\n[S4] 4. columns 18-79 (62 columns) fork and variable columns: share 9-89%, 47 P, 15 S, RGP 0.2-99.7%. named 67-99% (mean 88%), fewest named at column 75, named 67%; most hesitant at column 45, 1.38 bits.\n[S4.b45]    a second branch of 8 families through columns 45-52, a parallel path that some genomes carry instead of the most carried families there, each following the previous one in most of its genomes, share 11%, all S; the branch's families: \"BglG family transcription antiterminator\", \"PTS sugar transporter subunit IIA\", \"PTS fructose transporter subunit IIB\", \"PTS fructose transporter subunit IIC\", \"class II fructose-bisphosphate aldolase\", \"ketose-bisphosphate aldolase\", \"ROK family protein\", \"D-lyxose/D-mannose family sugar isomera\u2026\"\n[S4.c18]    18 variable: yidP S 77% \"GntR family transcriptional regulat\u2026\"\n[S4.c19]    19 variable: glvC S 82%\n[S4.c20]    20 fork: yidL S 79% \"helix-turn-helix transcriptional re\u2026\"; also glvA S 43%\n[S4.c21-33]    columns 21-33 variable, share 66-89%, 9 P, 4 S: yidK \"solute:sodium symporter family tran\u2026\" 76%, yidJ \"sulfatase-like hydrolase/transferase\" 77%, yidI \"protein YidI\" 66%, yidH \"YidH family protein\" 89%, yidG \"DUF202 domain-containing protein\" 89%, yidF \"radical SAM protein\" 89%, emrD 89%, ysdE \"protein YsdE\" 87%, tisB 80%, ivbL 88%, ilvB \"acetolactate synthase large subunit\" 88%, ilvN 88%, uhpA 88%\n[S4.c34]    34 fork: uhpB P 87% \"signal transduction histidine-prote\u2026\"; also \"hypothetical protein\" S 13%\n[S4.c35]    35 fork: uhpC P 87%; also \"hypothetical protein\" S 11%\n[S4.c36-42]    columns 36-42 variable, share 78-87%, all P: uhpT 87%, adeD \"adenine deaminase\" 86%, adeQ 84%, yicN \"DUF1198 domain-containing protein\" 86%, nepI 84%, yicS \"protein YicS\" 80%, nlpA 78%\n[S4.c43]    43 fork: yicL P 79% \"carboxylate/amino acid/amine transp\u2026\"; also \"helix-turn-helix domain-containing prot\u2026\" S 24%, \"IS1-like element IS1A family transposase\" S 16%\n[S4.c44]    44 fork: setC S 61%; also \"type II toxin-antitoxin system RelE/Par\u2026\" S 22%\n[S4.c45]    45 fork: yicJ P 60% \"glycoside-pentoside-hexuronide fami\u2026\"; also \"DUF4942 domain-containing protein\" S 11%\n[S4.c46]    46 fork: yicI P 58% \"alpha-xylosidase\"; also iatC S 15%, \"DUF957 domain-containing protein\" S 11%\n[S4.c47]    47 fork: yicH P 60% \"AsmA family protein\"; also eilA S 15%\n[S4.c48]    48 fork: xanP P 60%; also \"IpaD/SipD/SspD family type III secretio\u2026\" S 15%, cbtA S 10%\n[S4.c49]    49 fork: gltS P 60%; also cbeA S 10%\n[S4.c50]    50 fork: recG P 60%; also sctE S 15%, \"hypothetical protein\" S 12%\n[S4.c51]    51 fork: trmH P 60%; also \"hypothetical protein\" S 13%\n[S4.c52]    52 fork: spoT P 59%; also \"SycD/LcrH family type III secretion sys\u2026\" S 15%\n[S4.c53-79]    columns 53-79 variable, share 9-59%, 20 P, 7 S: rpoZ 59%, gmk 59%, ligB 55%, yicG \"trimeric intracellular cation chann\u2026\" 59%, dinD 46%, yicC \"YicC/YloC family endoribonuclease\" 54%, rph 53%, pyrE 51%, slmA 50%, dut 49%, coaBC 47%, radC 46%, rpmB \"50S ribosomal protein L28\" 46%, rpmG 45%, mutM 43%, coaD 41%, waaA 38%, rfaQ 27%, waaG 36%, rfaP 35%, \"glycosyltransferase family 8 protein\" 13%, waaO 16%, \"UDP-galactose--(galactosyl) LPS alpha1,\u2026\" 11%, rfaY \"lipopolysaccharide core heptose(II)\u2026\" 12%, rfaY 9%, rfaC 16%, rfaF 12%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 7-11 (dgoR to dgoT) [S2]: galactonate; columns 17-21 (yidE to yidK) [S3, S4]: transporter; columns 33-36 (uhpA to uhpT) [S4]: phosphate; columns 69-72 (waaA to rfaP) [S4]: core, lipopolysaccharide; columns 76-79 (rfaY to rfaF) [S4]: heptose, lipopolysaccharide, core, heptosyltransferase.\n[X] PRODUCTS of named genes (for [[ ]]): dnaN DNA polymerase III subunit beta; dgoR D-galactonate utilization transcription\u2026; dgoK 2-dehydro-3-deoxygalactonokinase; dgoA 2-dehydro-3-deoxy-6-phosphogalactonate\u2026; dgoT MFS transporter; ibpB small heat shock chaperone IbpB; ilvN acetolactate synthase small subunit; uhpB signal transduction histidine-protein k\u2026; uhpC MFS transporter family glucose-6-phosph\u2026; uhpT hexose-6-phosphate:phosphate antiporter; adeQ adenine permease AdeQ; rpmG 50S ribosomal protein L33; rfaC lipopolysaccharide heptosyltransferase\u2026; rfaF ADP-heptose--LPS heptosyltransferase Rf\u2026; glvA 6-phospho-alpha-glucosidase; iatC inverse autotransporter adhesin IatC; cbeA type IV toxin-antitoxin system YeeU fam\u2026; sctE YopB/SseC family type III secretion sys\u2026\n[E] END: the window ends at column 79, rfaF, in 12% of genomes."
 }

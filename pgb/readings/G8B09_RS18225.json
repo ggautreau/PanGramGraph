@@ -2,50 +2,395 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447961.006172,
+ "created": 1790479622.685597,
  "usage": {
-  "prompt_tokens": 4212,
-  "completion_tokens": 382,
-  "cost_usd": 0.000594,
-  "ms": 5618
+  "prompt_tokens": 12953,
+  "completion_tokens": 837,
+  "cost_usd": 0.000931,
+  "ms": 7170
  },
  "attempts": [
   {
-   "text": "**The window starts in a seven-column spine.** Columns 0 to 6, `proB` to `yafP`, are persistent, carried by 94 to 100% of chromosomes, and in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at `yafP`, 78%, where it hesitates 1.69 bits.\n\n**Then two fork and variable columns**, 7 and 8, in a region of plasticity in 9% of calls, named 88 to 95%. A fork at column 7 carries a type II toxin-antitoxin family in 66% of chromosomes and `ykfJ` in 23%; column 8, variable, carries a type I toxin-antitoxin family in 70%.\n\n**A short spine follows**, columns 9 and 10, `dinB` and `lafU`, persistent, in a region of plasticity in 11 to 12% of calls, named 89 to 94%. Column 11 is a fork, in a region of plasticity in 20% of calls, named 85%, carrying `rayT` in 75% and `motA` in 17%.\n\n**Columns 21 to 79 are fork and variable columns**, in a region of plasticity in 12 to 76% of calls, named 65 to 94%. The model is most hesitant at column 22, 2.19 bits, and names fewest at column 21, 65%. A second branch of 30 families runs through columns 22 to 51, carried by 15 to 17% of chromosomes, [[flagellar basal body and export]]. The window ends at column 79, `fhuB`, in 13% of chromosomes.",
+   "text": "**The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78%.\n\n**A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70%. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits. It hesitates most at column 22, a fork column, 2.19 bits.\n\n**The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent. The last column is `fhuB`, in 13% of chromosomes.\n\n**Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4212,
-    "completion_tokens": 382,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6176,
+    "completion_tokens": 417,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000594
+    "cost_usd": 0.000692
    },
    "provider": "deepinfra",
-   "ms": 5618,
-   "raw": "**The window starts in a seven-column spine.** Columns 0 to 6, `proB` to `yafP`, are persistent, carried by 94 to 100% of chromosomes, and in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at `yafP`, 78%, where it hesitates 1.69 bits.\n\n**Then two fork and variable columns**, 7 and 8, in a region of plasticity in 9% of calls, named 88 to 95%. A fork at column 7 carries a type II toxin-antitoxin family in 66% of chromosomes and `ykfJ` in 23%; column 8, variable, carries a type I toxin-antitoxin family in 70%.\n\n**A short spine follows**, columns 9 and 10, `dinB` and `lafU`, persistent, in a region of plasticity in 11 to 12% of calls, named 89 to 94%. Column 11 is a fork, in a region of plasticity in 20% of calls, named 85%, carrying `rayT` in 75% and `motA` in 17%.\n\n**Columns 21 to 79 are fork and variable columns**, in a region of plasticity in 12 to 76% of calls, named 65 to 94%. The model is most hesitant at column 22, 2.19 bits, and names fewest at column 21, 65%. A second branch of 30 families runs through columns 22 to 51, carried by 15 to 17% of chromosomes, [[flagellar basal body and export]]. The window ends at column 79, `fhuB`, in 13% of chromosomes.",
+   "ms": 3812,
+   "raw": "@start **The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls {S1}. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78% {S1}.\n\n@variable **A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70% {S2.c7, S2.c8}. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46% {S7, P}. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar]] {S8.b22, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits {M}. It hesitates most at column 22, a fork column, 2.19 bits {H}.\n\n@end **The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent {S8.c68-79}. The last column is `fhuB`, in 13% of chromosomes {E}.\n\n@whole **Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96% {C}.",
+   "annotated": "@start **The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls {S1}. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78% {S1}.\n\n@variable **A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70% {S2.c7, S2.c8}. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46% {S7, P}. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar]] {S8.b22, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits {M}. It hesitates most at column 22, a fork column, 2.19 bits {H}.\n\n@end **The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent {S8.c68-79}. The last column is `fhuB`, in 13% of chromosomes {E}.\n\n@whole **Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96% {C}.",
+   "check": {
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "interpretation",
+      "text": "flagellar",
+      "why": "an interpretation is one phrase of 2 to 6 words, not a word or a list",
+      "context": "[[flagellar]]"
+     }
+    ],
+    "numbers": 27,
+    "names": 10,
+    "words": 206,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
+   },
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 189,
+    "repeats": 0,
+    "interp": 0,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70%",
+      "cites": [
+       "S2.c7",
+       "S2.c8"
+      ],
+      "inherit": [
+       "S7",
+       "P",
+       "S8.b22",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46%",
+      "cites": [
+       "S7",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 22, a fork column, 2.19 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent",
+      "cites": [
+       "S8.c68-79"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `fhuB`, in 13% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 28
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar]]",
+     "cites": [
+      "S8.b22",
+      "Q"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "interpretation",
+       "text": "flagellar",
+       "why": "an interpretation is one phrase of 2 to 6 words, not a word or a list"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78%.\n\n**A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70%. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits. It hesitates most at column 22, a fork column, 2.19 bits.\n\n**The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent. The last column is `fhuB`, in 13% of chromosomes.\n\n**Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%.",
+   "truncated": false,
+   "ok": false
+  },
+  {
+   "text": "**The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78%.\n\n**A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70%. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46%. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar assembly and export]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits. It hesitates most at column 22, a fork column, 2.19 bits.\n\n**The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent. The last column is `fhuB`, in 13% of chromosomes.\n\n**Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%.",
+   "finish": "stop",
+   "usage": {
+    "prompt_tokens": 6777,
+    "completion_tokens": 420,
+    "cached_tokens": 6528,
+    "reasoning_tokens": 0,
+    "cost_usd": 0.000239
+   },
+   "provider": "deepinfra",
+   "ms": 3358,
+   "raw": "@start **The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls {S1}. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78% {S1}.\n\n@variable **A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70% {S2.c7, S2.c8}. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46% {S7, P}. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar assembly and export]] {S8.b22, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits {M}. It hesitates most at column 22, a fork column, 2.19 bits {H}.\n\n@end **The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent {S8.c68-79}. The last column is `fhuB`, in 13% of chromosomes {E}.\n\n@whole **Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96% {C}.",
+   "annotated": "@start **The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls {S1}. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78% {S1}.\n\n@variable **A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70% {S2.c7, S2.c8}. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46% {S7, P}. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar assembly and export]] {S8.b22, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits {M}. It hesitates most at column 22, a fork column, 2.19 bits {H}.\n\n@end **The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent {S8.c68-79}. The last column is `fhuB`, in 13% of chromosomes {E}.\n\n@whole **Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families {G}. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96% {C}.",
    "check": {
     "ok": true,
-    "numbers": 50,
-    "names": 9,
-    "words": 231,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 27,
+    "names": 10,
+    "words": 209,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 209,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70%",
+      "cites": [
+       "S2.c7",
+       "S2.c8"
+      ],
+      "inherit": [
+       "S7",
+       "P",
+       "S8.b22",
+       "Q"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46%",
+      "cites": [
+       "S7",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar assembly and export]]",
+      "cites": [
+       "S8.b22",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 22, a fork column, 2.19 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent",
+      "cites": [
+       "S8.c68-79"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `fhuB`, in 13% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 57
+   },
+   "dropped": [],
+   "served": "**The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78%.\n\n**A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70%. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46%. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar assembly and export]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits. It hesitates most at column 22, a fork column, 2.19 bits.\n\n**The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent. The last column is `fhuB`, in 13% of chromosomes.\n\n**Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 50,
-  "names": 9,
-  "words": 231,
-  "attempts": 1
+  "numbers": 27,
+  "names": 10,
+  "words": 209,
+  "attempts": 2,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 57
  },
- "text": "**The window starts in a seven-column spine.** Columns 0 to 6, `proB` to `yafP`, are persistent, carried by 94 to 100% of chromosomes, and in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at `yafP`, 78%, where it hesitates 1.69 bits.\n\n**Then two fork and variable columns**, 7 and 8, in a region of plasticity in 9% of calls, named 88 to 95%. A fork at column 7 carries a type II toxin-antitoxin family in 66% of chromosomes and `ykfJ` in 23%; column 8, variable, carries a type I toxin-antitoxin family in 70%.\n\n**A short spine follows**, columns 9 and 10, `dinB` and `lafU`, persistent, in a region of plasticity in 11 to 12% of calls, named 89 to 94%. Column 11 is a fork, in a region of plasticity in 20% of calls, named 85%, carrying `rayT` in 75% and `motA` in 17%.\n\n**Columns 21 to 79 are fork and variable columns**, in a region of plasticity in 12 to 76% of calls, named 65 to 94%. The model is most hesitant at column 22, 2.19 bits, and names fewest at column 21, 65%. A second branch of 30 families runs through columns 22 to 51, carried by 15 to 17% of chromosomes, [[flagellar basal body and export]]. The window ends at column 79, `fhuB`, in 13% of chromosomes.",
- "html": "<p class=\"note\"><b>The window starts in a seven-column spine.</b> Columns 0 to 6, <span class=\"gene\">proB</span> to <span class=\"gene\">yafP</span>, are persistent, carried by 94 to 100% of chromosomes, and in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at <span class=\"gene\">yafP</span>, 78%, where it hesitates 1.69 bits.</p><p class=\"note\"><b>Then two fork and variable columns</b>, 7 and 8, in a region of plasticity in 9% of calls, named 88 to 95%. A fork at column 7 carries a type II toxin-antitoxin family in 66% of chromosomes and <span class=\"gene\">ykfJ</span> in 23%; column 8, variable, carries a type I toxin-antitoxin family in 70%.</p><p class=\"note\"><b>A short spine follows</b>, columns 9 and 10, <span class=\"gene\">dinB</span> and <span class=\"gene\">lafU</span>, persistent, in a region of plasticity in 11 to 12% of calls, named 89 to 94%. Column 11 is a fork, in a region of plasticity in 20% of calls, named 85%, carrying <span class=\"gene\">rayT</span> in 75% and <span class=\"gene\">motA</span> in 17%.</p><p class=\"note\"><b>Columns 21 to 79 are fork and variable columns</b>, in a region of plasticity in 12 to 76% of calls, named 65 to 94%. The model is most hesitant at column 22, 2.19 bits, and names fewest at column 21, 65%. A second branch of 30 families runs through columns 22 to 51, carried by 15 to 17% of chromosomes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">flagellar basal body and export</span>. The window ends at column 79, <span class=\"gene\">fhuB</span>, in 13% of chromosomes.</p>",
+ "text": "**The window opens on a spine.** Columns 0 to 6, `proB` to `yafP`, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at column 6, `yafP`, 78%.\n\n**A fork follows at `yafO`**, column 7, carried by 66%, then variable column 8, `yafN`, 70%. The spine returns at columns 15 to 20, `dpaA` to `yafV`, the stretch most in regions of plasticity, 22 to 46%. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, [[flagellar assembly and export]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits. It hesitates most at column 22, a fork column, 2.19 bits.\n\n**The window ends in variable columns.** Columns 68 to 79, `cdaR` to `fhuB`, are carried by 13 to 38%, all persistent. The last column is `fhuB`, in 13% of chromosomes.\n\n**Across the window it names 89% of genes**, 0.53 bits on average, perplexity 1.8 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on a spine.</b> Columns 0 to 6, <span class=\"gene\">proB</span> to <span class=\"gene\">yafP</span>, are carried by 94 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 8% of calls. The model names 78 to 99.8% of them, fewest at column 6, <span class=\"gene\">yafP</span>, 78%.</p><p class=\"note\"><b>A fork follows at <span class=\"gene\">yafO</span></b>, column 7, carried by 66%, then variable column 8, <span class=\"gene\">yafN</span>, 70%. The spine returns at columns 15 to 20, <span class=\"gene\">dpaA</span> to <span class=\"gene\">yafV</span>, the stretch most in regions of plasticity, 22 to 46%. Through columns 22 to 51 a branch of 30 shell families runs in 15 to 17%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">flagellar assembly and export</span>.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 92 against 89%, and hesitates less there, 0.48 against 0.55 bits. It hesitates most at column 22, a fork column, 2.19 bits.</p><p class=\"note\"><b>The window ends in variable columns.</b> Columns 68 to 79, <span class=\"gene\">cdaR</span> to <span class=\"gene\">fhuB</span>, are carried by 13 to 38%, all persistent. The last column is <span class=\"gene\">fhuB</span>, in 13% of chromosomes.</p><p class=\"note\"><b>Across the window it names 89% of genes</b>, 0.53 bits on average, perplexity 1.8 families. Inside a region of plasticity it hesitates more than outside, 1.19 against 0.23 bits, and names fewer genes, 74% against 96%.</p>",
  "window": "G8B09_RS18225",
  "label": "proB",
- "facts_hash": "9fb73047149d",
- "prompt_version": "r7",
- "facts": "WINDOW: the proB window: 80 columns, column 0 is the anchor proB, then the next 79 genes in dnaA's direction; about genes 3,453 to 3,532 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying proB once); 43,120 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 89% of genes, 0.53 bits on average (perplexity 1.8 families). By partition of the gene: persistent 26,715 calls, named 98%, 0.17 bits; shell 15,525 calls, named 78%, 0.97 bits; cloud 880 calls, named 25%, 3.91 bits. Outside an RGP 29,580 calls, named 96%, 0.23 bits; inside an RGP 13,540 calls, named 74%, 1.19 bits. Columns: 16 spine, 36 fork, 28 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.19 against 0.23 bits) and names fewer genes (74% against 96%); 13,540 of the 43,120 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 22 (\"hypothetical protein\") 2.19 bits, RGP 74%; column 21 (ydcC) 1.95 bits, RGP 70%; column 23 (dnaQ) 1.77 bits, RGP 76%. The 22 columns where most calls are in an RGP: named 82%, 0.85 bits on average; the other 58 columns: named 92%, 0.42 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 21-79 (fork and variable columns), RGP 12-76%; the least: columns 0-6 (spine), RGP 0-8%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-6 (7 columns) spine: share 94-100%, all P, RGP 0-8%. Genes: proB, phoE, crl, frsA, gpt, pepD, yafP \"GNAT family N-acetyltransferase\". named 78-99.8% (mean 95%), fewest named and most hesitant at column 6 (yafP), named 78%, 1.69 bits.\n2. columns 7-8 (2 columns) fork and variable columns: RGP 9%. named 88-95% (mean 91%), fewest named and most hesitant at column 7, named 88%, 0.95 bits.\n   7 fork: yafO S 66% \"type II toxin-antitoxin system mRNA\u2026\"; also ykfJ S 23%\n   8 variable: yafN S 70% \"type I toxin-antitoxin system antit\u2026\"\n3. columns 9-10 (2 columns) spine: share 94-95%, all P, RGP 11-12%. Genes: dinB, lafU. named 89-94% (mean 91%), fewest named at column 9 (dinB), named 89%; most hesitant at column 10 (lafU), 0.72 bits.\n4. column 11 fork: RGP 20%. named 85%; 0.73 bits.\n   11: rayT S 75%; also motA S 17%\n5. column 12 spine: share 93%, all P, RGP 21%. Genes: yafL \"C40 family peptidase\". named 92%; 0.59 bits.\n6. columns 13-14 (2 columns) fork: RGP 22%. named 87-89% (mean 88%), fewest named and most hesitant at column 14, named 87%, 0.50 bits.\n   13: dinJ S 66%; also \"flagellar basal body-associated FliL fa\u2026\" S 16%\n   14: yafQ S 50% \"type II toxin-antitoxin system mRNA\u2026\"; also \"flagellar hook-length control protein F\u2026\" S 16%\n7. columns 15-20 (6 columns) spine: share 95-96%, all P, RGP 22-46%. Genes: dpaA, yafJ \"class II glutamine amidotransferase\", lpcA, fadE, ivy, yafV \"amidohydrolase\". named 79-95% (mean 88%), fewest named and most hesitant at column 20 (yafV), named 79%, 1.13 bits.\n8. columns 21-79 (59 columns) fork and variable columns: RGP 12-76%. named 65-94% (mean 89%), fewest named at column 21, named 65%; most hesitant at column 22, 2.19 bits.\n   a second branch of 30 families through columns 22-51, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-17%, all S; the branch's families: flgK, \"rod-binding protein\", \"flagellar basal body P-ring protein FlgI\", flgH, flgG, \"flagellar basal body rod C-terminal dom\u2026\", flgE, \"flagellar hook capping FlgD N-terminal\u2026\", flgC, flgB, flgA, flgM, flgN, \"lysine-N-methylase\", \"glycosyltransferase\", \"adenylyltransferase/cytidyltransferase\u2026\", fliJ, fliI, fliH, \"FliG C-terminal domain-containing prote\u2026\", fliF, \"flagellar hook-basal body complex prote\u2026\", \"helix-turn-helix domain-containing prot\u2026\", \"FliM/FliN family flagellar motor switch\u2026\", \"FliM/FliN family flagellar motor switch\u2026\", fliP, \"flagellar biosynthetic protein FliQ\", fliR, flhB, flhA\n   21 fork: ydcC S 39% \"ISAs1 family transposase\"; also \"IS1-like element transposase\" S 34%, flgL S 16%\n   22 fork: \"hypothetical protein\" S 24%\n   23 fork: dnaQ P 83%; also rhsC S 16%\n   24 fork: rnhA P 82%; also tssB S 26%, vgrE S 22%\n   25 fork: yafS P 82% \"class I SAM-dependent methyltransfe\u2026\"; also \"type VI secretion system tube protein T\u2026\" S 35%\n   26 fork: gloB P 82%; also ykfM S 39%\n   27 fork: mltD P 82%; also \"hypothetical protein\" S 27%\n   28 fork: yafD P 82% \"endonuclease/exonuclease/phosphatas\u2026\"; also tssC S 26%\n   29 fork: yafC P 81% \"LysR family transcriptional regulat\u2026\"; also tssE S 27%, tssB S 10%\n   30 fork: dkgB P 78%; also tssF S 23%\n   31 fork: gmhB P 80%; also tssG S 24%\n   32 fork: metN P 80%; also tssK S 25%, tagH S 24%\n   33 fork: metI P 80% \"methionine ABC transporter permease\u2026\"; also tssJ S 34%\n   34 fork: metQ P 80%\n   35 fork: rcsF P 79%; also icmH S 32%\n   36 fork: tsaA P 79%; also tssH S 30%, tssA S 25%\n   37 fork: proS P 78%; also vasI S 31%, tssM S 23%\n   38 fork: yaeF S 72% \"YaeF family permuted papain-like en\u2026\"\n   39 fork: nlpE P 76%; also \"type VI secretion system tube protein T\u2026\" S 35%\n   40 fork: arfB P 75%; also \"type VI secretion system ImpA family N-\u2026\" S 30%\n   41 fork: yaeQ P 75% \"YaeQ family protein\"; also \"hypothetical protein\" S 33%\n   42 fork: yaeP P 74% \"YaeP family protein\"; also yafT S 56%\n   43 fork: rof P 73%\n   44 fork: tilS P 72%\n   45 fork: yaeR P 73% \"VOC family protein\"\n   46 fork: ldcC P 72%\n   47 fork: accA P 72%\n   48 fork: dnaE P 71%; also yafE S 43%\n   49 fork: rnhB P 71%\n   50 fork: lpxB P 70% \"lipid-A-disaccharide synthase\"\n   51 fork: lpxA P 70%\n   columns 52-66 variable, share 40-69%, all P: fabZ 69%, lpxD 68%, skp 67%, bamA 65%, rseP 63%, cdsA 60%, ispU \"(2E,6E)-farnesyl-diphosphate-specif\u2026\" 55%, ispC 50%, frr 46%, pyrH 45%, tsf 43%, rpsB 42%, map 42%, glnD 41%, dapD 40%\n   67 fork: yaeH P 40% \"DUF3461 family protein\"; also yaeI S 27%\n   columns 68-79 variable, share 13-38%, all P: cdaR 38%, degP 38%, dgt 37%, mtnN 37%, btuF 35%, yadS \"TRIC cation channel family protein\" 32%, erpA 28%, yadW \"small protein YadW\" 26%, clcA 24%, yadX 22%, hemL 17%, fhuB 13%\nPRODUCTS of named genes (for [[ ]]): metN methionine ABC transporter ATP-binding\u2026; metI methionine ABC transporter permease MetI; metQ methionine ABC transporter substrate-bi\u2026; lpxB lipid-A-disaccharide synthase; lpxA acyl-ACP--UDP-N-acetylglucosamine O-acy\u2026; ispC 1-deoxy-D-xylulose-5-phosphate reductoi\u2026; motA motility-associated protein; fliS flagellar export chaperone FliS; fliD flagellar filament capping protein FliD; lafA lateral flagellin LafA; flgL flagellar hook-associated protein FlgL; flgK flagellar basal body protein; tssB type VI secretion system contractile sh\u2026; vgrE bacteriophage T4 gp5 trimerisation doma\u2026; flgH flagellar basal body L-ring protein FlgH; flgG flagellar hook-basal body complex prote\u2026; tssC type VI secretion system contractile sh\u2026; flgE flagellar hook-basal body complex prote\u2026; tssE type VI secretion system baseplate subu\u2026; flgC flagellar basal body protein; tssG type VI secretion system baseplate subu\u2026; flgB flagellar basal body protein; tssK type VI secretion system baseplate subu\u2026; tagH type VI secretion system-associated FHA\u2026; flgA flagellar basal body P-ring formation c\u2026; tssJ type VI secretion system lipoprotein Ts\u2026; flgM flagellar biosynthesis anti-sigma facto\u2026; flgN flagellar export chaperone FlgN; icmH DotU family type IV/VI secretion system\u2026; tssA type VI secretion system protein TssA; vasI type VI secretion system-associated pro\u2026; tssM type VI secretion protein IcmF/TssM N-t\u2026; fliJ flagellar export protein FliJ; fliI flagellar protein export ATPase FliI; fliH FliH/SctL family protein; fliF flagellar M-ring protein FliF C-termina\u2026; fliP flagellar biosynthetic protein FliP; yafE class I SAM-dependent methyltransferase; fliR flagellar biosynthetic protein FliR; flhB EscU/YscU/HrcU family type III secretio\u2026\nEND: the window ends at column 79, fhuB, in 13% of chromosomes."
+ "facts_hash": "f252ecb91a6b",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the proB window: 80 columns, column 0 is the anchor proB, then the next 79 genes in dnaA's direction; about genes 3,453 to 3,532 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying proB once); 43,120 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 89% of genes, 0.53 bits on average (perplexity 1.8 families). By partition of the gene: persistent 26,715 calls, named 98%, 0.17 bits; shell 15,525 calls, named 78%, 0.97 bits; cloud 880 calls, named 25%, 3.91 bits. Outside an RGP 29,580 calls, named 96%, 0.23 bits; inside an RGP 13,540 calls, named 74%, 1.19 bits. Columns: 16 spine, 36 fork, 28 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.19 against 0.23 bits) and names fewer genes (74% against 96%); 13,540 of the 43,120 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 22 (\"DUF4367 domain-containing protein\", a fork column) 2.19 bits, RGP 74%; column 21 (ydcC, a fork column) 1.95 bits, RGP 70%; column 23 (dnaQ, a fork column) 1.77 bits, RGP 76%. The 22 columns (columns 21-42) where most calls are in an RGP: named 82%, 0.85 bits on average; the other 58 columns: named 92%, 0.42 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 16 spine columns: named 92%, 0.48 bits on average; the 64 fork and variable columns: named 89%, 0.55 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 22, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 15-20 (spine), RGP 22-46%; the least: columns 0-6 (spine), RGP 0-8%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-6 (7 columns) spine: share 94-100%, all P, RGP 0-8%. Genes: proB, phoE, crl, frsA, gpt, pepD, yafP \"GNAT family N-acetyltransferase\". named 78-99.8% (mean 95%), fewest named and most hesitant at column 6 (yafP), named 78%, 1.69 bits.\n[S2] 2. columns 7-8 (2 columns) fork and variable columns: share 66-70%, all S, RGP 9%. named 88-95% (mean 91%), fewest named and most hesitant at column 7, named 88%, 0.95 bits.\n[S2.c7]    7 fork: yafO S 66% \"type II toxin-antitoxin system mRNA\u2026\"; also ykfJ S 23%\n[S2.c8]    8 variable: yafN S 70% \"type I toxin-antitoxin system antit\u2026\"\n[S3] 3. columns 9-10 (2 columns) spine: share 94-95%, all P, RGP 11-12%. Genes: dinB, lafU. named 89-94% (mean 91%), fewest named at column 9 (dinB), named 89%; most hesitant at column 10 (lafU), 0.72 bits.\n[S4] 4. column 11 fork: share 75%, all S, RGP 20%. named 85%; 0.73 bits.\n[S4.c11]    11: rayT S 75%; also motA S 17%\n[S5] 5. column 12 spine: share 93%, all P, RGP 21%. Genes: yafL \"C40 family peptidase\". named 92%; 0.59 bits.\n[S6] 6. columns 13-14 (2 columns) fork: share 50-66%, all S, RGP 22%. named 87-89% (mean 88%), fewest named and most hesitant at column 14, named 87%, 0.50 bits.\n[S6.c13]    13: dinJ S 66%; also \"flagellar basal body-associated FliL fa\u2026\" S 16%\n[S6.c14]    14: yafQ S 50% \"type II toxin-antitoxin system mRNA\u2026\"; also \"flagellar hook-length control protein F\u2026\" S 16%\n[S7] 7. columns 15-20 (6 columns) spine: share 95-96%, all P, RGP 22-46%. Genes: dpaA, yafJ \"class II glutamine amidotransferase\", lpcA, fadE, ivy, yafV \"2-oxoglutaramate amidase\". named 79-95% (mean 88%), fewest named and most hesitant at column 20 (yafV), named 79%, 1.13 bits.\n[S8] 8. columns 21-79 (59 columns) fork and variable columns: share 13-83%, 56 P, 3 S, RGP 12-76%. named 65-94% (mean 89%), fewest named at column 21, named 65%; most hesitant at column 22, 2.19 bits.\n[S8.b22]    a second branch of 30 families through columns 22-51, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-17%, all S; the branch's families: flgK, \"rod-binding protein\", \"flagellar basal body P-ring protein FlgI\", flgH, flgG, \"flagellar basal body rod protein FlgF\", flgE, \"flagellar hook capping FlgD N-terminal\u2026\", flgC, flgB, flgA, flgM, flgN, \"lysine-N-methylase\", \"glycosyltransferase\", \"adenylyltransferase/cytidyltransferase\u2026\", fliJ, fliI, fliH, \"flagellar motor switch protein FliG\", fliF, \"flagellar hook-basal body complex prote\u2026\", \"sigma-54 interaction domain-containing\u2026\", \"FliM/FliN family flagellar motor switch\u2026\", \"FliM/FliN family flagellar motor switch\u2026\", fliP, \"flagellar biosynthetic protein FliQ\", fliR, flhB, flhA\n[S8.c21]    21 fork: ydcC S 39% \"ISAs1 family transposase\"; also \"IS1 family transposase\" S 34%, flgL S 16%\n[S8.c22]    22 fork: \"DUF4367 domain-containing protein\" S 24%\n[S8.c23]    23 fork: dnaQ P 83%; also rhsC S 16%\n[S8.c24]    24 fork: rnhA P 82%; also tssB S 26%, vgrE S 22%\n[S8.c25]    25 fork: yafS P 82% \"class I SAM-dependent methyltransfe\u2026\"; also \"Hcp family type VI secretion system eff\u2026\" S 35%\n[S8.c26]    26 fork: gloB P 82%; also ykfM S 39%\n[S8.c27]    27 fork: mltD P 82%; also \"hypothetical protein\" S 27%\n[S8.c28]    28 fork: yafD P 82% \"endonuclease/exonuclease/phosphatas\u2026\"; also tssC S 26%\n[S8.c29]    29 fork: yafC P 81% \"DNA-binding transcriptional regulat\u2026\"; also tssE S 27%, tssB S 10%\n[S8.c30]    30 fork: dkgB P 78%; also tssF S 23%\n[S8.c31]    31 fork: gmhB P 80%; also tssG S 24%\n[S8.c32]    32 fork: metN P 80%; also tssK S 25%, tagH S 24%\n[S8.c33]    33 fork: metI P 80% \"methionine ABC transporter permease\u2026\"; also tssJ S 34%\n[S8.c34]    34 fork: metQ P 80%\n[S8.c35]    35 fork: rcsF P 79%; also icmH S 32%\n[S8.c36]    36 fork: tsaA P 79%; also tssH S 30%, tssA S 25%\n[S8.c37]    37 fork: proS P 78%; also vasI S 31%, tssM S 23%\n[S8.c38]    38 fork: yaeF S 72% \"YaeF family permuted papain-like en\u2026\"\n[S8.c39]    39 fork: nlpE P 76%; also \"Hcp family type VI secretion system eff\u2026\" S 35%\n[S8.c40]    40 fork: arfB P 75%; also \"VasL domain-containing protein\" S 30%\n[S8.c41]    41 fork: yaeQ P 75% \"YaeQ family protein\"; also \"hypothetical protein\" S 33%\n[S8.c42]    42 fork: yaeP P 74% \"YaeP family protein\"; also yafT S 56%\n[S8.c43]    43 fork: rof P 73%\n[S8.c44]    44 fork: tilS P 72%\n[S8.c45]    45 fork: yaeR P 73% \"VOC family protein\"\n[S8.c46]    46 fork: ldcC P 72%\n[S8.c47]    47 fork: accA P 72%\n[S8.c48]    48 fork: dnaE P 71%; also yafE S 43%\n[S8.c49]    49 fork: rnhB P 71%\n[S8.c50]    50 fork: lpxB P 70% \"lipid-A-disaccharide synthase\"\n[S8.c51]    51 fork: lpxA P 70%\n[S8.c52-66]    columns 52-66 variable, share 40-69%, all P: fabZ 69%, lpxD 68%, skp 67%, bamA 65%, rseP 63%, cdsA 60%, ispU \"(2E,6E)-farnesyl-diphosphate-specif\u2026\" 55%, ispC 50%, frr 46%, pyrH 45%, tsf 43%, rpsB 42%, map 42%, glnD 41%, dapD 40%\n[S8.c67]    67 fork: yaeH P 40% \"DUF3461 family protein\"; also yaeI S 27%\n[S8.c68-79]    columns 68-79 variable, share 13-38%, all P: cdaR 38%, degP 38%, dgt 37%, mtnN 37%, btuF 35%, yadS \"TRIC cation channel family protein\" 32%, erpA 28%, yadW \"small protein YadW\" 26%, clcA 24%, yadX \"protein YadX\" 22%, hemL 17%, fhuB 13%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): the branch [S8.b22] through columns 22-51: flagellar; columns 32-34 (metN to metQ) [S8]: methionine, transporter.\n[X] PRODUCTS of named genes (for [[ ]]): metN methionine ABC transporter ATP-binding\u2026; metI methionine ABC transporter permease MetI; metQ methionine ABC transporter substrate-bi\u2026; lpxB lipid-A-disaccharide synthase; lpxA acyl-ACP--UDP-N-acetylglucosamine O-acy\u2026; ispC 1-deoxy-D-xylulose-5-phosphate reductoi\u2026; motA flagellar motor stator protein MotA; fliS flagellar export chaperone FliS; fliD flagellar filament capping protein FliD; lafA lateral flagellin LafA; flgL flagellar hook-associated protein FlgL; flgK flagellar hook-associated protein FlgK; tssB type VI secretion system contractile sh\u2026; vgrE type VI secretion system tip protein Vg\u2026; flgH flagellar basal body L-ring protein FlgH; flgG flagellar basal-body rod protein FlgG; tssC type VI secretion system contractile sh\u2026; flgE flagellar hook protein FlgE; tssE type VI secretion system baseplate subu\u2026; tssF type VI secretion system baseplate subu\u2026; flgC flagellar basal body rod protein FlgC; tssG type VI secretion system baseplate subu\u2026; flgB flagellar basal body protein; tssK type VI secretion system baseplate subu\u2026; tagH type VI secretion system-associated FHA\u2026; flgA flagellar basal body P-ring formation c\u2026; tssJ type VI secretion system lipoprotein Ts\u2026; flgM flagellar biosynthesis anti-sigma facto\u2026; flgN flagellar protein FlgN; icmH type IVB secretion system protein IcmH/\u2026; tssH type VI secretion system ATPase TssH; tssA type VI secretion system protein TssA; vasI type VI secretion system-associated pro\u2026; tssM type VI secretion system membrane subun\u2026; fliJ flagellar export protein FliJ; fliI flagellar protein export ATPase FliI; fliH flagellar assembly protein FliH; fliF flagellar basal-body MS-ring/collar pro\u2026; fliP flagellar type III secretion system por\u2026; yafE class I SAM-dependent methyltransferase\n[E] END: the window ends at column 79, fhuB, in 13% of chromosomes."
 }

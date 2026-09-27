@@ -2,50 +2,205 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447813.1104178,
+ "created": 1790479515.6998134,
  "usage": {
-  "prompt_tokens": 3344,
-  "completion_tokens": 526,
-  "cost_usd": 0.000533,
-  "ms": 5521
+  "prompt_tokens": 5318,
+  "completion_tokens": 427,
+  "cost_usd": 0.000576,
+  "ms": 3366
  },
  "attempts": [
   {
-   "text": "**The window starts in a long spine.** Columns 0 to 27, `nudK` to `yfeX` through the `eut` genes, [[ethanolamine utilization]], sit in 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, and hesitates most at column 17, `eutB`, named 86%, 1.35 bits.\n\n**A variable column interrupts at `pbp4b`**, column 28, in a region of plasticity in 4% of calls, named 88%, 0.74 bits. Then `murP` and `murQ` hold a short spine, 92 to 95% of chromosomes, named 96 to 97%.\n\n**The next spine runs `ucpA` to `yfeR`**, columns 32 to 49, [[sulfate and thiosulfate transport]], 91 to 95% of chromosomes, in a region of plasticity in 1 to 17% of calls. Naming drops at column 35, `cysW`, 52%, and hesitation peaks at column 38, `yfeK`, 0.43 bits.\n\n**Columns 50 to 55 are variable**, in a region of plasticity in 28 to 57% of calls, the most plastic stretch: `flxA` to `xapR`, carried by 25 to 67% of chromosomes, named 82 to 91%. Then `gltX` to `nupC` returns to the spine, 91 to 95%, named 81 to 90%, most hesitant at column 57, `yfeD`, 0.57 bits.\n\n**The window ends in forks.** Column 61 carries two hypothetical proteins, 49% and 23%; columns 69 to 77 are variable, `ypdE` to `yfdY`, 83 to 90%, and columns 78 and 79 fork, `ypdI` at 81% with `oxc` and `yfdE`, `yfdX` at 76% with `frc`, `yfdV` and `evgS`. Across the window the model names 93% of genes at 0.28 bits; inside a region of plasticity it names 77% against 95% outside, at 1.17 against 0.21 bits.",
+   "text": "**The window opens on a long spine.** Columns 0 to 27, `nudK` to `yfeX`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, fewest at column 17, `eutB`, 86%.\n\n**A variable column breaks the spine at 28**, `pbp4b`, carried by 76%. The `eut` genes, columns 5 to 21, are [[ethanolamine utilization microcompartment]], and the `cys` genes, columns 33 to 37, are [[sulfate thiosulfate transport]]. The most plastic stretch is columns 50 to 55, variable, in a region of plasticity in 28 to 57% of calls.\n\n**The model names about as many genes on the spine columns as on the fork and variable ones**, 94 against 92%, and hesitates less there, 0.26 against 0.33 bits. Its most hesitant column, 17, `eutB`, is a spine column, at 1.35 bits.\n\n**The window ends on fork and variable columns.** Columns 69 to 79, `ypdE` to `yfdX`, are carried by 76 to 90% of chromosomes, all persistent.\n\n**Across the window it names 93% of genes**, 0.28 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 1.17 against 0.21 bits, and names fewer genes, 77% against 95%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3344,
-    "completion_tokens": 526,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5318,
+    "completion_tokens": 427,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000533
+    "cost_usd": 0.000576
    },
    "provider": "deepinfra",
-   "ms": 5521,
-   "raw": "**The window starts in a long spine.** Columns 0 to 27, `nudK` to `yfeX` through the `eut` genes, [[ethanolamine utilization]], sit in 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, and hesitates most at column 17, `eutB`, named 86%, 1.35 bits.\n\n**A variable column interrupts at `pbp4b`**, column 28, in a region of plasticity in 4% of calls, named 88%, 0.74 bits. Then `murP` and `murQ` hold a short spine, 92 to 95% of chromosomes, named 96 to 97%.\n\n**The next spine runs `ucpA` to `yfeR`**, columns 32 to 49, [[sulfate and thiosulfate transport]], 91 to 95% of chromosomes, in a region of plasticity in 1 to 17% of calls. Naming drops at column 35, `cysW`, 52%, and hesitation peaks at column 38, `yfeK`, 0.43 bits.\n\n**Columns 50 to 55 are variable**, in a region of plasticity in 28 to 57% of calls, the most plastic stretch: `flxA` to `xapR`, carried by 25 to 67% of chromosomes, named 82 to 91%. Then `gltX` to `nupC` returns to the spine, 91 to 95%, named 81 to 90%, most hesitant at column 57, `yfeD`, 0.57 bits.\n\n**The window ends in forks.** Column 61 carries two hypothetical proteins, 49% and 23%; columns 69 to 77 are variable, `ypdE` to `yfdY`, 83 to 90%, and columns 78 and 79 fork, `ypdI` at 81% with `oxc` and `yfdE`, `yfdX` at 76% with `frc`, `yfdV` and `evgS`. Across the window the model names 93% of genes at 0.28 bits; inside a region of plasticity it names 77% against 95% outside, at 1.17 against 0.21 bits.",
+   "ms": 3366,
+   "raw": "@start **The window opens on a long spine.** Columns 0 to 27, `nudK` to `yfeX`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls {S1}. The model names 86 to 99.6% of them, fewest at column 17, `eutB`, 86% {S1}.\n\n@variable **A variable column breaks the spine at 28**, `pbp4b`, carried by 76% {S2.c28}. The `eut` genes, columns 5 to 21, are [[ethanolamine utilization microcompartment]], and the `cys` genes, columns 33 to 37, are [[sulfate thiosulfate transport]] {S1, S5, Q}. The most plastic stretch is columns 50 to 55, variable, in a region of plasticity in 28 to 57% of calls {S6, P}.\n\n@model **The model names about as many genes on the spine columns as on the fork and variable ones**, 94 against 92%, and hesitates less there, 0.26 against 0.33 bits {M}. Its most hesitant column, 17, `eutB`, is a spine column, at 1.35 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 69 to 79, `ypdE` to `yfdX`, are carried by 76 to 90% of chromosomes, all persistent {S10}. The last column is `yfdX`, in 76% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.28 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 1.17 against 0.21 bits, and names fewer genes, 77% against 95% {C}.",
+   "annotated": "@start **The window opens on a long spine.** Columns 0 to 27, `nudK` to `yfeX`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls {S1}. The model names 86 to 99.6% of them, fewest at column 17, `eutB`, 86% {S1}.\n\n@variable **A variable column breaks the spine at 28**, `pbp4b`, carried by 76% {S2.c28}. The `eut` genes, columns 5 to 21, are [[ethanolamine utilization microcompartment]], and the `cys` genes, columns 33 to 37, are [[sulfate thiosulfate transport]] {S1, S5, Q}. The most plastic stretch is columns 50 to 55, variable, in a region of plasticity in 28 to 57% of calls {S6, P}.\n\n@model **The model names about as many genes on the spine columns as on the fork and variable ones**, 94 against 92%, and hesitates less there, 0.26 against 0.33 bits {M}. Its most hesitant column, 17, `eutB`, is a spine column, at 1.35 bits {H}.\n\n@end **The window ends on fork and variable columns.** Columns 69 to 79, `ypdE` to `yfdX`, are carried by 76 to 90% of chromosomes, all persistent {S10}. The last column is `yfdX`, in 76% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.28 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 1.17 against 0.21 bits, and names fewer genes, 77% against 95% {C}.",
    "check": {
     "ok": true,
-    "numbers": 61,
-    "names": 25,
-    "words": 277,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 25,
+    "names": 10,
+    "words": 217,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 208,
+    "repeats": 1,
+    "interp": 2,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a long spine.** Columns 0 to 27, `nudK` to `yfeX`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 86 to 99.6% of them, fewest at column 17, `eutB`, 86%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A variable column breaks the spine at 28**, `pbp4b`, carried by 76%",
+      "cites": [
+       "S2.c28"
+      ],
+      "inherit": [
+       "S1",
+       "S5",
+       "Q",
+       "S6",
+       "P"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "The `eut` genes, columns 5 to 21, are [[ethanolamine utilization microcompartment]], and the `cys` genes, columns 33 to 37, are [[sulfate thiosulfate transport]]",
+      "cites": [
+       "S1",
+       "S5",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The most plastic stretch is columns 50 to 55, variable, in a region of plasticity in 28 to 57% of calls",
+      "cites": [
+       "S6",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names about as many genes on the spine columns as on the fork and variable ones**, 94 against 92%, and hesitates less there, 0.26 against 0.33 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 17, `eutB`, is a spine column, at 1.35 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork and variable columns.** Columns 69 to 79, `ypdE` to `yfdX`, are carried by 76 to 90% of chromosomes, all persistent",
+      "cites": [
+       "S10"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 93% of genes**, 0.28 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.17 against 0.21 bits, and names fewer genes, 77% against 95%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 64
+   },
+   "dropped": [],
+   "served": "**The window opens on a long spine.** Columns 0 to 27, `nudK` to `yfeX`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, fewest at column 17, `eutB`, 86%.\n\n**A variable column breaks the spine at 28**, `pbp4b`, carried by 76%. The `eut` genes, columns 5 to 21, are [[ethanolamine utilization microcompartment]], and the `cys` genes, columns 33 to 37, are [[sulfate thiosulfate transport]]. The most plastic stretch is columns 50 to 55, variable, in a region of plasticity in 28 to 57% of calls.\n\n**The model names about as many genes on the spine columns as on the fork and variable ones**, 94 against 92%, and hesitates less there, 0.26 against 0.33 bits. Its most hesitant column, 17, `eutB`, is a spine column, at 1.35 bits.\n\n**The window ends on fork and variable columns.** Columns 69 to 79, `ypdE` to `yfdX`, are carried by 76 to 90% of chromosomes, all persistent.\n\n**Across the window it names 93% of genes**, 0.28 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 1.17 against 0.21 bits, and names fewer genes, 77% against 95%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 61,
-  "names": 25,
-  "words": 277,
-  "attempts": 1
+  "numbers": 25,
+  "names": 10,
+  "words": 208,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 1,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 2,
+  "covered": 64
  },
- "text": "**The window starts in a long spine.** Columns 0 to 27, `nudK` to `yfeX` through the `eut` genes, [[ethanolamine utilization]], sit in 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, and hesitates most at column 17, `eutB`, named 86%, 1.35 bits.\n\n**A variable column interrupts at `pbp4b`**, column 28, in a region of plasticity in 4% of calls, named 88%, 0.74 bits. Then `murP` and `murQ` hold a short spine, 92 to 95% of chromosomes, named 96 to 97%.\n\n**The next spine runs `ucpA` to `yfeR`**, columns 32 to 49, [[sulfate and thiosulfate transport]], 91 to 95% of chromosomes, in a region of plasticity in 1 to 17% of calls. Naming drops at column 35, `cysW`, 52%, and hesitation peaks at column 38, `yfeK`, 0.43 bits.\n\n**Columns 50 to 55 are variable**, in a region of plasticity in 28 to 57% of calls, the most plastic stretch: `flxA` to `xapR`, carried by 25 to 67% of chromosomes, named 82 to 91%. Then `gltX` to `nupC` returns to the spine, 91 to 95%, named 81 to 90%, most hesitant at column 57, `yfeD`, 0.57 bits.\n\n**The window ends in forks.** Column 61 carries two hypothetical proteins, 49% and 23%; columns 69 to 77 are variable, `ypdE` to `yfdY`, 83 to 90%, and columns 78 and 79 fork, `ypdI` at 81% with `oxc` and `yfdE`, `yfdX` at 76% with `frc`, `yfdV` and `evgS`. Across the window the model names 93% of genes at 0.28 bits; inside a region of plasticity it names 77% against 95% outside, at 1.17 against 0.21 bits.",
- "html": "<p class=\"note\"><b>The window starts in a long spine.</b> Columns 0 to 27, <span class=\"gene\">nudK</span> to <span class=\"gene\">yfeX</span> through the <span class=\"gene\">eut</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">ethanolamine utilization</span>, sit in 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, and hesitates most at column 17, <span class=\"gene\">eutB</span>, named 86%, 1.35 bits.</p><p class=\"note\"><b>A variable column interrupts at <span class=\"gene\">pbp4b</span></b>, column 28, in a region of plasticity in 4% of calls, named 88%, 0.74 bits. Then <span class=\"gene\">murP</span> and <span class=\"gene\">murQ</span> hold a short spine, 92 to 95% of chromosomes, named 96 to 97%.</p><p class=\"note\"><b>The next spine runs <span class=\"gene\">ucpA</span> to <span class=\"gene\">yfeR</span></b>, columns 32 to 49, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">sulfate and thiosulfate transport</span>, 91 to 95% of chromosomes, in a region of plasticity in 1 to 17% of calls. Naming drops at column 35, <span class=\"gene\">cysW</span>, 52%, and hesitation peaks at column 38, <span class=\"gene\">yfeK</span>, 0.43 bits.</p><p class=\"note\"><b>Columns 50 to 55 are variable</b>, in a region of plasticity in 28 to 57% of calls, the most plastic stretch: <span class=\"gene\">flxA</span> to <span class=\"gene\">xapR</span>, carried by 25 to 67% of chromosomes, named 82 to 91%. Then <span class=\"gene\">gltX</span> to <span class=\"gene\">nupC</span> returns to the spine, 91 to 95%, named 81 to 90%, most hesitant at column 57, <span class=\"gene\">yfeD</span>, 0.57 bits.</p><p class=\"note\"><b>The window ends in forks.</b> Column 61 carries two hypothetical proteins, 49% and 23%; columns 69 to 77 are variable, <span class=\"gene\">ypdE</span> to <span class=\"gene\">yfdY</span>, 83 to 90%, and columns 78 and 79 fork, <span class=\"gene\">ypdI</span> at 81% with <span class=\"gene\">oxc</span> and <span class=\"gene\">yfdE</span>, <span class=\"gene\">yfdX</span> at 76% with <span class=\"gene\">frc</span>, <span class=\"gene\">yfdV</span> and <span class=\"gene\">evgS</span>. Across the window the model names 93% of genes at 0.28 bits; inside a region of plasticity it names 77% against 95% outside, at 1.17 against 0.21 bits.</p>",
+ "text": "**The window opens on a long spine.** Columns 0 to 27, `nudK` to `yfeX`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, fewest at column 17, `eutB`, 86%.\n\n**A variable column breaks the spine at 28**, `pbp4b`, carried by 76%. The `eut` genes, columns 5 to 21, are [[ethanolamine utilization microcompartment]], and the `cys` genes, columns 33 to 37, are [[sulfate thiosulfate transport]]. The most plastic stretch is columns 50 to 55, variable, in a region of plasticity in 28 to 57% of calls.\n\n**The model names about as many genes on the spine columns as on the fork and variable ones**, 94 against 92%, and hesitates less there, 0.26 against 0.33 bits. Its most hesitant column, 17, `eutB`, is a spine column, at 1.35 bits.\n\n**The window ends on fork and variable columns.** Columns 69 to 79, `ypdE` to `yfdX`, are carried by 76 to 90% of chromosomes, all persistent.\n\n**Across the window it names 93% of genes**, 0.28 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 1.17 against 0.21 bits, and names fewer genes, 77% against 95%.",
+ "html": "<p class=\"note\"><b>The window opens on a long spine.</b> Columns 0 to 27, <span class=\"gene\">nudK</span> to <span class=\"gene\">yfeX</span>, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 86 to 99.6% of them, fewest at column 17, <span class=\"gene\">eutB</span>, 86%.</p><p class=\"note\"><b>A variable column breaks the spine at 28</b>, <span class=\"gene\">pbp4b</span>, carried by 76%. The <span class=\"gene\">eut</span> genes, columns 5 to 21, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">ethanolamine utilization microcompartment</span>, and the <span class=\"gene\">cys</span> genes, columns 33 to 37, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">sulfate thiosulfate transport</span>. The most plastic stretch is columns 50 to 55, variable, in a region of plasticity in 28 to 57% of calls.</p><p class=\"note\"><b>The model names about as many genes on the spine columns as on the fork and variable ones</b>, 94 against 92%, and hesitates less there, 0.26 against 0.33 bits. Its most hesitant column, 17, <span class=\"gene\">eutB</span>, is a spine column, at 1.35 bits.</p><p class=\"note\"><b>The window ends on fork and variable columns.</b> Columns 69 to 79, <span class=\"gene\">ypdE</span> to <span class=\"gene\">yfdX</span>, are carried by 76 to 90% of chromosomes, all persistent.</p><p class=\"note\"><b>Across the window it names 93% of genes</b>, 0.28 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 1.17 against 0.21 bits, and names fewer genes, 77% against 95%.</p>",
  "window": "G8B09_RS02265",
  "label": "nudK",
- "facts_hash": "7fc2cf551c63",
- "prompt_version": "r7",
- "facts": "WINDOW: the nudK window: 80 columns, column 0 is the anchor nudK, then the next 79 genes in dnaA's direction; about genes 1,249 to 1,328 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying nudK once); 42,960 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 93% of genes, 0.28 bits on average (perplexity 1.3 families). By partition of the gene: persistent 37,801 calls, named 97%, 0.19 bits; shell 4,809 calls, named 71%, 0.69 bits; cloud 350 calls, named 20%, 4.03 bits. Outside an RGP 39,742 calls, named 95%, 0.21 bits; inside an RGP 3,218 calls, named 77%, 1.17 bits. Columns: 60 spine, 3 fork, 17 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.17 against 0.21 bits) and names fewer genes (77% against 95%); 3,218 of the 42,960 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 17 (eutB) 1.35 bits, RGP 16%; column 28 (pbp4b) 0.74 bits, RGP 4%; column 57 (yfeD) 0.57 bits, RGP 3%. The 3 columns where most calls are in an RGP: named 89%, 0.40 bits on average; the other 77 columns: named 94%, 0.28 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 50-55 (variable), RGP 28-57%; the least: column 31 (variable), RGP 2%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-27 (28 columns) spine: share 91-100%, all P, RGP 0-17%. Genes: nudK, ypfG \"DUF1176 domain-containing protein\", tkt, tal, maeB, eutS, eutP \"ethanolamine utilization acetate ki\u2026\", eutQ, eutT, pta, eutM \"ethanolamine utilization microcompa\u2026\", eutN, eutE, eutJ, eutG, eutH, eutA, eutB, eutC, eutL, eutK, eutR, hemF, amiA, ypeA \"GNAT family acetyltransferase\", yfeZ \"DUF2919 domain-containing protein\", yfeY \"DUF1131 family protein\", yfeX \"porphyrinogen peroxidase\". named 86-99.6% (mean 96%), fewest named and most hesitant at column 17 (eutB), named 86%, 1.35 bits.\n2. column 28 variable: RGP 4%. named 88%; 0.74 bits.\n   28: pbp4b S 76%\n3. columns 29-30 (2 columns) spine: share 92-95%, all P, RGP 2%. Genes: murP, murQ \"N-acetylmuramic acid 6-phosphate et\u2026\". named 96-97% (mean 96%), fewest named and most hesitant at column 29 (murP), named 96%, 0.35 bits.\n4. column 31 variable: RGP 2%. named 98%; 0.11 bits.\n   31: murR S 85%\n5. columns 32-49 (18 columns) spine: share 91-95%, all P, RGP 1-17%. Genes: ucpA, cysP, cysT, cysW, cysA \"sulfate/thiosulfate ABC transporter\u2026\", cysM, yfeK \"DUF5329 family protein\", pdxK, crr, ptsI \"phosphoenolpyruvate-protein phospho\u2026\", ptsH, cysK \"pyridoxal-phosphate dependent enzyme\", cysZ, zipA, ligA, ypeB \"putative quorum-sensing-regulated v\u2026\", yfeH \"bile acid:sodium symporter family p\u2026\", yfeR \"LysR family transcriptional regulat\u2026\". named 52-99% (mean 92%), fewest named at column 35 (cysW), named 52%; most hesitant at column 38 (yfeK), 0.43 bits.\n6. columns 50-55 (6 columns) variable: RGP 28-57%. named 82-91% (mean 88%), fewest named at column 50, named 82%; most hesitant at column 51, 0.48 bits.\n   columns 50-55, share 25-67%, all S: flxA 25%, yfeN \"outer membrane protein OmpK\" 64%, xapA 67%, xapB \"MFS transporter\" 63%, \"DUF1427 family protein\" 67%, xapR 65%\n7. columns 56-60 (5 columns) spine: share 91-95%, all P, RGP 3-7%. Genes: gltX, yfeD \"YfeC-like transcriptional regulator\", yfeC \"YfeC-like transcriptional regulator\", pdeA, nupC. named 81-90% (mean 87%), fewest named at column 60 (nupC), named 81%; most hesitant at column 57 (yfeD), 0.57 bits.\n8. column 61 fork: RGP 6%. named 80%; 0.43 bits.\n   61: \"hypothetical protein\" S 49%; also \"hypothetical protein\" S 23%\n9. columns 62-68 (7 columns) spine: share 90-94%, all P, RGP 2-7%. Genes: mntH, ypeC \"DUF2502 domain-containing protein Y\u2026\", yfeO \"ion channel protein\", glk, fryB \"PTS fructose transporter subunit IIB\", fryC, ypdF \"aminopeptidase\". named 91-96% (mean 95%), fewest named and most hesitant at column 62 (mntH), named 91%, 0.57 bits.\n10. columns 69-79 (11 columns) fork and variable columns: RGP 2-5%. named 92-97% (mean 95%), fewest named at column 71, named 92%; most hesitant at column 70, 0.35 bits.\n   columns 69-77 variable, share 83-90%, all P: ypdE \"aminopeptidase\" 90%, ptsP 86%, ypdC \"helix-turn-helix transcriptional re\u2026\" 83%, ypdB \"two-component system response regul\u2026\" 86%, ypdA \"two-component system sensor histidi\u2026\" 85%, alaC 85%, ypdK \"membrane protein YpdK\" 84%, lpxP 83%, yfdY \"YfdY family protein\" 83%\n   78 fork: ypdI P 81% \"colanic acid biosynthesis lipoprote\u2026\"; also oxc P 44%, yfdE P 26%\n   79 fork: yfdX P 76% \"YfdX family protein\"; also frc P 58%, yfdV P 37%, evgS P 18%\nPRODUCTS of named genes (for [[ ]]): eutS ethanolamine utilization microcompartme\u2026; eutQ ethanolamine utilization acetate kinase\u2026; eutT ethanolamine utilization cob(I)yrinic a\u2026; eutN ethanolamine utilization microcompartme\u2026; eutE aldehyde dehydrogenase family protein; eutJ ethanolamine utilization protein EutJ; eutH ethanolamine utilization protein EutH; eutA ethanolamine ammonia-lyase reactivating\u2026; eutB ethanolamine ammonia-lyase subunit alpha; eutC ethanolamine ammonia-lyase light chain\u2026; eutR helix-turn-helix domain-containing prot\u2026; murP PTS transporter subunit EIIC; murR HTH-type transcriptional regulator MurR; cysP thiosulfate/sulfate ABC transporter sub\u2026; cysT ABC transporter permease subunit; cysM cysteine synthase B; ptsH HPr family phosphocarrier protein; cysZ sulfate transporter CysZ; fryC PTS fructose transporter subunit IIC; yfdE CoA transferase; frc CoA transferase; yfdV AEC family transporter; evgS transporter substrate-binding domain-co\u2026\nEND: the window ends at column 79, yfdX, in 76% of chromosomes."
+ "facts_hash": "3be9b0397097",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the nudK window: 80 columns, column 0 is the anchor nudK, then the next 79 genes in dnaA's direction; about genes 1,249 to 1,328 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying nudK once); 42,960 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 93% of genes, 0.28 bits on average (perplexity 1.3 families). By partition of the gene: persistent 37,801 calls, named 97%, 0.19 bits; shell 4,809 calls, named 71%, 0.69 bits; cloud 350 calls, named 20%, 4.03 bits. Outside an RGP 39,742 calls, named 95%, 0.21 bits; inside an RGP 3,218 calls, named 77%, 1.17 bits. Columns: 60 spine, 3 fork, 17 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.17 against 0.21 bits) and names fewer genes (77% against 95%); 3,218 of the 42,960 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 17 (eutB, a spine column) 1.35 bits, RGP 16%; column 28 (pbp4b, a variable column) 0.74 bits, RGP 4%; column 57 (yfeD, a spine column) 0.57 bits, RGP 3%. The 3 columns (columns 51-53) where most calls are in an RGP: named 89%, 0.40 bits on average; the other 77 columns: named 94%, 0.28 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 60 spine columns: named 94%, 0.26 bits on average; the 20 fork and variable columns: named 92%, 0.33 bits. The model names about as many genes on the spine columns as on the fork and variable ones, and hesitates less there. Its most hesitant column, 17, is a spine column: the model can hesitate most inside a spine.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 50-55 (variable), RGP 28-57%; the least: column 31 (variable), RGP 2%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-27 (28 columns) spine: share 91-100%, all P, RGP 0-17%. Genes: nudK, ypfG \"DUF1176 domain-containing protein\", tkt, tal, maeB, eutS, eutP \"ethanolamine utilization acetate ki\u2026\", eutQ, eutT, pta, eutM \"ethanolamine utilization microcompa\u2026\", eutN, eutE, eutJ, eutG, eutH, eutA, eutB, eutC, eutL, eutK, eutR, hemF, amiA, ypeA \"GNAT family acetyltransferase\", yfeZ \"DUF2919 domain-containing protein\", yfeY \"RpoE-regulated lipoprotein\", yfeX \"porphyrinogen peroxidase\". named 86-99.6% (mean 96%), fewest named and most hesitant at column 17 (eutB), named 86%, 1.35 bits.\n[S2] 2. column 28 variable: share 76%, all S, RGP 4%. named 88%; 0.74 bits.\n[S2.c28]    28: pbp4b S 76%\n[S3] 3. columns 29-30 (2 columns) spine: share 92-95%, all P, RGP 2%. Genes: murP, murQ \"N-acetylmuramic acid 6-phosphate et\u2026\". named 96-97% (mean 96%), fewest named and most hesitant at column 29 (murP), named 96%, 0.35 bits.\n[S4] 4. column 31 variable: share 85%, all S, RGP 2%. named 98%; 0.11 bits.\n[S4.c31]    31: murR S 85%\n[S5] 5. columns 32-49 (18 columns) spine: share 91-95%, all P, RGP 1-17%. Genes: ucpA, cysP, cysT \"sulfate/thiosulfate ABC transporter\u2026\", cysW, cysA, cysM, yfeK \"YfeK family protein\", pdxK, crr, ptsI \"phosphoenolpyruvate-protein phospho\u2026\", ptsH, cysK \"cysteine synthase A\", cysZ, zipA, ligA, ypeB \"DUF3820 family protein\", yfeH \"bile acid:sodium symporter family p\u2026\", yfeR \"LysR family transcriptional regulat\u2026\". named 52-99% (mean 92%), fewest named at column 35 (cysW), named 52%; most hesitant at column 38 (yfeK), 0.43 bits.\n[S6] 6. columns 50-55 (6 columns) variable: share 25-67%, all S, RGP 28-57%. named 82-91% (mean 88%), fewest named at column 50, named 82%; most hesitant at column 51, 0.48 bits.\n[S6.c50-55]    columns 50-55, share 25-67%, all S: flxA 25%, yfeN \"outer membrane protein OmpK\" 64%, xapA 67%, xapB \"xanthosine/proton symporter XapB\" 63%, \"DUF1427 family protein\" 67%, xapR 65%\n[S7] 7. columns 56-60 (5 columns) spine: share 91-95%, all P, RGP 3-7%. Genes: gltX, yfeD \"MerR family transcriptional regulat\u2026\", yfeC \"YfeC-like transcriptional regulator\", pdeA, nupC. named 81-90% (mean 87%), fewest named at column 60 (nupC), named 81%; most hesitant at column 57 (yfeD), 0.57 bits.\n[S8] 8. column 61 fork: share 49%, all S, RGP 6%. named 80%; 0.43 bits.\n[S8.c61]    61: \"hypothetical protein\" S 49%; also \"protein YpeD\" S 23%\n[S9] 9. columns 62-68 (7 columns) spine: share 90-94%, all P, RGP 2-7%. Genes: mntH, ypeC \"DUF2502 domain-containing protein Y\u2026\", yfeO \"ion channel protein\", glk, fryB \"PTS fructose transporter subunit IIB\", fryC, ypdF \"aminopeptidase\". named 91-96% (mean 95%), fewest named and most hesitant at column 62 (mntH), named 91%, 0.57 bits.\n[S10] 10. columns 69-79 (11 columns) fork and variable columns: share 76-90%, all P, RGP 2-5%. named 92-97% (mean 95%), fewest named at column 71, named 92%; most hesitant at column 70, 0.35 bits.\n[S10.c69-77]    columns 69-77 variable, share 83-90%, all P: ypdE \"aminopeptidase\" 90%, ptsP 86%, ypdC \"AraC family transcriptional regulat\u2026\" 83%, ypdB \"two-component system response regul\u2026\" 86%, ypdA \"two-component system sensor histidi\u2026\" 85%, alaC 85%, ypdK \"membrane protein YpdK\" 84%, lpxP 83%, yfdY \"YfdY family protein\" 83%\n[S10.c78]    78 fork: ypdI P 81% \"colanic acid biosynthesis lipoprote\u2026\"; also oxc P 44%, yfdE P 26%\n[S10.c79]    79 fork: yfdX P 76% \"YfdX family protein\"; also frc P 58%, yfdV P 37%, evgS P 18%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 5-8 (eutS to eutT) [S1]: ethanolamine, utilization, acetate, kinase; columns 10-21 (eutM to eutR) [S1]: ethanolamine, utilization, microcompartment; columns 29-31 (murP to murR) [S3, S4]: acetylmuramic, n-acetylmuramic; columns 33-37 (cysP to cysM) [S5]: sulfate, thiosulfate, transporter, permease.\n[X] PRODUCTS of named genes (for [[ ]]): eutS ethanolamine utilization microcompartme\u2026; eutQ ethanolamine utilization acetate kinase\u2026; eutT ethanolamine utilization cob(I)yrinic a\u2026; eutN ethanolamine utilization microcompartme\u2026; eutE aldehyde dehydrogenase family protein; eutJ ethanolamine utilization protein EutJ; eutG ethanolamine utilization ethanol dehydr\u2026; eutH ethanolamine utilization protein EutH; eutA ethanolamine ammonia-lyase reactivating\u2026; eutB ethanolamine ammonia-lyase subunit alpha; eutC ethanolamine ammonia-lyase subunit beta; eutL ethanolamine utilization microcompartme\u2026; eutK ethanolamine utilization microcompartme\u2026; eutR HTH-type transcriptional regulator EutR; murP PTS N-acetylmuramic acid transporter su\u2026; murR HTH-type transcriptional regulator MurR; cysP thiosulfate/sulfate ABC transporter sub\u2026; cysW sulfate/thiosulfate ABC transporter per\u2026; cysA sulfate/thiosulfate ABC transporter ATP\u2026; cysM cysteine synthase B; ptsH phosphocarrier protein Hpr; cysZ sulfate transporter CysZ; xapA xanthosine phosphorylase; fryC PTS fructose transporter subunit IIC; oxc oxalyl-CoA decarboxylase; yfdE CoA:oxalate CoA-transferase; frc formyl-CoA transferase; yfdV transporter YfdV; evgS acid-sensing system histidine kinase Ev\u2026\n[E] END: the window ends at column 79, yfdX, in 76% of chromosomes."
 }

@@ -2,50 +2,392 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447818.978847,
+ "created": 1790479522.7140377,
  "usage": {
-  "prompt_tokens": 3567,
-  "completion_tokens": 469,
-  "cost_usd": 0.00054,
-  "ms": 5844
+  "prompt_tokens": 11730,
+  "completion_tokens": 774,
+  "cost_usd": 0.000821,
+  "ms": 6980
  },
  "attempts": [
   {
-   "text": "**The window starts on the anchor.** Column 0 is `mlaA`, a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls; the model names it in 99% and hesitates 0.07 bits. Column 1 is a fork at `yfdF`, named in 60%, the second most hesitant column at 1.19 bits.\n\n**Then a short spine, columns 2 to 6**, `fadL` to `sixA`, carried by 94%, persistent, in a region of plasticity in 4 to 23% of calls, named in 85 to 97%. The model's hesitation is low, most at `fadL`, 0.34 bits.\n\n**The most plastic stretch follows**, columns 7 to 13, fork columns, in a region of plasticity in 68 to 96% of calls, named in 21 to 75%, most hesitant at column 8, 1.20 bits. A second branch of 4 families runs through columns 8 to 11, carried by 10 to 14%, all shell: a periplasmic chaperone and fimbrial proteins, [[fimbrial assembly]]. The model hesitates most here.\n\n**A long spine runs from `smrB` to `ubiX`**, columns 14 to 34, carried by 90 to 94%, persistent, named in 85 to 99%. Then fork and variable columns 35 to 79, in a region of plasticity in 1 to 29% of calls, named in 66 to 99%; the variable stretch carries the `his` and `nuo` genes, [[histidine transport]] and [[NADH-quinone oxidoreduction]]. A second branch of 3 families, `yfbL` to `elaD`, runs through columns 74 to 76, carried by 36 to 49%, all shell.\n\n**The window ends at `menC`**, column 79, carried by 41%. Inside a region of plasticity the model hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
+   "text": "**The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls. The model names 99% of them, at 0.07 bits.\n\n**Then columns 7 to 13**, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, in a region of plasticity in 68 to 96% of calls. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits.\n\n**The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73%. The last column is `menC`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3567,
-    "completion_tokens": 469,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5605,
+    "completion_tokens": 394,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.00054
+    "cost_usd": 0.000603
    },
    "provider": "deepinfra",
-   "ms": 5844,
-   "raw": "**The window starts on the anchor.** Column 0 is `mlaA`, a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls; the model names it in 99% and hesitates 0.07 bits. Column 1 is a fork at `yfdF`, named in 60%, the second most hesitant column at 1.19 bits.\n\n**Then a short spine, columns 2 to 6**, `fadL` to `sixA`, carried by 94%, persistent, in a region of plasticity in 4 to 23% of calls, named in 85 to 97%. The model's hesitation is low, most at `fadL`, 0.34 bits.\n\n**The most plastic stretch follows**, columns 7 to 13, fork columns, in a region of plasticity in 68 to 96% of calls, named in 21 to 75%, most hesitant at column 8, 1.20 bits. A second branch of 4 families runs through columns 8 to 11, carried by 10 to 14%, all shell: a periplasmic chaperone and fimbrial proteins, [[fimbrial assembly]]. The model hesitates most here.\n\n**A long spine runs from `smrB` to `ubiX`**, columns 14 to 34, carried by 90 to 94%, persistent, named in 85 to 99%. Then fork and variable columns 35 to 79, in a region of plasticity in 1 to 29% of calls, named in 66 to 99%; the variable stretch carries the `his` and `nuo` genes, [[histidine transport]] and [[NADH-quinone oxidoreduction]]. A second branch of 3 families, `yfbL` to `elaD`, runs through columns 74 to 76, carried by 36 to 49%, all shell.\n\n**The window ends at `menC`**, column 79, carried by 41%. Inside a region of plasticity the model hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
+   "ms": 3852,
+   "raw": "@start **The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls {S1}. The model names 99% of them, at 0.07 bits {S1}.\n\n@variable **A fork follows at column 1**, `yfdF`, carried by 42%, the most plastic stretch of the window {S2, P}. Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, in a region of plasticity in 68 to 96% of calls {S4, Q}. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14% {S4.b8, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits {M}. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits {H}.\n\n@end **The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73% {S6.c75-79, Q}. The last column is `menC`, in 41% of chromosomes {E}.\n\n@whole **Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96% {C}.",
+   "annotated": "@start **The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls {S1}. The model names 99% of them, at 0.07 bits {S1}.\n\n@variable **A fork follows at column 1**, `yfdF`, carried by 42%, the most plastic stretch of the window {S2, P}. Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, in a region of plasticity in 68 to 96% of calls {S4, Q}. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14% {S4.b8, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits {M}. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits {H}.\n\n@end **The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73% {S6.c75-79, Q}. The last column is `menC`, in 41% of chromosomes {E}.\n\n@whole **Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96% {C}.",
+   "check": {
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "claim",
+      "text": "most plastic",
+      "why": "the facts say so of columns 7 to 13 only",
+      "context": "**A fork follows at column 1**, `yfdF`, carried by 42%, the most plastic stretch of the window"
+     }
+    ],
+    "numbers": 25,
+    "names": 7,
+    "words": 199,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
+   },
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 1,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 182,
+    "repeats": 0,
+    "interp": 3,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.07 bits",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, in a region of plasticity in 68 to 96% of calls",
+      "cites": [
+       "S4",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14%",
+      "cites": [
+       "S4.b8",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73%",
+      "cites": [
+       "S6.c75-79",
+       "Q"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `menC`, in 41% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 13
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "**A fork follows at column 1**, `yfdF`, carried by 42%, the most plastic stretch of the window",
+     "cites": [
+      "S2",
+      "P"
+     ],
+     "opens": true,
+     "bad": [
+      {
+       "kind": "claim",
+       "text": "most plastic",
+       "why": "the facts say so of columns 7 to 13 only"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls. The model names 99% of them, at 0.07 bits.\n\n**Then columns 7 to 13**, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, in a region of plasticity in 68 to 96% of calls. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits.\n\n**The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73%. The last column is `menC`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
+   "truncated": false,
+   "ok": false
+  },
+  {
+   "text": "**The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls. The model names 99% of them, at 0.07 bits.\n\n**A fork follows at column 1**, `yfdF`, carried by 42%. Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, the most plastic stretch of the window. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits.\n\n**The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73%. The last column is `menC`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
+   "finish": "stop",
+   "usage": {
+    "prompt_tokens": 6125,
+    "completion_tokens": 380,
+    "cached_tokens": 5888,
+    "reasoning_tokens": 0,
+    "cost_usd": 0.000218
+   },
+   "provider": "deepinfra",
+   "ms": 3128,
+   "raw": "@start **The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls {S1}. The model names 99% of them, at 0.07 bits {S1}.\n\n@variable **A fork follows at column 1**, `yfdF`, carried by 42% {S2}. Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, the most plastic stretch of the window {S4, P, Q}. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14% {S4.b8, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits {M}. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits {H}.\n\n@end **The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73% {S6.c75-79, Q}. The last column is `menC`, in 41% of chromosomes {E}.\n\n@whole **Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96% {C}.",
+   "annotated": "@start **The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls {S1}. The model names 99% of them, at 0.07 bits {S1}.\n\n@variable **A fork follows at column 1**, `yfdF`, carried by 42% {S2}. Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, the most plastic stretch of the window {S4, P, Q}. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14% {S4.b8, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits {M}. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits {H}.\n\n@end **The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73% {S6.c75-79, Q}. The last column is `menC`, in 41% of chromosomes {E}.\n\n@whole **Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96% {C}.",
    "check": {
     "ok": true,
-    "numbers": 52,
-    "names": 12,
-    "words": 278,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 23,
+    "names": 7,
+    "words": 188,
+    "sentences": 11,
+    "cited": 15,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 188,
+    "repeats": 0,
+    "interp": 3,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.07 bits",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A fork follows at column 1**, `yfdF`, carried by 42%",
+      "cites": [
+       "S2"
+      ],
+      "inherit": [
+       "S4",
+       "P",
+       "Q",
+       "S4.b8"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, the most plastic stretch of the window",
+      "cites": [
+       "S4",
+       "P",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14%",
+      "cites": [
+       "S4.b8",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73%",
+      "cites": [
+       "S6.c75-79",
+       "Q"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `menC`, in 41% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 14
+   },
+   "dropped": [],
+   "served": "**The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls. The model names 99% of them, at 0.07 bits.\n\n**A fork follows at column 1**, `yfdF`, carried by 42%. Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, the most plastic stretch of the window. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits.\n\n**The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73%. The last column is `menC`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 52,
-  "names": 12,
-  "words": 278,
-  "attempts": 1
+  "numbers": 23,
+  "names": 7,
+  "words": 188,
+  "attempts": 2,
+  "sentences": 11,
+  "cited": 15,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 3,
+  "covered": 14
  },
- "text": "**The window starts on the anchor.** Column 0 is `mlaA`, a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls; the model names it in 99% and hesitates 0.07 bits. Column 1 is a fork at `yfdF`, named in 60%, the second most hesitant column at 1.19 bits.\n\n**Then a short spine, columns 2 to 6**, `fadL` to `sixA`, carried by 94%, persistent, in a region of plasticity in 4 to 23% of calls, named in 85 to 97%. The model's hesitation is low, most at `fadL`, 0.34 bits.\n\n**The most plastic stretch follows**, columns 7 to 13, fork columns, in a region of plasticity in 68 to 96% of calls, named in 21 to 75%, most hesitant at column 8, 1.20 bits. A second branch of 4 families runs through columns 8 to 11, carried by 10 to 14%, all shell: a periplasmic chaperone and fimbrial proteins, [[fimbrial assembly]]. The model hesitates most here.\n\n**A long spine runs from `smrB` to `ubiX`**, columns 14 to 34, carried by 90 to 94%, persistent, named in 85 to 99%. Then fork and variable columns 35 to 79, in a region of plasticity in 1 to 29% of calls, named in 66 to 99%; the variable stretch carries the `his` and `nuo` genes, [[histidine transport]] and [[NADH-quinone oxidoreduction]]. A second branch of 3 families, `yfbL` to `elaD`, runs through columns 74 to 76, carried by 36 to 49%, all shell.\n\n**The window ends at `menC`**, column 79, carried by 41%. Inside a region of plasticity the model hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
- "html": "<p class=\"note\"><b>The window starts on the anchor.</b> Column 0 is <span class=\"gene\">mlaA</span>, a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls; the model names it in 99% and hesitates 0.07 bits. Column 1 is a fork at <span class=\"gene\">yfdF</span>, named in 60%, the second most hesitant column at 1.19 bits.</p><p class=\"note\"><b>Then a short spine, columns 2 to 6</b>, <span class=\"gene\">fadL</span> to <span class=\"gene\">sixA</span>, carried by 94%, persistent, in a region of plasticity in 4 to 23% of calls, named in 85 to 97%. The model&#x27;s hesitation is low, most at <span class=\"gene\">fadL</span>, 0.34 bits.</p><p class=\"note\"><b>The most plastic stretch follows</b>, columns 7 to 13, fork columns, in a region of plasticity in 68 to 96% of calls, named in 21 to 75%, most hesitant at column 8, 1.20 bits. A second branch of 4 families runs through columns 8 to 11, carried by 10 to 14%, all shell: a periplasmic chaperone and fimbrial proteins, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fimbrial assembly</span>. The model hesitates most here.</p><p class=\"note\"><b>A long spine runs from <span class=\"gene\">smrB</span> to <span class=\"gene\">ubiX</span></b>, columns 14 to 34, carried by 90 to 94%, persistent, named in 85 to 99%. Then fork and variable columns 35 to 79, in a region of plasticity in 1 to 29% of calls, named in 66 to 99%; the variable stretch carries the <span class=\"gene\">his</span> and <span class=\"gene\">nuo</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">histidine transport</span> and <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">NADH-quinone oxidoreduction</span>. A second branch of 3 families, <span class=\"gene\">yfbL</span> to <span class=\"gene\">elaD</span>, runs through columns 74 to 76, carried by 36 to 49%, all shell.</p><p class=\"note\"><b>The window ends at <span class=\"gene\">menC</span></b>, column 79, carried by 41%. Inside a region of plasticity the model hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.</p>",
+ "text": "**The window opens on the anchor.** Column 0, `mlaA`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls. The model names 99% of them, at 0.07 bits.\n\n**A fork follows at column 1**, `yfdF`, carried by 42%. Then columns 7 to 13, `yfcV` to `yfcO`, are [[fimbrial proteins]], carried by 30 to 81%, the most plastic stretch of the window. A second branch of 4 families runs through columns 8 to 11, [[fimbrial proteins]], in 10 to 14%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits. It hesitates most at column 8, `yfcU`, a fork column, 1.20 bits.\n\n**The window ends in the `men` genes**, columns 75 to 79, [[succinyl hydroxy synthase]], carried by 41 to 73%. The last column is `menC`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.25 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on the anchor.</b> Column 0, <span class=\"gene\">mlaA</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0.4% of calls. The model names 99% of them, at 0.07 bits.</p><p class=\"note\"><b>A fork follows at column 1</b>, <span class=\"gene\">yfdF</span>, carried by 42%. Then columns 7 to 13, <span class=\"gene\">yfcV</span> to <span class=\"gene\">yfcO</span>, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fimbrial proteins</span>, carried by 30 to 81%, the most plastic stretch of the window. A second branch of 4 families runs through columns 8 to 11, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">fimbrial proteins</span>, in 10 to 14%.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 96 against 88%, and hesitates less there, 0.17 against 0.29 bits. It hesitates most at column 8, <span class=\"gene\">yfcU</span>, a fork column, 1.20 bits.</p><p class=\"note\"><b>The window ends in the <span class=\"gene\">men</span> genes</b>, columns 75 to 79, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">succinyl hydroxy synthase</span>, carried by 41 to 73%. The last column is <span class=\"gene\">menC</span>, in 41% of chromosomes.</p><p class=\"note\"><b>Across the window it names 91% of genes</b>, 0.25 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.91 against 0.14 bits, and names fewer genes, 62% against 96%.</p>",
  "window": "G8B09_RS01785",
  "label": "mlaA",
- "facts_hash": "511636cfd1b6",
- "prompt_version": "r7",
- "facts": "WINDOW: the mlaA window: 80 columns, column 0 is the anchor mlaA, then the next 79 genes in dnaA's direction; about genes 1,368 to 1,447 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying mlaA once); 43,200 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 91% of genes, 0.25 bits on average (perplexity 1.5 families). By partition of the gene: persistent 35,377 calls, named 97%, 0.10 bits; shell 7,390 calls, named 65%, 0.81 bits; cloud 433 calls, named 13%, 2.77 bits. Outside an RGP 36,782 calls, named 96%, 0.14 bits; inside an RGP 6,418 calls, named 62%, 0.91 bits. Columns: 27 spine, 15 fork, 38 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.91 against 0.14 bits) and names fewer genes (62% against 96%); 6,418 of the 43,200 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 8 (yfcU) 1.20 bits, RGP 95%; column 1 (yfdF) 1.19 bits, RGP 0.4%; column 70 (yfbM) 0.92 bits, RGP 25%. The 7 columns where most calls are in an RGP: named 58%, 0.51 bits on average; the other 73 columns: named 94%, 0.23 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 7-13 (fork), RGP 68-96%; the least: column 0 (spine), RGP 0.4%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0.4%. Genes: mlaA. named 99%; 0.07 bits.\n2. column 1 fork: RGP 0.4%. named 60%; 1.19 bits.\n   1: yfdF S 42%; also yfdF (another family) S 29%\n3. columns 2-6 (5 columns) spine: share 94%, all P, RGP 4-23%. Genes: fadL, yfcZ \"YfcZ/YiiS family protein\", fadI \"acetyl-CoA C-acyltransferase FadI\", fadJ, sixA. named 85-97% (mean 93%), fewest named at column 6 (sixA), named 85%; most hesitant at column 2 (fadL), 0.34 bits.\n4. columns 7-13 (7 columns) fork: RGP 68-96%. named 21-75% (mean 58%), fewest named at column 10, named 21%; most hesitant at column 8, 1.20 bits.\n   a second branch of 4 families through columns 8-11, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-14%, all S; the branch's families: \"fimbria/pilus periplasmic chaperone\", \"fimbrial protein\", \"fimbrial protein\", \"fimbrial protein\"\n   7: yfcV S 64% \"fimbrial protein\"; also \"fimbrial protein\" S 12%\n   8: yfcU S 81% \"fimbria/pilus outer membrane usher\u2026\"\n   9: yfcS S 79% \"fimbria/pilus periplasmic chaperone\"\n   10: yfcR S 32% \"fimbrial protein\"; also \"fimbrial protein\" S 16%\n   11: yfcQ S 52% \"fimbrial protein\"; also yfcQ (another family) S 14%\n   12: yfcP S 50% \"fimbrial protein\"; also \"fimbrial protein\" S 12%\n   13: yfcO S 30% \"fimbrial adhesin YfcO\"; also \"StfH/YfcO family fimbrial adhesin\" S 14%\n5. columns 14-34 (21 columns) spine: share 90-94%, all P, RGP 1-15%. Genes: smrB, prmB, aroC, mepA, yfcA \"TSUP family transporter\", epmC, yfcL \"YfcL family protein\", mnmC, fabB, yfcJ \"MFS transporter\", flk, pdxB, usg, truA, dedA, accD, folC, dedD, cvpA, purF, ubiX. named 85-99% (mean 97%), fewest named at column 34 (ubiX), named 85%; most hesitant at column 14 (smrB), 0.29 bits.\n6. columns 35-79 (45 columns) fork and variable columns: RGP 1-29%. named 66-99% (mean 93%), fewest named at column 36, named 66%; most hesitant at column 70, 0.92 bits.\n   a second branch of 3 families through columns 74-76, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 36-49%, all S; the branch's families: yfbL, yfbK, elaD\n   columns 35-69 variable, share 77-90%, 34 P, 1 S: argT 89%, hisJ 89%, hisQ \"histidine ABC transporter permease\u2026\" 89%, hisM 89%, hisP 89%, rpnB 77%, yfcH \"TIGR01777 family oxidoreductase\" 89%, folX 89%, yfcG \"glutathione S-transferase N-termina\u2026\" 88%, yfcF \"glutathione transferase\" 89%, yfcE \"metallophosphoesterase\" 90%, yfcD \"NUDIX hydrolase YfcD\" 90%, yfcC \"putative basic amino acid antiporte\u2026\" 89%, pta 89%, ackA 89%, yfbV \"DUF412 family protein\" 89%, yfbU \"YfbU family protein\" 89%, hxpA 89%, yfbS 89%, yfbR \"YfbR-like 5'-deoxynucleotidase\" 89%, alaA 89%, lrhA 88%, nuoA 89%, nuoB 89%, nuoC 89%, nuoE 89%, nuoF 89%, nuoG 89%, nuoH 88%, nuoI 88%, nuoJ \"NADH-quinone oxidoreductase subunit\u2026\" 88%, nuoK 88%, nuoL 88%, nuoM 88%, nuoN 88%\n   70 fork: yfbM P 83% \"DUF1877 family protein\"; also yfbP S 26%\n   71 fork: yfbO S 26%; also \"IS1-like element transposase\" S 21%\n   72 fork: rbn P 87%; also yfbN S 23%\n   73 variable: elaA P 86%\n   74 fork: elaB P 83% \"stress response protein ElaB\"\n   75 fork: menF P 73%\n   76 fork: menD P 62%\n   77 variable: menH P 57% \"alpha/beta fold hydrolase\"\n   78 variable: menB P 50%\n   79 fork: menC P 41%; also menE P 27%, pmrD P 12%\nPRODUCTS of named genes (for [[ ]]): fadJ 3-hydroxyacyl-CoA dehydrogenase family\u2026; hisJ transporter substrate-binding domain-co\u2026; hisM ABC transporter permease; hisP histidine ABC transporter ATP-binding p\u2026; nuoA NADH-quinone oxidoreductase subunit NuoA; nuoB NADH-quinone oxidoreductase subunit NuoB; nuoC NADH-quinone oxidoreductase subunit C/D; nuoE NADH-quinone oxidoreductase subunit NuoE; nuoF NADH-ubiquinone oxidoreductase-F iron-s\u2026; nuoH NADH-quinone oxidoreductase subunit NuoH; nuoI NADH-quinone oxidoreductase subunit NuoI; nuoK NADH-quinone oxidoreductase subunit NuoK; nuoL NADH-quinone oxidoreductase subunit L; nuoM NADH-quinone oxidoreductase subunit M; nuoN proton-conducting transporter transmemb\u2026; elaA GNAT family N-acetyltransferase; elaB stress response protein ElaB; menF chorismate-binding protein; menD 2-succinyl-5-enolpyruvyl-6-hydroxy-3- c\u2026; menH alpha/beta fold hydrolase; menB enoyl-CoA hydratase-related protein; menC o-succinylbenzoate synthase; yfcQ fimbrial protein; yfbL M28 family metallopeptidase; elaD ElaD/SseL family deubiquitinase; menE AMP-binding protein\nEND: the window ends at column 79, menC, in 41% of chromosomes."
+ "facts_hash": "d2964816c7f0",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the mlaA window: 80 columns, column 0 is the anchor mlaA, then the next 79 genes in dnaA's direction; about genes 1,368 to 1,447 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying mlaA once); 43,200 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 91% of genes, 0.25 bits on average (perplexity 1.5 families). By partition of the gene: persistent 35,377 calls, named 97%, 0.10 bits; shell 7,390 calls, named 65%, 0.81 bits; cloud 433 calls, named 13%, 2.77 bits. Outside an RGP 36,782 calls, named 96%, 0.14 bits; inside an RGP 6,418 calls, named 62%, 0.91 bits. Columns: 27 spine, 15 fork, 38 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.91 against 0.14 bits) and names fewer genes (62% against 96%); 6,418 of the 43,200 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 8 (yfcU, a fork column) 1.20 bits, RGP 95%; column 1 (yfdF, a fork column) 1.19 bits, RGP 0.4%; column 70 (yfbM, a fork column) 0.92 bits, RGP 25%. The 7 columns (columns 7-13) where most calls are in an RGP: named 58%, 0.51 bits on average; the other 73 columns: named 94%, 0.23 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 27 spine columns: named 96%, 0.17 bits on average; the 53 fork and variable columns: named 88%, 0.29 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 8, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 7-13 (fork), RGP 68-96%; the least: column 0 (spine), RGP 0.4%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0.4%. Genes: mlaA. named 99%; 0.07 bits.\n[S2] 2. column 1 fork: share 42%, all S, RGP 0.4%. named 60%; 1.19 bits.\n[S2.c1]    1: yfdF S 42% \"protein YfdF\"; also yfdF (another family) S 29%\n[S3] 3. columns 2-6 (5 columns) spine: share 94%, all P, RGP 4-23%. Genes: fadL, yfcZ \"YfcZ/YiiS family protein\", fadI, fadJ \"fatty acid oxidation complex subuni\u2026\", sixA. named 85-97% (mean 93%), fewest named at column 6 (sixA), named 85%; most hesitant at column 2 (fadL), 0.34 bits.\n[S4] 4. columns 7-13 (7 columns) fork: share 30-81%, all S, RGP 68-96%. named 21-75% (mean 58%), fewest named at column 10, named 21%; most hesitant at column 8, 1.20 bits.\n[S4.b8]    a second branch of 4 families through columns 8-11, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-14%, all S; the branch's families: \"fimbria/pilus periplasmic chaperone\", \"fimbrial protein\", \"fimbrial protein\", \"fimbrial protein\"\n[S4.c7]    7: yfcV S 64% \"fimbrial protein\"; also \"fimbrial protein\" S 12%\n[S4.c8]    8: yfcU S 81% \"fimbrial usher protein YfcU\"\n[S4.c9]    9: yfcS S 79% \"fimbria/pilus periplasmic chaperone\"\n[S4.c10]    10: yfcR S 32% \"fimbrial protein\"; also \"fimbrial protein\" S 16%\n[S4.c11]    11: yfcQ S 52% \"fimbrial protein\"; also yfcQ (another family) S 14%\n[S4.c12]    12: yfcP S 50% \"fimbrial protein\"; also \"fimbrial protein\" S 12%\n[S4.c13]    13: yfcO S 30% \"fimbrial adhesin YfcO\"; also \"StfH/YfcO family fimbrial adhesin\" S 14%\n[S5] 5. columns 14-34 (21 columns) spine: share 90-94%, all P, RGP 1-15%. Genes: smrB, prmB, aroC, mepA, yfcA \"sulfite exporter TauE/SafE family p\u2026\", epmC, yfcL \"YfcL family protein\", mnmC, fabB, yfcJ \"MFS transporter\", flk, pdxB, usg, truA, dedA, accD, folC, dedD, cvpA, purF, ubiX. named 85-99% (mean 97%), fewest named at column 34 (ubiX), named 85%; most hesitant at column 14 (smrB), 0.29 bits.\n[S6] 6. columns 35-79 (45 columns) fork and variable columns: share 26-90%, 43 P, 2 S, RGP 1-29%. named 66-99% (mean 93%), fewest named at column 36, named 66%; most hesitant at column 70, 0.92 bits.\n[S6.b74]    a second branch of 3 families through columns 74-76, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 36-49%, all S; the branch's families: yfbL, yfbK, elaD\n[S6.c35-69]    columns 35-69 variable, share 77-90%, 34 P, 1 S: argT 89%, hisJ 89%, hisQ \"histidine ABC transporter permease\u2026\" 89%, hisM 89%, hisP 89%, rpnB 77%, yfcH \"TIGR01777 family oxidoreductase\" 89%, folX 89%, yfcG \"GSH-dependent disulfide bond oxidor\u2026\" 88%, yfcF \"glutathione transferase\" 89%, yfcE \"phosphodiesterase\" 90%, yfcD \"NUDIX hydrolase YfcD\" 90%, yfcC \"putative basic amino acid antiporte\u2026\" 89%, pta 89%, ackA 89%, yfbV \"terminus macrodomain insulation pro\u2026\" 89%, yfbU \"YfbU family protein\" 89%, hxpA 89%, yfbS \"SLC13 family permease\" 89%, yfbR \"5'-deoxynucleotidase\" 89%, alaA 89%, lrhA 88%, nuoA 89%, nuoB 89%, nuoC 89%, nuoE 89%, nuoF 89%, nuoG 89%, nuoH 88%, nuoI 88%, nuoJ \"NADH-quinone oxidoreductase subunit\u2026\" 88%, nuoK 88%, nuoL 88%, nuoM 88%, nuoN 88%\n[S6.c70]    70 fork: yfbM P 83% \"YfbM family protein\"; also yfbP S 26%\n[S6.c71]    71 fork: yfbO S 26% \"protein YfbO\"; also \"IS1 family transposase\" S 21%\n[S6.c72]    72 fork: rbn P 87%; also yfbN S 23%\n[S6.c73]    73 variable: elaA P 86%\n[S6.c74]    74 fork: elaB P 83% \"stress response protein ElaB\"\n[S6.c75]    75 fork: menF P 73%\n[S6.c76]    76 fork: menD P 62%\n[S6.c77]    77 variable: menH P 57% \"2-succinyl-6-hydroxy-2, 4-cyclohexa\u2026\"\n[S6.c78]    78 variable: menB P 50%\n[S6.c79]    79 fork: menC P 41%; also menE P 27%, pmrD P 12%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 7-13 (yfcV to yfcO) [S4]: fimbrial; the branch [S4.b8] through columns 8-11: fimbrial; columns 36-39 (hisJ to hisP) [S6]: transporter, histidine, permease; columns 57-69 (nuoA to nuoN) [S6]: nadh, nadh-quinone, oxidoreductase, quinone; columns 75-79 (menF to menC) [S6]: synthase, hydroxy, succinyl.\n[X] PRODUCTS of named genes (for [[ ]]): fadI acetyl-CoA C-acyltransferase FadI; hisJ histidine ABC transporter substrate-bin\u2026; hisM ABC transporter permease; hisP histidine ABC transporter ATP-binding p\u2026; nuoA NADH-quinone oxidoreductase subunit NuoA; nuoB NADH-quinone oxidoreductase subunit NuoB; nuoC NADH-quinone oxidoreductase subunit C/D; nuoE NADH-quinone oxidoreductase subunit NuoE; nuoF NADH-quinone oxidoreductase subunit NuoF; nuoG NADH-quinone oxidoreductase subunit NuoG; nuoH NADH-quinone oxidoreductase subunit NuoH; nuoI NADH-quinone oxidoreductase subunit NuoI; nuoK NADH-quinone oxidoreductase subunit NuoK; nuoL NADH-quinone oxidoreductase subunit L; nuoM NADH-quinone oxidoreductase subunit M; nuoN NADH-quinone oxidoreductase subunit NuoN; elaA GNAT family N-acetyltransferase; elaB stress response protein ElaB; menF isochorismate synthase MenF; menD 2-succinyl-5-enolpyruvyl-6-hydroxy-3- c\u2026; menH 2-succinyl-6-hydroxy-2, 4-cyclohexadien\u2026; menB 1,4-dihydroxy-2-naphthoyl-CoA synthase; menC o-succinylbenzoate synthase; yfcQ fimbrial protein; yfbP tetratricopeptide repeat protein YfbP; yfbL M28 family metallopeptidase; elaD deubiquitinase ElaD; menE o-succinylbenzoate--CoA ligase; pmrD signal transduction protein PmrD\n[E] END: the window ends at column 79, menC, in 41% of chromosomes."
 }

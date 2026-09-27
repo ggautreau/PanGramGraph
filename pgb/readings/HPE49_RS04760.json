@@ -2,55 +2,202 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447830.748784,
+ "created": 1790479527.4729607,
  "usage": {
-  "prompt_tokens": 3803,
-  "completion_tokens": 577,
-  "cost_usd": 0.000618,
-  "ms": 6554
+  "prompt_tokens": 5917,
+  "completion_tokens": 421,
+  "cost_usd": 0.000658,
+  "ms": 2871
  },
  "attempts": [
   {
-   "text": "**The window starts on `fruA`.** Column 0 is a spine column, carried by 100% of chromosomes, in a region of plasticity in 0% of calls, and the model names `fruA` in 99.6% of them at 0.08 bits. Columns 1 to 2 are variable, and column 1 is where the model names fewest genes in this stretch, 56%, at 0.46 bits.\n\n**A run of spine columns follows.** Columns 7 to 11, `yeiI` to `lysP`, are carried by 92 to 94% of chromosomes, in a region of plasticity in 1% of calls; the model names 61 to 99% of genes there, fewest at `yeiI`, and no column hesitates more than 0.19 bits. Columns 13 to 27, `yeiG` to `dusC`, are named in 84 to 99% of calls, fewest at `dusC`, 0.47 bits.\n\n**The first fork is at columns 28 to 30**, in a region of plasticity in 10% of calls, where the model names 89 to 95% of genes and hesitates most at column 28, 0.85 bits. A second branch of 3 families runs through these columns, `mhbT`, `gtdA` and a fumarylacetoacetate hydrolase family protein, carried by 10% of chromosomes. Columns 31 to 41, `yohD` to `mlrA`, are spine columns named in 96 to 98% of calls.\n\n**The long fork and variable stretch runs from column 42 to 79**, in a region of plasticity in 5 to 78% of calls, named in 56 to 97%, fewest at column 48 and most hesitant at column 56, 0.85 bits. Columns 42 to 50 carry `btsS` to `yehK`, [[two-component signal sensing]], and columns 53 to 69 carry `apbC` to `fbaB`, among them the `yeh` fimbrial genes and the `rcn` and `thi` genes. A second branch of 7 families runs through columns 70 to 76, the `gat` genes, [[galactitol transport and breakdown]], carried by 10 to 11% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%. Across the whole window it names 91% of genes at 0.39 bits on average.",
+   "text": "**The window opens on the anchor.** Column 0, `fruA`, is a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99.6% of them, at 0.08 bits.\n\n**A short variable stretch follows**, columns 1 to 2, `psuK` to `psuG`, carried by 89 to 90%, [[pseudouridine metabolism]]. Then a spine, columns 7 to 11, `yeiI` to `lysP`, carried by 92 to 94%, fewest named at column 7, 61%. Through columns 28 to 30 a branch of 3 shell families runs in 10%, and through columns 70 to 76 a branch of 7 shell families runs in 10 to 11%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 87%, and hesitates less there, 0.19 against 0.54 bits.\n\n**The window ends in fork and variable columns.** Columns 42 to 79 are carried by 41 to 88%, in a region of plasticity in 5 to 78% of calls. The last column is `yegQ`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.39 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3803,
-    "completion_tokens": 577,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5917,
+    "completion_tokens": 421,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000618
+    "cost_usd": 0.000658
    },
    "provider": "deepinfra",
-   "ms": 6554,
-   "raw": "**The window starts on `fruA`.** Column 0 is a spine column, carried by 100% of chromosomes, in a region of plasticity in 0% of calls, and the model names `fruA` in 99.6% of them at 0.08 bits. Columns 1 to 2 are variable, and column 1 is where the model names fewest genes in this stretch, 56%, at 0.46 bits.\n\n**A run of spine columns follows.** Columns 7 to 11, `yeiI` to `lysP`, are carried by 92 to 94% of chromosomes, in a region of plasticity in 1% of calls; the model names 61 to 99% of genes there, fewest at `yeiI`, and no column hesitates more than 0.19 bits. Columns 13 to 27, `yeiG` to `dusC`, are named in 84 to 99% of calls, fewest at `dusC`, 0.47 bits.\n\n**The first fork is at columns 28 to 30**, in a region of plasticity in 10% of calls, where the model names 89 to 95% of genes and hesitates most at column 28, 0.85 bits. A second branch of 3 families runs through these columns, `mhbT`, `gtdA` and a fumarylacetoacetate hydrolase family protein, carried by 10% of chromosomes. Columns 31 to 41, `yohD` to `mlrA`, are spine columns named in 96 to 98% of calls.\n\n**The long fork and variable stretch runs from column 42 to 79**, in a region of plasticity in 5 to 78% of calls, named in 56 to 97%, fewest at column 48 and most hesitant at column 56, 0.85 bits. Columns 42 to 50 carry `btsS` to `yehK`, [[two-component signal sensing]], and columns 53 to 69 carry `apbC` to `fbaB`, among them the `yeh` fimbrial genes and the `rcn` and `thi` genes. A second branch of 7 families runs through columns 70 to 76, the `gat` genes, [[galactitol transport and breakdown]], carried by 10 to 11% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%. Across the whole window it names 91% of genes at 0.39 bits on average.",
+   "ms": 2871,
+   "raw": "@start **The window opens on the anchor.** Column 0, `fruA`, is a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99.6% of them, at 0.08 bits {S1}.\n\n@variable **A short variable stretch follows**, columns 1 to 2, `psuK` to `psuG`, carried by 89 to 90%, [[pseudouridine metabolism]] {S2, Q}. Then a spine, columns 7 to 11, `yeiI` to `lysP`, carried by 92 to 94%, fewest named at column 7, 61% {S7}. Through columns 28 to 30 a branch of 3 shell families runs in 10%, and through columns 70 to 76 a branch of 7 shell families runs in 10 to 11% {S10.b28, S12.b70}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 87%, and hesitates less there, 0.19 against 0.54 bits {M}. Its most hesitant column, 28, `yohP`, is a fork column, at 0.85 bits {H, M}.\n\n@end **The window ends in fork and variable columns.** Columns 42 to 79 are carried by 41 to 88%, in a region of plasticity in 5 to 78% of calls {S12}. The last column is `yegQ`, in 41% of chromosomes {E}.\n\n@whole **Across the window it names 91% of genes**, 0.39 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 0.95 against 0.22 bits, and names fewer genes, 75% against 96% {C}.",
+   "annotated": "@start **The window opens on the anchor.** Column 0, `fruA`, is a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99.6% of them, at 0.08 bits {S1}.\n\n@variable **A short variable stretch follows**, columns 1 to 2, `psuK` to `psuG`, carried by 89 to 90%, [[pseudouridine metabolism]] {S2, Q}. Then a spine, columns 7 to 11, `yeiI` to `lysP`, carried by 92 to 94%, fewest named at column 7, 61% {S7}. Through columns 28 to 30 a branch of 3 shell families runs in 10%, and through columns 70 to 76 a branch of 7 shell families runs in 10 to 11% {S10.b28, S12.b70}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 87%, and hesitates less there, 0.19 against 0.54 bits {M}. Its most hesitant column, 28, `yohP`, is a fork column, at 0.85 bits {H, M}.\n\n@end **The window ends in fork and variable columns.** Columns 42 to 79 are carried by 41 to 88%, in a region of plasticity in 5 to 78% of calls {S12}. The last column is `yegQ`, in 41% of chromosomes {E}.\n\n@whole **Across the window it names 91% of genes**, 0.39 bits on average, perplexity 1.5 families {G}. Inside a region of plasticity it hesitates more than outside, 0.95 against 0.22 bits, and names fewer genes, 75% against 96% {C}.",
    "check": {
     "ok": true,
-    "numbers": 61,
-    "names": 20,
-    "words": 339,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": [
-     {
-      "text": "signal",
-      "where": "[[two-component signal sensing]]"
-     }
-    ]
+    "numbers": 29,
+    "names": 7,
+    "words": 222,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 1,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 209,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on the anchor.** Column 0, `fruA`, is a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99.6% of them, at 0.08 bits",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A short variable stretch follows**, columns 1 to 2, `psuK` to `psuG`, carried by 89 to 90%, [[pseudouridine metabolism]]",
+      "cites": [
+       "S2",
+       "Q"
+      ],
+      "inherit": [
+       "S7",
+       "S10.b28",
+       "S12.b70"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then a spine, columns 7 to 11, `yeiI` to `lysP`, carried by 92 to 94%, fewest named at column 7, 61%",
+      "cites": [
+       "S7"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Through columns 28 to 30 a branch of 3 shell families runs in 10%, and through columns 70 to 76 a branch of 7 shell families runs in 10 to 11%",
+      "cites": [
+       "S10.b28",
+       "S12.b70"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 87%, and hesitates less there, 0.19 against 0.54 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in fork and variable columns.** Columns 42 to 79 are carried by 41 to 88%, in a region of plasticity in 5 to 78% of calls",
+      "cites": [
+       "S12"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `yegQ`, in 41% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 91% of genes**, 0.39 bits on average, perplexity 1.5 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 49
+   },
+   "dropped": [],
+   "served": "**The window opens on the anchor.** Column 0, `fruA`, is a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99.6% of them, at 0.08 bits.\n\n**A short variable stretch follows**, columns 1 to 2, `psuK` to `psuG`, carried by 89 to 90%, [[pseudouridine metabolism]]. Then a spine, columns 7 to 11, `yeiI` to `lysP`, carried by 92 to 94%, fewest named at column 7, 61%. Through columns 28 to 30 a branch of 3 shell families runs in 10%, and through columns 70 to 76 a branch of 7 shell families runs in 10 to 11%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 87%, and hesitates less there, 0.19 against 0.54 bits.\n\n**The window ends in fork and variable columns.** Columns 42 to 79 are carried by 41 to 88%, in a region of plasticity in 5 to 78% of calls. The last column is `yegQ`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.39 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 61,
-  "names": 20,
-  "words": 339,
-  "attempts": 1
+  "numbers": 29,
+  "names": 7,
+  "words": 209,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 1,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 49
  },
- "text": "**The window starts on `fruA`.** Column 0 is a spine column, carried by 100% of chromosomes, in a region of plasticity in 0% of calls, and the model names `fruA` in 99.6% of them at 0.08 bits. Columns 1 to 2 are variable, and column 1 is where the model names fewest genes in this stretch, 56%, at 0.46 bits.\n\n**A run of spine columns follows.** Columns 7 to 11, `yeiI` to `lysP`, are carried by 92 to 94% of chromosomes, in a region of plasticity in 1% of calls; the model names 61 to 99% of genes there, fewest at `yeiI`, and no column hesitates more than 0.19 bits. Columns 13 to 27, `yeiG` to `dusC`, are named in 84 to 99% of calls, fewest at `dusC`, 0.47 bits.\n\n**The first fork is at columns 28 to 30**, in a region of plasticity in 10% of calls, where the model names 89 to 95% of genes and hesitates most at column 28, 0.85 bits. A second branch of 3 families runs through these columns, `mhbT`, `gtdA` and a fumarylacetoacetate hydrolase family protein, carried by 10% of chromosomes. Columns 31 to 41, `yohD` to `mlrA`, are spine columns named in 96 to 98% of calls.\n\n**The long fork and variable stretch runs from column 42 to 79**, in a region of plasticity in 5 to 78% of calls, named in 56 to 97%, fewest at column 48 and most hesitant at column 56, 0.85 bits. Columns 42 to 50 carry `btsS` to `yehK`, [[two-component signal sensing]], and columns 53 to 69 carry `apbC` to `fbaB`, among them the `yeh` fimbrial genes and the `rcn` and `thi` genes. A second branch of 7 families runs through columns 70 to 76, the `gat` genes, [[galactitol transport and breakdown]], carried by 10 to 11% of chromosomes.\n\n**Inside a region of plasticity the model hesitates more than outside**, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%. Across the whole window it names 91% of genes at 0.39 bits on average.",
- "html": "<p class=\"note\"><b>The window starts on <span class=\"gene\">fruA</span>.</b> Column 0 is a spine column, carried by 100% of chromosomes, in a region of plasticity in 0% of calls, and the model names <span class=\"gene\">fruA</span> in 99.6% of them at 0.08 bits. Columns 1 to 2 are variable, and column 1 is where the model names fewest genes in this stretch, 56%, at 0.46 bits.</p><p class=\"note\"><b>A run of spine columns follows.</b> Columns 7 to 11, <span class=\"gene\">yeiI</span> to <span class=\"gene\">lysP</span>, are carried by 92 to 94% of chromosomes, in a region of plasticity in 1% of calls; the model names 61 to 99% of genes there, fewest at <span class=\"gene\">yeiI</span>, and no column hesitates more than 0.19 bits. Columns 13 to 27, <span class=\"gene\">yeiG</span> to <span class=\"gene\">dusC</span>, are named in 84 to 99% of calls, fewest at <span class=\"gene\">dusC</span>, 0.47 bits.</p><p class=\"note\"><b>The first fork is at columns 28 to 30</b>, in a region of plasticity in 10% of calls, where the model names 89 to 95% of genes and hesitates most at column 28, 0.85 bits. A second branch of 3 families runs through these columns, <span class=\"gene\">mhbT</span>, <span class=\"gene\">gtdA</span> and a fumarylacetoacetate hydrolase family protein, carried by 10% of chromosomes. Columns 31 to 41, <span class=\"gene\">yohD</span> to <span class=\"gene\">mlrA</span>, are spine columns named in 96 to 98% of calls.</p><p class=\"note\"><b>The long fork and variable stretch runs from column 42 to 79</b>, in a region of plasticity in 5 to 78% of calls, named in 56 to 97%, fewest at column 48 and most hesitant at column 56, 0.85 bits. Columns 42 to 50 carry <span class=\"gene\">btsS</span> to <span class=\"gene\">yehK</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">two-component signal sensing</span>, and columns 53 to 69 carry <span class=\"gene\">apbC</span> to <span class=\"gene\">fbaB</span>, among them the <span class=\"gene\">yeh</span> fimbrial genes and the <span class=\"gene\">rcn</span> and <span class=\"gene\">thi</span> genes. A second branch of 7 families runs through columns 70 to 76, the <span class=\"gene\">gat</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">galactitol transport and breakdown</span>, carried by 10 to 11% of chromosomes.</p><p class=\"note\"><b>Inside a region of plasticity the model hesitates more than outside</b>, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%. Across the whole window it names 91% of genes at 0.39 bits on average.</p>",
+ "text": "**The window opens on the anchor.** Column 0, `fruA`, is a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99.6% of them, at 0.08 bits.\n\n**A short variable stretch follows**, columns 1 to 2, `psuK` to `psuG`, carried by 89 to 90%, [[pseudouridine metabolism]]. Then a spine, columns 7 to 11, `yeiI` to `lysP`, carried by 92 to 94%, fewest named at column 7, 61%. Through columns 28 to 30 a branch of 3 shell families runs in 10%, and through columns 70 to 76 a branch of 7 shell families runs in 10 to 11%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 87%, and hesitates less there, 0.19 against 0.54 bits.\n\n**The window ends in fork and variable columns.** Columns 42 to 79 are carried by 41 to 88%, in a region of plasticity in 5 to 78% of calls. The last column is `yegQ`, in 41% of chromosomes.\n\n**Across the window it names 91% of genes**, 0.39 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on the anchor.</b> Column 0, <span class=\"gene\">fruA</span>, is a spine column carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99.6% of them, at 0.08 bits.</p><p class=\"note\"><b>A short variable stretch follows</b>, columns 1 to 2, <span class=\"gene\">psuK</span> to <span class=\"gene\">psuG</span>, carried by 89 to 90%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">pseudouridine metabolism</span>. Then a spine, columns 7 to 11, <span class=\"gene\">yeiI</span> to <span class=\"gene\">lysP</span>, carried by 92 to 94%, fewest named at column 7, 61%. Through columns 28 to 30 a branch of 3 shell families runs in 10%, and through columns 70 to 76 a branch of 7 shell families runs in 10 to 11%.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 96 against 87%, and hesitates less there, 0.19 against 0.54 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 42 to 79 are carried by 41 to 88%, in a region of plasticity in 5 to 78% of calls. The last column is <span class=\"gene\">yegQ</span>, in 41% of chromosomes.</p><p class=\"note\"><b>Across the window it names 91% of genes</b>, 0.39 bits on average, perplexity 1.5 families. Inside a region of plasticity it hesitates more than outside, 0.95 against 0.22 bits, and names fewer genes, 75% against 96%.</p>",
  "window": "HPE49_RS04760",
  "label": "fruA",
- "facts_hash": "9049dfa1f7da",
- "prompt_version": "r7",
- "facts": "WINDOW: the fruA window: 80 columns, column 0 is the anchor fruA, then the next 79 genes in dnaA's direction; about genes 1,543 to 1,622 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying fruA once); 43,120 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 91% of genes, 0.39 bits on average (perplexity 1.5 families). By partition of the gene: persistent 32,236 calls, named 97%, 0.20 bits; shell 10,389 calls, named 76%, 0.81 bits; cloud 495 calls, named 22%, 4.12 bits. Outside an RGP 33,182 calls, named 96%, 0.22 bits; inside an RGP 9,938 calls, named 75%, 0.95 bits. Columns: 34 spine, 14 fork, 32 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.95 against 0.22 bits) and names fewer genes (75% against 96%); 9,938 of the 43,120 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 28 (yohP) 0.85 bits, RGP 10%; column 56 (yehC) 0.85 bits, RGP 71%; column 57 (yehB) 0.82 bits, RGP 71%. The 17 columns where most calls are in an RGP: named 83%, 0.65 bits on average; the other 63 columns: named 93%, 0.32 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 42-79 (fork and variable columns), RGP 5-78%; the least: column 0 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0%. Genes: fruA. named 99.6%; 0.08 bits.\n2. columns 1-2 (2 columns) variable: RGP 0.2%. named 56-94% (mean 75%), fewest named and most hesitant at column 1, named 56%, 0.46 bits.\n   1: psuK P 89%\n   2: psuG P 90% \"pseudouridine-5'-phosphate glycosid\u2026\"\n3. column 3 spine: share 94%, all P, RGP 1%. Genes: psuT. named 97%; 0.16 bits.\n4. column 4 variable: RGP 1%. named 96%; 0.28 bits.\n   4: yeiL P 89% \"transcriptional regulator YeiL\"\n5. column 5 spine: share 91%, all P, RGP 1%. Genes: rihB. named 96%; 0.15 bits.\n6. column 6 variable: RGP 1%. named 89%; 0.21 bits.\n   6: yeiQ P 6% \"NAD-dependent D-mannonate oxidoredu\u2026\"\n7. columns 7-11 (5 columns) spine: share 92-94%, all P, RGP 1%. Genes: yeiI \"PfkB family carbohydrate kinase\", nfo, yeiH \"putative sulfate exporter family tr\u2026\", yieE \"LysR family transcriptional regulat\u2026\", lysP. named 61-99% (mean 91%), fewest named at column 7 (yeiI), named 61%; no column of this stretch hesitates more than 0.19 bits (column 11 (lysP)).\n8. column 12 variable: RGP 5%. named 92%; 0.64 bits.\n   12: cirA S 85%\n9. columns 13-27 (15 columns) spine: share 92-94%, all P, RGP 0.2-9%. Genes: yeiG \"alpha/beta hydrolase-fold protein\", folE, yeiB \"DUF418 domain-containing protein Ye\u2026\", galS, mglB, mglA, mglC \"ABC transporter permease subunit\", preA \"4Fe-4S binding protein\", preT, yeiS \"DUF2542 family protein\", sanA, cdd, yohK \"LrgB family protein\", yohJ \"CidA/LrgA family protein\", dusC. named 84-99% (mean 97%), fewest named and most hesitant at column 27 (dusC), named 84%, 0.47 bits.\n10. columns 28-30 (3 columns) fork: RGP 10%. named 89-95% (mean 92%), fewest named and most hesitant at column 28, named 89%, 0.85 bits.\n   a second branch of 3 families through columns 28-30, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all S; the branch's families: mhbT, gtdA, \"fumarylacetoacetate hydrolase family pr\u2026\"\n   28: yohP P 89% \"small membrane protein YohP\"\n   29: mdtQ P 87%; also \"IS1-like element transposase\" S 32%\n   30: yohF P 90% \"SDR family oxidoreductase\"\n11. columns 31-41 (11 columns) spine: share 90-91%, all P, RGP 2-12%. Genes: yohD \"DedA family protein\", yohC \"Yip1 family protein\", pbpG, dld, bglX, osmF, yehY \"ABC transporter permease\", yehX \"glycine betaine ABC transporter ATP\u2026\", yehW \"glycine betaine ABC transporter per\u2026\", yohO \"protein YohO\", mlrA. named 96-98% (mean 97%), fewest named at column 31 (yohD), named 96%; most hesitant at column 41 (mlrA), 0.33 bits.\n12. columns 42-79 (38 columns) fork and variable columns: RGP 5-78%. named 56-97% (mean 86%), fewest named at column 48, named 56%; most hesitant at column 56, 0.85 bits.\n   a second branch of 7 families through columns 70-76, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-11%, all S; the branch's families: \"MFS transporter\", \"FGGY family pentulose kinase\", \"SDR family oxidoreductase\", \"LacI family DNA-binding transcriptional\u2026\", \"helix-turn-helix domain-containing prot\u2026\", dalD, xylB\n   columns 42-50 variable, share 73-88%, 5 S, 4 P: btsS \"two-component regulatory system sen\u2026\" 88%, btsR 88%, yehS \"DUF1456 family protein\" 87%, yehR \"DUF1307 domain-containing protein\" 86%, yehQ \"SWIM zinc finger family protein\" 79%, yehP 82%, yehM \"DUF5682 family protein\" 73%, yehL \"ATP-binding protein\" 77%, yehK 75%\n   51 fork: yehI S 68% \"DUF4132 domain-containing protein\"; also \"WGR and DUF4132 domain-containing prote\u2026\" S 16%\n   52 fork: metG P 87%; also \"WGR domain-containing protein\" S 52%\n   columns 53-69 variable, share 69-87%, 13 P, 4 S: apbC 87%, yehE \"DUF2574 family protein\" 85%, yehD 79%, yehC \"fimbrial protein\" 78%, yehB \"fimbria/pilus outer membrane usher\u2026\" 74%, yehA \"fimbrial protein\" 69%, rcnB 86%, rcnA \"nickel/cobalt efflux protein RcnA\" 84%, rcnR 86%, thiM 85%, thiD \"bifunctional hydroxymethylpyrimidin\u2026\" 85%, yegX \"GH25 family lysozyme\" 79%, yegW \"UTRA domain-containing protein\" 83%, yegV \"PfkB family carbohydrate kinase\" 83%, yegU \"ADP-ribosylglycohydrolase family pr\u2026\" 83%, yegT \"MFS transporter\" 81%, fbaB 81%\n   70 fork: gatY S 68%\n   71 fork: gatZ S 60%\n   72 fork: gatA S 61% \"PTS sugar transporter subunit IIA\"\n   73 fork: gatB S 60%\n   74 fork: gatB S 56%\n   75 fork: gatD S 59%\n   76 fork: \"transcriptional repressor GatR of galac\u2026\" S 60%\n   77 variable: yegS P 68% \"YegS/Rv2252/BmrU family lipid kinase\"\n   78 fork: yegR P 60% \"protein YegR\"; also \"HAD family hydrolase\" S 10%\n   79 fork: yegQ P 41% \"U32 family peptidase\"; also yegP P 19%, baeR P 11%\nPRODUCTS of named genes (for [[ ]]): psuG pseudouridine-5'-phosphate glycosidase; psuT nucleoside transporter C-terminal domai\u2026; mglB substrate-binding domain-containing pro\u2026; mglA ATP-binding cassette domain-containing\u2026; preT FAD-dependent oxidoreductase; btsR two-component system response regulator\u2026; rcnB Ni(II)/Co(II) efflux transporter access\u2026; rcnR Ni(II)/Co(II)-binding transcriptional r\u2026; thiM hydroxyethylthiazole kinase; gatZ class II D-tagatose-bisphosphate aldola\u2026; gatA PTS sugar transporter subunit IIA; gatB PTS galactitol transporter subunit IIB; mhbT MFS transporter; gtdA gentisate 1,2-dioxygenase; maiA maleylacetoacetate isomerase; dalD D-arabinitol 4-dehydrogenase; xylB FGGY family carbohydrate kinase; baeR two-component system response regulator\u2026\nEND: the window ends at column 79, yegQ, in 41% of chromosomes."
+ "facts_hash": "54ba4fc79f03",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the fruA window: 80 columns, column 0 is the anchor fruA, then the next 79 genes in dnaA's direction; about genes 1,543 to 1,622 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying fruA once); 43,120 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 91% of genes, 0.39 bits on average (perplexity 1.5 families). By partition of the gene: persistent 32,236 calls, named 97%, 0.20 bits; shell 10,389 calls, named 76%, 0.81 bits; cloud 495 calls, named 22%, 4.12 bits. Outside an RGP 33,182 calls, named 96%, 0.22 bits; inside an RGP 9,938 calls, named 75%, 0.95 bits. Columns: 34 spine, 14 fork, 32 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.95 against 0.22 bits) and names fewer genes (75% against 96%); 9,938 of the 43,120 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 28 (yohP, a fork column) 0.85 bits, RGP 10%; column 56 (yehC, a variable column) 0.85 bits, RGP 71%; column 57 (yehB, a variable column) 0.82 bits, RGP 71%. The 17 columns (columns 46-51, 55-58 and 70-76) where most calls are in an RGP: named 83%, 0.65 bits on average; the other 63 columns: named 93%, 0.32 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 34 spine columns: named 96%, 0.19 bits on average; the 46 fork and variable columns: named 87%, 0.54 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 28, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 42-79 (fork and variable columns), RGP 5-78%; the least: column 0 (spine), RGP 0%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0%. Genes: fruA. named 99.6%; 0.08 bits.\n[S2] 2. columns 1-2 (2 columns) variable: share 89-90%, all P, RGP 0.2%. named 56-94% (mean 75%), fewest named and most hesitant at column 1, named 56%, 0.46 bits.\n[S2.c1]    1: psuK P 89%\n[S2.c2]    2: psuG P 90% \"pseudouridine-5'-phosphate glycosid\u2026\"\n[S3] 3. column 3 spine: share 94%, all P, RGP 1%. Genes: psuT. named 97%; 0.16 bits.\n[S4] 4. column 4 variable: share 89%, all P, RGP 1%. named 96%; 0.28 bits.\n[S4.c4]    4: yeiL P 89% \"transcriptional regulator YeiL\"\n[S5] 5. column 5 spine: share 91%, all P, RGP 1%. Genes: rihB. named 96%; 0.15 bits.\n[S6] 6. column 6 variable: share 6%, all P, RGP 1%. named 89%; 0.21 bits.\n[S6.c6]    6: yeiQ P 6% \"mannitol dehydrogenase family prote\u2026\"\n[S7] 7. columns 7-11 (5 columns) spine: share 92-94%, all P, RGP 1%. Genes: yeiI \"sugar kinase\", nfo, yeiH \"YeiH family protein\", yieE \"DNA-binding transcriptional regulat\u2026\", lysP. named 61-99% (mean 91%), fewest named at column 7 (yeiI), named 61%; no column of this stretch hesitates more than 0.19 bits (column 11 (lysP)).\n[S8] 8. column 12 variable: share 85%, all S, RGP 5%. named 92%; 0.64 bits.\n[S8.c12]    12: cirA S 85%\n[S9] 9. columns 13-27 (15 columns) spine: share 92-94%, all P, RGP 0.2-9%. Genes: yeiG \"S-formylglutathione hydrolase\", folE, yeiB \"DUF418 domain-containing protein Ye\u2026\", galS, mglB, mglA, mglC \"galactose/methyl galactoside ABC tr\u2026\", preA \"NAD-dependent dihydropyrimidine deh\u2026\", preT, yeiS \"DUF2542 family protein\", sanA, cdd, yohK \"CidB/LrgB family autolysis modulator\", yohJ \"CidA/LrgA family protein\", dusC. named 84-99% (mean 97%), fewest named and most hesitant at column 27 (dusC), named 84%, 0.47 bits.\n[S10] 10. columns 28-30 (3 columns) fork: share 87-90%, all P, RGP 10%. named 89-95% (mean 92%), fewest named and most hesitant at column 28, named 89%, 0.85 bits.\n[S10.b28]    a second branch of 3 families through columns 28-30, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10%, all S; the branch's families: mhbT, gtdA, \"fumarylacetoacetate hydrolase family pr\u2026\"\n[S10.c28]    28: yohP P 89% \"small membrane protein YohP\"\n[S10.c29]    29: mdtQ P 87%; also \"IS1 family transposase\" S 32%\n[S10.c30]    30: yohF P 90% \"SDR family oxidoreductase\"\n[S11] 11. columns 31-41 (11 columns) spine: share 90-91%, all P, RGP 2-12%. Genes: yohD \"DedA family protein\", yohC \"Yip1 family protein\", pbpG, dld, bglX, osmF, yehY \"glycine betaine ABC transporter per\u2026\", yehX \"glycine betaine ABC transporter ATP\u2026\", yehW \"glycine betaine ABC transporter per\u2026\", yohO \"protein YohO\", mlrA. named 96-98% (mean 97%), fewest named at column 31 (yohD), named 96%; most hesitant at column 41 (mlrA), 0.33 bits.\n[S12] 12. columns 42-79 (38 columns) fork and variable columns: share 41-88%, 21 P, 17 S, RGP 5-78%. named 56-97% (mean 86%), fewest named at column 48, named 56%; most hesitant at column 56, 0.85 bits.\n[S12.b70]    a second branch of 7 families through columns 70-76, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-11%, all S; the branch's families: \"RbtT/DalT/CsbX family MFS transporter\", \"FGGY family pentulose kinase\", \"SDR family oxidoreductase\", \"LacI family DNA-binding transcriptional\u2026\", \"sugar-binding transcriptional regulator\", dalD, xylB\n[S12.c42-50]    columns 42-50 variable, share 73-88%, 5 S, 4 P: btsS \"two-component regulatory system sen\u2026\" 88%, btsR 88%, yehS \"DUF1456 family protein\" 87%, yehR \"YehR family lipoprotein\" 86%, yehQ \"SWIM zinc finger family protein\" 79%, yehP \"vWA domain-containing protein\" 82%, yehM \"DUF5682 family protein\" 73%, yehL \"ATP-binding protein\" 77%, yehK \"protein YehK\" 75%\n[S12.c51]    51 fork: yehI S 68% \"DUF4132 domain-containing protein Y\u2026\"; also \"DUF4132 domain-containing protein\" S 16%\n[S12.c52]    52 fork: metG P 87%; also \"DUF4132 domain-containing protein\" S 52%\n[S12.c53-69]    columns 53-69 variable, share 69-87%, 13 P, 4 S: apbC 87%, yehE \"YehE family protein\" 85%, yehD \"fimbrial protein\" 79%, yehC \"fimbria/pilus periplasmic chaperone\" 78%, yehB \"fimbrial biogenesis outer membrane\u2026\" 74%, yehA \"putative fimbrial-like adhesin prot\u2026\" 69%, rcnB 86%, rcnA \"nickel/cobalt efflux protein RcnA\" 84%, rcnR 86%, thiM 85%, thiD \"bifunctional hydroxymethylpyrimidin\u2026\" 85%, yegX \"glycoside hydrolase family 25 prote\u2026\" 79%, yegW \"GntR family transcriptional regulat\u2026\" 83%, yegV \"carbohydrate kinase family protein\" 83%, yegU \"ADP-ribosylglycohydrolase family pr\u2026\" 83%, yegT \"nucleoside permease\" 81%, fbaB 81%\n[S12.c70]    70 fork: gatY S 68%\n[S12.c71]    71 fork: gatZ S 60%\n[S12.c72]    72 fork: gatA S 61% \"PTS galactitol transporter subunit\u2026\"\n[S12.c73]    73 fork: gatB S 60%\n[S12.c74]    74 fork: gatB S 56%\n[S12.c75]    75 fork: gatD S 59%\n[S12.c76]    76 fork: \"DeoR/GlpR family DNA-binding transcript\u2026\" S 60%\n[S12.c77]    77 variable: yegS P 68% \"lipid kinase YegS\"\n[S12.c78]    78 fork: yegR P 60% \"protein YegR\"; also \"HAD family hydrolase\" S 10%\n[S12.c79]    79 fork: yegQ P 41% \"tRNA 5-hydroxyuridine modification\u2026\"; also yegP P 19%, baeR P 11%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 1-3 (psuK to psuT) [S2, S3]: pseudouridine; columns 17-19 (mglB to mglC) [S9]: galactose, transporter, galactoside, methyl; columns 36-39 (osmF to yehW) [S11]: transporter, betaine, glycine, permease; columns 59-61 (rcnB to rcnR) [S12]: efflux; columns 70-75 (gatY to gatD) [S12]: galactitol, transporter, aldolase, bisphosphate.\n[X] PRODUCTS of named genes (for [[ ]]): psuK pseudouridine kinase; psuG pseudouridine-5'-phosphate glycosidase; psuT NupC/NupG family nucleoside CNT transpo\u2026; mglB galactose/glucose ABC transporter subst\u2026; mglA galactose/methyl galactoside ABC transp\u2026; preT NAD-dependent dihydropyrimidine dehydro\u2026; btsR two-component system response regulator\u2026; rcnB Ni(II)/Co(II) efflux transporter access\u2026; rcnR Ni(II)/Co(II)-binding transcriptional r\u2026; thiM hydroxyethylthiazole kinase; gatY tagatose-bisphosphate aldolase subunit\u2026; gatZ tagatose-bisphosphate aldolase subunit\u2026; gatA PTS galactitol transporter subunit IIA; gatB PTS galactitol transporter subunit IIB; gatD galactitol-1-phosphate 5-dehydrogenase; mhbT 3-hydroxybenzoate transporter MhbT; gtdA gentisate 1,2-dioxygenase; maiA maleylacetoacetate isomerase; dalD D-arabinitol 4-dehydrogenase; xylB xylulokinase; baeR two-component system response regulator\u2026\n[E] END: the window ends at column 79, yegQ, in 41% of chromosomes."
 }

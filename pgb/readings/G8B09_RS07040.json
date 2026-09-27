@@ -2,80 +2,408 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447858.5249104,
+ "created": 1790479545.836936,
  "usage": {
-  "prompt_tokens": 8024,
-  "completion_tokens": 1098,
-  "cost_usd": 0.000855,
-  "ms": 15424
+  "prompt_tokens": 11944,
+  "completion_tokens": 869,
+  "cost_usd": 0.000873,
+  "ms": 6673
  },
  "attempts": [
   {
-   "text": "**The window starts on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.03 bits.\n\n**Then 79 fork and variable columns follow**, in a region of plasticity in 0.2 to 80% of calls. A second branch of 26 families runs through columns 1 to 26, carried by 11% of chromosomes, all persistent: `yobB` to `yecD`, [[carbon and zinc handling]]. The most carried families there are `yobA` to `manX`, persistent, 85 to 89%: `manZ`, `manY` and `manX` form a [[mannose transport system]].\n\n**Columns 27 to 42 are variable**, 76 to 87%, mostly persistent: `yoaL` to `yeaW`, including `pdeD`, `sdaA` and `fadD`. Then `dmlA` and `dmlR` at columns 43 and 44, and `leuE` at 45. Columns 47 to 70 are variable again, 67 to 87%: `yoaG` to `ydjK`, with `gapA` and `msrB` among them.\n\n**The model hesitates most at column 70**, `ydjK`, 0.90 bits, in a region of plasticity in 72% of calls, and names it in 59%. Column 71, `ydjJ`, follows at 0.84 bits, 80%. The 13 columns mostly in a region of plasticity: named 80%, 0.53 bits; the other 67: named 96%, 0.25 bits. Inside a region of plasticity the model hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.\n\n**The window ends in fork and variable columns.** Columns 72 to 76, all shell, 71 to 78%: `ydjI` to `ydjE`. Then `pncA`, `ansA` and `sppA` at columns 77 to 79, persistent, 82%, 74% and 60%; a second branch of 3 families, `selD` to `gdhA`, is carried by 11 to 24%.",
+   "text": "**The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.03 bits.\n\n**The `man` genes**, columns 24 to 26, are [[mannose transport]]. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits.\n\n**The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82%. The last column is `sppA`, in 60% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3709,
-    "completion_tokens": 531,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5595,
+    "completion_tokens": 433,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000586
+    "cost_usd": 0.000618
    },
    "provider": "deepinfra",
-   "ms": 6307,
-   "raw": "**The window starts on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.03 bits.\n\n**Then 79 fork and variable columns follow**, in a region of plasticity in 0.2 to 80% of calls. A second branch of 26 families runs through columns 1 to 26, carried by 11% of chromosomes, all persistent: `yobB` to `yecD`, [[carbon and zinc handling]]. The most carried families there are `yobA` to `manX`, persistent, 85 to 89%: `manZ`, `manY` and `manX` form a [[mannose transport system]].\n\n**Columns 27 to 42 are variable**, 76 to 87%, mostly persistent: `yoaL` to `yeaW`, including `pdeD`, `sdaA` and `fadD`. Then `dmlA` and `dmlR` at columns 43 and 44, and `leuE` at 45. Columns 47 to 70 are variable again, 67 to 87%: `yoaG` to `ydjK`, with `gapA` and `msrB` among them.\n\n**The model hesitates most at column 70**, `ydjK`, 0.90 bits, in a region of plasticity in 72% of calls, and names it in 59%. Column 71, `ydjJ`, follows at 0.84 bits, 80%. The 13 columns mostly in a region of plasticity: named 80%, 0.53 bits; the other 67: named 96%, 0.25 bits. Inside a region of plasticity the model hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.\n\n**The window ends in fork and variable columns.** Columns 72 to 76, all shell, 71 to 78%: `ydjI` to `ydjE`. Then `pncA`, `ansA` and `sppA` at columns 77 to 79, persistent, 82%, 74% and 60%; a second branch of 3 families, `selD` to `gdhA`, is carried by 11 to 24%.",
+   "ms": 3533,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.03 bits {S1, M}.\n\n@variable **A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are carried by 87 to 89%, and a branch of 26 persistent families runs through them in 11% {S2.c1-26, S2.b1}. The `man` genes, columns 24 to 26, are [[mannose transport]] {S2.c24-26, Q}. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24% {S2.c27-70, S2.b77}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits {M}. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits {H, M}.\n\n@end **The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82% {S2.c77-79}. The last column is `sppA`, in 60% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.03 bits {S1, M}.\n\n@variable **A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are carried by 87 to 89%, and a branch of 26 persistent families runs through them in 11% {S2.c1-26, S2.b1}. The `man` genes, columns 24 to 26, are [[mannose transport]] {S2.c24-26, Q}. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24% {S2.c27-70, S2.b77}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits {M}. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits {H, M}.\n\n@end **The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82% {S2.c77-79}. The last column is `sppA`, in 60% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98% {C}.",
    "check": {
     "ok": false,
-    "numbers": 54,
-    "names": 29,
-    "words": 280,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [
      {
-      "kind": "column",
-      "text": "`dmlR` at columns 43",
-      "why": "`dmlR` is at column 44 in the facts",
-      "context": "Then `dmlA` and `dmlR` at columns 43 and 44, and `leuE` at 45."
+      "kind": "number",
+      "text": "87 to 89%",
+      "why": "a range the lines cited (S2.c1, S2.c2, S2.c3, S2.c4, S2.c5, S2.c6, S2.c7, S2.c8, S2.c9, S2.c10, S2.c11, S2.c12, S2.c13, S2.c14, S2.c15, S2.c16, S2.c17, S2.c18, S2.c19, S2.c20, S2.c21, S2.c22, S2.c23, S2.c24, S2.c25, S2.c26, S2.b1) do not give: the range a line shows, or the lowest and highest of the lines cited, or the values at the first and last column named",
+      "context": "**A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are carried by 87 to 89%, and a branch "
      }
     ],
-    "hints": []
+    "numbers": 26,
+    "names": 10,
+    "words": 213,
+    "sentences": 11,
+    "cited": 16,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 1,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 181,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": [
+       "M"
+      ]
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.03 bits",
+      "cites": [
+       "S1",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The `man` genes, columns 24 to 26, are [[mannose transport]]",
+      "cites": [
+       "S2.c24-26",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%",
+      "cites": [
+       "S2.c27-70",
+       "S2.b77"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits",
+      "cites": [
+       "H",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82%",
+      "cites": [
+       "S2.c77-79"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `sppA`, in 60% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 51
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "**A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are carried by 87 to 89%, and a branch of 26 persistent families runs through them in 11%",
+     "cites": [
+      "S2.c1-26",
+      "S2.b1"
+     ],
+     "opens": true,
+     "bad": [
+      {
+       "kind": "number",
+       "text": "87 to 89%",
+       "why": "a range the lines cited (S2.c1, S2.c2, S2.c3, S2.c4, S2.c5, S2.c6, S2.c7, S2.c8, S2.c9, S2.c10, S2.c11, S2.c12, S2.c13, S2.c14, S2.c15, S2.c16, S2.c17, S2.c18, S2.c19, S2.c20, S2.c21, S2.c22, S2.c23, S2.c24, S2.c25, S2.c26, S2.b1) do not give: the range a line shows, or the lowest and highest of the lines cited, or the values at the first and last column named"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.03 bits.\n\n**The `man` genes**, columns 24 to 26, are [[mannose transport]]. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits.\n\n**The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82%. The last column is `sppA`, in 60% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.",
+   "truncated": false,
+   "ok": false
   },
   {
-   "text": "**The window starts on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.03 bits.\n\n**Then 79 fork and variable columns follow**, in a region of plasticity in 0.2 to 80% of calls. A second branch of 26 families runs through columns 1 to 26, carried by 11% of chromosomes, all persistent: `yobB` to `yecD`, [[carbon and zinc handling]]. The most carried families there are `yobA` to `manX`, persistent, 85 to 89%: `manZ`, `manY` and `manX` form a [[mannose transport system]].\n\n**Columns 27 to 42 are variable**, 76 to 87%, mostly persistent: `yoaL` to `yeaW`, including `pdeD`, `sdaA` and `fadD`. Column 43 is a fork, `dmlA`, shell, 77%; column 44 is variable, `dmlR`, shell, 76%; column 45 is variable, `leuE`, persistent, 85%; column 46 is a fork, `yeaR`, shell, 73%. Columns 47 to 70 are variable again, 67 to 87%: `yoaG` to `ydjK`, with `gapA` and `msrB` among them.\n\n**The model hesitates most at column 70**, `ydjK`, 0.90 bits, in a region of plasticity in 72% of calls, and names it in 59%. Column 71, `ydjJ`, follows at 0.84 bits, 80%. The 13 columns mostly in a region of plasticity: named 80%, 0.53 bits; the other 67: named 96%, 0.25 bits. Inside a region of plasticity the model hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.\n\n**The window ends in fork and variable columns.** Columns 72 to 76, all shell, 71 to 78%: `ydjI` to `ydjE`. Then `pncA`, `ansA` and `sppA` at columns 77 to 79, persistent, 82%, 74% and 60%; a second branch of 3 families, `selD` to `gdhA`, is carried by 11 to 24%.",
+   "text": "**The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.03 bits.\n\n**The `man` genes**, columns 24 to 26, are [[mannose transport]]. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits.\n\n**The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82%. The last column is `sppA`, in 60% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4315,
-    "completion_tokens": 567,
-    "cached_tokens": 4224,
+    "prompt_tokens": 6349,
+    "completion_tokens": 436,
+    "cached_tokens": 6016,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000269
+    "cost_usd": 0.000255
    },
    "provider": "deepinfra",
-   "ms": 9117,
-   "raw": "**The window starts on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.03 bits.\n\n**Then 79 fork and variable columns follow**, in a region of plasticity in 0.2 to 80% of calls. A second branch of 26 families runs through columns 1 to 26, carried by 11% of chromosomes, all persistent: `yobB` to `yecD`, [[carbon and zinc handling]]. The most carried families there are `yobA` to `manX`, persistent, 85 to 89%: `manZ`, `manY` and `manX` form a [[mannose transport system]].\n\n**Columns 27 to 42 are variable**, 76 to 87%, mostly persistent: `yoaL` to `yeaW`, including `pdeD`, `sdaA` and `fadD`. Column 43 is a fork, `dmlA`, shell, 77%; column 44 is variable, `dmlR`, shell, 76%; column 45 is variable, `leuE`, persistent, 85%; column 46 is a fork, `yeaR`, shell, 73%. Columns 47 to 70 are variable again, 67 to 87%: `yoaG` to `ydjK`, with `gapA` and `msrB` among them.\n\n**The model hesitates most at column 70**, `ydjK`, 0.90 bits, in a region of plasticity in 72% of calls, and names it in 59%. Column 71, `ydjJ`, follows at 0.84 bits, 80%. The 13 columns mostly in a region of plasticity: named 80%, 0.53 bits; the other 67: named 96%, 0.25 bits. Inside a region of plasticity the model hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.\n\n**The window ends in fork and variable columns.** Columns 72 to 76, all shell, 71 to 78%: `ydjI` to `ydjE`. Then `pncA`, `ansA` and `sppA` at columns 77 to 79, persistent, 82%, 74% and 60%; a second branch of 3 families, `selD` to `gdhA`, is carried by 11 to 24%.",
+   "ms": 3140,
+   "raw": "@start **The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.03 bits {S1, M}.\n\n@variable **A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are fork columns, carried by 87 to 89%, and a branch of 26 persistent families runs through them in 11% {S2.c1-26, S2.b1}. The `man` genes, columns 24 to 26, are [[mannose transport]] {S2.c24-26, Q}. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24% {S2.c27-70, S2.b77}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits {M}. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits {H, M}.\n\n@end **The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82% {S2.c77-79}. The last column is `sppA`, in 60% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98% {C}.",
+   "annotated": "@start **The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls {S1}. The model names 99% of them, at 0.03 bits {S1, M}.\n\n@variable **A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are fork columns, carried by 87 to 89%, and a branch of 26 persistent families runs through them in 11% {S2.c1-26, S2.b1}. The `man` genes, columns 24 to 26, are [[mannose transport]] {S2.c24-26, Q}. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24% {S2.c27-70, S2.b77}.\n\n@model **The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits {M}. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits {H, M}.\n\n@end **The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82% {S2.c77-79}. The last column is `sppA`, in 60% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families {G}. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 59,
-    "names": 30,
-    "words": 297,
-    "bad": [],
-    "hints": []
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
+     {
+      "kind": "number",
+      "text": "87 to 89%",
+      "why": "a range the lines cited (S2.c1, S2.c2, S2.c3, S2.c4, S2.c5, S2.c6, S2.c7, S2.c8, S2.c9, S2.c10, S2.c11, S2.c12, S2.c13, S2.c14, S2.c15, S2.c16, S2.c17, S2.c18, S2.c19, S2.c20, S2.c21, S2.c22, S2.c23, S2.c24, S2.c25, S2.c26, S2.b1) do not give: the range a line shows, or the lowest and highest of the lines cited, or the values at the first and last column named",
+      "context": "**A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are fork columns, carried by 87 to 89%,"
+     }
+    ],
+    "numbers": 26,
+    "names": 10,
+    "words": 215,
+    "sentences": 11,
+    "cited": 16,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 1,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 181,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": [
+       "M"
+      ]
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99% of them, at 0.03 bits",
+      "cites": [
+       "S1",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The `man` genes, columns 24 to 26, are [[mannose transport]]",
+      "cites": [
+       "S2.c24-26",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%",
+      "cites": [
+       "S2.c27-70",
+       "S2.b77"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits",
+      "cites": [
+       "H",
+       "M"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82%",
+      "cites": [
+       "S2.c77-79"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `sppA`, in 60% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 51
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "**A long fork and variable stretch follows.** Columns 1 to 26, `yobA` to `manX`, are fork columns, carried by 87 to 89%, and a branch of 26 persistent families runs through them in 11%",
+     "cites": [
+      "S2.c1-26",
+      "S2.b1"
+     ],
+     "opens": true,
+     "bad": [
+      {
+       "kind": "number",
+       "text": "87 to 89%",
+       "why": "a range the lines cited (S2.c1, S2.c2, S2.c3, S2.c4, S2.c5, S2.c6, S2.c7, S2.c8, S2.c9, S2.c10, S2.c11, S2.c12, S2.c13, S2.c14, S2.c15, S2.c16, S2.c17, S2.c18, S2.c19, S2.c20, S2.c21, S2.c22, S2.c23, S2.c24, S2.c25, S2.c26, S2.b1) do not give: the range a line shows, or the lowest and highest of the lines cited, or the values at the first and last column named"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.03 bits.\n\n**The `man` genes**, columns 24 to 26, are [[mannose transport]]. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits.\n\n**The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82%. The last column is `sppA`, in 60% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.",
+   "truncated": false,
+   "ok": false
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 59,
-  "names": 30,
-  "words": 297,
-  "attempts": 2
+  "numbers": 26,
+  "names": 10,
+  "words": 181,
+  "attempts": 2,
+  "sentences": 11,
+  "cited": 16,
+  "skill": "4a7fdc464826",
+  "dropped": 1,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 1,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 51
  },
- "text": "**The window starts on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.03 bits.\n\n**Then 79 fork and variable columns follow**, in a region of plasticity in 0.2 to 80% of calls. A second branch of 26 families runs through columns 1 to 26, carried by 11% of chromosomes, all persistent: `yobB` to `yecD`, [[carbon and zinc handling]]. The most carried families there are `yobA` to `manX`, persistent, 85 to 89%: `manZ`, `manY` and `manX` form a [[mannose transport system]].\n\n**Columns 27 to 42 are variable**, 76 to 87%, mostly persistent: `yoaL` to `yeaW`, including `pdeD`, `sdaA` and `fadD`. Column 43 is a fork, `dmlA`, shell, 77%; column 44 is variable, `dmlR`, shell, 76%; column 45 is variable, `leuE`, persistent, 85%; column 46 is a fork, `yeaR`, shell, 73%. Columns 47 to 70 are variable again, 67 to 87%: `yoaG` to `ydjK`, with `gapA` and `msrB` among them.\n\n**The model hesitates most at column 70**, `ydjK`, 0.90 bits, in a region of plasticity in 72% of calls, and names it in 59%. Column 71, `ydjJ`, follows at 0.84 bits, 80%. The 13 columns mostly in a region of plasticity: named 80%, 0.53 bits; the other 67: named 96%, 0.25 bits. Inside a region of plasticity the model hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.\n\n**The window ends in fork and variable columns.** Columns 72 to 76, all shell, 71 to 78%: `ydjI` to `ydjE`. Then `pncA`, `ansA` and `sppA` at columns 77 to 79, persistent, 82%, 74% and 60%; a second branch of 3 families, `selD` to `gdhA`, is carried by 11 to 24%.",
- "html": "<p class=\"note\"><b>The window starts on a single spine column.</b> Column 0, <span class=\"gene\">holE</span>, is carried by 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names it in 99% of calls, with 0.03 bits.</p><p class=\"note\"><b>Then 79 fork and variable columns follow</b>, in a region of plasticity in 0.2 to 80% of calls. A second branch of 26 families runs through columns 1 to 26, carried by 11% of chromosomes, all persistent: <span class=\"gene\">yobB</span> to <span class=\"gene\">yecD</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">carbon and zinc handling</span>. The most carried families there are <span class=\"gene\">yobA</span> to <span class=\"gene\">manX</span>, persistent, 85 to 89%: <span class=\"gene\">manZ</span>, <span class=\"gene\">manY</span> and <span class=\"gene\">manX</span> form a <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">mannose transport system</span>.</p><p class=\"note\"><b>Columns 27 to 42 are variable</b>, 76 to 87%, mostly persistent: <span class=\"gene\">yoaL</span> to <span class=\"gene\">yeaW</span>, including <span class=\"gene\">pdeD</span>, <span class=\"gene\">sdaA</span> and <span class=\"gene\">fadD</span>. Column 43 is a fork, <span class=\"gene\">dmlA</span>, shell, 77%; column 44 is variable, <span class=\"gene\">dmlR</span>, shell, 76%; column 45 is variable, <span class=\"gene\">leuE</span>, persistent, 85%; column 46 is a fork, <span class=\"gene\">yeaR</span>, shell, 73%. Columns 47 to 70 are variable again, 67 to 87%: <span class=\"gene\">yoaG</span> to <span class=\"gene\">ydjK</span>, with <span class=\"gene\">gapA</span> and <span class=\"gene\">msrB</span> among them.</p><p class=\"note\"><b>The model hesitates most at column 70</b>, <span class=\"gene\">ydjK</span>, 0.90 bits, in a region of plasticity in 72% of calls, and names it in 59%. Column 71, <span class=\"gene\">ydjJ</span>, follows at 0.84 bits, 80%. The 13 columns mostly in a region of plasticity: named 80%, 0.53 bits; the other 67: named 96%, 0.25 bits. Inside a region of plasticity the model hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 72 to 76, all shell, 71 to 78%: <span class=\"gene\">ydjI</span> to <span class=\"gene\">ydjE</span>. Then <span class=\"gene\">pncA</span>, <span class=\"gene\">ansA</span> and <span class=\"gene\">sppA</span> at columns 77 to 79, persistent, 82%, 74% and 60%; a second branch of 3 families, <span class=\"gene\">selD</span> to <span class=\"gene\">gdhA</span>, is carried by 11 to 24%.</p>",
+ "text": "**The window opens on a single spine column.** Column 0, `holE`, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.03 bits.\n\n**The `man` genes**, columns 24 to 26, are [[mannose transport]]. Then columns 27 to 70, `yoaL` to `ydjK`, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%.\n\n**The model names more genes on the spine column than on the fork and variable ones**, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits. Its most hesitant column, 70, `ydjK`, is a variable column, at 0.90 bits.\n\n**The window ends on fork columns.** Columns 77 to 79, `pncA` to `sppA`, are carried by 60 to 82%. The last column is `sppA`, in 60% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.30 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.",
+ "html": "<p class=\"note\"><b>The window opens on a single spine column.</b> Column 0, <span class=\"gene\">holE</span>, is carried by 100% of chromosomes, persistent, in a region of plasticity in 0% of calls. The model names 99% of them, at 0.03 bits.</p><p class=\"note\"><b>The <span class=\"gene\">man</span> genes</b>, columns 24 to 26, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">mannose transport</span>. Then columns 27 to 70, <span class=\"gene\">yoaL</span> to <span class=\"gene\">ydjK</span>, are variable, carried by 67 to 87%, and a branch of 3 families runs through columns 77 to 79 in 11 to 24%.</p><p class=\"note\"><b>The model names more genes on the spine column than on the fork and variable ones</b>, 99 against 93%, and hesitates less there, 0.03 against 0.30 bits. Its most hesitant column, 70, <span class=\"gene\">ydjK</span>, is a variable column, at 0.90 bits.</p><p class=\"note\"><b>The window ends on fork columns.</b> Columns 77 to 79, <span class=\"gene\">pncA</span> to <span class=\"gene\">sppA</span>, are carried by 60 to 82%. The last column is <span class=\"gene\">sppA</span>, in 60% of chromosomes.</p><p class=\"note\"><b>Across the window it names 93% of genes</b>, 0.30 bits on average, perplexity 1.4 families. Inside a region of plasticity it hesitates more than outside, 0.93 against 0.17 bits, and names fewer genes, 71% against 98%.</p>",
  "window": "G8B09_RS07040",
  "label": "holE",
- "facts_hash": "bff5e9653e90",
- "prompt_version": "r7",
- "facts": "WINDOW: the holE window: 80 columns, column 0 is the anchor holE, then the next 79 genes in dnaA's direction; about genes 1,892 to 1,971 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying holE once); 43,120 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 93% of genes, 0.30 bits on average (perplexity 1.4 families). By partition of the gene: persistent 35,494 calls, named 99%, 0.16 bits; shell 7,343 calls, named 69%, 0.83 bits; cloud 283 calls, named 6%, 4.16 bits. Outside an RGP 35,743 calls, named 98%, 0.17 bits; inside an RGP 7,377 calls, named 71%, 0.93 bits. Columns: 1 spine, 32 fork, 47 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.93 against 0.17 bits) and names fewer genes (71% against 98%); 7,377 of the 43,120 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 70 (ydjK) 0.90 bits, RGP 72%; column 71 (ydjJ) 0.84 bits, RGP 80%; column 5 (yebW) 0.81 bits, RGP 3%. The 13 columns where most calls are in an RGP: named 80%, 0.53 bits on average; the other 67 columns: named 96%, 0.25 bits.\nPLASTICITY: the stretch most in regions of plasticity: columns 1-79 (fork and variable columns), RGP 0.2-80%; the least: column 0 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. column 0 spine: share 100%, all P, RGP 0%. Genes: holE. named 99%; 0.03 bits.\n2. columns 1-79 (79 columns) fork and variable columns: RGP 0.2-80%. named 59-99% (mean 93%), fewest named and most hesitant at column 70, named 59%, 0.90 bits.\n   a second branch of 26 families through columns 1-26, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11%, all P; the branch's families: yobB, exoX, ptrB, yebE, yebF, yebG, purT, kdgA, edd, zwf, hexR, pyk, lpxM, mepM, znuA, znuC, znuB, ruvB, ruvA, yobI, yebB, ruvC, yebC, nudB, aspS, yecD\n   a second branch of 3 families through columns 77-79, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-24%, all P; the branch's families: selD, topB, gdhA\n   1 fork: yobA P 88% \"CopC domain-containing protein YobA\"\n   2 fork: copD P 88%\n   3 fork: yebY P 88% \"YebY family protein\"\n   4 fork: pphA P 87%\n   5 fork: yebW P 88% \"YebW family protein\"\n   6 fork: yebV P 89% \"DUF1480 family protein\"\n   7 fork: rsmF P 88%\n   8 fork: yebT P 88% \"lipid-binding membrane homeostasis\u2026\"\n   9 fork: yebS P 88% \"membrane integrity lipid transport\u2026\"\n   10 fork: msrC P 88%\n   11 fork: proQ P 88%\n   12 fork: prc P 88%\n   13 fork: htpX P 88%\n   14 fork: yebQ P 85% \"MFS transporter\"\n   15 fork: kdgR P 88%\n   16 fork: yobH P 87% \"YobH family protein\"\n   17 fork: mgrB P 88%\n   18 fork: yebO P 88% \"YebO family protein\"\n   19 fork: yobF P 87% \"DUF2627 domain-containing protein\"\n   20 fork: cspE P 87%\n   21 fork: rlmA P 87%\n   22 fork: mntP P 87%\n   23 fork: yobD P 86% \"DUF986 family protein\"; also \"hypothetical protein\" S 11%\n   24 fork: manZ P 87%\n   25 fork: manY P 87%\n   26 fork: manX P 87% \"PTS mannose transporter subunit IIAB\"\n   columns 27-42 variable, share 76-87%, 14 P, 2 S: yoaL \"protein YoaL\" 87%, yoaE \"CNNM family cation transport protei\u2026\" 86%, pdeD 81%, sdaA 87%, nudL 87%, pabB 87%, yoaH \"YoaH family protein\" 87%, yoaC \"DUF1889 family protein\" 84%, yoaB \"reactive intermediate deaminase\" 87%, yoaA \"ATP-dependent DNA helicase\" 86%, tsaB 86%, yeaY \"Slp family lipoprotein YeaY\" 86%, fadD 87%, rnd 87%, yeaX \"carnitine monooxygenase reductase s\u2026\" 76%, yeaW \"carnitine monooxygenase, oxygenase\u2026\" 77%\n   43 fork: dmlA S 77% \"multifunctional D-malate/3-isopropy\u2026\"; also yeaV S 32%\n   44 variable: dmlR S 76%\n   45 variable: leuE P 85%\n   46 fork: yeaR S 73% \"DUF1971 domain-containing protein Y\u2026\"; also \"transposase\" S 11%\n   columns 47-70 variable, share 67-87%, 22 P, 2 S: yoaG \"DUF1869 domain-containing protein\" 87%, yeaQ \"GlsB/YeaQ/YmgE family stress respon\u2026\" 86%, yoaJ 86%, yoaK \"YoaK family small membrane protein\" 86%, dgcP 82%, yoaF \"DUF333 domain-containing lipoprotei\u2026\" 86%, yeaO \"DUF488 domain-containing protein\" 86%, nimT 84%, nimR 84%, yeaL \"DUF441 domain-containing protein\" 86%, yoaI \"small membrane protein YoaI\" 86%, yeaK \"YbaK/prolyl-tRNA synthetase associa\u2026\" 86%, dgcJ 81%, cdgI 84%, yeaH \"YeaH/YhbH family protein\" 86%, yeaG \"protein kinase YeaG\" 86%, mipA 86%, yeaE \"methylglyoxal reductase YeaE\" 83%, yeaD \"D-hexose-6-phosphate mutarotase\" 85%, gapA 86%, msrB 85%, yeaC \"YeaC family protein\" 85%, ydjL \"alcohol dehydrogenase catalytic dom\u2026\" 71%, ydjK \"MFS transporter\" 67%\n   71 fork: ydjJ S 70% \"zinc-binding dehydrogenase\"; also \"IS1-like element transposase\" S 27%\n   columns 72-76 variable, share 71-78%, all S: ydjI \"class II fructose-bisphosphate aldo\u2026\" 72%, ydjH \"sugar kinase\" 71%, ydjG \"aldo/keto reductase\" 74%, ydjF \"DeoR/GlpR family DNA-binding transc\u2026\" 78%, ydjE \"MFS transporter\" 72%\n   77 fork: pncA P 82%\n   78 fork: ansA P 74%\n   79 fork: sppA P 60%; also ydjA P 42%\nPRODUCTS of named genes (for [[ ]]): manZ PTS mannose transporter subunit IID; manY PTS mannose transporter subunit IIC; manX PTS mannose transporter subunit IIAB; dmlA multifunctional D-malate/3-isopropylmal\u2026; yobB carbon-nitrogen hydrolase family protei\u2026; exoX exonuclease domain-containing protein; ptrB oligopeptidase B; yebE tellurite resistance TerB family protein; yebG DNA damage-inducible protein YebG; purT formate-dependent phosphoribosylglycina\u2026; kdgA bifunctional 4-hydroxy-2-oxoglutarate a\u2026; edd dihydroxy-acid dehydratase; zwf glucose-6-phosphate dehydrogenase; pyk pyruvate kinase alpha/beta domain-conta\u2026; lpxM LpxL/LpxP family acyltransferase; znuA zinc ABC transporter substrate-binding\u2026; znuC zinc ABC transporter ATP-binding protei\u2026; znuB zinc ABC transporter permease subunit Z\u2026; ruvB Holliday junction branch migration DNA\u2026; yobI stress response small protein YobI; yebB YebB family permuted papain-like enzyme; ruvC crossover junction endodeoxyribonucleas\u2026; yebC YebC/PmpR family DNA-binding transcript\u2026; nudB dihydroneopterin triphosphate diphospha\u2026; aspS aspartate--tRNA ligase; yecD hydrolase; yeaV BCCT family transporter; selD selenide, water dikinase SelD; topB DNA topoisomerase III; ydjA NAD(P)H nitroreductase; gdhA Glu/Leu/Phe/Val dehydrogenase dimerizat\u2026\nEND: the window ends at column 79, sppA, in 60% of chromosomes."
+ "facts_hash": "b4f88f6851f7",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the holE window: 80 columns, column 0 is the anchor holE, then the next 79 genes in dnaA's direction; about genes 1,892 to 1,971 from dnaA. Read in 539 of the 540 complete chromosomes (those carrying holE once); 43,120 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 93% of genes, 0.30 bits on average (perplexity 1.4 families). By partition of the gene: persistent 35,494 calls, named 99%, 0.16 bits; shell 7,343 calls, named 69%, 0.83 bits; cloud 283 calls, named 6%, 4.16 bits. Outside an RGP 35,743 calls, named 98%, 0.17 bits; inside an RGP 7,377 calls, named 71%, 0.93 bits. Columns: 1 spine, 32 fork, 47 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.93 against 0.17 bits) and names fewer genes (71% against 98%); 7,377 of the 43,120 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 70 (ydjK, a variable column) 0.90 bits, RGP 72%; column 71 (ydjJ, a fork column) 0.84 bits, RGP 80%; column 5 (yebW, a fork column) 0.81 bits, RGP 3%. The 13 columns (columns 41-46 and 69-75) where most calls are in an RGP: named 80%, 0.53 bits on average; the other 67 columns: named 96%, 0.25 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 1 spine column: named 99%, 0.03 bits on average; the 79 fork and variable columns: named 93%, 0.30 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 70, is a variable column.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. column 0 spine: share 100%, all P, RGP 0%. Genes: holE. named 99%; 0.03 bits.\n[S2] 2. columns 1-79 (79 columns) fork and variable columns: share 60-89%, 66 P, 13 S, RGP 0.2-80%. named 59-99% (mean 93%), fewest named and most hesitant at column 70, named 59%, 0.90 bits.\n[S2.b1]    a second branch of 26 families through columns 1-26, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11%, all P; the branch's families: yobB, exoX, ptrB, yebE, yebF, yebG, purT, kdgA, edd, zwf, hexR, pyk, lpxM, mepM, znuA, znuC, znuB, ruvB, ruvA, yobI, yebB, ruvC, yebC, nudB, aspS, yecD\n[S2.b77]    a second branch of 3 families through columns 77-79, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 11-24%, all P; the branch's families: selD, topB, gdhA\n[S2.c1]    1 fork: yobA P 88% \"CopC domain-containing protein YobA\"\n[S2.c2]    2 fork: copD P 88%\n[S2.c3]    3 fork: yebY P 88% \"YebY family protein\"\n[S2.c4]    4 fork: pphA P 87%\n[S2.c5]    5 fork: yebW P 88% \"YebW family protein\"\n[S2.c6]    6 fork: yebV P 89% \"YebV family protein\"\n[S2.c7]    7 fork: rsmF P 88%\n[S2.c8]    8 fork: yebT P 88% \"lipid-binding membrane homeostasis\u2026\"\n[S2.c9]    9 fork: yebS P 88% \"membrane integrity lipid transport\u2026\"\n[S2.c10]    10 fork: msrC P 88%\n[S2.c11]    11 fork: proQ P 88%\n[S2.c12]    12 fork: prc P 88%\n[S2.c13]    13 fork: htpX P 88%\n[S2.c14]    14 fork: yebQ P 85% \"MFS transporter\"\n[S2.c15]    15 fork: kdgR P 88%\n[S2.c16]    16 fork: yobH P 87% \"YobH family protein\"\n[S2.c17]    17 fork: mgrB P 88%\n[S2.c18]    18 fork: yebO P 88% \"YebO family protein\"\n[S2.c19]    19 fork: yobF P 87% \"DUF2627 domain-containing protein\"\n[S2.c20]    20 fork: cspE P 87%\n[S2.c21]    21 fork: rlmA P 87%\n[S2.c22]    22 fork: mntP P 87%\n[S2.c23]    23 fork: yobD P 86% \"DUF986 family protein\"; also \"hypothetical protein\" S 11%\n[S2.c24]    24 fork: manZ P 87%\n[S2.c25]    25 fork: manY P 87%\n[S2.c26]    26 fork: manX P 87% \"PTS mannose transporter subunit IIAB\"\n[S2.c27-42]    columns 27-42 variable, share 76-87%, 14 P, 2 S: yoaL \"protein YoaL\" 87%, yoaE \"CNNM family cation transport protei\u2026\" 86%, pdeD 81%, sdaA 87%, nudL 87%, pabB 87%, yoaH \"YoaH family protein\" 87%, yoaC \"DUF1889 family protein\" 84%, yoaB \"RidA family protein\" 87%, yoaA \"ATP-dependent DNA helicase\" 86%, tsaB 86%, yeaY \"Slp family lipoprotein YeaY\" 86%, fadD 87%, rnd 87%, yeaX \"carnitine monooxygenase reductase s\u2026\" 76%, yeaW \"carnitine monooxygenase, oxygenase\u2026\" 77%\n[S2.c43]    43 fork: dmlA S 77% \"multifunctional D-malate/3-isopropy\u2026\"; also yeaV S 32%\n[S2.c44]    44 variable: dmlR S 76%\n[S2.c45]    45 variable: leuE P 85%\n[S2.c46]    46 fork: yeaR S 73% \"DUF1971 domain-containing protein Y\u2026\"; also \"IS4-like element IS421 family transposa\u2026\" S 11%\n[S2.c47-70]    columns 47-70 variable, share 67-87%, 22 P, 2 S: yoaG \"DUF1869 domain-containing protein\" 87%, yeaQ \"GlsB/YeaQ/YmgE family stress respon\u2026\" 86%, yoaJ \"protein YoaJ\" 86%, yoaK \"YoaK family small membrane protein\" 86%, dgcP 82%, yoaF \"DUF333 domain-containing lipoprotei\u2026\" 86%, yeaO \"DUF488 domain-containing protein\" 86%, nimT \"2-nitroimidazole transporter\" 84%, nimR 84%, yeaL \"DUF441 domain-containing protein\" 86%, yoaI \"small membrane protein YoaI\" 86%, yeaK \"mischarged aminoacyl-tRNA deacylase\" 86%, dgcJ 81%, cdgI 84%, yeaH \"YeaH/YhbH family protein\" 86%, yeaG \"protein kinase YeaG\" 86%, mipA 86%, yeaE \"methylglyoxal reductase YeaE\" 83%, yeaD \"D-hexose-6-phosphate mutarotase\" 85%, gapA 86%, msrB 85%, yeaC \"YeaC family protein\" 85%, ydjL \"zinc-binding dehydrogenase\" 71%, ydjK \"MFS transporter\" 67%\n[S2.c71]    71 fork: ydjJ S 70% \"NAD(P)-dependent alcohol dehydrogen\u2026\"; also \"IS1 family transposase\" S 27%\n[S2.c72-76]    columns 72-76 variable, share 71-78%, all S: ydjI \"ketose-bisphosphate aldolase\" 72%, ydjH \"sugar kinase\" 71%, ydjG \"NADH-dependent methylglyoxal reduct\u2026\" 74%, ydjF \"DeoR/GlpR family DNA-binding transc\u2026\" 78%, ydjE \"MFS transporter\" 72%\n[S2.c77]    77 fork: pncA P 82%\n[S2.c78]    78 fork: ansA P 74%\n[S2.c79]    79 fork: sppA P 60%; also ydjA P 42%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 24-26 (manZ to manX) [S2]: mannose, transporter.\n[X] PRODUCTS of named genes (for [[ ]]): manZ PTS mannose transporter subunit IID; manY PTS mannose transporter subunit IIC; manX PTS mannose transporter subunit IIAB; dmlA multifunctional D-malate/3-isopropylmal\u2026; yobB carbon-nitrogen hydrolase family protei\u2026; exoX exodeoxyribonuclease X; ptrB oligopeptidase B; yebE tellurite resistance TerB family protein; yebG DNA damage-inducible protein YebG; purT formate-dependent phosphoribosylglycina\u2026; kdgA bifunctional 4-hydroxy-2-oxoglutarate a\u2026; edd phosphogluconate dehydratase; zwf glucose-6-phosphate dehydrogenase; pyk pyruvate kinase; lpxM lauroyl-Kdo(2)-lipid IV(A) myristoyltra\u2026; mepM murein DD-endopeptidase MepM; znuA zinc ABC transporter substrate-binding\u2026; znuC zinc ABC transporter ATP-binding protei\u2026; znuB zinc ABC transporter permease subunit Z\u2026; ruvB Holliday junction branch migration DNA\u2026; ruvA Holliday junction branch migration prot\u2026; yobI stress response small protein YobI; yebB YebB family permuted papain-like enzyme; ruvC crossover junction endodeoxyribonucleas\u2026; yebC YebC/PmpR family DNA-binding transcript\u2026; nudB dihydroneopterin triphosphate diphospha\u2026; aspS aspartate--tRNA ligase; yecD hydrolase; yeaV BCCT family transporter YeaV; selD selenide, water dikinase SelD; topB DNA topoisomerase III; ydjA NAD(P)H nitroreductase; gdhA NADP-specific glutamate dehydrogenase\n[E] END: the window ends at column 79, sppA, in 60% of chromosomes."
 }

@@ -2,50 +2,211 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447981.3941379,
+ "created": 1790479633.4678857,
  "usage": {
-  "prompt_tokens": 4082,
-  "completion_tokens": 490,
-  "cost_usd": 0.000621,
-  "ms": 7103
+  "prompt_tokens": 6189,
+  "completion_tokens": 429,
+  "cost_usd": 0.000699,
+  "ms": 3647
  },
  "attempts": [
   {
-   "text": "**The window starts in a persistent run.** Columns 0 to 16 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 17% of calls. The model names 90% of genes there on average, but at column 9, `yjjQ`, it names only 18% and hesitates 0.93 bits.\n\n**Then the graph opens at `lgoR` and `lgoT`**, columns 17 and 18, fork and variable columns in a region of plasticity in 55 to 56% of calls. Column 19, `tsr`, is spine again, 91% of chromosomes, in a region of plasticity in 56% of calls, named 87%.\n\n**The long fork and variable stretch runs from column 20 to 79**, in a region of plasticity in 34 to 70% of calls, named 81% on average. A second branch of 11 families, `hpaR` to the monooxygenase, [[homoprotocatechuate degradation]], runs through columns 20 to 30, carried by 28 to 33% of chromosomes. Smaller branches carry `mrr` to `hsdM` at columns 34 to 36, the KilA-N protein to the LexA regulator at 37 to 39, and `yfdP` to `yfdR` at 48 to 50.\n\n**The model hesitates most at column 41**, `uxuR`, 1.31 bits, in a region of plasticity in 36% of calls. The 46 columns where most calls are in a region of plasticity are named 80% and cost 0.88 bits; the other 34 are named 88% and cost 0.59 bits. Inside a region of plasticity the model hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.\n\n**The window ends in variable columns 57 to 71**, in 4 to 47% of chromosomes, then `ytgA` to `ahr` at columns 72 to 79. The `fim` genes, [[type 1 fimbria assembly]], and `nanC` and `nanM` sit in the fork and variable columns before them.",
+   "text": "**The window opens on a long spine.** Columns 0 to 16, `osmY` to `lgoD`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 18 to 100% of them, fewest at column 9, `yjjQ`, 18%.\n\n**A short fork follows the spine**, columns 17 and 18, `lgoR` and `lgoT`, shell, carried by 86 and 73%. Then a branch of 11 shell families runs through columns 20 to 30, [[4-hydroxyphenylacetate catabolism]], carried by 28 to 33%. The `fim` genes, columns 46 to 54, are [[type 1 fimbria]], carried by 59 to 74%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 89 against 81%, and hesitates less there, 0.40 against 0.86 bits. It hesitates most at column 41, `uxuR`, a fork column, 1.31 bits.\n\n**The window ends in variable and fork columns.** Columns 57 to 71, `YthB` to `lptF`, are carried by 4 to 47%. The last column is `ahr`, in 31% of chromosomes.\n\n**Across the window it names 83% of genes**, 0.76 bits on average, perplexity 2.2 families. Inside a region of plasticity it hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 4082,
-    "completion_tokens": 490,
-    "cached_tokens": 1152,
+    "prompt_tokens": 6189,
+    "completion_tokens": 429,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000621
+    "cost_usd": 0.000699
    },
    "provider": "deepinfra",
-   "ms": 7103,
-   "raw": "**The window starts in a persistent run.** Columns 0 to 16 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 17% of calls. The model names 90% of genes there on average, but at column 9, `yjjQ`, it names only 18% and hesitates 0.93 bits.\n\n**Then the graph opens at `lgoR` and `lgoT`**, columns 17 and 18, fork and variable columns in a region of plasticity in 55 to 56% of calls. Column 19, `tsr`, is spine again, 91% of chromosomes, in a region of plasticity in 56% of calls, named 87%.\n\n**The long fork and variable stretch runs from column 20 to 79**, in a region of plasticity in 34 to 70% of calls, named 81% on average. A second branch of 11 families, `hpaR` to the monooxygenase, [[homoprotocatechuate degradation]], runs through columns 20 to 30, carried by 28 to 33% of chromosomes. Smaller branches carry `mrr` to `hsdM` at columns 34 to 36, the KilA-N protein to the LexA regulator at 37 to 39, and `yfdP` to `yfdR` at 48 to 50.\n\n**The model hesitates most at column 41**, `uxuR`, 1.31 bits, in a region of plasticity in 36% of calls. The 46 columns where most calls are in a region of plasticity are named 80% and cost 0.88 bits; the other 34 are named 88% and cost 0.59 bits. Inside a region of plasticity the model hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.\n\n**The window ends in variable columns 57 to 71**, share 4 to 47%, then `ytgA` to `ahr` at columns 72 to 79. The `fim` genes, [[type 1 fimbria assembly]], and `nanC` and `nanM` sit in the fork and variable columns before them.",
+   "ms": 3647,
+   "raw": "@start **The window opens on a long spine.** Columns 0 to 16, `osmY` to `lgoD`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls {S1}. The model names 18 to 100% of them, fewest at column 9, `yjjQ`, 18% {S1}.\n\n@variable **A short fork follows the spine**, columns 17 and 18, `lgoR` and `lgoT`, shell, carried by 86 and 73% {S2.c17, S2.c18}. Then a branch of 11 shell families runs through columns 20 to 30, [[4-hydroxyphenylacetate catabolism]], carried by 28 to 33% {S4.b20, Q}. The `fim` genes, columns 46 to 54, are [[type 1 fimbria]], carried by 59 to 74% {S4.c46-54, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 89 against 81%, and hesitates less there, 0.40 against 0.86 bits {M}. It hesitates most at column 41, `uxuR`, a fork column, 1.31 bits {H}.\n\n@end **The window ends in variable and fork columns.** Columns 57 to 71, `YthB` to `lptF`, are carried by 4 to 47% {S4.c57-71}. The last column is `ahr`, in 31% of chromosomes {E}.\n\n@whole **Across the window it names 83% of genes**, 0.76 bits on average, perplexity 2.2 families {G}. Inside a region of plasticity it hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94% {C}.",
+   "annotated": "@start **The window opens on a long spine.** Columns 0 to 16, `osmY` to `lgoD`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls {S1}. The model names 18 to 100% of them, fewest at column 9, `yjjQ`, 18% {S1}.\n\n@variable **A short fork follows the spine**, columns 17 and 18, `lgoR` and `lgoT`, shell, carried by 86 and 73% {S2.c17, S2.c18}. Then a branch of 11 shell families runs through columns 20 to 30, [[4-hydroxyphenylacetate catabolism]], carried by 28 to 33% {S4.b20, Q}. The `fim` genes, columns 46 to 54, are [[type 1 fimbria]], carried by 59 to 74% {S4.c46-54, Q}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 89 against 81%, and hesitates less there, 0.40 against 0.86 bits {M}. It hesitates most at column 41, `uxuR`, a fork column, 1.31 bits {H}.\n\n@end **The window ends in variable and fork columns.** Columns 57 to 71, `YthB` to `lptF`, are carried by 4 to 47% {S4.c57-71}. The last column is `ahr`, in 31% of chromosomes {E}.\n\n@whole **Across the window it names 83% of genes**, 0.76 bits on average, perplexity 2.2 families {G}. Inside a region of plasticity it hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94% {C}.",
    "check": {
     "ok": true,
-    "numbers": 53,
-    "names": 15,
-    "words": 296,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 27,
+    "names": 10,
+    "words": 209,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 209,
+    "repeats": 0,
+    "interp": 2,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a long spine.** Columns 0 to 16, `osmY` to `lgoD`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 18 to 100% of them, fewest at column 9, `yjjQ`, 18%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A short fork follows the spine**, columns 17 and 18, `lgoR` and `lgoT`, shell, carried by 86 and 73%",
+      "cites": [
+       "S2.c17",
+       "S2.c18"
+      ],
+      "inherit": [
+       "S4.b20",
+       "Q",
+       "S4.c46-54"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then a branch of 11 shell families runs through columns 20 to 30, [[4-hydroxyphenylacetate catabolism]], carried by 28 to 33%",
+      "cites": [
+       "S4.b20",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "The `fim` genes, columns 46 to 54, are [[type 1 fimbria]], carried by 59 to 74%",
+      "cites": [
+       "S4.c46-54",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 89 against 81%, and hesitates less there, 0.40 against 0.86 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 41, `uxuR`, a fork column, 1.31 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in variable and fork columns.** Columns 57 to 71, `YthB` to `lptF`, are carried by 4 to 47%",
+      "cites": [
+       "S4.c57-71"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `ahr`, in 31% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 83% of genes**, 0.76 bits on average, perplexity 2.2 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 55
+   },
+   "dropped": [],
+   "served": "**The window opens on a long spine.** Columns 0 to 16, `osmY` to `lgoD`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 18 to 100% of them, fewest at column 9, `yjjQ`, 18%.\n\n**A short fork follows the spine**, columns 17 and 18, `lgoR` and `lgoT`, shell, carried by 86 and 73%. Then a branch of 11 shell families runs through columns 20 to 30, [[4-hydroxyphenylacetate catabolism]], carried by 28 to 33%. The `fim` genes, columns 46 to 54, are [[type 1 fimbria]], carried by 59 to 74%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 89 against 81%, and hesitates less there, 0.40 against 0.86 bits. It hesitates most at column 41, `uxuR`, a fork column, 1.31 bits.\n\n**The window ends in variable and fork columns.** Columns 57 to 71, `YthB` to `lptF`, are carried by 4 to 47%. The last column is `ahr`, in 31% of chromosomes.\n\n**Across the window it names 83% of genes**, 0.76 bits on average, perplexity 2.2 families. Inside a region of plasticity it hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 53,
-  "names": 15,
-  "words": 296,
-  "attempts": 1
+  "numbers": 27,
+  "names": 10,
+  "words": 209,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 2,
+  "covered": 55
  },
- "text": "**The window starts in a persistent run.** Columns 0 to 16 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 17% of calls. The model names 90% of genes there on average, but at column 9, `yjjQ`, it names only 18% and hesitates 0.93 bits.\n\n**Then the graph opens at `lgoR` and `lgoT`**, columns 17 and 18, fork and variable columns in a region of plasticity in 55 to 56% of calls. Column 19, `tsr`, is spine again, 91% of chromosomes, in a region of plasticity in 56% of calls, named 87%.\n\n**The long fork and variable stretch runs from column 20 to 79**, in a region of plasticity in 34 to 70% of calls, named 81% on average. A second branch of 11 families, `hpaR` to the monooxygenase, [[homoprotocatechuate degradation]], runs through columns 20 to 30, carried by 28 to 33% of chromosomes. Smaller branches carry `mrr` to `hsdM` at columns 34 to 36, the KilA-N protein to the LexA regulator at 37 to 39, and `yfdP` to `yfdR` at 48 to 50.\n\n**The model hesitates most at column 41**, `uxuR`, 1.31 bits, in a region of plasticity in 36% of calls. The 46 columns where most calls are in a region of plasticity are named 80% and cost 0.88 bits; the other 34 are named 88% and cost 0.59 bits. Inside a region of plasticity the model hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.\n\n**The window ends in variable columns 57 to 71**, in 4 to 47% of chromosomes, then `ytgA` to `ahr` at columns 72 to 79. The `fim` genes, [[type 1 fimbria assembly]], and `nanC` and `nanM` sit in the fork and variable columns before them.",
- "html": "<p class=\"note\"><b>The window starts in a persistent run.</b> Columns 0 to 16 are spine, carried by 91 to 100% of chromosomes, in a region of plasticity in 0 to 17% of calls. The model names 90% of genes there on average, but at column 9, <span class=\"gene\">yjjQ</span>, it names only 18% and hesitates 0.93 bits.</p><p class=\"note\"><b>Then the graph opens at <span class=\"gene\">lgoR</span> and <span class=\"gene\">lgoT</span></b>, columns 17 and 18, fork and variable columns in a region of plasticity in 55 to 56% of calls. Column 19, <span class=\"gene\">tsr</span>, is spine again, 91% of chromosomes, in a region of plasticity in 56% of calls, named 87%.</p><p class=\"note\"><b>The long fork and variable stretch runs from column 20 to 79</b>, in a region of plasticity in 34 to 70% of calls, named 81% on average. A second branch of 11 families, <span class=\"gene\">hpaR</span> to the monooxygenase, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">homoprotocatechuate degradation</span>, runs through columns 20 to 30, carried by 28 to 33% of chromosomes. Smaller branches carry <span class=\"gene\">mrr</span> to <span class=\"gene\">hsdM</span> at columns 34 to 36, the KilA-N protein to the LexA regulator at 37 to 39, and <span class=\"gene\">yfdP</span> to <span class=\"gene\">yfdR</span> at 48 to 50.</p><p class=\"note\"><b>The model hesitates most at column 41</b>, <span class=\"gene\">uxuR</span>, 1.31 bits, in a region of plasticity in 36% of calls. The 46 columns where most calls are in a region of plasticity are named 80% and cost 0.88 bits; the other 34 are named 88% and cost 0.59 bits. Inside a region of plasticity the model hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.</p><p class=\"note\"><b>The window ends in variable columns 57 to 71</b>, in 4 to 47% of chromosomes, then <span class=\"gene\">ytgA</span> to <span class=\"gene\">ahr</span> at columns 72 to 79. The <span class=\"gene\">fim</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">type 1 fimbria assembly</span>, and <span class=\"gene\">nanC</span> and <span class=\"gene\">nanM</span> sit in the fork and variable columns before them.</p>",
+ "text": "**The window opens on a long spine.** Columns 0 to 16, `osmY` to `lgoD`, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 18 to 100% of them, fewest at column 9, `yjjQ`, 18%.\n\n**A short fork follows the spine**, columns 17 and 18, `lgoR` and `lgoT`, shell, carried by 86 and 73%. Then a branch of 11 shell families runs through columns 20 to 30, [[4-hydroxyphenylacetate catabolism]], carried by 28 to 33%. The `fim` genes, columns 46 to 54, are [[type 1 fimbria]], carried by 59 to 74%.\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 89 against 81%, and hesitates less there, 0.40 against 0.86 bits. It hesitates most at column 41, `uxuR`, a fork column, 1.31 bits.\n\n**The window ends in variable and fork columns.** Columns 57 to 71, `YthB` to `lptF`, are carried by 4 to 47%. The last column is `ahr`, in 31% of chromosomes.\n\n**Across the window it names 83% of genes**, 0.76 bits on average, perplexity 2.2 families. Inside a region of plasticity it hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.",
+ "html": "<p class=\"note\"><b>The window opens on a long spine.</b> Columns 0 to 16, <span class=\"gene\">osmY</span> to <span class=\"gene\">lgoD</span>, are carried by 91 to 100% of chromosomes, all persistent, in a region of plasticity in 0 to 17% of calls. The model names 18 to 100% of them, fewest at column 9, <span class=\"gene\">yjjQ</span>, 18%.</p><p class=\"note\"><b>A short fork follows the spine</b>, columns 17 and 18, <span class=\"gene\">lgoR</span> and <span class=\"gene\">lgoT</span>, shell, carried by 86 and 73%. Then a branch of 11 shell families runs through columns 20 to 30, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">4-hydroxyphenylacetate catabolism</span>, carried by 28 to 33%. The <span class=\"gene\">fim</span> genes, columns 46 to 54, are <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">type 1 fimbria</span>, carried by 59 to 74%.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 89 against 81%, and hesitates less there, 0.40 against 0.86 bits. It hesitates most at column 41, <span class=\"gene\">uxuR</span>, a fork column, 1.31 bits.</p><p class=\"note\"><b>The window ends in variable and fork columns.</b> Columns 57 to 71, YthB to <span class=\"gene\">lptF</span>, are carried by 4 to 47%. The last column is <span class=\"gene\">ahr</span>, in 31% of chromosomes.</p><p class=\"note\"><b>Across the window it names 83% of genes</b>, 0.76 bits on average, perplexity 2.2 families. Inside a region of plasticity it hesitates more than outside, 1.21 against 0.37 bits, and names fewer genes, 71% against 94%.</p>",
  "window": "G8B09_RS20255",
  "label": "osmY",
- "facts_hash": "8eb498963786",
- "prompt_version": "r7",
- "facts": "WINDOW: the osmY window: 80 columns, column 0 is the anchor osmY, then the next 79 genes in dnaA's direction; about genes 3,744 to 3,823 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying osmY once); 42,960 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 83% of genes, 0.76 bits on average (perplexity 2.2 families). By partition of the gene: persistent 20,013 calls, named 95%, 0.21 bits; shell 21,761 calls, named 76%, 1.14 bits; cloud 1,186 calls, named 15%, 3.10 bits. Outside an RGP 23,090 calls, named 94%, 0.37 bits; inside an RGP 19,870 calls, named 71%, 1.21 bits. Columns: 18 spine, 35 fork, 27 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.21 against 0.37 bits) and names fewer genes (71% against 94%); 19,870 of the 42,960 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 41 (uxuR) 1.31 bits, RGP 36%; column 59 (\"DUF957 domain-containing protein\") 1.25 bits, RGP 56%; column 40 (\"hypothetical protein\") 1.23 bits, RGP 37%. The 46 columns where most calls are in an RGP: named 80%, 0.88 bits on average; the other 34 columns: named 88%, 0.59 bits.\nPLASTICITY: the stretch most in regions of plasticity: column 19 (spine), RGP 56%; the least: columns 0-16 (spine), RGP 0-17%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-16 (17 columns) spine: share 91-100%, all P, RGP 0-17%. Genes: osmY, prfC, yjjG \"pyrimidine 5'-nucleotidase\", rimI, holD, rsmC, yjjZ \"DUF1435 family protein\", fhuF, bglJ, yjjQ \"helix-turn-helix domain-containing\u2026\", yjjP \"threonine/serine ThrE exporter fami\u2026\", yjjB \"threonine/serine exporter\", dnaT \"DnaT-like ssDNA-binding domain-cont\u2026\", dnaC, yjjA \"DUF2501 domain-containing protein Y\u2026\", opgB, lgoD \"L-galactonate oxidoreductase\". named 18-100% (mean 90%), fewest named and most hesitant at column 9 (yjjQ), named 18%, 0.93 bits.\n2. columns 17-18 (2 columns) fork and variable columns: RGP 55-56%. named 87-88% (mean 87%), fewest named at column 17, named 87%; most hesitant at column 18, 0.95 bits.\n   17 variable: lgoR S 86%\n   18 fork: lgoT S 73%; also \"cation:proton antiporter\" S 14%\n3. column 19 spine: share 91%, all P, RGP 56%. Genes: tsr. named 87%; 0.57 bits.\n4. columns 20-79 (60 columns) fork and variable columns: RGP 34-70%. named 69-93% (mean 81%), fewest named at column 20, named 69%; most hesitant at column 41, 1.31 bits.\n   a second branch of 11 families through columns 20-30, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 28-33%, all S; the branch's families: hpaR, hpaG, hpaE, hpaD, \"5-carboxymethyl-2-hydroxymuconate Delta\u2026\", hpaH, hpaI, hpaX, hpaA, hpaB, \"4-hydroxyphenylacetate 3-monooxygenase\u2026\"\n   a second branch of 3 families through columns 34-36, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 13-14%, all S; the branch's families: mrr, hsdR, hsdM\n   a second branch of 3 families through columns 37-39, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, all S; the branch's families: \"KilA-N domain-containing protein\", \"RusA family crossover junction endodeox\u2026\", \"LexA family transcriptional regulator\"\n   a second branch of 3 families through columns 48-50, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 12-13%, all S; the branch's families: yfdP, yfdQ, yfdR\n   20 fork: btsT P 89%; also \"TRAP transporter small permease subunit\" S 15%\n   21 fork: yjiX P 89% \"YbdD/YjiX family protein\"; also \"TRAP transporter large permease\" S 15%\n   22 fork: yjiA P 89% \"GTPase\"\n   23 fork: \"BrnA antitoxin family protein\" S 49%\n   24 fork: \"BrnT family toxin\" S 40%\n   25 fork: mdtM S 76%; also \"N-6 DNA methylase\" S 11%\n   26 fork: yjiN P 83%\n   27 fork: yjiM P 81% \"double-cubane-cluster-containing an\u2026\"\n   28 fork: yjiL P 84% \"BadF/BadG/BcrA/BcrD ATPase family p\u2026\"\n   29 fork: ytiA P 84% \"DUF3343 domain-containing protein\"\n   30 fork: yjiK P 80% \"SdiA-regulated domain-containing pr\u2026\"\n   31 fork: yjiJ P 83% \"YbfB/YjiJ family MFS transporter\"; also \"GmrSD restriction endonuclease domain-c\u2026\" S 14%\n   32 fork: kptA S 78%; also yjiS S 49%\n   33 fork: yjiH P 82% \"nucleoside recognition domain-conta\u2026\"; also yjiP S 45%\n   34 fork: yjiG P 83% \"YjiG family protein\"\n   35 fork: iadA P 84%\n   36 fork: hypT P 83%; also \"restriction endonuclease\" S 12%, \"DUF968 domain-containing protein\" S 12%\n   37 fork: iraD P 83%\n   38 fork: idlP S 75%; also symE S 37%\n   39 fork: ytiD S 73% \"protein YtiD\"; also espX6 S 14%\n   40 fork: \"hypothetical protein\" S 53%; also yfdN S 10%\n   41 fork: uxuR P 84%; also yjiC S 63%\n   42 fork: uxuB P 84%; also yjiR S 42%, iatD S 13%\n   43 variable: uxuA P 84% \"mannonate dehydratase\"\n   44 variable: gntP S 63%\n   45 fork: \"IS1-like element transposase\" S 42%; also ymfL S 12%\n   46 variable: fimH S 73%\n   47 variable: fimG S 74%\n   48 fork: fimF S 71%\n   49 fork: fimD S 62%\n   50 fork: fimC S 64%\n   51 fork: fimI S 60%; also tnpB S 10%\n   52 variable: fimA S 63%\n   53 variable: fimE S 62% \"type 1 fimbria switch DNA invertase\u2026\"\n   54 variable: fimB S 59%\n   55 fork: nanC S 65% \"N-acetylneuraminic acid outer membr\u2026\"; also \"integrase arm-type DNA-binding domain-c\u2026\" S 13%\n   56 fork: nanM S 65%; also ykiE S 10%\n   columns 57-71 variable, share 4-47%, 12 S, 3 P: \"hypothetical protein\" 47%, \"HNH endonuclease\" 24%, \"DUF957 domain-containing protein\" 13%, \"DUF5983 family protein\" 9%, cbtA 11%, cbeA 11%, yeeT \"DUF987 family protein\" 9%, radC 9%, nanS 15%, \"DUF932 domain-containing protein\" 8%, \"UvrD-helicase domain-containing protein\" 4%, sgcX 9%, yjgR \"helicase HerA-like domain-containin\u2026\" 25%, lptG 26%, lptF \"LPS export ABC transporter permease\u2026\" 25%\n   72 fork: ytgA P 24% \"protein YtgA\"; also bdcR S 11%\n   73 fork: pepA P 23%; also bdcA S 10%\n   74 fork: holC P 22%; also yjgN S 15%\n   75 variable: valS P 20%\n   76 variable: \"phosphorothioated DNA-binding restricti\u2026\" S 21%\n   77 variable: yjgM P 18% \"GNAT family N-acetyltransferase\"\n   78 variable: rraB P 17%\n   79 fork: ahr P 31%; also argF P 15%, tabA P 13%\nPRODUCTS of named genes (for [[ ]]): dnaC DNA replication protein DnaC; lgoT MFS transporter; uxuB fructuronate reductase; uxuA mannonate dehydratase; fimH fimbrial protein; fimD FimD/PapC N-terminal domain-containing\u2026; fimC type 1 fimbria chaperone FimC; fimI fimbrial protein; fimA fimbrial protein; fimE type 1 fimbria switch DNA invertase FimE; fimB type 1 fimbria switch DNA invertase FimB; nanC N-acetylneuraminic acid outer membrane\u2026; lptG LptF/LptG family permease; hpaR homoprotocatechuate degradation operon\u2026; hpaG fumarylacetoacetate hydrolase family pr\u2026; hpaE aldehyde dehydrogenase family protein; hpaD 3,4-dihydroxyphenylacetate 2,3-dioxygen\u2026; hpaH 2-oxo-hept-4-ene-1,7-dioate hydratase; hpaI aldolase/citrate lyase family protein; hpaX MFS transporter; hpaA helix-turn-helix domain-containing prot\u2026; hpaB 4-hydroxyphenylacetate 3-hydroxylase C-\u2026; yjiP Rpn family recombination-promoting nucl\u2026; mrr restriction endonuclease; hsdM type I restriction-modification system\u2026; symE endoribonuclease SymE; yjiR aminotransferase class I/II-fold pyrido\u2026; yfdR 5'-deoxynucleotidase; tnpB IS66 family insertion sequence element\u2026; bdcR TetR/AcrR family transcriptional regula\u2026; bdcA SDR family NAD(P)-dependent oxidoreduct\u2026; tabA toxin-antitoxin biofilm protein TabA\nEND: the window ends at column 79, ahr, in 31% of chromosomes."
+ "facts_hash": "442d15fc0c75",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the osmY window: 80 columns, column 0 is the anchor osmY, then the next 79 genes in dnaA's direction; about genes 3,744 to 3,823 from dnaA. Read in 537 of the 540 complete chromosomes (those carrying osmY once); 42,960 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 83% of genes, 0.76 bits on average (perplexity 2.2 families). By partition of the gene: persistent 20,013 calls, named 95%, 0.21 bits; shell 21,761 calls, named 76%, 1.14 bits; cloud 1,186 calls, named 15%, 3.10 bits. Outside an RGP 23,090 calls, named 94%, 0.37 bits; inside an RGP 19,870 calls, named 71%, 1.21 bits. Columns: 18 spine, 35 fork, 27 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (1.21 against 0.37 bits) and names fewer genes (71% against 94%); 19,870 of the 42,960 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 41 (uxuR, a fork column) 1.31 bits, RGP 36%; column 59 (\"DUF957 domain-containing protein\", a variable column) 1.25 bits, RGP 56%; column 40 (\"hypothetical protein\", a fork column) 1.23 bits, RGP 37%. The 46 columns (columns 17-21, 23-30, 46 and 48-79) where most calls are in an RGP: named 80%, 0.88 bits on average; the other 34 columns: named 88%, 0.59 bits.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 18 spine columns: named 89%, 0.40 bits on average; the 62 fork and variable columns: named 81%, 0.86 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 41, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: column 19 (spine), RGP 56%; the least: columns 0-16 (spine), RGP 0-17%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-16 (17 columns) spine: share 91-100%, all P, RGP 0-17%. Genes: osmY, prfC, yjjG \"pyrimidine 5'-nucleotidase\", rimI, holD, rsmC, yjjZ \"DUF1435 domain-containing protein\", fhuF, bglJ, yjjQ \"helix-turn-helix domain-containing\u2026\", yjjP \"threonine/serine ThrE exporter fami\u2026\", yjjB \"threonine/serine exporter\", dnaT \"primosomal protein DnaT\", dnaC, yjjA \"DUF2501 domain-containing protein Y\u2026\", opgB, lgoD \"L-galactonate oxidoreductase\". named 18-100% (mean 90%), fewest named and most hesitant at column 9 (yjjQ), named 18%, 0.93 bits.\n[S2] 2. columns 17-18 (2 columns) fork and variable columns: share 73-86%, all S, RGP 55-56%. named 87-88% (mean 87%), fewest named at column 17, named 87%; most hesitant at column 18, 0.95 bits.\n[S2.c17]    17 variable: lgoR S 86%\n[S2.c18]    18 fork: lgoT S 73%; also \"Na+/H+ antiporter\" S 14%\n[S3] 3. column 19 spine: share 91%, all P, RGP 56%. Genes: tsr. named 87%; 0.57 bits.\n[S4] 4. columns 20-79 (60 columns) fork and variable columns: share 4-89%, 33 S, 27 P, RGP 34-70%. named 69-93% (mean 81%), fewest named at column 20, named 69%; most hesitant at column 41, 1.31 bits.\n[S4.b20]    a second branch of 11 families through columns 20-30, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 28-33%, all S; the branch's families: hpaR, hpaG, hpaE, hpaD, \"5-carboxymethyl-2-hydroxymuconate Delta\u2026\", hpaH, hpaI, hpaX, hpaA, hpaB, \"4-hydroxyphenylacetate 3-monooxygenase\u2026\"\n[S4.b34]    a second branch of 3 families through columns 34-36, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 13-14%, all S; the branch's families: mrr, hsdR, hsdM\n[S4.b37]    a second branch of 3 families through columns 37-39, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 10-12%, all S; the branch's families: \"KilA-N domain-containing protein\", \"RusA family crossover junction endodeox\u2026\", \"LexA family transcriptional regulator\"\n[S4.b48]    a second branch of 3 families through columns 48-50, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 12-13%, all S; the branch's families: yfdP, yfdQ, yfdR\n[S4.c20]    20 fork: btsT P 89%; also \"TRAP transporter small permease\" S 15%\n[S4.c21]    21 fork: yjiX P 89% \"YbdD/YjiX family protein\"; also \"TRAP transporter large permease\" S 15%\n[S4.c22]    22 fork: yjiA P 89% \"GTPase\"\n[S4.c23]    23 fork: \"BrnA antitoxin family protein\" S 49%\n[S4.c24]    24 fork: \"BrnT family toxin\" S 40%\n[S4.c25]    25 fork: mdtM S 76%; also \"type I restriction-modification system\u2026\" S 11%\n[S4.c26]    26 fork: yjiN P 83% \"DUF445 domain-containing protein\"\n[S4.c27]    27 fork: yjiM P 81% \"double-cubane-cluster-containing an\u2026\"\n[S4.c28]    28 fork: yjiL P 84% \"putative 2-hydroxyacyl-CoA dehydrat\u2026\"\n[S4.c29]    29 fork: ytiA P 84% \"DUF3343 domain-containing protein\"\n[S4.c30]    30 fork: yjiK P 80% \"SdiA-regulated domain-containing pr\u2026\"\n[S4.c31]    31 fork: yjiJ P 83% \"MFS transporter\"; also \"GmrSD restriction endonuclease domain-c\u2026\" S 14%\n[S4.c32]    32 fork: kptA S 78%; also yjiS S 49%\n[S4.c33]    33 fork: yjiH P 82% \"nucleoside recognition domain-conta\u2026\"; also yjiP S 45%\n[S4.c34]    34 fork: yjiG P 83% \"YjiG family protein\"\n[S4.c35]    35 fork: iadA P 84%\n[S4.c36]    36 fork: hypT P 83%; also \"restriction endonuclease\" S 12%, \"DUF968 domain-containing protein\" S 12%\n[S4.c37]    37 fork: iraD P 83%\n[S4.c38]    38 fork: idlP S 75%; also symE S 37%\n[S4.c39]    39 fork: ytiD S 73% \"protein YtiD\"; also espX6 S 14%\n[S4.c40]    40 fork: \"hypothetical protein\" S 53%; also yfdN S 10%\n[S4.c41]    41 fork: uxuR P 84%; also yjiC S 63%\n[S4.c42]    42 fork: uxuB P 84%; also yjiR S 42%, iatD S 13%\n[S4.c43]    43 variable: uxuA P 84% \"mannonate dehydratase\"\n[S4.c44]    44 variable: gntP S 63%\n[S4.c45]    45 fork: \"IS1 family transposase\" S 42%; also ymfL S 12%\n[S4.c46]    46 variable: fimH S 73%\n[S4.c47]    47 variable: fimG S 74%\n[S4.c48]    48 fork: fimF S 71%\n[S4.c49]    49 fork: fimD S 62%\n[S4.c50]    50 fork: fimC S 64%\n[S4.c51]    51 fork: fimI S 60%; also tnpB S 10%\n[S4.c52]    52 variable: fimA S 63%\n[S4.c53]    53 variable: fimE S 62% \"type 1 fimbria switch DNA invertase\u2026\"\n[S4.c54]    54 variable: fimB S 59%\n[S4.c55]    55 fork: nanC S 65% \"N-acetylneuraminic acid outer membr\u2026\"; also \"tyrosine-type recombinase/integrase\" S 13%\n[S4.c56]    56 fork: nanM S 65%; also ykiE S 10%\n[S4.c57-71]    columns 57-71 variable, share 4-47%, 12 S, 3 P: \"protein YthB\" 47%, \"HNH endonuclease\" 24%, \"DUF957 domain-containing protein\" 13%, \"DUF5983 family protein\" 9%, cbtA 11%, cbeA 11%, yeeT \"DUF987 domain-containing protein\" 9%, radC 9%, nanS 15%, \"DUF932 domain-containing protein\" 8%, \"UvrD-helicase domain-containing protein\" 4%, sgcX 9%, yjgR \"helicase HerA-like C-terminal domai\u2026\" 25%, lptG \"LPS export ABC transporter permease\u2026\" 26%, lptF 25%\n[S4.c72]    72 fork: ytgA P 24% \"protein YtgA\"; also bdcR S 11%\n[S4.c73]    73 fork: pepA P 23%; also bdcA S 10%\n[S4.c74]    74 fork: holC P 22%; also yjgN S 15%\n[S4.c75]    75 variable: valS P 20%\n[S4.c76]    76 variable: \"phosphorothioated DNA-binding restricti\u2026\" S 21%\n[S4.c77]    77 variable: yjgM P 18% \"GNAT family N-acetyltransferase\"\n[S4.c78]    78 variable: rraB P 17%\n[S4.c79]    79 fork: ahr P 31%; also argF P 15%, tabA P 13%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): the branch [S4.b34] through columns 34-36: restriction, endonuclease, modification, restriction-modification; columns 46-54 (fimH to fimB) [S4]: fimbria, fimbrial.\n[X] PRODUCTS of named genes (for [[ ]]): dnaC DNA replication protein DnaC; lgoT MFS transporter; uxuB fructuronate reductase; uxuA mannonate dehydratase; fimH type 1 fimbria D-mannose specific adhes\u2026; fimG fimbrial protein; fimD fimbrial usher FimD; fimC type 1 fimbria chaperone FimC; fimI fimbrial protein; fimA type 1 fimbrial major subunit FimA; fimE type 1 fimbria switch DNA invertase FimE; fimB type 1 fimbria switch DNA invertase FimB; nanC N-acetylneuraminic acid outer membrane\u2026; nanM N-acetylneuraminate epimerase; lptF LPS export ABC transporter permease LptF; hpaR homoprotocatechuate degradation operon\u2026; hpaG 4-hydroxyphenylacetate degradation bifu\u2026; hpaE 5-carboxymethyl-2-hydroxymuconate semia\u2026; hpaD 3,4-dihydroxyphenylacetate 2,3-dioxygen\u2026; hpaH 2-oxo-hept-4-ene-1,7-dioate hydratase; hpaI 4-hydroxy-2-oxoheptanedioate aldolase; hpaX 4-hydroxyphenylacetate permease; hpaA 4-hydroxyphenylacetate catabolism regul\u2026; hpaB 4-hydroxyphenylacetate 3-monooxygenase,\u2026; yjiP Rpn family recombination-promoting nucl\u2026; mrr adenine/cytosine-specific restriction e\u2026; hsdR type I restriction-modification system\u2026; hsdM type I restriction-modification system\u2026; symE endoribonuclease SymE; espX6 pentapeptide repeat-containing protein; yjiR PLP-dependent aminotransferase family p\u2026; iatD inverse autotransporter IatD; yfdR 5'-deoxynucleotidase; tnpB IS66 family insertion sequence element\u2026; bdcR TetR/AcrR family transcriptional regula\u2026; bdcA SDR family oxidoreductase; argF ornithine carbamoyltransferase; tabA toxin-antitoxin biofilm protein TabA\n[E] END: the window ends at column 79, ahr, in 31% of chromosomes."
 }

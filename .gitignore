@@ -33,4 +33,10 @@ pgb/knock/*
 !pgb/knock/*_summary.json
 !pgb/knock/*_links.parquet
 !pgb/knock/pilot_report.md
+!pgb/knock/all/
+pgb/knock/all/*
+!pgb/knock/all/all_report.md
+!pgb/knock/close/
+pgb/knock/close/*
+!pgb/knock/close/close_report.md
 pgb/knock/smoke*

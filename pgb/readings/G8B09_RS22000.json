@@ -2,55 +2,227 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447974.2599041,
+ "created": 1790479629.7728858,
  "usage": {
-  "prompt_tokens": 3312,
-  "completion_tokens": 619,
+  "prompt_tokens": 5300,
+  "completion_tokens": 412,
   "cost_usd": 0.000567,
-  "ms": 7779
+  "ms": 3876
  },
  "attempts": [
   {
-   "text": "**The window starts in a five-gene spine.** Columns 0 to 4, `mraZ`, `cra`, `fruR`, `ilvN` and `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, and in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, hesitating most at `fruR`, 0.23 bits.\n\n**A fork follows at column 5**, where the model names 74% of calls and hesitates 0.36 bits; the branch carries protein YabR in 64% of chromosomes. Then columns 6 to 11, `leuO` to `leuD`, [[leucine biosynthesis]], a spine carried by 92 to 96% of chromosomes, named in 95 to 99.8% of calls. Column 12 is variable, `setA` in 61%.\n\n**A long spine runs from `sgrT` to `caiA`**, columns 13 to 42, [[sugar and thiamine transport]] among its genes, carried by 92 to 96% of chromosomes, in a region of plasticity in 0 to 2% of calls. The model names 77 to 100% there, but hesitates most at `djlA`, column 26, 0.79 bits, naming it in 77%. Column 43 is variable, `caiB` persistent in 90%.\n\n**Then `caiC` to `rpsT`**, columns 44 to 58, [[carnitine and carbamoyl phosphate metabolism]], a spine in 90 to 96% of chromosomes, in a region of plasticity in 0.4 to 4% of calls, named in 93 to 98%. Column 59 is variable, an IS1-like element transposase in 26%, the most hesitant column at 0.81 bits, in a region of plasticity in 8% of calls.\n\n**The window ends in fork and variable columns.** Columns 60 to 62, `nhaR` to `mokC`, are a spine in 95 to 96% of chromosomes, in a region of plasticity in 11 to 23% of calls, named in 82 to 89%. Column 63 is a fork, in a region of plasticity in 25% of calls, carrying a transposase in 44% and a fimbria/pilus periplasmic chaperone in 23%. Columns 64 to 72, `dnaJ` to `yaaA`, [[chaperone and stress response]], are a spine in 90 to 95%, named in 83 to 99%. Columns 73 to 79 are fork and variable columns, named in 98 to 99%, ending at `yjjY`, in 37% of chromosomes.",
+   "text": "**The window opens on a spine.** Columns 0 to 4, `mraZ` to `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, fewest at column 4, `ilvI`, 99%.\n\n**A fork at column 5, `protein YabR`, carried by 64%**, opens the middle. Then the `leu` genes, columns 6 to 11, [[isopropylmalate dehydratase]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 93%, and hesitates less there, 0.21 against 0.26 bits. Its most hesitant column, 59, `IS1 family transposase`, is a variable column, at 0.81 bits.\n\n**The window ends on a fork and variable stretch.** Columns 73 to 79, `yaaX` to `yjjY`, are carried by 37 to 86% of chromosomes, all persistent. The last column is `yjjY`, in 37% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.22 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.81 against 0.20 bits, and names fewer genes, 74% against 96%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3312,
-    "completion_tokens": 619,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5300,
+    "completion_tokens": 412,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
     "cost_usd": 0.000567
    },
    "provider": "deepinfra",
-   "ms": 7779,
-   "raw": "**The window starts in a five-gene spine.** Columns 0 to 4, `mraZ`, `cra`, `fruR`, `ilvN` and `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, and in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, hesitating most at `fruR`, 0.23 bits.\n\n**A fork follows at column 5**, where the model names 74% of calls and hesitates 0.36 bits; the branch carries protein YabR in 64% of chromosomes. Then columns 6 to 11, `leuO` to `leuD`, [[leucine biosynthesis]], a spine carried by 92 to 96% of chromosomes, named in 95 to 99.8% of calls. Column 12 is variable, `setA` in 61%.\n\n**A long spine runs from `sgrT` to `caiA`**, columns 13 to 42, [[sugar and thiamine transport]] among its genes, carried by 92 to 96% of chromosomes, in a region of plasticity in 0 to 2% of calls. The model names 77 to 100% there, but hesitates most at `djlA`, column 26, 0.79 bits, naming it in 77%. Column 43 is variable, `caiB` persistent in 90%.\n\n**Then `caiC` to `rpsT`**, columns 44 to 58, [[carnitine and carbamoyl phosphate metabolism]], a spine in 90 to 96% of chromosomes, in a region of plasticity in 0.4 to 4% of calls, named in 93 to 98%. Column 59 is variable, an IS1-like element transposase in 26%, the most hesitant column at 0.81 bits, in a region of plasticity in 8% of calls.\n\n**The window ends in fork and variable columns.** Columns 60 to 62, `nhaR` to `mokC`, are a spine in 95 to 96% of chromosomes, in a region of plasticity in 11 to 23% of calls, named in 82 to 89%. Column 63 is a fork, in a region of plasticity in 25% of calls, carrying a transposase in 44% and a fimbria/pilus periplasmic chaperone in 23%. Columns 64 to 72, `dnaJ` to `yaaA`, [[chaperone and stress response]], are a spine in 90 to 95%, named in 83 to 99%. Columns 73 to 79 are fork and variable columns, named in 98 to 99%, ending at `yjjY`, in 37% of chromosomes.",
+   "ms": 3876,
+   "raw": "@start **The window opens on a spine.** Columns 0 to 4, `mraZ` to `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1}. The model names 99 to 99.6% of them, fewest at column 4, `ilvI`, 99% {S1}.\n\n@variable **A fork at column 5, `protein YabR`, carried by 64%**, opens the middle {S2, S2.c5}. Then the `leu` genes, columns 6 to 11, [[isopropylmalate dehydratase]] {S3, Q}. A branch at column 63, `IS4-like element IS421 family transposase`, runs in 44%, [[fimbria/pilus periplasmic chaperone]] {S10, S10.c63}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 93%, and hesitates less there, 0.21 against 0.26 bits {M}. Its most hesitant column, 59, `IS1 family transposase`, is a variable column, at 0.81 bits {H}.\n\n@end **The window ends on a fork and variable stretch.** Columns 73 to 79, `yaaX` to `yjjY`, are carried by 37 to 86% of chromosomes, all persistent {S12}. The last column is `yjjY`, in 37% of chromosomes {E}.\n\n@whole **Across the window it names 96% of genes**, 0.22 bits on average, perplexity 1.2 families {G}. Inside a region of plasticity it hesitates more than outside, 0.81 against 0.20 bits, and names fewer genes, 74% against 96% {C}.",
+   "annotated": "@start **The window opens on a spine.** Columns 0 to 4, `mraZ` to `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1}. The model names 99 to 99.6% of them, fewest at column 4, `ilvI`, 99% {S1}.\n\n@variable **A fork at column 5, `protein YabR`, carried by 64%**, opens the middle {S2, S2.c5}. Then the `leu` genes, columns 6 to 11, [[isopropylmalate dehydratase]] {S3, Q}. A branch at column 63, `IS4-like element IS421 family transposase`, runs in 44%, [[fimbria/pilus periplasmic chaperone]] {S10, S10.c63}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 96 against 93%, and hesitates less there, 0.21 against 0.26 bits {M}. Its most hesitant column, 59, `IS1 family transposase`, is a variable column, at 0.81 bits {H}.\n\n@end **The window ends on a fork and variable stretch.** Columns 73 to 79, `yaaX` to `yjjY`, are carried by 37 to 86% of chromosomes, all persistent {S12}. The last column is `yjjY`, in 37% of chromosomes {E}.\n\n@whole **Across the window it names 96% of genes**, 0.22 bits on average, perplexity 1.2 families {G}. Inside a region of plasticity it hesitates more than outside, 0.81 against 0.20 bits, and names fewer genes, 74% against 96% {C}.",
    "check": {
-    "ok": true,
-    "numbers": 69,
-    "names": 20,
-    "words": 349,
-    "bad": [],
-    "hints": [
+    "ok": false,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
+    "bad": [
      {
-      "text": "leucine",
-      "where": "[[leucine biosynthesis]]"
+      "kind": "claim",
+      "text": "branch",
+      "why": "no line cited (S10, S10.c63) has a branch here",
+      "context": "A branch at column 63, `IS4-like element IS421 family transposase`, runs in 44%, [[fimbria/pilus periplasmic chaperone]]"
      }
-    ]
+    ],
+    "numbers": 22,
+    "names": 10,
+    "words": 199,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 1,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 182,
+    "repeats": 0,
+    "interp": 1,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a spine.** Columns 0 to 4, `mraZ` to `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99 to 99.6% of them, fewest at column 4, `ilvI`, 99%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**A fork at column 5, `protein YabR`, carried by 64%**, opens the middle",
+      "cites": [
+       "S2",
+       "S2.c5"
+      ],
+      "inherit": [
+       "S3",
+       "Q",
+       "S10",
+       "S10.c63"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then the `leu` genes, columns 6 to 11, [[isopropylmalate dehydratase]]",
+      "cites": [
+       "S3",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 93%, and hesitates less there, 0.21 against 0.26 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "Its most hesitant column, 59, `IS1 family transposase`, is a variable column, at 0.81 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends on a fork and variable stretch.** Columns 73 to 79, `yaaX` to `yjjY`, are carried by 37 to 86% of chromosomes, all persistent",
+      "cites": [
+       "S12"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `yjjY`, in 37% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 96% of genes**, 0.22 bits on average, perplexity 1.2 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.81 against 0.20 bits, and names fewer genes, 74% against 96%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 20
+   },
+   "dropped": [
+    {
+     "tag": "variable",
+     "text": "A branch at column 63, `IS4-like element IS421 family transposase`, runs in 44%, [[fimbria/pilus periplasmic chaperone]]",
+     "cites": [
+      "S10",
+      "S10.c63"
+     ],
+     "opens": false,
+     "bad": [
+      {
+       "kind": "claim",
+       "text": "branch",
+       "why": "no line cited (S10, S10.c63) has a branch here"
+      }
+     ]
+    }
+   ],
+   "served": "**The window opens on a spine.** Columns 0 to 4, `mraZ` to `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, fewest at column 4, `ilvI`, 99%.\n\n**A fork at column 5, `protein YabR`, carried by 64%**, opens the middle. Then the `leu` genes, columns 6 to 11, [[isopropylmalate dehydratase]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 93%, and hesitates less there, 0.21 against 0.26 bits. Its most hesitant column, 59, `IS1 family transposase`, is a variable column, at 0.81 bits.\n\n**The window ends on a fork and variable stretch.** Columns 73 to 79, `yaaX` to `yjjY`, are carried by 37 to 86% of chromosomes, all persistent. The last column is `yjjY`, in 37% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.22 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.81 against 0.20 bits, and names fewer genes, 74% against 96%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 69,
-  "names": 20,
-  "words": 349,
-  "attempts": 1
+  "numbers": 22,
+  "names": 10,
+  "words": 182,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 1,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 1,
+  "covered": 20
  },
- "text": "**The window starts in a five-gene spine.** Columns 0 to 4, `mraZ`, `cra`, `fruR`, `ilvN` and `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, and in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, hesitating most at `fruR`, 0.23 bits.\n\n**A fork follows at column 5**, where the model names 74% of calls and hesitates 0.36 bits; the branch carries protein YabR in 64% of chromosomes. Then columns 6 to 11, `leuO` to `leuD`, [[leucine biosynthesis]], a spine carried by 92 to 96% of chromosomes, named in 95 to 99.8% of calls. Column 12 is variable, `setA` in 61%.\n\n**A long spine runs from `sgrT` to `caiA`**, columns 13 to 42, [[sugar and thiamine transport]] among its genes, carried by 92 to 96% of chromosomes, in a region of plasticity in 0 to 2% of calls. The model names 77 to 100% there, but hesitates most at `djlA`, column 26, 0.79 bits, naming it in 77%. Column 43 is variable, `caiB` persistent in 90%.\n\n**Then `caiC` to `rpsT`**, columns 44 to 58, [[carnitine and carbamoyl phosphate metabolism]], a spine in 90 to 96% of chromosomes, in a region of plasticity in 0.4 to 4% of calls, named in 93 to 98%. Column 59 is variable, an IS1-like element transposase in 26%, the most hesitant column at 0.81 bits, in a region of plasticity in 8% of calls.\n\n**The window ends in fork and variable columns.** Columns 60 to 62, `nhaR` to `mokC`, are a spine in 95 to 96% of chromosomes, in a region of plasticity in 11 to 23% of calls, named in 82 to 89%. Column 63 is a fork, in a region of plasticity in 25% of calls, carrying a transposase in 44% and a fimbria/pilus periplasmic chaperone in 23%. Columns 64 to 72, `dnaJ` to `yaaA`, [[chaperone and stress response]], are a spine in 90 to 95%, named in 83 to 99%. Columns 73 to 79 are fork and variable columns, named in 98 to 99%, ending at `yjjY`, in 37% of chromosomes.",
- "html": "<p class=\"note\"><b>The window starts in a five-gene spine.</b> Columns 0 to 4, <span class=\"gene\">mraZ</span>, <span class=\"gene\">cra</span>, <span class=\"gene\">fruR</span>, <span class=\"gene\">ilvN</span> and <span class=\"gene\">ilvI</span>, are carried by 95 to 100% of chromosomes, all persistent, and in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, hesitating most at <span class=\"gene\">fruR</span>, 0.23 bits.</p><p class=\"note\"><b>A fork follows at column 5</b>, where the model names 74% of calls and hesitates 0.36 bits; the branch carries protein YabR in 64% of chromosomes. Then columns 6 to 11, <span class=\"gene\">leuO</span> to <span class=\"gene\">leuD</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">leucine biosynthesis</span>, a spine carried by 92 to 96% of chromosomes, named in 95 to 99.8% of calls. Column 12 is variable, <span class=\"gene\">setA</span> in 61%.</p><p class=\"note\"><b>A long spine runs from <span class=\"gene\">sgrT</span> to <span class=\"gene\">caiA</span></b>, columns 13 to 42, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">sugar and thiamine transport</span> among its genes, carried by 92 to 96% of chromosomes, in a region of plasticity in 0 to 2% of calls. The model names 77 to 100% there, but hesitates most at <span class=\"gene\">djlA</span>, column 26, 0.79 bits, naming it in 77%. Column 43 is variable, <span class=\"gene\">caiB</span> persistent in 90%.</p><p class=\"note\"><b>Then <span class=\"gene\">caiC</span> to <span class=\"gene\">rpsT</span></b>, columns 44 to 58, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">carnitine and carbamoyl phosphate metabolism</span>, a spine in 90 to 96% of chromosomes, in a region of plasticity in 0.4 to 4% of calls, named in 93 to 98%. Column 59 is variable, an IS1-like element transposase in 26%, the most hesitant column at 0.81 bits, in a region of plasticity in 8% of calls.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 60 to 62, <span class=\"gene\">nhaR</span> to <span class=\"gene\">mokC</span>, are a spine in 95 to 96% of chromosomes, in a region of plasticity in 11 to 23% of calls, named in 82 to 89%. Column 63 is a fork, in a region of plasticity in 25% of calls, carrying a transposase in 44% and a fimbria/pilus periplasmic chaperone in 23%. Columns 64 to 72, <span class=\"gene\">dnaJ</span> to <span class=\"gene\">yaaA</span>, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">chaperone and stress response</span>, are a spine in 90 to 95%, named in 83 to 99%. Columns 73 to 79 are fork and variable columns, named in 98 to 99%, ending at <span class=\"gene\">yjjY</span>, in 37% of chromosomes.</p>",
+ "text": "**The window opens on a spine.** Columns 0 to 4, `mraZ` to `ilvI`, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, fewest at column 4, `ilvI`, 99%.\n\n**A fork at column 5, `protein YabR`, carried by 64%**, opens the middle. Then the `leu` genes, columns 6 to 11, [[isopropylmalate dehydratase]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 96 against 93%, and hesitates less there, 0.21 against 0.26 bits. Its most hesitant column, 59, `IS1 family transposase`, is a variable column, at 0.81 bits.\n\n**The window ends on a fork and variable stretch.** Columns 73 to 79, `yaaX` to `yjjY`, are carried by 37 to 86% of chromosomes, all persistent. The last column is `yjjY`, in 37% of chromosomes.\n\n**Across the window it names 96% of genes**, 0.22 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.81 against 0.20 bits, and names fewer genes, 74% against 96%.",
+ "html": "<p class=\"note\"><b>The window opens on a spine.</b> Columns 0 to 4, <span class=\"gene\">mraZ</span> to <span class=\"gene\">ilvI</span>, are carried by 95 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99 to 99.6% of them, fewest at column 4, <span class=\"gene\">ilvI</span>, 99%.</p><p class=\"note\"><b>A fork at column 5, protein YabR, carried by 64%</b>, opens the middle. Then the <span class=\"gene\">leu</span> genes, columns 6 to 11, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">isopropylmalate dehydratase</span>.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 96 against 93%, and hesitates less there, 0.21 against 0.26 bits. Its most hesitant column, 59, IS1 family transposase, is a variable column, at 0.81 bits.</p><p class=\"note\"><b>The window ends on a fork and variable stretch.</b> Columns 73 to 79, <span class=\"gene\">yaaX</span> to <span class=\"gene\">yjjY</span>, are carried by 37 to 86% of chromosomes, all persistent. The last column is <span class=\"gene\">yjjY</span>, in 37% of chromosomes.</p><p class=\"note\"><b>Across the window it names 96% of genes</b>, 0.22 bits on average, perplexity 1.2 families. Inside a region of plasticity it hesitates more than outside, 0.81 against 0.20 bits, and names fewer genes, 74% against 96%.</p>",
  "window": "G8B09_RS22000",
  "label": "mraZ",
- "facts_hash": "5a798558db9a",
- "prompt_version": "r7",
- "facts": "WINDOW: the mraZ window: 80 columns, column 0 is the anchor mraZ, then the next 79 genes in dnaA's direction; about genes 3,632 to 3,711 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying mraZ once); 43,200 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 96% of genes, 0.22 bits on average (perplexity 1.2 families). By partition of the gene: persistent 39,597 calls, named 99%, 0.15 bits; shell 3,487 calls, named 60%, 0.99 bits; cloud 116 calls, named 1%, 2.06 bits. Outside an RGP 41,924 calls, named 96%, 0.20 bits; inside an RGP 1,276 calls, named 74%, 0.81 bits. Columns: 68 spine, 3 fork, 9 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.81 against 0.20 bits) and names fewer genes (74% against 96%); 1,276 of the 43,200 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 59 (\"IS1-like element transposase\") 0.81 bits, RGP 8%; column 26 (djlA) 0.79 bits, RGP 0%; column 60 (nhaR) 0.68 bits, RGP 11%. No column has most of its calls in an RGP.\nPLASTICITY: the stretch most in regions of plasticity: column 63 (fork), RGP 25%; the least: columns 0-4 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-4 (5 columns) spine: share 95-100%, all P, RGP 0%. Genes: mraZ, cra, fruR, ilvN \"acetolactate synthase small subunit\", ilvI. named 99-99.6% (mean 99%), fewest named at column 4 (ilvI), named 99%; most hesitant at column 2 (fruR), 0.23 bits.\n2. column 5 fork: RGP 0%. named 74%; 0.36 bits.\n   5: \"protein YabR\" S 64%; also \"hypothetical protein\" S 14%\n3. columns 6-11 (6 columns) spine: share 92-96%, all P, RGP 0%. Genes: leuO, leuL, leuA, leuB, leuC \"3-isopropylmalate dehydratase large\u2026\", leuD. named 95-99.8% (mean 98%), fewest named at column 7 (leuL), named 95%; most hesitant at column 6 (leuO), 0.66 bits.\n4. column 12 variable: RGP 0%. named 96%; 0.41 bits.\n   12: setA S 61%\n5. columns 13-42 (30 columns) spine: share 92-96%, all P, RGP 0-2%. Genes: sgrT \"glucose uptake inhibitor SgrT\", sgrR, thiB, thiP, thiQ \"thiamine ABC transporter ATP-bindin\u2026\", yabI \"DedA family protein\", araC, araB, araA, araD \"class II aldolase/adducin family pr\u2026\", polB, rapA, rluA, djlA, lptD, surA, pdxA, rsmA, apaG, apaH \"bis(5'-nucleosyl)-tetraphosphatase\u2026\", folA, kefC, kefF \"NAD(P)H-dependent oxidoreductase\", yaaU \"MFS transporter\", fixX, fixC, fixB, fixA \"putative electron transfer flavopro\u2026\", caiT \"L-carnitine/gamma-butyrobetaine ant\u2026\", caiA. named 77-100% (mean 97%), fewest named and most hesitant at column 26 (djlA), named 77%, 0.79 bits.\n6. column 43 variable: RGP 0.4%. named 97%; 0.29 bits.\n   43: caiB P 90%\n7. columns 44-58 (15 columns) spine: share 90-96%, all P, RGP 0.4-4%. Genes: caiC, caiD, caiE, caiF, carB, carA \"carbamoyl phosphate synthase small\u2026\", dapB, rihC, ispH, fkpB, lspA, ileS, ribF, yaaY \"DUF2575 family protein\", rpsT. named 93-98% (mean 96%), fewest named at column 53 (fkpB), named 93%; most hesitant at column 58 (rpsT), 0.28 bits.\n8. column 59 variable: RGP 8%. named 79%; 0.81 bits.\n   59: \"IS1-like element transposase\" S 26%\n9. columns 60-62 (3 columns) spine: share 95-96%, all P, RGP 11-23%. Genes: nhaR, nhaA \"Na+/H+ antiporter NhaA\", mokC. named 82-89% (mean 86%), fewest named at column 62 (mokC), named 82%; most hesitant at column 60 (nhaR), 0.68 bits.\n10. column 63 fork: RGP 25%. named 81%; 0.50 bits.\n   63: \"transposase\" S 44%; also \"fimbria/pilus periplasmic chaperone\" S 23%\n11. columns 64-72 (9 columns) spine: share 90-95%, all P, RGP 4-24%. Genes: dnaJ, dnaK \"molecular chaperone DnaK\", yaaI \"DUF2541 family protein\", msyB, satP, mog, tal, yaaJ \"alanine:cation symporter family pro\u2026\", yaaA \"peroxide stress protein YaaA\". named 83-99% (mean 94%), fewest named and most hesitant at column 64 (dnaJ), named 83%, 0.47 bits.\n12. columns 73-79 (7 columns) fork and variable columns: RGP 1-2%. named 98-99% (mean 98%), fewest named at column 78, named 98%; no column of this stretch hesitates more than 0.18 bits (column 73).\n   columns 73-78 variable, share 49-86%, all P: yaaX \"DUF2502 domain-containing protein\" 86%, thrC 83%, thrB 76%, thrA 67%, thrL \"thr operon leader peptide\" 58%, yjtD \"TrmH family RNA methyltransferase\" 49%\n   79 fork: yjjY P 37% \"protein YjjY\"; also arcA P 22%\nPRODUCTS of named genes (for [[ ]]): ilvI thiamine pyrophosphate-binding protein; leuB isocitrate/isopropylmalate family dehyd\u2026; leuD 3-isopropylmalate dehydratase small sub\u2026; thiB thiamine ABC transporter substrate-bind\u2026; thiP ABC transporter permease subunit; araB ribulokinase; araA L-arabinose isomerase family protein; kefC glutathione-regulated potassium-efflux\u2026; fixX ferredoxin family protein; fixC FAD-dependent oxidoreductase; fixB FAD-binding protein; caiA acyl-CoA dehydrogenase family protein; caiB L-carnitine CoA-transferase; caiC AMP-binding protein; caiD enoyl-CoA hydratase-related protein; caiE carnitine operon protein CaiE; caiF CaiF/GrlA family transcriptional regula\u2026; thrC threonine synthase; thrB homoserine kinase; espY2 T3SS effector EspY2; espY1 T3SS effector EspY1; arcA winged helix-turn-helix domain-containi\u2026\nEND: the window ends at column 79, yjjY, in 37% of chromosomes."
+ "facts_hash": "cea8026f9ed4",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the mraZ window: 80 columns, column 0 is the anchor mraZ, then the next 79 genes in dnaA's direction; about genes 3,632 to 3,711 from dnaA. Read in 540 of the 540 complete chromosomes (those carrying mraZ once); 43,200 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 96% of genes, 0.22 bits on average (perplexity 1.2 families). By partition of the gene: persistent 39,597 calls, named 99%, 0.15 bits; shell 3,487 calls, named 60%, 0.99 bits; cloud 116 calls, named 1%, 2.06 bits. Outside an RGP 41,924 calls, named 96%, 0.20 bits; inside an RGP 1,276 calls, named 74%, 0.81 bits. Columns: 68 spine, 3 fork, 9 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.81 against 0.20 bits) and names fewer genes (74% against 96%); 1,276 of the 43,200 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 59 (\"IS1 family transposase\", a variable column) 0.81 bits, RGP 8%; column 26 (djlA, a spine column) 0.79 bits, RGP 0%; column 60 (nhaR, a spine column) 0.68 bits, RGP 11%. No column has most of its calls in an RGP.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 68 spine columns: named 96%, 0.21 bits on average; the 12 fork and variable columns: named 93%, 0.26 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 59, is a variable column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: column 63 (fork), RGP 25%; the least: columns 0-4 (spine), RGP 0%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-4 (5 columns) spine: share 95-100%, all P, RGP 0%. Genes: mraZ, cra, fruR, ilvN \"acetolactate synthase small subunit\", ilvI. named 99-99.6% (mean 99%), fewest named at column 4 (ilvI), named 99%; most hesitant at column 2 (fruR), 0.23 bits.\n[S2] 2. column 5 fork: share 64%, all S, RGP 0%. named 74%; 0.36 bits.\n[S2.c5]    5: \"protein YabR\" S 64%; also \"hypothetical protein\" S 14%\n[S3] 3. columns 6-11 (6 columns) spine: share 92-96%, all P, RGP 0%. Genes: leuO, leuL, leuA, leuB, leuC \"3-isopropylmalate dehydratase large\u2026\", leuD. named 95-99.8% (mean 98%), fewest named at column 7 (leuL), named 95%; most hesitant at column 6 (leuO), 0.66 bits.\n[S4] 4. column 12 variable: share 61%, all S, RGP 0%. named 96%; 0.41 bits.\n[S4.c12]    12: setA S 61%\n[S5] 5. columns 13-42 (30 columns) spine: share 92-96%, all P, RGP 0-2%. Genes: sgrT \"glucose uptake inhibitor SgrT\", sgrR, thiB \"thiamine ABC transporter substrate\u2026\", thiP, thiQ, yabI \"DedA family protein\", araC, araB, araA \"L-arabinose isomerase\", araD, polB, rapA, rluA, djlA, lptD, surA, pdxA, rsmA, apaG, apaH \"bis(5'-nucleosyl)-tetraphosphatase\u2026\", folA, kefC, kefF \"glutathione-regulated potassium-eff\u2026\", yaaU \"MFS transporter\", fixX, fixC, fixB \"electron transfer flavoprotein subu\u2026\", fixA, caiT \"L-carnitine/gamma-butyrobetaine ant\u2026\", caiA. named 77-100% (mean 97%), fewest named and most hesitant at column 26 (djlA), named 77%, 0.79 bits.\n[S6] 6. column 43 variable: share 90%, all P, RGP 0.4%. named 97%; 0.29 bits.\n[S6.c43]    43: caiB P 90%\n[S7] 7. columns 44-58 (15 columns) spine: share 90-96%, all P, RGP 0.4-4%. Genes: caiC, caiD, caiE, caiF, carB, carA \"glutamine-hydrolyzing carbamoyl-pho\u2026\", dapB, rihC, ispH, fkpB, lspA, ileS, ribF, yaaY \"DUF2575 family protein\", rpsT. named 93-98% (mean 96%), fewest named at column 53 (fkpB), named 93%; most hesitant at column 58 (rpsT), 0.28 bits.\n[S8] 8. column 59 variable: share 26%, all S, RGP 8%. named 79%; 0.81 bits.\n[S8.c59]    59: \"IS1 family transposase\" S 26%\n[S9] 9. columns 60-62 (3 columns) spine: share 95-96%, all P, RGP 11-23%. Genes: nhaR, nhaA \"Na+/H+ antiporter NhaA\", mokC. named 82-89% (mean 86%), fewest named at column 62 (mokC), named 82%; most hesitant at column 60 (nhaR), 0.68 bits.\n[S10] 10. column 63 fork: share 44%, all S, RGP 25%. named 81%; 0.50 bits.\n[S10.c63]    63: \"IS4-like element IS421 family transposa\u2026\" S 44%; also \"fimbria/pilus periplasmic chaperone\" S 23%\n[S11] 11. columns 64-72 (9 columns) spine: share 90-95%, all P, RGP 4-24%. Genes: dnaJ \"molecular chaperone DnaJ\", dnaK, yaaI \"DUF2541 family protein\", msyB, satP, mog, tal, yaaJ \"alanine/glycine:cation symporter fa\u2026\", yaaA \"peroxide stress protein YaaA\". named 83-99% (mean 94%), fewest named and most hesitant at column 64 (dnaJ), named 83%, 0.47 bits.\n[S12] 12. columns 73-79 (7 columns) fork and variable columns: share 37-86%, all P, RGP 1-2%. named 98-99% (mean 98%), fewest named at column 78, named 98%; no column of this stretch hesitates more than 0.18 bits (column 73).\n[S12.c73-78]    columns 73-78 variable, share 49-86%, all P: yaaX \"DUF2502 domain-containing protein\" 86%, thrC 83%, thrB 76%, thrA \"bifunctional aspartate kinase/homos\u2026\" 67%, thrL 58%, yjtD \"tRNA/rRNA methyltransferase\" 49%\n[S12.c79]    79 fork: yjjY P 37% \"protein YjjY\"; also arcA P 22%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 6-11 (leuO to leuD) [S3]: isopropylmalate, 3-isopropylmalate, dehydratase; columns 19-22 (araC to araD) [S5]: arabinose; columns 37-40 (fixX to fixA) [S5]: electron, flavoprotein, transfer; columns 41-47 (caiT to caiF) [S5, S6, S7]: carnitine; columns 74-77 (thrC to thrL) [S12]: homoserine, kinase.\n[X] PRODUCTS of named genes (for [[ ]]): ilvI acetolactate synthase 3 large subunit; leuA 2-isopropylmalate synthase; leuB 3-isopropylmalate dehydrogenase; leuD 3-isopropylmalate dehydratase small sub\u2026; thiP thiamine/thiamine pyrophosphate ABC tra\u2026; thiQ thiamine ABC transporter ATP-binding pr\u2026; araC arabinose operon transcriptional regula\u2026; araB ribulokinase; araD L-ribulose-5-phosphate 4-epimerase; kefC glutathione-regulated potassium-efflux\u2026; fixX ferredoxin-like protein FixX; fixC FAD-dependent oxidoreductase; fixA electron transfer flavoprotein FixA; caiA crotonobetainyl-CoA dehydrogenase; caiB L-carnitine CoA-transferase; caiC crotonobetaine/carnitine-CoA ligase; caiD crotonobetainyl-CoA hydratase; caiE carnitine operon protein CaiE; caiF carnitine metabolism transcriptional re\u2026; carB carbamoyl-phosphate synthase large subu\u2026; nhaR transcriptional activator NhaR; dnaK molecular chaperone DnaK; thrC threonine synthase; thrB homoserine kinase; espY2 T3SS effector EspY2; espY1 T3SS effector EspY1; espX1 type III secretion system effector EspX1; arcA two-component system response regulator\u2026\n[E] END: the window ends at column 79, yjjY, in 37% of chromosomes."
 }

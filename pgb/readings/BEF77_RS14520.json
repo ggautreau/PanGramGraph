@@ -2,50 +2,211 @@
  "status": "llm",
  "model": "deepseek-ai/DeepSeek-V4.1-Flash",
  "provider": "deepinfra",
- "created": 1790447768.8109949,
+ "created": 1790479468.9316792,
  "usage": {
-  "prompt_tokens": 3529,
-  "completion_tokens": 638,
-  "cost_usd": 0.000606,
-  "ms": 7582
+  "prompt_tokens": 5542,
+  "completion_tokens": 403,
+  "cost_usd": 0.000597,
+  "ms": 3489
  },
  "attempts": [
   {
-   "text": "**The window starts on two persistent columns.** Columns 0 to 1, `rbbA` and `yhhJ`, are carried by 97 to 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names them in 99.6 to 99.8% of calls, with no column of the stretch above 0.05 bits.\n\n**The first fork is at `yhhI`**, column 2, the most hesitant column of the window at 1.15 bits, in a region of plasticity in 23% of calls. Columns 2 to 3 are the stretch most in regions of plasticity, 23%, and the model names 73 to 84% there. A second branch carries transposases and a toxin-antitoxin pair, [[toxin-antitoxin and transposase genes]].\n\n**Then a spine from `nikR` to `acpT`**, columns 4 to 10, carried by 96 to 97% of chromosomes, in a region of plasticity in 7 to 23% of calls. The model names 82 to 99% there, fewest at `nikR`, 82%, with 0.56 bits. The long spine from `yhhT` to `ggt`, columns 12 to 39, is named in 70 to 99% of calls, fewest at `livJ`, 70%, and most hesitant at `ggt`, 0.37 bits; it carries nickel import, [[nickel import and transport]], and the `liv` and `ugp` operons, [[branched-chain amino acid transport]].\n\n**A variable stretch at columns 40 to 43** is named in 90 to 95% of calls, fewest at column 41, 90%, with 0.47 bits. The spine from `yhhY` to `glgP`, columns 44 to 56, carried by 93 to 97% of chromosomes, is named in 91 to 98% of calls, fewest at `glgP`, 91%, and carries the `gnt` and `glg` genes, [[gluconate and glycogen metabolism]].\n\n**The window ends in fork and variable columns**, 57 to 79, in a region of plasticity in 2 to 23% of calls, named in 76 to 96%, fewest at column 65, 76%, most hesitant at column 57, 0.47 bits. A second branch of 3 families runs through columns 57 to 59, carried by 15 to 36% of chromosomes. The variable columns 63 to 78 carry `rtcA` to `envZ`, and the window ends at column 79, `pckA`, in 36% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.",
+   "text": "**The window opens on a short spine.** Columns 0 to 1, `rbbA` to `yhhJ`, are carried by 97 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99.6 to 99.8% of them, fewest at column 1, `yhhJ`, 99.6%.\n\n**The first fork is at `yhhI`**, column 2, carried by 43%, the most plastic stretch of the window. Then the `nik` genes, columns 4 to 9, [[nickel import and transport]], carried by 96 to 97%. Through columns 57 to 59 a branch of 3 shell families runs in 15 to 36%, [[phosphate transport]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 95 against 91%, and hesitates less there, 0.14 against 0.26 bits. It hesitates most at column 2, `yhhI`, a fork column, 1.15 bits.\n\n**The window ends in fork and variable columns.** Columns 57 to 79 are carried by 36 to 89% of chromosomes, 22 persistent and 1 shell. The last column is `pckA`, in 36% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.",
    "finish": "stop",
    "usage": {
-    "prompt_tokens": 3529,
-    "completion_tokens": 638,
-    "cached_tokens": 1152,
+    "prompt_tokens": 5542,
+    "completion_tokens": 403,
+    "cached_tokens": 2560,
     "reasoning_tokens": 0,
-    "cost_usd": 0.000606
+    "cost_usd": 0.000597
    },
    "provider": "deepinfra",
-   "ms": 7582,
-   "raw": "**The window starts on two persistent columns.** Columns 0 to 1, `rbbA` and `yhhJ`, are carried by 97 to 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names them in 99.6 to 99.8% of calls, with no column of the stretch above 0.05 bits.\n\n**The first fork is at `yhhI`**, column 2, the most hesitant column of the window at 1.15 bits, in a region of plasticity in 23% of calls. Columns 2 to 3 are the stretch most in regions of plasticity, 23%, and the model names 73 to 84% there. A second branch carries transposases and a toxin-antitoxin pair, [[toxin-antitoxin and transposase genes]].\n\n**Then a spine from `nikR` to `acpT`**, columns 4 to 10, carried by 96 to 97% of chromosomes, in a region of plasticity in 7 to 23% of calls. The model names 82 to 99% there, fewest at `nikR`, 82%, with 0.56 bits. The long spine from `yhhT` to `ggt`, columns 12 to 39, is named in 70 to 99% of calls, fewest at `livJ`, 70%, and most hesitant at `ggt`, 0.37 bits; it carries nickel import, [[nickel import and transport]], and the `liv` and `ugp` operons, [[branched-chain amino acid transport]].\n\n**A variable stretch at columns 40 to 43** is named in 90 to 95% of calls, fewest at column 41, 90%, with 0.47 bits. The spine from `yhhY` to `glgP`, columns 44 to 56, carried by 93 to 97% of chromosomes, is named in 91 to 98% of calls, fewest at `glgP`, 91%, and carries the `gnt` and `glg` genes, [[gluconate and glycogen metabolism]].\n\n**The window ends in fork and variable columns**, 57 to 79, in a region of plasticity in 2 to 23% of calls, named in 76 to 96%, fewest at column 65, 76%, most hesitant at column 57, 0.47 bits. A second branch of 3 families runs through columns 57 to 59, carried by 15 to 36% of chromosomes. The variable columns 63 to 78 carry `rtcA` to `envZ`, and the window ends at column 79, `pckA`, in 36% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.",
+   "ms": 3489,
+   "raw": "@start **The window opens on a short spine.** Columns 0 to 1, `rbbA` to `yhhJ`, are carried by 97 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1, P}. The model names 99.6 to 99.8% of them, fewest at column 1, `yhhJ`, 99.6% {S1}.\n\n@variable **The first fork is at `yhhI`**, column 2, carried by 43%, the most plastic stretch of the window {S2.c2, P}. Then the `nik` genes, columns 4 to 9, [[nickel import and transport]], carried by 96 to 97% {S3, Q}. Through columns 57 to 59 a branch of 3 shell families runs in 15 to 36%, [[phosphate transport]] {S8.b57}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 95 against 91%, and hesitates less there, 0.14 against 0.26 bits {M}. It hesitates most at column 2, `yhhI`, a fork column, 1.15 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 57 to 79 are carried by 36 to 89% of chromosomes, 22 persistent and 1 shell {S8}. The last column is `pckA`, in 36% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.18 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94% {C}.",
+   "annotated": "@start **The window opens on a short spine.** Columns 0 to 1, `rbbA` to `yhhJ`, are carried by 97 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls {S1, P}. The model names 99.6 to 99.8% of them, fewest at column 1, `yhhJ`, 99.6% {S1}.\n\n@variable **The first fork is at `yhhI`**, column 2, carried by 43%, the most plastic stretch of the window {S2.c2, P}. Then the `nik` genes, columns 4 to 9, [[nickel import and transport]], carried by 96 to 97% {S3, Q}. Through columns 57 to 59 a branch of 3 shell families runs in 15 to 36%, [[phosphate transport]] {S8.b57}.\n\n@model **The model names more genes on the spine columns than on the fork and variable ones**, 95 against 91%, and hesitates less there, 0.14 against 0.26 bits {M}. It hesitates most at column 2, `yhhI`, a fork column, 1.15 bits {H}.\n\n@end **The window ends in fork and variable columns.** Columns 57 to 79 are carried by 36 to 89% of chromosomes, 22 persistent and 1 shell {S8}. The last column is `pckA`, in 36% of chromosomes {E}.\n\n@whole **Across the window it names 93% of genes**, 0.18 bits on average, perplexity 1.3 families {G}. Inside a region of plasticity it hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94% {C}.",
    "check": {
     "ok": true,
-    "numbers": 70,
-    "names": 20,
-    "words": 370,
+    "notes": {
+     "tail": [],
+     "untagged": "",
+     "dup": [],
+     "tags": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ],
+     "order": [
+      "start",
+      "variable",
+      "model",
+      "end",
+      "whole"
+     ]
+    },
     "bad": [],
-    "hints": []
+    "numbers": 28,
+    "names": 7,
+    "words": 209,
+    "sentences": 11,
+    "cited": 14,
+    "structure": []
    },
-   "truncated": false
+   "report": {
+    "dropped": 0,
+    "dropped_len": 0,
+    "unled": 0,
+    "sections": [
+     "start",
+     "variable",
+     "model",
+     "end",
+     "whole"
+    ],
+    "words": 209,
+    "repeats": 0,
+    "interp": 2,
+    "kept": [
+     {
+      "tag": "start",
+      "text": "**The window opens on a short spine.** Columns 0 to 1, `rbbA` to `yhhJ`, are carried by 97 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls",
+      "cites": [
+       "S1",
+       "P"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "start",
+      "text": "The model names 99.6 to 99.8% of them, fewest at column 1, `yhhJ`, 99.6%",
+      "cites": [
+       "S1"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "**The first fork is at `yhhI`**, column 2, carried by 43%, the most plastic stretch of the window",
+      "cites": [
+       "S2.c2",
+       "P"
+      ],
+      "inherit": [
+       "S3",
+       "Q",
+       "S8.b57"
+      ]
+     },
+     {
+      "tag": "variable",
+      "text": "Then the `nik` genes, columns 4 to 9, [[nickel import and transport]], carried by 96 to 97%",
+      "cites": [
+       "S3",
+       "Q"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "variable",
+      "text": "Through columns 57 to 59 a branch of 3 shell families runs in 15 to 36%, [[phosphate transport]]",
+      "cites": [
+       "S8.b57"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "model",
+      "text": "**The model names more genes on the spine columns than on the fork and variable ones**, 95 against 91%, and hesitates less there, 0.14 against 0.26 bits",
+      "cites": [
+       "M"
+      ],
+      "inherit": [
+       "H"
+      ]
+     },
+     {
+      "tag": "model",
+      "text": "It hesitates most at column 2, `yhhI`, a fork column, 1.15 bits",
+      "cites": [
+       "H"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "end",
+      "text": "**The window ends in fork and variable columns.** Columns 57 to 79 are carried by 36 to 89% of chromosomes, 22 persistent and 1 shell",
+      "cites": [
+       "S8"
+      ],
+      "inherit": [
+       "E"
+      ]
+     },
+     {
+      "tag": "end",
+      "text": "The last column is `pckA`, in 36% of chromosomes",
+      "cites": [
+       "E"
+      ],
+      "inherit": []
+     },
+     {
+      "tag": "whole",
+      "text": "**Across the window it names 93% of genes**, 0.18 bits on average, perplexity 1.3 families",
+      "cites": [
+       "G"
+      ],
+      "inherit": [
+       "C"
+      ]
+     },
+     {
+      "tag": "whole",
+      "text": "Inside a region of plasticity it hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%",
+      "cites": [
+       "C"
+      ],
+      "inherit": []
+     }
+    ],
+    "covered": 33
+   },
+   "dropped": [],
+   "served": "**The window opens on a short spine.** Columns 0 to 1, `rbbA` to `yhhJ`, are carried by 97 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99.6 to 99.8% of them, fewest at column 1, `yhhJ`, 99.6%.\n\n**The first fork is at `yhhI`**, column 2, carried by 43%, the most plastic stretch of the window. Then the `nik` genes, columns 4 to 9, [[nickel import and transport]], carried by 96 to 97%. Through columns 57 to 59 a branch of 3 shell families runs in 15 to 36%, [[phosphate transport]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 95 against 91%, and hesitates less there, 0.14 against 0.26 bits. It hesitates most at column 2, `yhhI`, a fork column, 1.15 bits.\n\n**The window ends in fork and variable columns.** Columns 57 to 79 are carried by 36 to 89% of chromosomes, 22 persistent and 1 shell. The last column is `pckA`, in 36% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.",
+   "truncated": false,
+   "ok": true
   }
  ],
  "checked": {
   "ok": true,
-  "numbers": 70,
-  "names": 20,
-  "words": 370,
-  "attempts": 1
+  "numbers": 28,
+  "names": 7,
+  "words": 209,
+  "attempts": 1,
+  "sentences": 11,
+  "cited": 14,
+  "skill": "4a7fdc464826",
+  "dropped": 0,
+  "trimmed": 0,
+  "repeats": 0,
+  "unled": 0,
+  "sections": [
+   "start",
+   "variable",
+   "model",
+   "end",
+   "whole"
+  ],
+  "interp": 2,
+  "covered": 33
  },
- "text": "**The window starts on two persistent columns.** Columns 0 to 1, `rbbA` and `yhhJ`, are carried by 97 to 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names them in 99.6 to 99.8% of calls, with no column of the stretch above 0.05 bits.\n\n**The first fork is at `yhhI`**, column 2, the most hesitant column of the window at 1.15 bits, in a region of plasticity in 23% of calls. Columns 2 to 3 are the stretch most in regions of plasticity, 23%, and the model names 73 to 84% there. A second branch carries transposases and a toxin-antitoxin pair, [[toxin-antitoxin and transposase genes]].\n\n**Then a spine from `nikR` to `acpT`**, columns 4 to 10, carried by 96 to 97% of chromosomes, in a region of plasticity in 7 to 23% of calls. The model names 82 to 99% there, fewest at `nikR`, 82%, with 0.56 bits. The long spine from `yhhT` to `ggt`, columns 12 to 39, is named in 70 to 99% of calls, fewest at `livJ`, 70%, and most hesitant at `ggt`, 0.37 bits; it carries nickel import, [[nickel import and transport]], and the `liv` and `ugp` operons, [[branched-chain amino acid transport]].\n\n**A variable stretch at columns 40 to 43** is named in 90 to 95% of calls, fewest at column 41, 90%, with 0.47 bits. The spine from `yhhY` to `glgP`, columns 44 to 56, carried by 93 to 97% of chromosomes, is named in 91 to 98% of calls, fewest at `glgP`, 91%, and carries the `gnt` and `glg` genes, [[gluconate and glycogen metabolism]].\n\n**The window ends in fork and variable columns**, 57 to 79, in a region of plasticity in 2 to 23% of calls, named in 76 to 96%, fewest at column 65, 76%, most hesitant at column 57, 0.47 bits. A second branch of 3 families runs through columns 57 to 59, carried by 15 to 36% of chromosomes. The variable columns 63 to 78 carry `rtcA` to `envZ`, and the window ends at column 79, `pckA`, in 36% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.",
- "html": "<p class=\"note\"><b>The window starts on two persistent columns.</b> Columns 0 to 1, <span class=\"gene\">rbbA</span> and <span class=\"gene\">yhhJ</span>, are carried by 97 to 100% of chromosomes, persistent, and in a region of plasticity in 0% of calls. The model names them in 99.6 to 99.8% of calls, with no column of the stretch above 0.05 bits.</p><p class=\"note\"><b>The first fork is at <span class=\"gene\">yhhI</span></b>, column 2, the most hesitant column of the window at 1.15 bits, in a region of plasticity in 23% of calls. Columns 2 to 3 are the stretch most in regions of plasticity, 23%, and the model names 73 to 84% there. A second branch carries transposases and a toxin-antitoxin pair, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">toxin-antitoxin and transposase genes</span>.</p><p class=\"note\"><b>Then a spine from <span class=\"gene\">nikR</span> to <span class=\"gene\">acpT</span></b>, columns 4 to 10, carried by 96 to 97% of chromosomes, in a region of plasticity in 7 to 23% of calls. The model names 82 to 99% there, fewest at <span class=\"gene\">nikR</span>, 82%, with 0.56 bits. The long spine from <span class=\"gene\">yhhT</span> to <span class=\"gene\">ggt</span>, columns 12 to 39, is named in 70 to 99% of calls, fewest at <span class=\"gene\">livJ</span>, 70%, and most hesitant at <span class=\"gene\">ggt</span>, 0.37 bits; it carries nickel import, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">nickel import and transport</span>, and the <span class=\"gene\">liv</span> and <span class=\"gene\">ugp</span> operons, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">branched-chain amino acid transport</span>.</p><p class=\"note\"><b>A variable stretch at columns 40 to 43</b> is named in 90 to 95% of calls, fewest at column 41, 90%, with 0.47 bits. The spine from <span class=\"gene\">yhhY</span> to <span class=\"gene\">glgP</span>, columns 44 to 56, carried by 93 to 97% of chromosomes, is named in 91 to 98% of calls, fewest at <span class=\"gene\">glgP</span>, 91%, and carries the <span class=\"gene\">gnt</span> and <span class=\"gene\">glg</span> genes, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">gluconate and glycogen metabolism</span>.</p><p class=\"note\"><b>The window ends in fork and variable columns</b>, 57 to 79, in a region of plasticity in 2 to 23% of calls, named in 76 to 96%, fewest at column 65, 76%, most hesitant at column 57, 0.47 bits. A second branch of 3 families runs through columns 57 to 59, carried by 15 to 36% of chromosomes. The variable columns 63 to 78 carry <span class=\"gene\">rtcA</span> to <span class=\"gene\">envZ</span>, and the window ends at column 79, <span class=\"gene\">pckA</span>, in 36% of chromosomes. Inside a region of plasticity the model hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.</p>",
+ "text": "**The window opens on a short spine.** Columns 0 to 1, `rbbA` to `yhhJ`, are carried by 97 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99.6 to 99.8% of them, fewest at column 1, `yhhJ`, 99.6%.\n\n**The first fork is at `yhhI`**, column 2, carried by 43%, the most plastic stretch of the window. Then the `nik` genes, columns 4 to 9, [[nickel import and transport]], carried by 96 to 97%. Through columns 57 to 59 a branch of 3 shell families runs in 15 to 36%, [[phosphate transport]].\n\n**The model names more genes on the spine columns than on the fork and variable ones**, 95 against 91%, and hesitates less there, 0.14 against 0.26 bits. It hesitates most at column 2, `yhhI`, a fork column, 1.15 bits.\n\n**The window ends in fork and variable columns.** Columns 57 to 79 are carried by 36 to 89% of chromosomes, 22 persistent and 1 shell. The last column is `pckA`, in 36% of chromosomes.\n\n**Across the window it names 93% of genes**, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.",
+ "html": "<p class=\"note\"><b>The window opens on a short spine.</b> Columns 0 to 1, <span class=\"gene\">rbbA</span> to <span class=\"gene\">yhhJ</span>, are carried by 97 to 100% of chromosomes, all persistent, in a region of plasticity in 0% of calls. The model names 99.6 to 99.8% of them, fewest at column 1, <span class=\"gene\">yhhJ</span>, 99.6%.</p><p class=\"note\"><b>The first fork is at <span class=\"gene\">yhhI</span></b>, column 2, carried by 43%, the most plastic stretch of the window. Then the <span class=\"gene\">nik</span> genes, columns 4 to 9, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">nickel import and transport</span>, carried by 96 to 97%. Through columns 57 to 59 a branch of 3 shell families runs in 15 to 36%, <span class=\"interp\" title=\"interpretation from the gene names and products, not measured here\">phosphate transport</span>.</p><p class=\"note\"><b>The model names more genes on the spine columns than on the fork and variable ones</b>, 95 against 91%, and hesitates less there, 0.14 against 0.26 bits. It hesitates most at column 2, <span class=\"gene\">yhhI</span>, a fork column, 1.15 bits.</p><p class=\"note\"><b>The window ends in fork and variable columns.</b> Columns 57 to 79 are carried by 36 to 89% of chromosomes, 22 persistent and 1 shell. The last column is <span class=\"gene\">pckA</span>, in 36% of chromosomes.</p><p class=\"note\"><b>Across the window it names 93% of genes</b>, 0.18 bits on average, perplexity 1.3 families. Inside a region of plasticity it hesitates more than outside, 0.52 against 0.15 bits, and names fewer genes, 82% against 94%.</p>",
  "window": "BEF77_RS14520",
  "label": "rbbA",
- "facts_hash": "3251f586bc3a",
- "prompt_version": "r7",
- "facts": "WINDOW: the rbbA window: 80 columns, column 0 is the anchor rbbA, then the next 79 genes in dnaA's direction; about genes 236 to 315 from dnaA. Read in 534 of the 540 complete chromosomes (those carrying rbbA once); 42,720 calls of the model, each on a chromosome's real proteins.\nTERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\nWHOLE WINDOW: the model names 93% of genes, 0.18 bits on average (perplexity 1.3 families). By partition of the gene: persistent 35,684 calls, named 96%, 0.10 bits; shell 6,864 calls, named 82%, 0.59 bits; cloud 172 calls, named 45%, 1.09 bits. Outside an RGP 39,275 calls, named 94%, 0.15 bits; inside an RGP 3,445 calls, named 82%, 0.52 bits. Columns: 50 spine, 8 fork, 22 variable.\nCOMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.52 against 0.15 bits) and names fewer genes (82% against 94%); 3,445 of the 42,720 calls are inside an RGP.\nHESITATION: the most hesitant columns of the window: column 2 (yhhI) 1.15 bits, RGP 23%; column 4 (nikR) 0.56 bits, RGP 23%; column 3 (yhhH) 0.54 bits, RGP 23%. No column has most of its calls in an RGP.\nPLASTICITY: the stretch most in regions of plasticity: columns 2-3 (fork), RGP 23%; the least: columns 0-1 (spine), RGP 0%.\nSTRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n1. columns 0-1 (2 columns) spine: share 97-100%, all P, RGP 0%. Genes: rbbA, yhhJ. named 99.6-99.8% (mean 99.7%), fewest named at column 1 (yhhJ), named 99.6%; no column of this stretch hesitates more than 0.05 bits (column 0 (rbbA)).\n2. columns 2-3 (2 columns) fork: RGP 23%. named 73-84% (mean 78%), fewest named and most hesitant at column 2, named 73%, 1.15 bits.\n   2: yhhI S 43% \"ISAs1 family transposase\"; also \"IS1-like element transposase\" S 22%, hicA S 21%, gatY S 16%\n   3: yhhH S 46% \"protein YhhH\"; also hicB S 25%, \"HPr family phosphocarrier protein\" S 16%\n3. columns 4-10 (7 columns) spine: share 96-97%, all P, RGP 7-23%. Genes: nikR, nikE \"nickel import ATP-binding protein N\u2026\", nikD, nikC, nikB, nikA, acpT. named 82-99% (mean 96%), fewest named and most hesitant at column 4 (nikR), named 82%, 0.56 bits.\n4. column 11 variable: RGP 4%. named 96%; 0.08 bits.\n   11: rsmJ P 3%\n5. columns 12-39 (28 columns) spine: share 94-97%, all P, RGP 1-11%. Genes: yhhT, yhhS \"MFS transporter\", dcrB, yhhQ \"7-cyano-7-deazaguanine/7-aminomethy\u2026\", tusA, zntA, yhhN \"lysoplasmalogenase\", yhhM \"DUF2500 domain-containing protein\", yhhL \"DUF1145 family protein\", rsmD, ftsY, ftsE, ftsX \"permease-like cell division protein\u2026\", rpoH, livJ, panM, livK, livH, livM, livG \"high-affinity branched-chain amino\u2026\", livF, ugpB, ugpA \"sn-glycerol-3-phosphate ABC transpo\u2026\", ugpE, ugpC, ugpQ, yhhA \"DUF2756 domain-containing protein\", ggt. named 70-99% (mean 94%), fewest named at column 26 (livJ), named 70%; most hesitant at column 39 (ggt), 0.37 bits.\n6. columns 40-43 (4 columns) variable: RGP 3%. named 90-95% (mean 93%), fewest named and most hesitant at column 41, named 90%, 0.47 bits.\n   40: yrhB S 73% \"YrhB domain-containing protein\"\n   41: yrhD S 57%\n   42: yrhA S 70% \"protein YrhA\"\n   43: tssD S 67%\n7. columns 44-56 (13 columns) spine: share 93-97%, all P, RGP 1-18%. Genes: yhhY \"GNAT family N-acetyltransferase\", yhhX \"oxidoreductase\", yhhW \"pirin family protein\", gntR, gntK, gntU \"gluconate:H+ symporter\", yhgN \"MarC family protein\", asd, glgB, glgX, glgC, glgA, glgP \"glycogen/starch/alpha-glucan phosph\u2026\". named 91-98% (mean 95%), fewest named and most hesitant at column 56 (glgP), named 91%, 0.42 bits.\n8. columns 57-79 (23 columns) fork and variable columns: RGP 2-23%. named 76-96% (mean 91%), fewest named at column 65, named 76%; most hesitant at column 57, 0.47 bits.\n   a second branch of 3 families through columns 57-59, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-36%, all S; the branch's families: \"substrate-binding domain-containing pro\u2026\", \"substrate-binding domain-containing pro\u2026\", \"hypothetical protein\"\n   57 fork: glpD P 89%; also \"hypothetical protein\" S 27%, \"fimbria/pilus outer membrane usher prot\u2026\" S 14%\n   58 fork: glpE P 89%; also \"hypothetical protein\" S 28%\n   59 fork: glpG P 89% \"rhomboid family intramembrane serin\u2026\"; also \"hypothetical protein\" S 29%, \"fimbrial biogenesis chaperone\" S 10%\n   60 fork: \"DeoR/GlpR family transcriptional regula\u2026\" P 89%; also \"fimbrial protein\" S 13%\n   61 variable: rtcR P 83%\n   62 fork: rtcB P 84%; also \"fimbria/pilus periplasmic chaperone\" S 14%\n   columns 63-78 variable, share 47-86%, 15 P, 1 S: rtcA \"RNA 3'-terminal phosphate cyclase\" 80%, malT 86%, malP \"glycogen/starch/alpha-glucan phosph\u2026\" 85%, malQ 84%, gntT 82%, nfuA 81%, gntX 79%, bioH 78%, rpnA 75%, feoC 76%, feoB 72%, feoA \"ferrous iron transporter A\" 70%, yhgF \"S1 RNA-binding domain-containing pr\u2026\" 66%, greB 62%, ompR 53%, envZ 47%\n   79 fork: pckA P 36%; also yhgE P 19%\nPRODUCTS of named genes (for [[ ]]): nikR nickel-responsive transcriptional regul\u2026; nikD nickel import ATP-binding protein NikD; nikB nickel ABC transporter permease subunit\u2026; nikA nickel ABC transporter substrate-bindin\u2026; ftsY signal recognition particle-docking pro\u2026; ftsE ATP-binding cassette domain-containing\u2026; livK ABC transporter substrate-binding prote\u2026; livH ABC transporter permease subunit; livM ABC transporter permease subunit; livF ATP-binding cassette domain-containing\u2026; ugpB extracellular solute-binding protein; ugpQ glycerophosphodiester phosphodiesterase\u2026; gntK gluconokinase, GntK/IdnK-type; glgB GlgB N-terminal domain-containing prote\u2026; glgX glycogen debranching protein GlgX; glgC sugar phosphate nucleotidyltransferase; glgA glycogen synthase GlgA; glpD glycerol-3-phosphate dehydrogenase C-te\u2026; glpE thiosulfate sulfurtransferase GlpE; glpG rhomboid family intramembrane serine pr\u2026; rtcR RNA repair transcriptional activator Rt\u2026; malT LuxR C-terminal-related transcriptional\u2026; malQ 4-alpha-glucanotransferase; feoC [Fe-S]-dependent transcriptional repres\u2026; hicA type II toxin-antitoxin system HicA fam\u2026; gatY class II aldolase; hicB type II toxin-antitoxin system HicB fam\u2026\nEND: the window ends at column 79, pckA, in 36% of chromosomes."
+ "facts_hash": "9cf39fc1835a",
+ "prompt_version": "r9",
+ "skill_sha": "4a7fdc464826",
+ "facts": "[W] WINDOW: the rbbA window: 80 columns, column 0 is the anchor rbbA, then the next 79 genes in dnaA's direction; about genes 236 to 315 from dnaA. Read in 534 of the 540 complete chromosomes (those carrying rbbA once); 42,720 calls of the model, each on a chromosome's real proteins.\n[T] TERMS: share: chromosomes carrying the family in the window. named: calls where the model names the gene at that column from the genes before it. bits: the model's entropy there, its hesitation (the more bits, the more hesitant). perplexity (whole window only): how surprised the model is by the real gene. RGP N%: N% of the calls there are on a gene inside a region of genomic plasticity (panRGP). P/S/C: persistent, shell, cloud (PPanGGOLiN). Spine column: one family in 90% of chromosomes or more; fork: a second family in 10% or more; variable: neither. A persistent family is in nearly every chromosome: in a fork or variable column its lower share means it lies beyond the window's end in the other chromosomes (genes inserted upstream push it out); never call it rare or say they lack it.\n[G] WHOLE WINDOW: the model names 93% of genes, 0.18 bits on average (perplexity 1.3 families). By partition of the gene: persistent 35,684 calls, named 96%, 0.10 bits; shell 6,864 calls, named 82%, 0.59 bits; cloud 172 calls, named 45%, 1.09 bits. Outside an RGP 39,275 calls, named 94%, 0.15 bits; inside an RGP 3,445 calls, named 82%, 0.52 bits. Columns: 50 spine, 8 fork, 22 variable.\n[C] COMPARISON (computed, over calls): inside an RGP the model hesitates more than outside (0.52 against 0.15 bits) and names fewer genes (82% against 94%); 3,445 of the 42,720 calls are inside an RGP.\n[H] HESITATION: the most hesitant columns of the window: column 2 (yhhI, a fork column) 1.15 bits, RGP 23%; column 4 (nikR, a spine column) 0.56 bits, RGP 23%; column 3 (yhhH, a fork column) 0.54 bits, RGP 23%. No column has most of its calls in an RGP.\n[M] BY KIND OF COLUMN (computed, over the columns with calls): the 50 spine columns: named 95%, 0.14 bits on average; the 30 fork and variable columns: named 91%, 0.26 bits. The model names more genes on the spine columns than on the fork and variable ones, and hesitates less there. Its most hesitant column, 2, is a fork column.\n[P] PLASTICITY (the stretches below, by their mean over columns): the stretch most in regions of plasticity: columns 2-3 (fork), RGP 23%; the least: columns 0-1 (spine), RGP 0%.\n[L] STRETCHES, in window order (each spine; between spines, the fork and variable columns; the family listed is the most carried at its column; share of chromosomes; RGP: range over the columns):\n[S1] 1. columns 0-1 (2 columns) spine: share 97-100%, all P, RGP 0%. Genes: rbbA, yhhJ \"ABC transporter permease\". named 99.6-99.8% (mean 99.7%), fewest named at column 1 (yhhJ), named 99.6%; no column of this stretch hesitates more than 0.05 bits (column 0 (rbbA)).\n[S2] 2. columns 2-3 (2 columns) fork: share 43-46%, all S, RGP 23%. named 73-84% (mean 78%), fewest named and most hesitant at column 2, named 73%, 1.15 bits.\n[S2.c2]    2: yhhI S 43% \"ISAs1 family transposase\"; also \"IS1 family transposase\" S 22%, hicA S 21%, gatY S 16%\n[S2.c3]    3: yhhH S 46% \"protein YhhH\"; also hicB S 25%, \"HPr family phosphocarrier protein\" S 16%\n[S3] 3. columns 4-10 (7 columns) spine: share 96-97%, all P, RGP 7-23%. Genes: nikR, nikE, nikD, nikC \"nickel ABC transporter permease sub\u2026\", nikB, nikA, acpT. named 82-99% (mean 96%), fewest named and most hesitant at column 4 (nikR), named 82%, 0.56 bits.\n[S4] 4. column 11 variable: share 3%, all P, RGP 4%. named 96%; 0.08 bits.\n[S4.c11]    11: rsmJ P 3%\n[S5] 5. columns 12-39 (28 columns) spine: share 94-97%, all P, RGP 1-11%. Genes: yhhT \"AI-2E family transporter\", yhhS \"MFS transporter\", dcrB, yhhQ \"7-cyano-7-deazaguanine/7-aminomethy\u2026\", tusA, zntA, yhhN \"lysoplasmalogenase\", yhhM \"DUF2500 domain-containing protein\", yhhL \"DUF1145 family protein\", rsmD, ftsY, ftsE \"cell division ATP-binding protein F\u2026\", ftsX, rpoH, livJ, panM, livK, livH \"high-affinity branched-chain amino\u2026\", livM, livG, livF, ugpB, ugpA \"sn-glycerol-3-phosphate ABC transpo\u2026\", ugpE, ugpC, ugpQ, yhhA \"DUF2756 family protein\", ggt. named 70-99% (mean 94%), fewest named at column 26 (livJ), named 70%; most hesitant at column 39 (ggt), 0.37 bits.\n[S6] 6. columns 40-43 (4 columns) variable: share 57-73%, all S, RGP 3%. named 90-95% (mean 93%), fewest named and most hesitant at column 41, named 90%, 0.47 bits.\n[S6.c40]    40: yrhB S 73% \"YrhB family protein\"\n[S6.c41]    41: yrhD S 57% \"protein YrhD\"\n[S6.c42]    42: yrhA S 70% \"protein YrhA\"\n[S6.c43]    43: tssD S 67%\n[S7] 7. columns 44-56 (13 columns) spine: share 93-97%, all P, RGP 1-18%. Genes: yhhY \"N-acetyltransferase\", yhhX \"oxidoreductase\", yhhW \"quercetin 2,3-dioxygenase\", gntR \"gluconate operon transcriptional re\u2026\", gntK, gntU, yhgN \"NAAT family transporter YhgN\", asd, glgB, glgX, glgC, glgA \"glycogen synthase GlgA\", glgP. named 91-98% (mean 95%), fewest named and most hesitant at column 56 (glgP), named 91%, 0.42 bits.\n[S8] 8. columns 57-79 (23 columns) fork and variable columns: share 36-89%, 22 P, 1 S, RGP 2-23%. named 76-96% (mean 91%), fewest named at column 65, named 76%; most hesitant at column 57, 0.47 bits.\n[S8.b57]    a second branch of 3 families through columns 57-59, a parallel path that some chromosomes carry instead of the most carried families there, each following the previous one in most of its chromosomes, share 15-36%, all S; the branch's families: \"PstS family phosphate ABC transporter s\u2026\", \"PstS family phosphate ABC transporter s\u2026\", \"hypothetical protein\"\n[S8.c57]    57 fork: glpD P 89%; also \"YbbD family protein\" S 27%, \"fimbrial biogenesis usher protein\" S 14%\n[S8.c58]    58 fork: glpE P 89%; also \"hypothetical protein\" S 28%\n[S8.c59]    59 fork: glpG P 89% \"rhomboid family intramembrane serin\u2026\"; also \"hypothetical protein\" S 29%, \"fimbrial biogenesis chaperone\" S 10%\n[S8.c60]    60 fork: \"DeoR/GlpR family transcriptional regula\u2026\" P 89%; also \"fimbrial protein\" S 13%\n[S8.c61]    61 variable: rtcR P 83%\n[S8.c62]    62 fork: rtcB P 84%; also \"fimbria/pilus periplasmic chaperone\" S 14%\n[S8.c63-78]    columns 63-78 variable, share 47-86%, 15 P, 1 S: rtcA \"RNA 3'-terminal phosphate cyclase\" 80%, malT 86%, malP \"maltodextrin phosphorylase\" 85%, malQ 84%, gntT 82%, nfuA 81%, gntX 79%, bioH 78%, rpnA 75%, feoC 76%, feoB 72%, feoA \"ferrous iron transporter A\" 70%, yhgF \"Tex family protein\" 66%, greB 62%, ompR 53%, envZ 47%\n[S8.c79]    79 fork: pckA P 36%; also yhgE P 19%\n[Q] GROUPS whose products agree, the places for a [[ ]] (name that group's columns exactly, cite its line and [Q], make one phrase from its words): columns 4-9 (nikR to nikA) [S3]: nickel, transporter, import, permease; columns 12-15 (yhhT to yhhQ) [S5]: transporter; columns 28-32 (livK to livF) [S5]: amino, branched, transporter, affinity; columns 33-37 (ugpB to ugpQ) [S5]: glycerol, phosphate, transporter, sn-glycerol-3-phosphate; columns 52-56 (glgB to glgP) [S7]: glycogen.\n[X] PRODUCTS of named genes (for [[ ]]): nikR nickel-responsive transcriptional regul\u2026; nikE nickel import ATP-binding protein NikE; nikD nickel import ATP-binding protein NikD; nikB nickel ABC transporter permease subunit\u2026; nikA nickel ABC transporter substrate-bindin\u2026; ftsY signal recognition particle-docking pro\u2026; ftsX permease-like cell division protein FtsX; livK high-affinity branched-chain amino acid\u2026; livM branched chain amino acid ABC transport\u2026; livG high-affinity branched-chain amino acid\u2026; livF high-affinity branched-chain amino acid\u2026; ugpB sn-glycerol-3-phosphate ABC transporter\u2026; ugpE sn-glycerol-3-phosphate ABC transporter\u2026; ugpC sn-glycerol 3-phosphate ABC transporter\u2026; ugpQ glycerophosphodiester phosphodiesterase; gntK gluconokinase; gntU gluconate transporter; glgB 1,4-alpha-glucan branching enzyme; glgX glycogen debranching protein GlgX; glgC glucose-1-phosphate adenylyltransferase; glgP glycogen phosphorylase; glpD glycerol-3-phosphate dehydrogenase; glpE thiosulfate sulfurtransferase GlpE; glpG rhomboid family intramembrane serine pr\u2026; rtcB RNA-splicing ligase RtcB; malT HTH-type transcriptional regulator MalT; malQ 4-alpha-glucanotransferase; feoC [Fe-S]-dependent transcriptional repres\u2026; feoB Fe(2+) transporter permease subunit FeoB; hicA type II toxin-antitoxin system HicA fam\u2026; gatY class II aldolase; hicB type II toxin-antitoxin system HicB fam\u2026; fucK FGGY-family carbohydrate kinase\n[E] END: the window ends at column 79, pckA, in 36% of chromosomes."
 }

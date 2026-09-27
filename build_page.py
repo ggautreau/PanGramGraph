@@ -13,8 +13,8 @@ pgb/knock/all_arcs.json (long) and pgb/knock/close_arcs.json (close) when they e
 run it shows). The genomes carrying each element at its spot (the influence picker) come from pgb/region_carriers.json
 (pg_region_carriers.py).
 
-Earlier names (OLD) and standalone/index.html become redirects to it that keep the #hash,
-so old links and http://localhost:8765/ open the page.
+Earlier names (OLD) and standalone/index.html become redirects to it that keep the ?query (the Space's ?__theme=) and
+the #hash, so old links, the Space and http://localhost:8765/ open the page as asked.
 
     python3 build_page.py [--dev-arcs] [--arcs long=PATH] [--arcs close=PATH]
 """
@@ -64,6 +64,17 @@ LAYERS = [("long", "pgb/region_sets.json", "pgb/link_flags.json", "all", "smoke_
 CARR = json.load(open("pgb/region_carriers.json")) if os.path.exists("pgb/region_carriers.json") else {}
 VCODE = {"knows": "k", "not specific": "s", "not specific (opposite)": "so", "opposite": "o", "none": "n", "nt": "t"}
 RANGE_CAVEAT = "tested at a median "          # pg_knockout's caveat for 'none' and 'nt' beyond 500 genes: said for 'none' only
+# what later analyses found about a link, beyond its verdict (README, "Coupled regions"): (run tag, label of the element
+# deleted, label of the other) -> a caveat shown first in the link's detail; the link is also flagged bg (genomic background),
+# which the page's layer note and verdict text say. An entry that matches no link is reported at build time.
+BACKGROUND = {
+    ("close", "espX1", "chpB"):
+        "Explained by genomic background, not by function: espX1 and chpB sit about 200 kb apart and share no family; the "
+        "rest of the accessory genome absorbs 75–85% of their association, both track the core phylogeny, and the effect "
+        "sits in the 30 or so genomes where espX1 is the last trace of its insertion site (deleted where the rest of its "
+        "operon stays, it barely moves the model). The model reads which kind of genome it is, then what such genomes "
+        "usually carry: a real statistical skill, not knowledge of the pair.",
+}
 
 
 def fin(x):
@@ -128,15 +139,18 @@ def model_of(path, md5, tag, links, regs):
     cav = []; cix = {}; arcs = {}; mism = []
     for a in A:
         v = VCODE[a["verdict"]]; ci = []
-        for c in a.get("caveats", []):
+        bg = BACKGROUND.get((tag, regs[a["a"]]["label"], regs[a["b"]]["label"]))
+        if bg: BG_USED.add((tag, regs[a["a"]]["label"], regs[a["b"]]["label"]))
+        for c in ([bg] if bg else []) + a.get("caveats", []):
             if v == "t" and c.startswith(RANGE_CAVEAT): continue
-            c = re.sub(r"(?<![\w.])(\d{4,})(?![\w.])", lambda m: f"{int(m.group(1)):,}", c).replace("'none'", "“none”")
+            c = (re.sub(r"(?<![\w.])(\d{4,})(?![\w.])", lambda m: f"{int(m.group(1)):,}", c)
+                 .replace("'none'", "“none”").replace("'", "’"))
             if c not in cix: cix[c] = len(cav); cav.append(c)
             ci.append(cix[c])
         rec = dict(v=v, why=a.get("nt_why") or "", nu=a["n_units"], nt=a["n_tested"], nl=a["n_lin"],
                    d=[num(a.get("dist_q10")), num(a.get("dist_median")), num(a.get("dist_q90"))],
                    w=num(a.get("share_within_500"), 2), wu=a.get("units_within_500", 0),
-                   e=num(a.get("effect_z"), 2), mde=num(a.get("mde_z"), 2),
+                   e=num(a.get("effect_z"), 3), mde=num(a.get("mde_z"), 3), bg=1 if bg else None,
                    q=[num(a.get("q_cal_exp"), 2), num(a.get("q_cal_spec"), 2),
                       num(a["q_gate_spec_raw"] if "q_gate_spec_raw" in a else a.get("q_cal_spec_raw"), 2)], c=ci)
         p = P.get(a["li"])
@@ -146,7 +160,7 @@ def model_of(path, md5, tag, links, regs):
                 if vv != a["verdict"]: mism.append(a["li"])
                 rec.update(qo=[num(p["q_cal_opp"], 2), num(p["q_gate_spec_raw_opp"] if "q_gate_spec_raw_opp" in p else p["q_cal_spec_raw_opp"], 2)],
                            ps=num(p["p_sign"], 2),
-                           h=[num(p["half0_median"], 2), num(p["half1_median"], 2)], hn=[p["half0_n_lin"], p["half1_n_lin"]], f=fl)
+                           h=[num(p["half0_median"], 3), num(p["half1_median"], 3)], hn=[p["half0_n_lin"], p["half1_n_lin"]], f=fl)
         arcs[a["li"]] = lean(rec)
     if mism: print(f"  !! {path}: {len(mism)} verdicts differ from their conditions recomputed from {pq} (first: {mism[:5]})")
     meta = dict(tag=M["tag"], dev=M["tag"].startswith("smoke"), genomes=S.get("genomes") or (M.get("arms") or {}).get("genomes"),
@@ -194,7 +208,7 @@ def layer(key, sets, flags, tag, smoke):
         links.append(x)
     M = RS["meta"]
     meta = {k: M[k] for k in ("mindist", "maxdist", "pairs", "expected_by_chance", "replicated_by_chance", "regions", "links",
-                              "sets", "genomes", "chrom_len", "halves") if k in M}
+                              "sets", "genomes", "genomes_tested", "chrom_len", "halves") if k in M}
     meta["rep_lineage"] = sum(1 for x in links if x.get("rep")); meta["one_site"] = sum(1 for x in links if x.get("one"))
     meta["flags"] = bool(FL); meta["md5"] = md5
     C = CARR.get(key)
@@ -207,12 +221,14 @@ def layer(key, sets, flags, tag, smoke):
     return dict(meta=meta, regions=regions, links=links, sets=RS["sets"], model=mo[0] if mo else None, carriers=carriers), RS
 
 
-LY = {}; base = None
+LY = {}; base = None; BG_USED = set()
 for key, *rest in LAYERS:
     if not os.path.exists(rest[0]): continue
     LY[key], RS = layer(key, *rest)
     if base is None: base = RS
     else: assert [g["acc"] for g in RS["genomes"]] == [g["acc"] for g in base["genomes"]] and RS["bounds"] == base["bounds"]
+for k in BACKGROUND.keys() - BG_USED:
+    print(f"  !! BACKGROUND {k}: no link of run {k[0]} from {k[1]} to {k[2]}: its caveat is not shown (update BACKGROUND)")
 rsets = (json.dumps(dict(genomes=[[g["acc"], g.get("strain", ""), g["cl"]] for g in base["genomes"]], bounds=base["bounds"],
                          layers=LY), separators=(",", ":"), ensure_ascii=False) if LY else "null")
 page=(T.replace("__STYLE__",style).replace("__DATA__",data).replace("__RSETS__",rsets).replace("__NAME__",NAME).replace("__SLUG__",SLUG)
@@ -221,7 +237,7 @@ page=(T.replace("__STYLE__",style).replace("__DATA__",data).replace("__RSETS__",
 assert not [x for x in ("__STYLE__","__DATA__","__RSETS__","__NAME__","__SLUG__","__PAN__","__GMETA__","__CMAP__","__PGBID__") if x in page]
 open(f"standalone/{SLUG}.html","w").write(page)
 go=(f'<!doctype html><meta charset="utf-8"><title>{NAME}</title><meta http-equiv="refresh" content="0;url={SLUG}.html">'
-    f'<script>location.replace("{SLUG}.html"+location.hash)</script><p><a href="{SLUG}.html">{NAME}</a></p>')
+    f'<script>location.replace("{SLUG}.html"+location.search+location.hash)</script><p><a href="{SLUG}.html">{NAME}</a></p>')
 for o in OLD+["index"]: open(f"standalone/{o}.html","w").write(go)
 print(f"standalone/{SLUG}.html {len(page)/1e6:.2f} MB (coupled regions {len(rsets)/1e3:.0f} kB); "
       f"redirects from {', '.join(o + '.html' for o in OLD + ['index'])}")

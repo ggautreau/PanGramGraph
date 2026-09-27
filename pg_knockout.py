@@ -7,7 +7,15 @@
                                               product + 2 mostly mobile, 6 by seed 0), every testable genome
                                               -> pgb/knock/pilot/g*.npz, pilot_units.parquet, pilot_links.parquet,
                                                  pilot_posctrl.parquet, pilot_summary.json, pilot_report.md
-    python3 pg_knockout.py --all              every link (same code; not run yet) -> pgb/knock/all/...
+    python3 pg_knockout.py --all --tag all --flags pgb/link_flags.json
+                                              every link of the long-range sets (533 links; 59,486 passes, 3.4 h of
+                                              GPU) -> pgb/knock/all/ (per-genome parts, all_report.md) and
+                                              pgb/knock/all_{units,offtarget,links}.parquet, all_summary.json, all_arcs.json
+                                              (the verdict per arc the page shows; the rules: aggregate())
+    python3 pg_knockout.py --all --sets pgb/region_sets_close.json --tag close --min_apart 50 --max_apart 600
+            --ctrl_near --match_log 3 --flags pgb/link_flags_close.json        (one command)
+                                              the close-range sets (113 links; 45,790 passes, 1.7 h) -> pgb/knock/close/,
+                                              close_*
     python3 pg_knockout.py --decay            framing diagnostic on the positive-control units: effect of a 2-gene deletion
                                               or of a copy of D at d = 1..1,600 genes upstream -> pgb/knock/pilot_decay.parquet
     python3 pg_knockout.py --probe 35,20      content vs position for given links: U deletion vs sham deletion next to U
@@ -54,6 +62,9 @@ Self-checks run in every genome and stop the run if they fail:
   (g) with --influence: every gene read in the 25 genes before the first deleted gene is bit-identical to the
       baseline (every deletion pass), and the whole baseline read again with another head-chunk composition
       (in the check-a pass) is bit-identical too -- the per-gene decode does not depend on the other rows
+Verdicts (knows, not specific, opposite, not specific (opposite), none, nt), their q values (Benjamini-Hochberg over
+the tested links) and mde_z (80 % power, robust scale 1.4826 x MAD of the lineage means, alpha Bonferroni over the
+tested links): aggregate().
 """
 import os, sys, json, time, argparse, collections
 import numpy as np
