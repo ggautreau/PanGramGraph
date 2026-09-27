@@ -48,17 +48,86 @@ strains is kept in `pgb/origin-fork-11strains.html`.
 has five tabs, **Graph**, **Attention**, **Coupled regions**, **Findings** and **About**,
 and a help behind every "?" (the key `?` opens it too).
 
+### For a first visit
+
+The page is written so that a microbiologist who has never met a pangenome graph or a
+language model understands within a minute what it does and why it matters, and an expert
+keeps every number. Six parts, all in the page's own style (IBM Plex, its colour tokens,
+light and dark, phone), none of which ever covers the app:
+
+- **The lede** says it for a microbiologist: the gene order of *E. coli* across the 2,002
+  genomes, where strains part ways (islands, prophages, operons some strains lack), and an
+  AI that guesses the next gene, with where it is right, where it doubts and what it has not
+  learned.
+- **The page in three pictures**, three inline drawings with one sentence each: a genome is a
+  sentence of genes (dnaA, dnaN, recF … numbered from 0); 2,002 genomes overlaid make a graph
+  that forks where strains differ (the real *dgo* fork after *yidX*, 1,231 genomes against
+  160); a language model reads the sentence and suggests the next gene like a phone keyboard,
+  sure near dnaA, hesitant in an island. Then one line on why it matters to a
+  microbiologist. It is open on a first visit and folded to its bar afterwards: the page
+  keeps `pgg-intro` in `localStorage` (`seen` after the first visit, then `open` or
+  `closed` as the visitor leaves it; without storage it simply opens). On a phone the three
+  drawings are swiped one after the other; on a tablet each sits beside its sentence.
+- **Start with a question**: four buttons that set the page up for one example and answer
+  it in one line, under the question and in a banner under the tab bar where the page shows
+  it. *Where do strains part ways near the origin?* opens the dnaA window, pins *yidX*'s
+  card and computes the model's call in O157:H7 Sakai, which lacks *dgo* (it expects
+  *cbrA* from Sakai's first 7 proteins alone: their alleles mark the lineage). *Does the
+  model know the lac operon?* opens the lacZ window (the server) and pins lacZ's card:
+  *lacY* follows in 487 of the 527 complete chromosomes with one lacZ, and the model names
+  the right next gene in 96 % of them; in 21 the stretch lies the other way round and
+  *lacI* comes next, which the model names too; lacZ alone leaves it torn between *lacI* and
+  *lacY*. *What does it make of a gene order no genome has?* draws
+  dnaA → dnaN → recF → gyrB → dgoR, an order no genome carries, and reads the model's call:
+  *dgoK* at 96 %, as inside the operon: the gene just read counts for more than the place
+  (which shows it follows neighbours, not that it knows the operon as a unit). The card a
+  question pins stands beside the boxes it is about (`popAvoid`), not over them; on a phone a
+  question pins no card (its sheet would hide the answer and the graph): the answer says to
+  tap the box. *Which accessory genes travel together, and
+  does it know?* opens Coupled regions on the CRISPR–Cas I-E ↔ type VI secretion link
+  (verdict *none*; none of the 298 testable long-range links is known). The numbers of the
+  answers are read from the data or the server's answer when it runs, not written in.
+- **What we learned**, in plain words, positive first, each with a link to its evidence:
+  the model knows conserved gene order (95 % on persistent genes, 99.97 % right after dnaA);
+  its doubt marks where genomes vary (4 times more inside regions of plasticity); it
+  recognises the kind of strain from the proteins themselves (Sakai at the *dgo* fork, from 7
+  conserved proteins: it reads their sequences, whose alleles mark the lineage, which a graph
+  of families cannot see; 80 % right after a fork against 72 % for the most common next
+  gene); it does not know which distant accessory elements go together (the knockout).
+- **A glossary on the page's own words.** A term underlined with dots gives a short plain
+  definition on hover, on focus (Tab) or on a tap; a click or <kbd>Enter</kbd> keeps it open,
+  <kbd>Esc</kbd> or a tap elsewhere closes it. About sixty terms (persistent, shell, cloud,
+  region of plasticity, spot, fork, perplexity, entropy, bits, top-1, decoder, knockout,
+  lineage, cgMLST, PPanGGOLiN, PanGBank, Bacformer, clusters, exemplar bank, never here,
+  calibration, permutation null, logit, AUC, start token…) are found in the text by
+  `glossify()` (`GLOSS`, `GLOSS_PAT` in the page), the first occurrence per card, note or help
+  section, including what the server sends back (cards, readings, a link's detail). The same
+  definitions make the help's **Glossary**.
+- **A guided tour** of five steps over the page itself (the graph, a box and its card, Draw a
+  path, the chromosome map and the window bar, Findings), a ring round each and a card with
+  Next, Back and Skip (<kbd>→</kbd>, <kbd>←</kbd>, <kbd>Esc</kbd>; step 3's *Show me an
+  example* draws the example path and rings it, and the tour goes on); launched from the
+  introduction, from the questions' box and from the help. On a phone its card sits at the
+  bottom (at the top while a family's card is open).
+
+The help opens on a **Quick start** (six lines, and the tour), and ends on the Glossary. The
+tabs that need it start with a plain summary (*In short*): Attention (what a map shows, and
+that it is a view for the curious) and Coupled regions (the couplings are real; the model
+does not know them as pairs).
+
 ### The header
 
 The logo is a fork of the gene graph in a speech bubble: a persistent family (orange)
 followed either by a shell family (green) or by the family the model expects (purple).
-Beside it, a link to this repository. Under it, the pangenome as PanGBank built it, read
+Beside it, a link to this repository. Under the lede, the introduction, the questions and
+what we learned (above). Then the pangenome as PanGBank built it, read
 from its file by `pgb_page_meta.py`: 2,002 genomes, 9.33 M genes, 59,165 gene families
 (3,188 persistent, 7,524 shell, 48,453 cloud), 153,366 edges, 165,128 regions of plasticity
 in 1,864 spots and 2,114 modules, with a link to pangenome 11587 on PanGBank and
-PPanGGOLiN's version (2.3.0). Then Bacformer on the dnaA window: 130,837 calls, 88.8 % of
-next genes named right in its own vocabulary, 0.83 / 0.21 bits of doubt inside / outside a
-region of plasticity.
+PPanGGOLiN's version (2.3.0). Then Bacformer on the dnaA window (the first 80 genes of the
+2,002 genomes, 130,837 calls): 88.8 % of next genes guessed right at the first try, read in
+its own vocabulary, and 0.83 / 0.21 bits of doubt inside / outside regions of plasticity,
+four times more where genomes vary.
 
 ### Graph
 
@@ -68,11 +137,36 @@ region of plasticity.
   stacked in a column are a fork, the most carried on top. Lines are adjacencies, wider
   when more genomes carry them (log scale). A dashed box, up to two per column, is a family
   the model expects right after the column's best-carried family and that follows it in no
-  genome. Bars on top give the model's perplexity at each column. A slider hides the
-  families carried by few genomes; zoom, **Overview**, **Fill height** and **Full screen**
-  size it.
+  genome, drawn faint when the model gave it little probability (125 of the 150 in the dnaA
+  window are under 0.1 %; its card says *a long shot* or *a real expectation*). Bars on top
+  give the model's perplexity at each column; the whole column above the boxes answers the
+  pointer (or a tap) with its perplexity, entropy and top-1. A slider hides the families
+  carried by few genomes; when a family is shown that it hides, it goes down and says so
+  beside it, with a button back to the visitor's setting. Zoom, **Overview**, **Fill height**
+  and **Full screen** size it; below 50 % a line says the names are too small to read. The
+  graph is as tall as its tallest column: where the columns in view are short, a line in the
+  blank under them says which column is taller and where (`gapUpd`). The legend says that a
+  box sits at its family's most common column, so a line can run back leftwards (the
+  methyltransferase after *stxA2*).
 - **Family cards.** Hover a box: a card gives the family across the genomes, what follows
-  it and the model's call after it, averaged over every genome that carries it. Click to
+  it and the model's call after it, averaged over every genome that carries it. It opens
+  only when the pointer moves onto a box (not when the page scrolls under a still pointer),
+  and while it previews it lets the pointer through to the boxes under it; a pinned card
+  waits out of sight while its box is scrolled away. The card's header names its partition
+  beside the colour of its top edge. The model's doubt at the box's column comes first as a
+  verdict (`doubtSay`: *sure, and right*; *sure, yet wrong in some genomes*; *hesitant, yet
+  right in N %*; *unsure*), then as perplexity (its surprise at the gene actually there) and
+  entropy (how spread its own guess is); the perplexity bars' tip says the same. Where the
+  partition surprises, the card says why: a shell family in 90 % of the genomes or more, or a
+  persistent one in fewer than 95 %, is PPanGGOLiN's call, which weighs the graph neighbours
+  too (in this pangenome persistent spans 92–100 %, shell 1.5–95 %: *lacY*, 95 %, is shell,
+  *lacZ*, 97 %, persistent); a persistent family mostly inside a region of plasticity lies
+  among variable genes, which panRGP counts as one stretch (*lacZ*). The product is said to
+  be that of the family's representative, since a family can group variants (intimin
+  types). A key under each table of calls explains the tags it shows (*N clusters*, *other
+  cluster* for a cluster named like a family above it but not read as it, *never here*,
+  *not read here*, →); a live call in one genome says when its first choice differs from the
+  average over the genomes (the model follows the strain). Click to
   pin it: the server computes the model's exact call in one genome, with a search box for
   the exact rank and softmax probability of any of its 50,000 families at that position.
   Under **In PanGBank**, up to four genomes carrying the family link to their own page on
@@ -96,8 +190,8 @@ region of plasticity.
   beside with the family's card there: *bcp* starts its own window, and the one before shows
   *hyfA* before it. The browser's Back returns to a window as it was left, its card pinned or
   its path drawn.
-- **The genome picker.** Before you type, it lists genomes that carry the family and
-  well-known strains. Type any mix of strain, serotype, sequence type, host, isolation
+- **The genome picker.** Before you type, it lists genomes that carry the family (tagged
+  *carries it*), then, under a line, well-known strains, which may not. Type any mix of strain, serotype, sequence type, host, isolation
   source, country, year or accession; every word must match (*human urine*, *O157*,
   *cattle 2012*). The metadata are PanGBank's (`pgb_page_meta.py`): a serotype is given for
   about 1 genome in 10 and a sequence type for about 1 in 40. Beyond the dnaA window the
@@ -111,7 +205,10 @@ region of plasticity.
   off the graph to remove it; **Undo** reverts the last change. **Take a genome's path up
   to the box** uses a genome's own proteins, and in a window beyond dnaA the model then
   also reads the 400 proteins before the window. **Attention** opens the path in the
-  Attention tab.
+  Attention tab. After one or two proteins a note says that the model has little context
+  (lacZ alone: not lacY first, but lacI, its neighbour on the other side). A box's label and
+  its row of the table give the same figure: the family's clusters, each weighed by how
+  often it stands for that family (the decoder; `pathRows`).
 - **Along the chromosome.** A map of the 540 complete chromosomes from dnaA, in genes,
   shaded by the share of genes in a region of plasticity, sits above the graph. Its frame
   is the window shown: drag it, swipe it sideways (one finger, or two on a trackpad), or
@@ -121,7 +218,9 @@ region of plasticity.
   end. **Previous** and **Next** (keys <kbd>P</kbd>, <kbd>N</kbd>) move 60 genes, so a window
   shares 20 columns with the next. The search box suggests every gene name of the complete
   chromosomes with its place, and also takes a PanGBank family or a position from dnaA
-  (*1500*). A window beyond dnaA starts at a backbone family (present once in at least 95 %
+  (*1500*); under the list, that names are as annotated (synonyms such as *stx2A* and
+  *stxA2* apart) and a gene's place is its median over the chromosomes that carry it. A
+  window beyond dnaA starts at a backbone family (present once in at least 95 %
   of the chromosomes), walks 80 genes in dnaA's direction and is read in the 540 complete
   chromosomes; the server builds it in 1 to 3 s (`pgb_region.py`). A link to a place:
   `pangramgraph.html#at=lacZ`.
@@ -140,12 +239,16 @@ on the previous protein, the start token or the protein itself; click one to sho
 matrix (rows: the path's proteins; columns: what each attends to), and the last protein's
 row in every layer and head, where the model looks when it calls the next family. For a
 genome's own path beyond dnaA, the 400 proteins before it form one summed column. **Leave
-the start token out** hides the attention sink and renormalises each row. Attention shows
-where the model looks, not why it calls what it calls.
+the start token out** (on by default) hides the attention sink and renormalises each row.
+**Take the first ten genes of this window** fills the Graph tab's path without switching the
+graph to Draw a path. Attention shows where the model looks, not why it calls what it calls.
 
 ### Coupled regions
 
-Two layers, long range (533 links between 290 elements) and close range (113 links between
+The tab opens on *In short*: accessory elements far apart travel together in the genomes
+beyond shared ancestry, and the model does not know these pairs (counted from the runs);
+the corrections to earlier versions of the tab are folded under its notes. Two layers,
+long range (533 links between 290 elements) and close range (113 links between
 143 elements), drawn as arcs over the chromosome (co-occurrence above, avoidance dashed
 below). An arc is coloured by the model's verdict on the link (or by its set), and its line
 says what the link is in the genomes (dotted: one element at several spots). Filters: only
@@ -181,7 +284,10 @@ links, and **graph** opens the Graph tab at its window.
 
 ### Findings
 
-The tab follows the window shown.
+The tab follows the window shown. It opens on the window's **genes of note**, sorted by
+their names and products (CRISPR–Cas, toxin–antitoxin systems, toxins, secretion systems,
+adhesins, iron uptake, antibiotic resistance, surface polysaccharides, phage, mobile DNA),
+each a link to its box: the biology the numbers and the written readings do not say.
 
 - **Reading the window**, in up to three versions: in the dnaA window a hand-written reading
   (the default); in every window an automatic one, written by rule in the page from the
@@ -193,7 +299,7 @@ The tab follows the window shown.
   reading is offered on request.
 - **Where the model is sure, and where it hesitates**: the calls by the partition of the gene
   actually there and by region of plasticity: top-1 in the model's own vocabulary (and, in
-  the dnaA window, via the exemplar bank, which underestimates it) and entropy; in the dnaA
+  the dnaA window, on request, via the exemplar bank, which underestimates it) and entropy; in the dnaA
   window, the three robustness checks and the comparison with the graph.
 - **How often the model named the next gene**, by range of columns.
 
@@ -210,7 +316,10 @@ scroll along (the wheel alone in full screen), Ctrl + wheel to zoom; <kbd>+</kbd
 height, <kbd>N</kbd> <kbd>P</kbd> next and previous window. <kbd>Esc</kbd> closes a card,
 cancels a drag or a stroke, closes a list or leaves full screen; <kbd>?</kbd> opens the help.
 In the tab bar <kbd>←</kbd> <kbd>→</kbd> move between tabs; in the lists of Coupled regions
-<kbd>↑</kbd> <kbd>↓</kbd> move and <kbd>Enter</kbd> picks.
+<kbd>↑</kbd> <kbd>↓</kbd> move and <kbd>Enter</kbd> picks. In the tour <kbd>→</kbd> goes on,
+<kbd>←</kbd> back and <kbd>Esc</kbd> ends it. A sideways swipe scrolls what is under it and
+never turns the page back to the previous tab (`overscroll-behavior-x: none`); the Back
+button still does.
 
 ---
 
