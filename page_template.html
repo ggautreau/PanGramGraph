@@ -192,6 +192,23 @@ a.ext .ic{flex:none;width:.85em;height:.85em;opacity:.7}
 .pop-body .pgb{font-size:12px;color:var(--soft);line-height:1.6;margin:0}
 .ncl{font:500 10px "IBM Plex Mono",monospace;font-style:normal;color:var(--faint);margin-left:6px;white-space:nowrap}
 tr.real .ncl,tr.mk .ncl{color:inherit;opacity:.7}
+/* a family named in a card or under the path: a button that shows its box, or (→) opens the window where it sits */
+.flink{font:inherit;color:inherit;background:none;border:0;border-radius:2px;padding:0;margin:0;cursor:pointer;text-align:left;
+  text-decoration:underline;text-decoration-color:color-mix(in srgb,currentColor 38%,transparent);text-underline-offset:2px;overflow-wrap:anywhere}
+.flink.gene{font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:italic;font-weight:500}
+.flink:hover{text-decoration-color:currentColor;color:var(--ink)}
+tr.real .flink:hover{color:inherit}
+.flink:focus-visible{outline:2px solid var(--obs);outline-offset:1px}
+.flink .fl-go{font:500 10px "IBM Plex Mono",monospace;font-style:normal;margin-left:3px;color:var(--faint);text-decoration:none;display:inline-block}
+tr.real .flink .fl-go{color:inherit;opacity:.75}
+.nofam{cursor:help}
+.fl-note{margin:6px 0 0}
+#pop .pop-h{z-index:2}               /* a card scrolled under its header: the links' icons (opacity) stay beneath it */
+.kv dd small .linkbtn{margin:3px 0 0}
+/* a card's two counts: the label above, the value across the card */
+.kv dt.full,.kv dd.full{grid-column:1/-1}
+.kv dt.full{border-bottom:0;padding-bottom:0}
+.kv dd.full{padding-top:1px}
 @media (hover:none){.card-h .hint{display:none}}
 
 /* attention without a path yet */
@@ -575,6 +592,7 @@ body.nobodyscroll{overflow:hidden}
   .addbtn{font-size:11px;padding:6px 10px;min-height:32px}
   #pop .pop-h button{min-width:40px;min-height:34px;font-size:18px}
   .pop-body .pgb a.ext{display:inline-flex;min-height:32px;align-items:center}
+  .flink{min-height:28px}
   .seg button,.btn,.linkbtn{min-height:34px}
   .seg.sm button{min-height:32px}
   .vchip{min-height:32px}
@@ -1031,6 +1049,32 @@ body.nobodyscroll{overflow:hidden}
         <dt>Click a box</dt><dd>pins the card and computes the model’s exact call in one genome, with a search for any
           family at that position. <b>Draw from this path</b> starts a path from that genome’s own proteins. Needs the
           <a href="#help-server" data-sec="server">model’s server</a>.</dd>
+        <dt>Two counts</dt><dd>a card counts the family twice. <b>In this window</b>: the genomes (beyond the dnaA window,
+          the complete chromosomes) in which it falls inside the window, and the column where it most often sits.
+          <b>In the pangenome</b>: the genomes of PanGBank’s 2,002 that carry it anywhere, and its partition, persistent,
+          shell or cloud, which PPanGGOLiN computed over all of them (beyond the dnaA window, also the complete
+          chromosomes that carry it). A persistent family can be in few genomes of a window: in the others it lies
+          outside it, often just before its first column or past its last; <b>Where they carry it</b> then opens the window that
+          shows it in most of them. <span class="gene">bcp</span> in the nudK window: 26 of 537 chromosomes there, 1,997
+          of 2,002 genomes in the pangenome, persistent.</dd>
+        <dt>Previous and next gene</dt><dd>the families right before and right after it in the window’s genomes, most
+          carried first, with how many genomes carry each pair. They follow the reading direction (see
+          <a href="#help-windows" data-sec="windows">Along the chromosome</a>): the gene a map shows after it may be in
+          its <b>Previous</b> list. A family at the window’s first column has none before it here (at its last, none
+          after it): <b>Show it in the previous window</b> (or <b>next</b>) opens the window beside, which has them, with
+          its card there. <span class="gene">bcp</span> is the first column of its own window; the previous window shows
+          <span class="gene">hyfA</span> before it.</dd>
+        <dt>Family names</dt><dd>on a card (its lists, the model’s call after it, a genome’s live call and its search)
+          and under a drawn path, the name of a family of the window shows its box: the <b>Genomes carrying</b> slider
+          is lowered if it hides it (it goes back to your setting at the next name you follow that it shows, or in
+          another window), the graph scrolls to it, the box flashes and its card is pinned. While you draw a path, the
+          box flashes, the path stays and a preview card gives way to the box. A name with <b>→</b> is a gene the model
+          names that no family of this window reads as: it opens the window where the complete chromosomes carry it,
+          and shows it there; that needs the <a href="#help-server" data-sec="server">model’s server</a>, and the new
+          window starts a new path. The browser’s <b>Back</b> returns to the window as you left it, with its card pinned
+          or its path drawn. A name that is not underlined is one of the model’s clusters with no family here and no
+          gene name of the complete chromosomes; hover it for why. From the keyboard, Tab reaches each name and Enter
+          follows it.</dd>
         <dt>Pick a genome</dt><dd>the genome box lists, before you type, genomes that carry the family and well-known
           strains. Type any mix of strain, serotype (<i>O157</i>, <i>H7</i>), sequence type, host, isolation source,
           country, year or accession: every word must match (<i>human urine</i>, <i>shigella</i>, <i>cattle 2012</i>).
@@ -1080,6 +1124,12 @@ body.nobodyscroll{overflow:hidden}
           complete chromosomes, with its place; it also takes a PanGBank family or a position from dnaA (<i>1500</i>).
           A gene already in the window is shown there, otherwise its window opens. <b>dnaA window</b> returns here.
           A link to a place: <code>__SLUG__.html#at=lacZ</code>.</dd>
+        <dt>Reading direction</dt><dd>every window, the dnaA window included, reads the genomes from
+          <span class="gene">dnaA</span> in the direction dnaA is transcribed, the order the model reads them in:
+          columns, the <b>Previous</b> and <b>Next</b> genes of a card and a drawn path all follow it. Maps of
+          <i>E. coli</i> K-12 number the chromosome the other way, so neighbours come here in the reverse of their map
+          order: most chromosomes read <span class="gene">hyfA</span>, <span class="gene">bcp</span>,
+          <span class="gene">gcvR</span>, which the K-12 map lists as gcvR, bcp, hyfA.</dd>
         <dt>Which genomes</dt><dd>beyond the dnaA window only the 540 complete genomes are in one piece and have the
           model’s call at every gene, so a window elsewhere is read in them. It starts at a backbone family, present once
           in at least 95% of the chromosomes, and walks 80 genes in dnaA’s direction. The page’s server builds it in about
@@ -1717,7 +1767,8 @@ top-1 ${(r.top1_dec * 100).toFixed(0)}%, ${fmtInt(r.n)} genomes${r.unread > 0.00
   document.getElementById('shown').textContent = `${fmtInt(vis.length)} families, ${fmtInt(E.length)} links shown`;
   highlight(); overlay(); indexColumns();
 }
-const boxName = n => `${n.label}, ${n.partition}, in ${fmtInt(n.n)} of ${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}, column ${n.locus}`;
+const boxName = n => `${n.label}, in ${fmtInt(n.n)} of the ${fmtInt(NG)} ${REG ? 'chromosomes' : 'genomes'} of this window, column ${n.locus}; ${n.partition}${
+  n.pan != null ? `, in ${fmtInt(n.pan)} of the pangenome’s ${fmtInt(PAN.genomes)} genomes` : ''}`;
 /* the boxes from the keyboard: one of them is the graph's Tab stop (the last one focused, else the path's start); the
    arrows move to the nearest box in the next column or up and down a column, Enter or Space acts as a click */
 let BOXES = [], roveKey = null, boxQuiet = false;          // boxQuiet: the focus given back to a box (its card just closed): no preview
@@ -1773,7 +1824,7 @@ function highlight() {
 document.getElementById('showpred').addEventListener('change', highlight);
 document.getElementById('minstr').addEventListener('input', e => {
   minN = STEPS[+e.target.value]; document.getElementById('minstrv').textContent = fmtInt(minN); e.target.setAttribute('aria-valuetext', `${fmtInt(minN)} genomes`);
-  sel = null; closePop(); draw(); });
+  minUser = null; sel = null; closePop(); draw(); });
 
 /* ---------- cards ---------- */
 /* clusters of the model that the decoder reads as the same family: one row, their probabilities summed */
@@ -1786,17 +1837,83 @@ function mergeCalls(rows, keyOf) {
 }
 const nodeOfBf = bf => (byBf.get(bf) || [])[0];
 const nclu = (o, lab) => o.k > 1 ? `<span class="ncl" title="${o.k} of the model’s clusters read as ${esc(lab)}: their probabilities are summed">${o.k} clusters</span>` : '';
+/* ---------- a family named in a card, or under a drawn path, shows it in context ----------
+   A family of the window shown is a button to its box (focusNode: the Genomes carrying slider is lowered if it hides
+   the box, the graph scrolls to it, it flashes, its card is pinned). A cluster of the model that no family of this
+   window reads as, named by the model's bank after a gene: the box of that gene here if the window has one, else the
+   window where the complete chromosomes carry it (the server's /region, as the search box opens it, then its box
+   there). A cluster with no such name (a product, a number) stays text, with the reason in its tooltip. */
+const unitW = () => REG ? 'chromosomes' : 'genomes';
+const GENE_AT = new Map(CMAP.genes.map(g => [g[0].toLowerCase(), g]));   // every gene name of the complete chromosomes
+function nodeNamed(lab) {                               // the window's best-carried family with this gene name
+  let b = null; for (const n of NODES) if (n.named && n.label === lab && (!b || n.n > b.n)) b = n; return b;
+}
+function famBtn(n, text, why) {                         // a family of this window: its box
+  return `<button type="button" class="flink${n.named ? ' gene' : ''}" data-node="${esc(n.id)}" title="${why ? esc(why) + ' ' : ''}Show ${esc(n.label)} in the graph: column ${n.locus}, in ${fmtInt(n.n)} of the ${fmtInt(NG)} ${unitW()} here">${esc(text ?? n.label)}</button>`;
+}
+function famRef(node, lab, cl) {                        // node: the family of this window the row reads as, or none; lab: the name shown; cl: its model cluster
+  if (node) return famBtn(node, lab);
+  const clu = cl != null && cl >= 0 ? `Model cluster #${cl}: no family of this window reads as it` : '';
+  if (isGene(lab)) {
+    const here = nodeNamed(lab);
+    if (here) return famBtn(here, lab, clu ? `${clu}; the model’s bank names it ${lab}.` : '');
+    const g = GENE_AT.get(lab.toLowerCase());
+    if (g) return `<button type="button" class="flink gene" data-q="${esc(g[0])}" data-lab="${esc(g[0])}" title="${clu ? esc(clu) + '; the model’s bank names it ' + esc(lab) + '. ' : ''}Open the window where ${esc(g[0])} sits: about gene ${fmtInt(g[1])} from dnaA, in ${fmtInt(g[2])} of the ${fmtInt(CMAP.chromosomes)} complete chromosomes (needs the model’s server)">${esc(lab)}<span class="fl-go" aria-hidden="true">→</span></button>`;
+    return `<span class="nofam" title="${esc(clu || lab)}${clu ? '; the model’s bank names it ' + esc(lab) : ''}, a name no gene of the ${fmtInt(CMAP.chromosomes)} complete chromosomes carries">${esc(lab)}</span>`;
+  }
+  return `<span class="nofam" title="${clu ? esc(clu) + '; the model’s bank gives it ' + (/^fam\d+$/.test(lab) ? 'no name' : 'no gene name, only this product') : 'No gene name to look it up by'}">${esc(lab)}</span>`;
+}
+/* a click on one: its box here, or its window opened (the click is done first: the card it sits in is redrawn) */
+async function famGo(b, kbd) {
+  if (b.dataset.node) {
+    const n = byId.get(b.dataset.node); if (!n) return;
+    // drawing a path: the box is shown and the path stays; the card the name was in (a preview) gives way to the box
+    if (mode === 'path') { if (pop.contains(b)) unpin(); focusNode(n, false); return; }
+    focusNode(n, true); if (kbd) cardFocus(null);
+    return;
+  }
+  const q = b.dataset.q, lab = b.dataset.lab || q; if (!q) return;
+  if (b.dataset.anchor === '') {                          // the window beside is the dnaA window: no server needed
+    goHome(); const n = byFam.get(q); if (n) { focusNode(n, true); if (kbd) cardFocus(null); }
+    return;
+  }
+  const from = b.dataset.anchor ? `the window from ${b.dataset.from || lab}` : `the window of ${lab}`;
+  if (!(await liveOK())) { famNote(b, srvDown(`to open ${esc(from)}`)); return; }
+  if (b.dataset.anchor) goRegion('', b.dataset.anchor, q, true, { what: from, kbd, back: null });
+  else goRegion(q, '', q, true, { what: from, kbd, back: null });
+}
+function famNote(b, html) {                              // said under the list or table the button is in
+  const at = b.closest('table, ul, dl, p') || b.parentNode; if (!at || !at.isConnected) return;
+  let p = at.nextElementSibling;
+  if (!p || !p.classList.contains('fl-note')) { p = document.createElement('p'); p.className = 'msg fl-note'; p.setAttribute('role', 'status'); at.after(p); }
+  p.innerHTML = html;
+}
+function famClick(ev) {
+  const b = ev.target.closest('button[data-node], button[data-q]'); if (!b) return;
+  const kbd = ev.detail === 0; setTimeout(() => famGo(b, kbd), 0);
+}
+/* the families right before a family in the window's genomes, most carried first (the Next list's counterpart) */
+let PREVS = null;
+function prevOf(n) {
+  if (!PREVS || PREVS.src !== EDG) {
+    const m = new Map(); for (const e of EDG) { if (!m.has(e.t)) m.set(e.t, []); m.get(e.t).push([e.s, e.n]); }
+    m.forEach(v => v.sort((a, b) => b[1] - a[1])); PREVS = { src: EDG, m };
+  }
+  return (PREVS.m.get(n.id) || []).slice(0, 5);
+}
+const nbrList = L => L.map(([id, c]) => { const t = byId.get(id);
+  return `<li>${t ? famBtn(t) : `<span>${esc(id)}</span>`}<span>${fmtInt(c)}</span></li>`; }).join('');
 function callTable(n, mark) {
   if (!n.call || !n.call.length) return '<p class="miss">No call after it: the window ends right after it in every genome carrying it.</p>';
   const R = mergeCalls(n.call.map(([bf, p, seen, reads]) => ({ bf, p, seen, reads })), r => r.reads || '');
   const rows = R.map((r, i) => { const rd = r.reads && byId.get(r.reads), lab = rd ? rd.label : (BFL[r.bf] || 'fam' + r.bf);
     return `<tr class="${r.bfs.includes(mark) ? 'mk' : ''}"><td style="text-align:left">${i + 1}</td>
-      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${esc(lab)}${nclu(r, lab)}${r.seen ? '' : `<span class="never" title="follows it in none of the ${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}">never here</span>`}</td>
+      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${famRef(rd, lab, r.bf)}${nclu(r, lab)}${r.seen ? '' : `<span class="never" title="follows it in none of the ${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}">never here</span>`}</td>
       <td>${fmtProb(r.p)}<i class="bar" style="width:${Math.max(2, r.p * 100).toFixed(1)}%"></i></td></tr>`; }).join('');
-  return `<div class="dist"><h3>Model’s call after it &middot; averaged over ${fmtInt(n.calls)} genomes</h3>
+  return `<div class="dist"><h3>Model’s call after it &middot; averaged over ${fmtInt(n.calls)} ${unitW()}</h3>
     <table>${DIST_HEAD}<tbody>${rows}</tbody></table>
     <p class="miss">Read in its own vocabulary, it named the gene that actually follows in
-      <b>${pct(n.top1_dec ?? n.top1)}</b> of those genomes.</p></div>`;
+      <b>${pct(n.top1_dec ?? n.top1)}</b> of those ${unitW()}.</p></div>`;
 }
 function gview(n) {
   const f = GX[n.ex[0]];
@@ -1816,36 +1933,55 @@ function pgbLinks(n) {                             // PanGBank has a page per ge
       n.n > gs.length ? ` <span class="faint">and ${fmtInt(n.n - gs.length)} more</span>` : ''}. ` : ''}${extA(PGB_PAN, 'The whole pangenome', 'Its families, partitions, regions of plasticity and genomes')}.
       <button type="button" class="linkbtn" data-copy="${esc(n.fam)}" title="PanGBank has no page per family: copy its name to look for it in the pangenome's files">copy the family name</button></p>`;
 }
+/* a family at the window's first column has no gene before it here (at its last, none after): the window beside this
+   one shows them, with it (w: meta.prev or meta.next, {fam, label, pos}) */
+function edgeNote(n, w, side) {
+  if (!REG || !w) return '';
+  const prev = side === 'prev', U = unitW();
+  return `<h4>${prev ? 'Previous' : 'Next'} gene in the ${U}</h4><p class="msg fl-edge">None in this window: ${esc(n.label)} sits at its
+    ${prev ? 'first' : 'last'} column. <button type="button" class="linkbtn" data-anchor="${w.pos === 0 ? '' : esc(w.fam)}" data-q="${esc(n.fam)}"
+    data-lab="${esc(n.label)}" data-from="${esc(w.label)}" title="Open the window from ${esc(w.label)}, about gene ${fmtInt(w.pos)} from dnaA,
+    which has the genes ${prev ? 'before' : 'after'} it, and show ${esc(n.label)} there${w.pos === 0 ? '' : ' (needs the model’s server)'}">Show it in the ${prev ? 'previous' : 'next'} window</button></p>`;
+}
 function nodeCard(n) {
-  const nx = n.next.map(([id, c]) => { const t = byId.get(id);
-    return `<li><span class="${t && t.named ? 'gene' : ''}">${esc(t ? t.label : id)}</span><span>${fmtInt(c)}</span></li>`; }).join('');
+  const U = unitW(), nx = nbrList(n.next), pv = nbrList(prevOf(n)), PT = CUR.meta.pan_genomes || PAN.genomes;
+  const share = (k, N) => k < N && pct(k / N) === '100%' ? (N - k <= 9 ? `all but ${fmtInt(N - k)}` : '> 99%') : pct(k / N);
+  // its two counts: the genomes of this window where it falls inside it, and the pangenome's genomes carrying it anywhere
+  // (what its partition is about); a family most of whose carriers have it outside the window gets a way to where it is
+  const car = REG ? n.chrom : n.pan;
+  const out = car != null && n.n < 0.5 * Math.min(car, NG) ? `<small>In most of the ${fmtInt(car)} ${REG ? 'complete chromosomes' : 'genomes'}
+      that carry it, it lies outside this window. <button type="button" class="linkbtn" data-q="${esc(n.fam)}" data-lab="${esc(n.label)}"
+      title="Open the window that shows ${esc(n.label)} in the most complete chromosomes (needs the model’s server)">Where they carry it</button></small>` : '';
   const pp = mode === 'path' && pathCP ? `<p class="ctx" style="color:var(--pred)">Given the drawn path, the model gives
       this family <b>${(q => q > 0 ? fmtProb(q) : 'below 1 in a billion')(boxProb(n))}</b> to come next${boxProb(n) > 0 ? '' : ' (search it below the path for its exact rank)'}.</p>` : '';
   return `<div class="ttl ${n.named ? 'gene' : 'mono'}">${esc(n.label)}</div>${pp}
     <dl class="kv">
-      <dt>class</dt><dd>${n.partition} <span class="faint">PPanGGOLiN</span></dd>
-      <dt>genomes</dt><dd>${fmtInt(n.n)} of ${fmtInt(NG)} (${n.n < NG && pct(n.n / NG) === '100%' ? (NG - n.n <= 9 ? `all but ${fmtInt(NG - n.n)}` : '> 99%') : pct(n.n / NG)})</dd>
-      <dt>in a region of plasticity</dt><dd>${pct(n.rgp)} of them</dd>
-      <dt>column</dt><dd>${n.locus}</dd>${(r => r ? `
-      <dt>the model’s doubt there</dt><dd>perplexity ${r.ppl.toFixed(2)} &middot; ${r.entropy.toFixed(2)} bits</dd>` : '')(PL.get(n.locus))}
+      <dt class="full">in this window</dt><dd class="full">${fmtInt(n.n)} of ${fmtInt(NG)} ${U} (${share(n.n, NG)}), at column ${n.locus}${out}</dd>
+      <dt class="full">in the pangenome</dt><dd class="full">${n.pan != null ? `${fmtInt(n.pan)} of ${fmtInt(PT)} genomes (${share(n.pan, PT)}), ` : ''}${n.partition}
+        <span class="faint">PPanGGOLiN, PanGBank</span>${REG && n.chrom != null ? `<small>${fmtInt(n.chrom)} of the ${fmtInt(REG.genomes_total)} complete chromosomes</small>` : ''}</dd>
+      <dt class="full">in a region of plasticity</dt><dd class="full">${pct(n.rgp)} of its copies in this window</dd>${(r => r ? `
+      <dt class="full">the model’s doubt at column ${n.locus}</dt><dd class="full">perplexity ${r.ppl.toFixed(2)} &middot; ${r.entropy.toFixed(2)} bits</dd>` : '')(PL.get(n.locus))}
       <dt>family</dt><dd>${esc(n.fam)}</dd>
     </dl>
     ${n.named && n.product && !/^hypothetical protein$/i.test(n.product.trim()) ? `<p class="prod">${esc(n.product)}</p>` : ''}
     ${pgbLinks(n)}
-    ${nx ? `<h4>Next gene in the genomes <span class="h-r">genomes</span></h4><ul class="lst">${nx}</ul>` : ''}
+    ${pv ? `<h4>Previous gene in the ${U} <span class="h-r">${U}</span></h4><ul class="lst">${pv}</ul>`
+      : n.locus === 0 ? edgeNote(n, REG && REG.prev, 'prev') : ''}
+    ${nx ? `<h4>Next gene in the ${U} <span class="h-r">${U}</span></h4><ul class="lst">${nx}</ul>`
+      : REG && n.locus >= REG.window - 1 ? edgeNote(n, REG.next, 'next') : ''}
     ${callTable(n)}${n.call.length ? gview(n) : ''}`;
 }
 function ghostCard(g) {
-  const s = byId.get(g.src);
-  return `<div class="k2">expected here, follows it in none of the ${fmtInt(NG)} genomes</div>
+  const s = byId.get(g.src), rd = g.reads && byId.get(g.reads);
+  return `<div class="k2">expected here, follows it in none of the ${fmtInt(NG)} ${unitW()}</div>
     <div class="ttl ${isGene(g.label) ? 'gene' : 'mono'}">${esc(g.label)}</div>
     <dl class="kv">
       <dt>expected at</dt><dd>column ${g.locus}</dd>
-      <dt>after</dt><dd>${esc(s.label)}</dd>
-      <dt>softmax prob.</dt><dd>${fmtProb(g.p)} <span class="faint">mean over ${fmtInt(s.calls)} genomes</span></dd>
+      <dt>after</dt><dd>${famBtn(s)}</dd>
+      <dt>softmax prob.</dt><dd>${fmtProb(g.p)} <span class="faint">mean over ${fmtInt(s.calls)} ${unitW()}</span></dd>
       <dt>model cluster</dt><dd>#${g.bf}</dd>
     </dl>
-    <p class="prod">${g.elsewhere ? 'This family does occur in the window, elsewhere than after ' + esc(s.label) + '.'
+    <p class="prod">${g.elsewhere ? `This family does occur in the window, elsewhere than after ${esc(s.label)}${rd ? `: ${famBtn(rd, `${rd.label}, column ${rd.locus}`)}` : ''}.`
       : `This family appears nowhere in the ${fmtInt(NG)} windows.`}</p>
     ${callTable(s, g.bf)}${gview(s)}`;
 }
@@ -2082,10 +2218,11 @@ async function gcall(acc, pfam, q) {
 }
 function hitRow(h, real) {
   const x = (Math.log10(Math.max(1, h.rank)) / Math.log10(50001) * 100).toFixed(1), lab = h.name || h.product || 'fam' + h.fam;
+  const b = nodeOfBf(h.fam), same = b && b.label === lab;   // the family of this window the cluster reads as: the name, or a link after it
   return `<div class="fr${real ? ' real' : ''}">
-    <span class="nm ${h.name ? 'gene' : ''}">${esc(lab)}${real ? '<span class="tag2">real gene here</span>' : ''}</span>
+    <span class="nm ${h.name ? 'gene' : ''}">${same ? famBtn(b, lab) : b ? esc(lab) : famRef(null, lab, h.fam)}${real ? '<span class="tag2">real gene here</span>' : ''}</span>
     <span class="pv">${fmtProb(h.p)}</span>
-    <span class="mt">#${h.fam}${h.name && h.product ? ' · ' + esc(h.product) : ''}</span>
+    <span class="mt">#${h.fam}${h.name && h.product ? ' · ' + esc(h.product) : ''}${b && !same ? ` · read here as ${famBtn(b)}` : ''}</span>
     <span class="rk">rank ${fmtInt(h.rank)} of 50,000</span>
     <span class="trk" title="position in the ranked distribution, log scale"><i style="left:${x}%"></i></span></div>`;
 }
@@ -2120,9 +2257,9 @@ async function liveGenome(box) {
   const rows = R.slice(0, 8).map((r, i) => {
     const b = nodeOfBf(r.bf), lab = b ? b.label : r.name || r.product || 'fam' + r.bf;
     return `<tr class="${(rn ? i === ri : r.bfs.includes(J.real.fam)) ? 'real' : ''}"><td style="text-align:left">${i + 1}</td>
-      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${esc(lab)}${nclu(r, lab)}</td>
+      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${famRef(b, lab, r.bf)}${nclu(r, lab)}</td>
       <td>${fmtProb(r.p)}<i class="bar" style="width:${Math.max(2, r.p * 100).toFixed(1)}%"></i></td></tr>`; }).join('');
-  const rl = `<span class="${isGene(realLab) ? 'gene' : ''}">${esc(realLab)}</span>`, rr = ri >= 0 ? R[ri] : null, over = o => o.k > 1 ? `, summed over its ${o.k} clusters` : '';
+  const rl = rn ? famBtn(rn) : `<span class="${isGene(realLab) ? 'gene' : ''}">${famRef(null, realLab, null)}</span>`, rr = ri >= 0 ? R[ri] : null, over = o => o.k > 1 ? `, summed over its ${o.k} clusters` : '';
   // a family whose clusters the table shows under a more common family: its own share, P(family | cluster) over them
   const bw = rn ? new Map(rn.bfw || (rn.bfs || [rn.bf]).map(c => [c, 1])) : new Map();
   const q = rr ? rr.p : J.top.reduce((a, h) => a + (bw.get(h.fam) || 0) * h.p, 0);
@@ -2181,14 +2318,16 @@ function position() {
 function openPop(el, pin) {
   clearTimeout(hideT); clearTimeout(showT);
   if (anchor && anchor !== el) anchor.classList.remove('hov');
-  const fresh = anchor !== el || pop.hidden || (pin && !pinned);
+  const fresh = anchor !== el || pop.hidden || (pin && !pinned), other = anchor !== el;
   anchor = el; el.classList.add('hov'); pinned = !!pin;
   pop.classList.toggle('pinned', pinned);
   document.getElementById('popst').textContent = pinned ? 'pinned' : 'preview';
   document.getElementById('pophint').textContent = pinned ? 'pick another genome below' : 'click the box to pin';
   pop.style.setProperty('--pop-accent', el.dataset.ghost !== undefined ? 'var(--pred)' : ACC[byId.get(el.dataset.id).partition]);
   if (fresh) insp.innerHTML = el.dataset.ghost !== undefined ? ghostCard(GH[+el.dataset.ghost]) : nodeCard(byId.get(el.dataset.id));
-  pop.hidden = false; position();
+  pop.hidden = false;
+  if (other) pop.scrollTop = 0;       // another family (a name clicked low in a card): its card from the top (once shown: a hidden card keeps its old scroll)
+  position();
   if (pinned && fresh && innerWidth <= 620) sheetClear(el);
   if (pinned && fresh) { const gv = insp.querySelector('.gview'); if (gv) liveGenome(gv); }
 }
@@ -2260,6 +2399,7 @@ function closeCard() {                                   // closed from inside i
   if (popReturn) focusBack(); else if (inCard && box && box.isConnected && box.hasAttribute('tabindex')) { boxQuiet = true; box.focus(); boxQuiet = false; }
 }
 document.getElementById('popx').addEventListener('click', ev => { ev.stopPropagation(); closeCard(); });
+insp.addEventListener('click', famClick);                  // a family named in the card: its box, or its window
 insp.addEventListener('click', ev => {
   const b = ev.target.closest('[data-copy]'); if (!b) return;
   const done = t => { const o = b.textContent; b.textContent = t; setTimeout(() => { b.textContent = o; }, 1400); };
@@ -2278,7 +2418,7 @@ document.addEventListener('click', ev => {
 scroll.addEventListener('scroll', () => { if (pinned) position(); else closePop(); }, { passive: true });
 addEventListener('scroll', () => { if (pinned) position(); else if (!pop.hidden) closePop(); }, { passive: true });
 addEventListener('resize', position);
-new ResizeObserver(position).observe(pop);
+{ let rq = 0; new ResizeObserver(() => { cancelAnimationFrame(rq); rq = requestAnimationFrame(position); }).observe(pop); }   // (next frame: position() sets its max-height)
 
 /* ---------- drawing a path: any sequence of boxes, the model's call after it ---------- */
 let byFam = new Map(NODES.map(n => [n.fam, n]));
@@ -2339,12 +2479,12 @@ async function runPath() {
   const rows = mergeCalls(J.top.map(h => ({ ...h, bf: h.fam })), r => (nodeOfBf(r.bf) || {}).id || '').slice(0, 8).map((h, i) => {
     const b = nodeOfBf(h.bf), lab = b ? b.label : h.name || h.product || 'fam' + h.bf;
     return `<tr><td style="text-align:left">${i + 1}</td>
-      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${esc(lab)}${nclu(h, lab)}${b ? `<button type="button" class="addbtn" data-add="${b.id}" title="add the box ${esc(b.label)} to the path">+ add</button>`
+      <td style="text-align:left" class="${isGene(lab) ? 'gene' : ''}">${famRef(b, lab, h.bf)}${nclu(h, lab)}${b ? `<button type="button" class="addbtn" data-add="${b.id}" title="add the box ${esc(b.label)} to the path">+ add</button>`
+        : isGene(lab) && nodeNamed(lab) ? `<span class="never" title="no family of this window reads as this model cluster; the model’s bank names it ${esc(lab)}, like the window’s box of that name">not read here</span>`
         : (REG ? '<span class="never" title="no family of this window reads as this model cluster">not in this window</span>'
-          : '<span class="never" title="no protein of the 2,002 windows falls in this model cluster">in no window</span>')}</td>
+          : '<span class="never" title="no protein of the dnaA window, in any of the 2,002 genomes, falls in this model cluster">not in this window</span>')}</td>
       <td>${fmtProb(h.p)}<i class="bar" style="width:${Math.max(2, h.p * 100).toFixed(1)}%"></i></td></tr>`; }).join('');
-  const nx = last && last.next.length ? last.next.map(([id, c]) => { const t = byId.get(id);
-      return `<li><span class="${t && t.named ? 'gene' : ''}">${esc(t ? t.label : id)}</span><span>${fmtInt(c)}</span></li>`; }).join('') : '';
+  const nx = last && last.next.length ? nbrList(last.next) : '';
   const own = path.filter(x => x.own).length, lead = path.findIndex(x => !x.own), ownFirst = own === (lead < 0 ? path.length : lead);
   res.innerHTML = `<div><h3>Model’s call for the next family, after ${J.n === 1 ? 'this protein' : `these ${J.n} proteins`}${J.ctx ? ` and the ${J.ctx} before ${J.n === 1 ? 'it' : 'them'} in ${esc(pathSrc)}` : ''} &middot; entropy ${J.entropy.toFixed(2)} bits</h3>
       <div class="dist" style="border-top:0;margin:0;padding:0"><table>${DIST_HEAD}<tbody>${rows}</tbody></table></div>
@@ -2352,7 +2492,7 @@ async function runPath() {
         <input id="find-path" type="search" placeholder="gene, product or #family" autocomplete="off" spellcheck="false">
         <div class="find-res" aria-live="polite"></div></div>
       <p class="src live" style="font-size:10.5px;margin:7px 0 0">Computed live in ${J.ms} ms. On the graph, each box glows by how likely its family is to come next (log scale, from 1 in 100 million to certain); the 12 likeliest carry their probability. <b>+</b> adds a family to the path.</p></div>
-    <div><h3>After ${esc(last ? last.label : '?')} in the genomes <span class="h-r">genomes</span></h3>
+    <div><h3>After ${esc(last ? last.label : '?')} in the ${unitW()} <span class="h-r">${unitW()}</span></h3>
       ${nx ? `<ul class="lst">${nx}</ul>` : '<p class="msg">Nothing follows it in any window.</p>'}
       <p class="msg" style="margin-top:10px">${own ? `${ownFirst ? `The first ${own}` : `${own} of these`} protein${own > 1 ? 's are' : ' is'} ${esc(pathSrc)}’s own; the others are` : 'Each protein is'} the most common one of its family in the ${fmtInt(NG)} ${REG ? 'complete genomes' : 'genomes'}. Every protein is real; a path that no genome carries is a combination the model may never have seen.</p></div>`;
 }
@@ -2453,6 +2593,7 @@ document.getElementById('pp-undo').addEventListener('click', () => {         // 
   renderPath();
 });
 document.getElementById('pp-reset').addEventListener('click', () => { remember(snap()); resetPath(); });
+document.getElementById('ppres').addEventListener('click', famClick);   // a family named under the path
 document.getElementById('ppres').addEventListener('click', ev => {
   const b = ev.target.closest('[data-add]'); if (!b) return;
   const n = byId.get(b.dataset.add); remember(snap()); path.push({ id: n.id, pid: n.pid }); renderPath();
@@ -2628,8 +2769,25 @@ function setRegionButtons() {
   nx.title = !m ? `The next window, about gene ${PG.meta.window - 20} from dnaA` : m.next ? `The window from ${m.next.label}, about gene ${fmtInt(m.next.pos)} from dnaA` : 'The end of the chromosome';
   if (had && had.disabled && (had === pv || had === nx)) (had === pv ? nx : pv).focus();   // the focus is not dropped to the page
 }
+/* Back and Forward bring a window back as it was left (WINMEM, by its anchor; '' the dnaA window): its pinned card, its
+   drawn path with its Undo steps, where the graph was scrolled */
+const WINMEM = new Map(); let winShown = '';
+function winSave() {
+  WINMEM.delete(winShown);
+  WINMEM.set(winShown, { sel: pinned && sel && sel[0] === 'p' && mode !== 'path' ? sel : null, path: path.map(x => ({ ...x })),
+    src: pathSrc, ctx: pathCtx, hist: hist.slice(), sl: scroll.scrollLeft, st: scroll.scrollTop });
+  if (WINMEM.size > 24) WINMEM.delete(WINMEM.keys().next().value);
+}
+function winRestore() {
+  const m = WINMEM.get(winShown); if (!m) return;
+  if (m.path.length) { path = m.path.map(x => ({ ...x })); pathSrc = m.src; pathCtx = m.ctx; hist = m.hist.slice(); if (mode === 'path') renderPath(); }
+  const n = m.sel && byId.get(m.sel);
+  if (n && mode !== 'path') focusNode(n, true);
+  else { scroll.scrollLeft = m.sl; scroll.scrollTop = m.st; }
+}
 function switchTo(D, push) {
-  closePop(); sel = null; useGraph(D);
+  winSave(); winShown = D.meta.region ? D.meta.anchor : '';
+  closePop(); sel = null; minRestore(); useGraph(D);
   hist = []; path = []; pathSrc = ''; pathCtx = null; pnote.hidden = true; if (clickMode === 'left') setClickMode('add');
   // a draft genome chosen for the path cannot be read beyond the dnaA window (only the complete chromosomes are)
   if (REG) { const f = GX.find(x => x.acc === accOf(pgen)); if (f && f.lvl !== 0) setGenome(pgen, null); }
@@ -2672,7 +2830,8 @@ function wantNote(W) {
 }
 /* open a window: by a query (a gene, a family, a position) or by its anchor (with want: what is looked for there).
    opt: { push (a history step, default), nav (Next pressed from that window), keepNav (Previous going back), kbd (picked
-   from the keyboard: the card's close button takes the focus), what (the busy card's title) }. While one is built, the
+   from the keyboard: the card's close button takes the focus, and gives it back on close to back, default the search
+   box), what (the busy card's title) }. While one is built, the
    last request waits its turn. */
 let regQueue = null;
 async function goRegion(q, anchor, want, pin = true, opt = {}) {
@@ -2704,13 +2863,15 @@ async function goRegion(q, anchor, want, pin = true, opt = {}) {
     const n = W.found ? byId.get(W.node) : null; if (n) focusNode(n, pin);
     const t = wantNote(W); if (t) { note.className = 'info'; note.innerHTML = t; }
   } else if (want) { const n = NODES.filter(x => x.label.toLowerCase() === want.toLowerCase()).sort((a, b) => b.n - a.n)[0]; if (n) focusNode(n, pin); }
-  if (opt.kbd) cardFocus(document.getElementById('rg-go'));
+  if (opt.kbd) cardFocus('back' in opt ? opt.back : document.getElementById('rg-go'));
+  if (opt.then) opt.then();
 }
 function goHome(push = true, opt = {}) {
   if (regBusy) { regQueue = () => goHome(push, opt); return; }
   const note = document.getElementById('rg-note'); note.className = ''; note.textContent = '';
   if (!opt.keepNav) navBack = [];
   if (!REG) { setRegionButtons(); return; } REG = null; switchTo(PG, push);
+  if (opt.then) opt.then();
 }
 function toColumn(k) { scroll.scrollLeft = Math.max(0, (PADX + k * COLW + NW / 2) * zoom - scroll.clientWidth / 2); }
 document.getElementById('rg-prev').addEventListener('click', () => {
@@ -2854,17 +3015,35 @@ function windowTexts() {
 }
 
 /* go to a gene, a family or a position: suggestions from every gene name of the complete chromosomes */
+/* the Genomes carrying slider, lowered to show a box it hides (focusNode): minUser keeps the visitor's own setting (a
+   step), put back when the next family shown is visible at it, or another window opens; moving the slider makes it theirs */
+let minUser = null;
+function setMinStep(k) {
+  const s = document.getElementById('minstr'); s.value = k; minN = STEPS[k]; document.getElementById('minstrv').textContent = fmtInt(minN);
+  s.setAttribute('aria-valuetext', `${fmtInt(minN)} genomes`);
+}
+function minRestore() {                                   // true: the threshold changed (the caller redraws)
+  if (minUser === null) return false;
+  const k = minUser; minUser = null; if (STEPS[k] === minN) return false;
+  setMinStep(k); return true;
+}
 function focusNode(n, pin = true) {
+  if (minUser !== null && n.n >= STEPS[minUser] && minRestore()) draw();   // visible at the visitor's own threshold: back to it
   if (!n._vis) {                                          // under the threshold: lower it so the box shows
     let k = STEPS.length - 1; while (k > 0 && STEPS[k] > n.n) k--;
-    document.getElementById('minstr').value = k; minN = STEPS[k]; document.getElementById('minstrv').textContent = fmtInt(minN);
-    document.getElementById('minstr').setAttribute('aria-valuetext', `${fmtInt(minN)} genomes`); draw();
+    if (minUser === null) minUser = +document.getElementById('minstr').value;
+    setMinStep(k); draw();
   }
   const el = svg.querySelector(`.nd[data-id="${n.id}"]`); if (!el) return;
   const r = gcard.getBoundingClientRect(); if (r.top < 0 || r.top > innerHeight * 0.5) gcard.scrollIntoView({ block: 'start' });
   scroll.scrollLeft = Math.max(0, (n._x + NW / 2) * zoom - scroll.clientWidth / 2);
   scroll.scrollTop = Math.max(0, (n._y + NH / 2) * zoom - scroll.clientHeight / 2);
-  el.classList.remove('flash'); void el.getBBox(); el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 2400);
+  if (document.fullscreenElement !== gcard && !gcard.classList.contains('maxi')) {   // the box on screen: the graph can start below the fold (under a path panel)
+    const T = document.querySelector('.tabs').getBoundingClientRect(), top = Math.max(0, T.bottom) + 12, b = el.getBoundingClientRect();
+    if (b.top < top || b.bottom > innerHeight - 12) window.scrollBy({ top: b.top - Math.max(top, innerHeight * 0.3), behavior: 'instant' });
+  }
+  el.classList.remove('flash'); void el.getBBox(); el.classList.add('flash');
+  clearTimeout(el._flashT); el._flashT = setTimeout(() => el.classList.remove('flash'), 2400);   // (shown again: the whole flash again)
   if (pin && mode !== 'path') { sel = n.id; highlight(); openPop(el, true); }
 }
 const GENES = CMAP.genes;
@@ -2930,7 +3109,7 @@ regionTexts();
 { const at0 = hashGet().get('at'); if (at0) goRegion(at0, '', at0, false, { push: false }); }   // __SLUG__.html#at=lacZ
 document.addEventListener('pgg-hash', e => {                // Back / Forward: the window the address names
   const at = e.detail.get('at') || null, cur = REG ? REG.anchor : null;
-  if (at !== cur) { if (at) goRegion(at, '', '', false, { push: false }); else goHome(false); }   // (built after the one being built, if any)
+  if (at !== cur) { if (at) goRegion(at, '', '', false, { push: false, then: winRestore }); else goHome(false, { then: winRestore }); }   // (built after the one being built, if any)
 });
 
 /* ---------- swipe drawing: press on a box and slide across the next ones, like glide typing ---------- */

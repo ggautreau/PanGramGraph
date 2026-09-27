@@ -1,5 +1,6 @@
 """Assemble the page, standalone/<name in lower case>.html: page_template.html + the 2,002-genome graph
-data (pgb/graph_pgb.json) + the coupled regions + the pangenome's numbers, the genomes' metadata and the chromosome map
+data (pgb/graph_pgb.json; each family with the pangenome's genomes carrying it, from pgb/fam_info.json) + the coupled
+regions + the pangenome's numbers, the genomes' metadata and the chromosome map
 (pgb/pangenome_info.json, genome_meta.json, chrom_map.json, pgb_page_meta.py) + the base style, taken from the
 11-strain page, pgb/origin-fork-11strains.html.
 
@@ -28,7 +29,25 @@ DEV = "--dev-arcs" in sys.argv
 ARCS = dict(a.split("=", 1) for i, a in enumerate(sys.argv) if i and sys.argv[i - 1] == "--arcs")
 T=open("page_template.html").read(); old=open("pgb/origin-fork-11strains.html").read()
 style=old[old.index("<style>"):old.index("</style>")+len("</style>")]
-data=json.dumps(json.load(open("pgb/graph_pgb.json")),separators=(",",":"))
+
+
+def home_graph():
+    """the dnaA window (pgb/graph_pgb.json) with, on each family, pan: the genomes of the pangenome carrying it (of
+    meta.pan_genomes, 2,002; pgb/fam_info.json, pgb_region.build_fam_info), which its partition is about; its n counts
+    only the genomes where it falls inside the window. A node's id is p<index> into the families of fam_info.json."""
+    G = json.load(open("pgb/graph_pgb.json")); FI = json.load(open("pgb/fam_info.json"))
+    if "genomes" not in FI:
+        print("  pgb/fam_info.json has no genomes per family (rebuild it: pgb_region.build_fam_info): the cards show the partition alone")
+        return G
+    for n in G["nodes"]:
+        f = int(n["id"][1:])
+        assert FI["partition"][f] == n["partition"] and n["n"] <= FI["genomes"][f], f"{n['id']} ({n['label']}) is not family {f} of pgb/fam_info.json"
+        n["pan"] = FI["genomes"][f]
+    G["meta"]["pan_genomes"] = FI["n_genomes"]
+    return G
+
+
+data=json.dumps(home_graph(),separators=(",",":"))
 small=lambda f: json.dumps(json.load(open(f)),separators=(",",":"),ensure_ascii=False)   # pgb_page_meta.py
 
 

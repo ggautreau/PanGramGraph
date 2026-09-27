@@ -15,7 +15,11 @@ proteins of upstream context). A window elsewhere is read in them.
              genomes carrying it, the decoder P(family | model cluster) learned on the
              window's calls and cross-validated on genome halves, perplexity on the family
              actually there, and ghosts (expected after the best-carried family of a column,
-             following it in no genome).
+             following it in no genome). A family's counts: n, the window's chromosomes where
+             it falls inside the window; chrom, the complete chromosomes carrying it anywhere;
+             pan, the pangenome's genomes carrying it (of meta.pan_genomes, 2,002: pgb/fam_info.json),
+             which its partition is about. A persistent family can have a small n: in most
+             chromosomes it lies outside the window.
   proteins   the most common protein of each family, as "c<index>" into pgb/chrom_emb.f16,
              so a drawn path can be sent to the model.
   locate     a gene or a family asked for (the page's search) opens the window that shows it in the
@@ -46,32 +50,44 @@ _names = collections.Counter(x for g in CJ["gene_names"] for x in g if x)
 NAMES = [""] + sorted(_names); _ni = {n: i for i, n in enumerate(NAMES)}
 NAME = np.array([_ni.get(x or "", 0) for g in CJ["gene_names"] for x in g], dtype=np.int32)
 
-# per family: partition and one product, from the PanGBank file once, then cached
+# per family: partition, one product and the genomes carrying it, from the PanGBank file once, then cached
 HYPOTHETICAL = ("hypothetical protein", "")
 def build_fam_info(out="pgb/fam_info.json"):
-    """each family's partition and product: the product most of its genes carry, "hypothetical protein" set aside
-    (lacZ: 1,942 beta-galactosidase, 15 hypothetical protein); a family with no other product keeps that one.
-    NOTE: the pgb/fam_info.json of the repository was written by the earlier rule (the product of the family's first
-    gene: lacZ "hypothetical protein"). Rebuilding it (delete it, or call this) changes the product of 5,272 families
-    and the facts of 111 of the 112 readings written ahead: regenerate them then (pg_reading.py pregen; check with
-    space/assemble.py --dry-run --check-facts)."""
+    """each family's partition (PPanGGOLiN's, over all the pangenome's genomes), product and genomes:
+    product   the product most of its genes carry, "hypothetical protein" set aside (lacZ: 1,942 beta-galactosidase,
+              15 hypothetical protein); a family with no other product keeps that one
+    genomes   how many of the pangenome's genomes (n_genomes, 2,002) carry at least one of its genes: the number the
+              partition is about (bcp: 1,997, persistent), not the genomes of one window, which only counts those
+              where the family falls inside it
+    NOTE: an earlier pgb/fam_info.json had the product of the family's first gene (lacZ "hypothetical protein") and no
+    genomes. Its products feed the facts of the readings written ahead: after a rebuild that changes a product,
+    regenerate them (pg_reading.py pregen; check with space/assemble.py --dry-run --check-facts). Adding genomes changes
+    no fact."""
     import pandas as pd, tables
     h = tables.open_file("pgb/ecoli_11587.h5"); A = h.root.annotations
     info = h.root.geneFamiliesInfo.read(); PART = {"P": "persistent", "S": "shell", "C": "cloud"}
+    assert [x.decode() for x in info["name"]] == FN, "the families of the PanGBank file are not those of pgb/chrom_genomes.json"
     part = [PART.get(x.decode(), x.decode()) for x in info["partition"]]
     gf = h.root.geneFamilies.read(); gfam = pd.Index(FN).get_indexer([x.decode() for x in gf["geneFam"]])
-    gid_all = pd.Index(A.genes.read(field="ID")); ggd = A.genes.read(field="genedata_id")
-    gd = ggd[gid_all.get_indexer(gf["gene"])]
+    genes = A.genes.read(); gi = pd.Index(genes["ID"]).get_indexer(gf["gene"])
+    gd = genes["genedata_id"][gi]
+    ctg = A.contigs.read(); gnm = A.genomes.read(field="name")
+    genome = pd.Index(gnm).get_indexer(ctg["genome"][pd.Index(ctg["ID"]).get_indexer(genes["contig"][gi])])
     pr = A.genedata.read(field="product")[gd]; h.close()
+    ok = (gfam >= 0) & (genome >= 0)
+    ng = np.bincount(np.unique(gfam[ok].astype(np.int64) * len(gnm) + genome[ok]) // len(gnm), minlength=NF)
     df = pd.DataFrame(dict(f=gfam, p=pr)); df = df[df.f >= 0]
     n = df.groupby(["f", "p"]).size().reset_index(name="n"); n["p"] = [x.decode() for x in n.p]
     n["hyp"] = n.p.isin(HYPOTHETICAL)                           # most carried first, "hypothetical protein" last
     n = n.sort_values(["f", "hyp", "n", "p"], ascending=[True, True, False, True]).drop_duplicates("f")
     prod = [""] * NF
     for f, p in zip(n.f, n.p): prod[int(f)] = p
-    json.dump(dict(partition=part, product=prod), open(out, "w"))
+    json.dump(dict(partition=part, product=prod, n_genomes=int(len(gnm)), genomes=ng.astype(int).tolist()), open(out, "w"))
 if not os.path.exists("pgb/fam_info.json"): build_fam_info()
 _fi = json.load(open("pgb/fam_info.json")); PARTITION = _fi["partition"]; PRODUCT = _fi["product"]
+# the genomes of the pangenome carrying each family, of PAN_TOTAL (None with a fam_info.json written before they were
+# counted: the page then shows the partition alone)
+PAN_N = _fi.get("genomes"); PAN_TOTAL = _fi.get("n_genomes")
 
 # the model's clusters, named from its exemplar bank
 annot = json.load(open("fam_annot.json"))
@@ -90,6 +106,7 @@ CPAGE = np.array([PAGE_IDX.get(g["acc"], -1) for g in CGEN])
 # --- the backbone: one copy in >= 95 % of chromosomes, ordered by median position from dnaA
 key = GID.astype(np.int64) * NF + FAM
 uk, first, cnt = np.unique(key, return_index=True, return_counts=True)
+N_CHROM = np.bincount(uk % NF, minlength=NF)     # the complete chromosomes carrying each family (a node's chrom)
 single = cnt == 1
 f_single = (uk % NF)[single]; pos_single = LOC[first[single]]
 n_single = np.bincount(f_single, minlength=NF)
@@ -342,6 +359,7 @@ def build(anchor, W=80):
         dw = dec_weights(f); lab, named = label(f)
         ex = sorted(carriers[f], key=lambda gi: (PREF.get(CGEN[g[gi]]["acc"], 99), gi))[:10]
         nodes.append(dict(id=f"p{f}", fam=FN[f], label=lab, named=named, product=PRODUCT[f], partition=PARTITION[f],
+                          pan=PAN_N[f] if PAN_N else None, chrom=int(N_CHROM[f]),
                           n=len(carriers[f]), locus=loci[f].most_common(1)[0][0], rgp=round(float(np.mean(rg[f])), 3),
                           pid=f"c{pids[f].most_common(1)[0][0]}", bf=dw[0][0] if dw else -1, bfw=dw, bfs=[c for c, w in dw if w >= 0.5] or [c for c, _ in dw[:1]],
                           next=[[f"p{f2}", c] for f2, c in nxt[f].most_common(5)], ex=[int(gpage[gi]) for gi in ex if gpage[gi] >= 0],
@@ -357,7 +375,7 @@ def build(anchor, W=80):
                                reads=r, elsewhere=int(bool(r))))
     step = max(20, W - 20); prev, nextw = neighbours(a, step); alab = label(a)[0]
     meta = dict(region=True, anchor=FN[a], anchor_label=alab, anchor_pos=round(float(BB_POS[BB_RANK[a]])) if a in BB_RANK else None,
-                prev=prev, next=nextw, window=W, n_genomes=G, genomes_total=NG, calls=int(len(fam_at)),
+                prev=prev, next=nextw, window=W, n_genomes=G, genomes_total=NG, pan_genomes=PAN_TOTAL, calls=int(len(fam_at)),
                 top1=None, top1_dec=round(float(hit.mean()), 3), ppl=ppl(np.ones(len(fam_at), bool)), unread=round(float((ptrue == 0).mean()), 4),
                 families=len(nodes), edges=len(E), ms=round((time.time() - t0) * 1000))
     return dict(meta=meta, per_locus=per_locus, by_partition=by_partition, by_rgp=by_rgp, nodes=nodes, edges=E, ghosts=ghosts,

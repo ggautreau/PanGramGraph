@@ -80,7 +80,22 @@ region of plasticity.
   the whole pangenome; PanGBank has no page per family, so **copy the family name** puts it
   on the clipboard. The live call links the chosen genome's page (*&lt;strain&gt; in
   PanGBank*) and offers **Draw from this path**. On a phone a tap pins, and the card opens
-  as a sheet at the bottom of the screen.
+  as a sheet at the bottom of the screen. A card counts the family twice: **in this window**,
+  the genomes (beyond dnaA, the complete chromosomes) where it falls inside the window, at its
+  column; **in the pangenome**, the genomes of the 2,002 carrying it anywhere, which its
+  PPanGGOLiN partition is about (`pgb/fam_info.json`, `pgb_region.build_fam_info`). *bcp* is
+  persistent, in 1,997 of 2,002 genomes, yet inside the nudK window in 26 of 537 chromosomes:
+  the others carry it just before the window, and **Where they carry it** opens the window
+  that shows it. Windows read from dnaA in its direction of transcription, the reverse of the
+  K-12 map's numbering (most chromosomes read *hyfA*, *bcp*, *gcvR*). The families before and
+  after it (**Previous** and **Next gene**) and every family named on the card or under a drawn
+  path are links: a family of the window shows its box (the slider lowered if it hides it, and
+  put back at the next family shown at it or in another window; its card pinned); a gene the
+  model names that no family of the window reads as opens the window where it sits. At a
+  window's first or last column, **Show it in the previous window** (or next) opens the window
+  beside with the family's card there: *bcp* starts its own window, and the one before shows
+  *hyfA* before it. The browser's Back returns to a window as it was left, its card pinned or
+  its path drawn.
 - **The genome picker.** Before you type, it lists genomes that carry the family and
   well-known strains. Type any mix of strain, serotype, sequence type, host, isolation
   source, country, year or accession; every word must match (*human urine*, *O157*,
