@@ -846,22 +846,22 @@ html{overscroll-behavior-x:none}             /* a sideways swipe scrolls what is
             <i>E. coli</i> chromosome is some 4,500 genes in a row.</p>
         </li>
         <li class="istep">
-          <svg viewBox="0 0 320 118" role="img" aria-labelledby="ig2-t"><title id="ig2-t">The genomes overlaid: after yidX most go into the dgo operon, a few skip it to cbrA, a fork</title>
+          <svg viewBox="0 0 320 118" role="img" aria-labelledby="ig2-t"><title id="ig2-t">The genomes overlaid: all pass through yidX, then 1,231 go into the dgo operon and 160 go straight from yidX to cbrA: a fork</title>
             <path class="ig-e" d="M58 70H68" stroke-width="7"/>
             <path class="ig-e" d="M118 70C130 70 128 34 140 34" stroke-width="6"/>
             <path class="ig-e" d="M190 34H198" stroke-width="6"/>
             <path class="ig-e" d="M248 34C260 34 254 70 266 70" stroke-width="6"/>
-            <path class="ig-e" d="M118 70C170 70 214 70 266 70" stroke-width="1.6"/>
+            <path class="ig-e" d="M118 70C130 70 128 94 140 94H248C260 94 254 70 266 70" stroke-width="2"/>
             <rect class="ig-core" x="8" y="60" width="50" height="20" rx="4"/><text class="ig-t c" x="33" y="73.5">yidA</text>
             <rect class="ig-shell" x="68" y="60" width="50" height="20" rx="4"/><text class="ig-t" x="93" y="73.5">yidX</text>
             <rect class="ig-shell" x="140" y="24" width="50" height="20" rx="4"/><text class="ig-t" x="165" y="37.5">dgoR</text>
             <rect class="ig-shell" x="198" y="24" width="50" height="20" rx="4"/><text class="ig-t" x="223" y="37.5">dgoK</text>
             <rect class="ig-core" x="266" y="60" width="50" height="20" rx="4"/><text class="ig-t c" x="291" y="73.5">cbrA</text>
             <text class="ig-cap" x="140" y="16">1,231 genomes</text>
-            <text class="ig-cap" x="162" y="88">160 genomes</text>
+            <text class="ig-cap" x="140" y="110">160 genomes, no <tspan font-style="italic">dgo</tspan></text>
             <text class="ig-cap b" x="70" y="100">a fork</text><path class="ig-chr" d="M93 91V83" stroke-width="1.4"/>
-            <rect class="ig-core" x="150" y="100" width="9" height="9" rx="2"/><text class="ig-cap" x="163" y="108.5">in nearly all</text>
-            <rect class="ig-shell" x="232" y="100" width="9" height="9" rx="2"/><text class="ig-cap" x="245" y="108.5">in some</text>
+            <rect class="ig-core" x="8" y="9" width="9" height="9" rx="2"/><text class="ig-cap" x="21" y="17.5">in nearly all</text>
+            <rect class="ig-shell" x="8" y="25" width="9" height="9" rx="2"/><text class="ig-cap" x="21" y="33.5">in some</text>
           </svg>
           <p><span class="num">2</span><b>2,002 genomes overlaid make a graph.</b> One box per gene family, a line where two genes
             sit side by side, thicker when more genomes share it, and a fork where strains carry different genes.</p>
@@ -1013,7 +1013,7 @@ html{overscroll-behavior-x:none}             /* a sideways swipe scrolls what is
     <span class="wcomp" id="wcomp"></span>
     <span><i class="dash"></i>a guess of the model that no genome has there (faint: a long shot)</span>
     <span>line width: how many genomes share the link (log scale)</span>
-    <span>a box sits at its family’s most common column; a line running back leftwards: a family some genomes carry further on</span>
+    <span>a box sits at its family’s most common column; a line running back leftwards: a family some genomes carry further on; a line running under boxes: genomes that skip them</span>
     <span>grey bars on top: the model’s surprise, its perplexity, at each column; hover one</span>
     <span>click a box to keep only its links</span>
   </div>
@@ -1327,7 +1327,7 @@ where the model looks, not why it guesses what it guesses: a view for the curiou
         <dt>A box</dt><dd>one gene family of the PanGBank pangenome, at the column where it most often sits.
           Boxes stacked in a column: the genomes disagree there, the most common on top. That is a fork.</dd>
         <dt>Colour</dt><dd><b>PPanGGOLiN</b>’s partition of the species: orange persistent, green shell, blue cloud.</dd>
-        <dt>Solid line</dt><dd>an adjacency some genomes carry; thicker means more genomes (log scale).</dd>
+        <dt>Solid line</dt><dd>an adjacency some genomes carry; thicker means more genomes (log scale). A line that dips into the gap under a row and runs there skips the boxes above it: after <i>yidX</i>, 160 genomes go straight to <i>cbrA</i>, under the <i>dgo</i> operon they do not carry.</dd>
         <dt>Dashed box</dt><dd>a guess of the model right after the best-carried family of a column that follows it in
           <b>no</b> genome. Up to two per column, drawn faint when the model gave it little probability: most are long shots
           (under 0.1%); a few are real expectations, some of them a repeat of the gene just read, where the model’s vocabulary lumps
@@ -2248,9 +2248,27 @@ function applyZoom() {
   const zh = document.getElementById('zhint'); if (zh) zh.hidden = zoom >= 0.5;     // Overview: the shape, not the names
   try { gapUpd(); } catch (e) { /* before the first drawing */ }
 }
-const curve = (x1, y1, x2, y2) => x2 > x1 + 4
-  ? `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`
-  : `M${x1},${y1} C${x1 + 40},${y1} ${x2 - 40},${y2} ${x2},${y2}`;
+/* a link that skips columns would run hidden behind their boxes (yidX -> cbrA behind the dgo operon):
+   it leaves its box, drops into the gap between two rows, runs there under the boxes and climbs back */
+let OCC = new Set();                                       // "column:row" of every box drawn
+const GUT = COLW - NW, GAP = (ROWH - NH) / 2;
+function hidden(x1, y1, x2, y2, a, b) {
+  for (let i = 1; i < 48; i++) { const t = i / 48;
+    const x = x1 + (x2 - x1) * (1.5 * t * (1 - t) + t ** 3), y = y1 + (y2 - y1) * (3 * t * t - 2 * t ** 3);
+    const k = Math.floor((x - PADX) / COLW), r = Math.floor((y - PADY) / ROWH);
+    if (k > a && k < b && x - PADX - k * COLW <= NW && y - PADY - r * ROWH <= NH && OCC.has(k + ':' + r)) return true; }
+  return false;
+}
+const curve = (x1, y1, x2, y2) => {
+  if (x2 <= x1 + 4) return `M${x1},${y1} C${x1 + 40},${y1} ${x2 - 40},${y2} ${x2},${y2}`;
+  const a = Math.round((x1 - NW - PADX) / COLW), b = Math.round((x2 - PADX) / COLW);
+  if (b - a >= 2 && hidden(x1, y1, x2, y2, a, b)) {
+    const rs = Math.round((y1 - NH / 2 - PADY) / ROWH), rt = Math.round((y2 - NH / 2 - PADY) / ROWH);
+    const yc = rt < rs ? PADY + rs * ROWH - GAP : PADY + rs * ROWH + NH + GAP;
+    return `M${x1},${y1} C${x1 + GUT / 2},${y1} ${x1 + GUT / 2},${yc} ${x1 + GUT},${yc} H${x2 - GUT} C${x2 - GUT / 2},${yc} ${x2 - GUT / 2},${y2} ${x2},${y2}`;
+  }
+  return `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`;
+};
 
 function draw() {
   const vis = NODES.filter(n => n.n >= minN), vset = new Set(vis.map(n => n.id));
@@ -2269,6 +2287,7 @@ function draw() {
     const base = (cols.get(g.locus) || []).length, j = gcount.get(g.locus) || 0; gcount.set(g.locus, j + 1);
     G2.push({ ...g, idx: i, _x: PADX + g.locus * COLW, _y: PADY + (base + j) * ROWH });
     maxRows = Math.max(maxRows, base + j + 1); });
+  OCC = new Set([...vis, ...G2].map(n => Math.round((n._x - PADX) / COLW) + ':' + Math.round((n._y - PADY) / ROWH)));
   const lastCol = Math.max(...loci, ...G2.map(g => g.locus));
   const W = PADX * 2 + (lastCol + 1) * COLW, H = PADY * 2 + maxRows * ROWH;
   DIMW = W; DIMH = H; ent.setAttribute('viewBox', `0 0 ${W} ${EH}`);
